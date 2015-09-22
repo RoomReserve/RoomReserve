@@ -1,6 +1,13 @@
 from flask import *
 from jinja2 import Template
+from flask.ext.sqlalchemy import SQLAlchemy
+
 app = Flask(__name__)
+
+
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite://tmp/temp.db'
+db = SQLAlchemy(app)
+
 
 
 @app.route("/")
