@@ -1,0 +1,16 @@
+{% extends 'default.html' %}
+
+{% block body1 %}
+<div class="panel panel-danger">
+    <div class="panel-heading">
+        <h2 class="panel-title">{{ head | safe }}</h2>
+    </div>
+    <div class="panel-body">
+         {{ desc | safe }}
+    </div>
+</div>
+
+
+<div class="alert alert-warning">{{ appname }}, version {{ build }}</div>
+
+{% endblock %}
