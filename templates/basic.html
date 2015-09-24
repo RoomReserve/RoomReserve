@@ -1,0 +1,15 @@
+{% extends 'default.html' %}
+
+{% block body1 %}
+
+	{% if not content %}
+		<pre>render_html('basic.html') did not provide content.
+		You did not provide anything in the 'content' variable in the render_html call for this function.
+		This basic page will display any HTML code in the 'content' variable.
+		</pre>
+	{% else %}
+	<div class="well">
+		{{ content | safe }}
+	</div>
+	{% endif %}
+{% endblock %}
