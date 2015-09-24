@@ -42,13 +42,12 @@ users = User.query.all()
 
 
 
-@app.route("/")
-
+@app.route("/dbtest")
 def db_test():
     title = "DB Works!"
     return render_template('test.html', title=title, users=users)
 
-
+@app.route("/")
 def page_homepage():
 	title="RoomReserve Homepage"
 	content = "<strong>Welcome to RoomReserve</strong>"
