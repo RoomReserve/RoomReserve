@@ -4,7 +4,7 @@ from flask.ext.sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///:memory:'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/test.db'
 db = SQLAlchemy(app)
 
 # User
@@ -22,7 +22,7 @@ class User(db.Model):
 		self.role = role
 
 	def __repr__(self):
-		return '<User %r>' % self.first + self.last
+		return '%r %r' % (self.first, self.last)
 
 
 db.create_all()
