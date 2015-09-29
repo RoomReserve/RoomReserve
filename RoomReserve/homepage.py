@@ -1,6 +1,7 @@
 from RoomReserve import *
 
 @app.route("/")
+@app.route("/index")
 def page_homepage():
 
 	title="RoomReserve Homepage"
