@@ -1,6 +1,12 @@
 <div id="footer">
 	<div class="container">
-		<p class="text-muted"> Room Reserve. In Development.
-		<!--<p class="text-muted"> {{ appname }}, {{ build }}, {{ site }} <p>-->
+		<p class="text-muted"> Room Reserve. In Development.</p>
+			{% if session.username %}
+				<p>Logged in as {{session.username}}. <a href="logout">Logout</a><p>
+			{% else %}
+				<a href="login">Log in</a>
+			{%endif%}
+
+		<!--<p class="text-muted"> {{ appname }}, {{ build }}, {{ site }} </p>-->
 	</div>
 </div>
