@@ -1,7 +1,13 @@
 from flask import *
 from jinja2 import Template
 from flask.ext.sqlalchemy import SQLAlchemy
+
+#Start flask instance
 app = Flask(__name__)
+app.secret_key = 'x95xe1gxceHGxeaSx0exf5xf4xbaxb5x1dxe5'
+
+#RoomReserve modules
+import RoomReserve.helpers.session
 import RoomReserve.homepage
 import RoomReserve.helpers.errorhandlers
 
