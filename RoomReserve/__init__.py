@@ -19,12 +19,9 @@ from RoomReserve.dbtables.room import Room
 from RoomReserve.dbtables.reservation import Reservation
 
 
-
-
-
-
-
+#Creates database classes as defined in the above imports from RoomReserve.dbtables.*
 db.create_all()
+
 
 admin = User('Dorjee', 'Dhondup', 'dhondo01@luther.edu', 'admin')
 admin2 = User('Ryan', 'Bennett', 'bennry01@luther.edu', 'admin')
@@ -39,6 +36,8 @@ db.session.commit()
 users = User.query.all()
 
 
+
+# Try not to add additional page routes in here.
 
 @app.route("/dbtest")
 def db_test():
