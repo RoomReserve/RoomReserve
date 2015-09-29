@@ -14,8 +14,9 @@ import RoomReserve.helpers.session
 import RoomReserve.homepage
 import RoomReserve.helpers.errorhandlers
 from RoomReserve.dbtables.user import User
-
-
+from RoomReserve.dbtables.guest import Guest
+from RoomReserve.dbtables.room import Room
+from RoomReserve.dbtables.reservation import Reservation
 
 
 
