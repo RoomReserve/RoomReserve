@@ -19,7 +19,8 @@ from RoomReserve.dbtables.room import Room
 from RoomReserve.dbtables.reservation import Reservation
 
 
-#Creates database classes as defined in the above imports from RoomReserve.dbtables.*
+# Creates database classes as defined in the
+# above imports from RoomReserve.dbtables.*
 db.create_all()
 
 
