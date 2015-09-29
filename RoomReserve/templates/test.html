@@ -2,9 +2,7 @@
 <html>
 <head>
     {% block head %}
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="static/css/bootstrap.min.css" rel="stylesheet">
-    <link href="static/style.css" rel="stylesheet">
+	{%include 'parts/bootstrap.html' %}
 
     <title> {{title}} </title>
     {% endblock %}
