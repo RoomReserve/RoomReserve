@@ -41,7 +41,6 @@ users = User.query.all()
 
 
 
-
 @app.route("/dbtest")
 def db_test():
     title = "DB Works!"

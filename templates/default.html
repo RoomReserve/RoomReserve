@@ -2,39 +2,24 @@
 <html>
 <head>
   <title>{{ appname }}: {% if not head %} {{ title }} {% else %} {{ head }} {% endif %}</title>
-  
-  <link href="/static/css/bootstrap.min.css" rel="stylesheet">
-  <link href="/static/css/bootstrap-theme.min.css" rel="stylesheet">
-  <link href="/static/style.css" rel="stylesheet">
+
+  {%include 'parts/bootstrap.html' %}
+
   {% block head %} {% endblock %}
 </head>
 
 <body>
-<div class="container">
-    <div class="navbar navbar-default" role="navigation">
-      <div class="container">
-        <div class="navbar-header">
-          <a class="navbar-brand" href="/">RoomReserve</a>
-        </div>
-        <div class="navbar-collapse collapse">
-          <ul class="nav navbar-nav">
-            <li><a href="/">Home</a></li>
-            <li><a href="/today">Today</a></li>
-            <li><a href="/404">Link-to-another</a></li>
-          </ul>
-        </div><!--/.nav-collapse -->
-      </div>
-    </div>
+  <div class="container">
 
-	<h2>{{ title }}</h2>
+  {% include 'parts/nav_bar.html' %}
+
+  <h2>{{ title }}</h2>
 	{% block body1 %} {% endblock %}
 
-            
-</div>
-<div id=footer">
-	<div class="container">
-		<p class="text-muted"> {{ appname }}, {{ build }}, {{ site }} <p>
-	</div>
-</div>
+
+ </div>
+
+{%include 'parts/footer.html' %}
+
 </body>
 </html>
