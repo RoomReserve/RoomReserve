@@ -1,6 +1,9 @@
 from flask import *
 from jinja2 import Template
 from flask.ext.sqlalchemy import SQLAlchemy
+from flask_wtf import Form
+from wtforms import *
+from wtforms.validators import *
 
 #Start flask instance
 app = Flask(__name__)
@@ -45,6 +48,20 @@ def db_test():
     title = "DB Works!"
     return render_template('test.html', title=title, users=users)
 
+class test_form(Form):
+    name = StringField('name', validators=[DataRequired()])
+
+@app.route("/wtftest", methods=['GET', 'POST'])
+def wtf_test():
+    if request.method == 'GET':
+        form = test_form()
+        return render_template('formtest.html', form=form)
+    elif request.method == 'POST':
+        content = "hello "
+        content += request.form['name']
+        return render_template('basic.html', content=content)
+    else:
+        return RoomReserve.helpers.errorhandlers.page_error400(400)
 
 @app.route("/today")
 def page_today():
