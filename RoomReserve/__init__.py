@@ -28,8 +28,7 @@ from RoomReserve.dbtables.reservation import Reservation
 
 #this will be helpful for engine reference: http://docs.sqlalchemy.org/en/rel_0_9/core/engines.html
 
-# an Engine, which the Session will use for connection
-# resources
+# an Engine, which the Session will use for connection resources
 some_engine = create_engine('postgresql://scott:tiger@localhost/')
 #we will need to change the target of the create_engine
 
