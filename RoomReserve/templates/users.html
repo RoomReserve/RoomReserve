@@ -12,6 +12,27 @@
 
   <input type="submit" value="Create">
 </form>
+<hr />
+
+<table>
+		<tr>
+			<td>id</td>
+			<td>First Name</td>
+			<td>Last Name</td>
+			<td>Email</td>
+			<td>Role</td>
+	{% for u in users %}
+		<tr>
+			<td>{{ u.id }}</td>
+			<td>{{ u.first }}</td>
+			<td>{{ u.last }}</td>
+      <td><strong>{{ u.email }}</strong></td>
+      <td>{{ u.role }}</td>
+		</tr>
+	{% endfor %}
+</table>
+
+
 
 <p> list users here </p>
 {% endblock %}
