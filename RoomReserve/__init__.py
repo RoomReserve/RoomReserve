@@ -75,11 +75,13 @@ else:
 import atexit
 @atexit.register
 def droptables():
+    #DELETE THIS WHEN WE ARE READY TO MOVE TO PERMANANT DATABASES
+    #DELETE THIS WHEN WE ARE READY TO MOVE TO PERMANANT DATABASES
     db.drop_all()
     db.session.commit()
     print("All tables are dropped.")
-    print("Bye.")
-
+    #DELETE THIS WHEN WE ARE READY TO MOVE TO PERMANANT DATABASES
+    #DELETE THIS WHEN WE ARE READY TO MOVE TO PERMANANT DATABASES
 
 
 # Try not to add additional page routes in here.
