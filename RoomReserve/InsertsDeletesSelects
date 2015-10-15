@@ -25,9 +25,11 @@ session.commit()
 
 User.query.get(1)        #gets user by primary key
 
-peter = User.query.filter_by(username='peter').first()       #would be similar to select statement
+peter = User.query.filter_by(username='peter').first()       #would be similar to select statement; .first() returns just the first found
 
 User.query.filter(User.email.endswith('@example.com')).all()            #would get all users with email ending in @example.com
 
-
-
+placelist = []
+for Reservation.place in Reservation.query.filter((Reservation.checkouttime <= mystarttime) and (Reservation.checkintime >= myendtime)):
+  placelist.append(Reservation.place)  #Creates a list of the room id's that when given a starttime and endtime of a new reservation, all rooms in the list do not conflict.
+  #may be faulty, or there may be a better way to do this but this is what I've got currently.
