@@ -5,7 +5,8 @@ class Reservation(db.Model):
 	guest = db.Column(db.Integer, db.ForeignKey(Guest.id), nullable=False)
 	madeby = db.Column(db.Integer, db.ForeignKey(User.id), nullable=False)
 	place = db.Column(db.Integer, db.ForeignKey(Room.id), nullable=False)
-	time = db.Column(db.DateTime, nullable=False, unique=False)
+	checkintime = db.Column(db.DateTime, nullable=False, unique=False)
+	checkintime = db.Column(db.DateTime, nullable=False, unique=False)
 	status = db.Column(db.String(20), unique=False, nullable=False)
 	notes = db.Column(db.String(500), unique=False)
 
@@ -13,7 +14,8 @@ class Reservation(db.Model):
 		self.guest = guest
 		self.madeby = madeby
 		self.place = place
-		self.time = time
+		self.checkintime = checkintime
+		self.checkouttime = checkintime
 		self.status = status
 		self.notes = notes
 
