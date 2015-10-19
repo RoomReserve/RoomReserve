@@ -2,8 +2,8 @@ from RoomReserve import *
 
 class Room(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
-	roomnumber = db.Column(db.Integer, unique=False, nullable=True)
-	building = db.Column(db.String(30), unique=False, nullable=False)
+	roomnumber = db.Column(db.Integer, unique=False, nullable=False)
+	building = db.Column(db.Integer, unique=False, nullable=False) #building ID number
 	floor = db.Column(db.Integer, unique=False, nullable=True)
 	capacity = db.Column(db.Integer, unique=False, nullable=True)
 	description = db.Column(db.String(500), unique=False)
