@@ -1,0 +1,50 @@
+{% extends 'default.html' %}
+
+{% block body1 %}
+
+<form class="well" method="POST" action="/admin/rooms">
+  {% for field in form %}
+    <tr>
+    {% if field.type == "BooleanField" %}
+        <td></td>
+        <td>{{ field }} {{ field.label }}</td>
+        <br />
+    {% elif field.type == "TextAreaField" %}
+        <td>{{ field.label }}:</td><br />
+        <td>{{ field }}</td>
+        <br />
+    {% else %}
+        <td>{{ field.label }}</td>
+        <td>{{ field }}</td>
+        <br />
+    {% endif %}
+    </tr>
+{% endfor %}
+
+  <input type="submit" value="Create">
+</form>
+<hr />
+
+<table>
+		<tr>
+			<td>id</td>
+			<td>Building</td>
+			<td>Floor</td>
+			<td>Room Number</td>
+			<td>Capacity</td>
+      <td>Status</td>
+	{% for r in rooms %}
+		<tr>
+			<td>{{ r.id }}</td>
+			<td>{{ r.building }}</td>
+			<td>{{ r.floor }}</td>
+      <td><strong>{{ r.roomnumber }}</strong></td>
+      <td>{{ r.capacity }}</td>
+      <td>{{ r.status }}
+		</tr>
+	{% endfor %}
+</table>
+
+
+
+{% endblock %}

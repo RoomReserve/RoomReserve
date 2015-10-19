@@ -25,6 +25,8 @@ from RoomReserve.dbtables.guest import Guest
 from RoomReserve.dbtables.room import Room
 from RoomReserve.dbtables.reservation import Reservation
 import RoomReserve.admin.user
+import RoomReserve.admin.rooms
+
 
 
 #this will be helpful for engine reference: http://docs.sqlalchemy.org/en/rel_0_9/core/engines.html
