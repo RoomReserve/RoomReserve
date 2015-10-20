@@ -18,14 +18,20 @@ db = SQLAlchemy(app)
 
 #RoomReserve modules
 import RoomReserve.helpers.session
+import RoomReserve.helpers.static_variables as Static
 import RoomReserve.homepage
 import RoomReserve.helpers.errorhandlers
 from RoomReserve.dbtables.user import User
 from RoomReserve.dbtables.guest import Guest
+from RoomReserve.dbtables.building import Building
 from RoomReserve.dbtables.room import Room
 from RoomReserve.dbtables.reservation import Reservation
 import RoomReserve.admin.user
+import RoomReserve.admin.building
 import RoomReserve.admin.rooms
+
+
+
 
 
 
