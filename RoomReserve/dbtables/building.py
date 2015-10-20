@@ -10,10 +10,10 @@ class Building(db.Model):
 
 	def __init__(self, name, numfloors, status, description="", notes=""):
 		self.name = name
-        self.numfloors = numfloors
-        self.description = description
-        self.status = status
-        self.notes = notes
+		self.numfloors = numfloors
+		self.status = status
+		self.description = description
+		self.notes = notes
 
 	def __repr__(self):
 		return '%r %r %r' % (self.roomnumber, self.floor, self.bullding)

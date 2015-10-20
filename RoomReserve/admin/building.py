@@ -18,13 +18,11 @@ def page_buildings():
         formdata = request.form
         name = formdata['name']
         numFloors = formdata['numFloors']
-        active = formdata['active']
         description = formdata['description']
-
-        if active:
-            status = ready_status
+        if formdata['active']:
+            status = Static.ready_status
         else:
-            status = inactive_status
+            status = Static.inactive_status
 
         # create the building
         if createBuilding(name, numFloors, description, status):
@@ -77,7 +75,7 @@ def createBuilding(name, numfl, desc, st):
     # Adds a building to the database.
     # Returns True if building added successfully, else False.
     try:
-        me = building(name, numfl, desc, st)
+        me = Building(name, numfl, st, desc)
         db.session.add(me)
         db.session.commit()
         return True
