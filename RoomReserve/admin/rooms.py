@@ -29,14 +29,18 @@ def page_rooms():
         active = formdata['active']
         description = formdata['description']
 
-        # create the user
-        # TODO: add support for passwords. Currently they are ignored.
-        if createUser(firstname, lastname, email, role):
-            # user created sucessfully
+        if active:
+            status = "Ready"
+        else:
+            status = "Inactive"
+
+        # create the room
+        if createRoom(roomnumber, floor, building, capacity, description, status):
+            # room created sucessfully
             pass
         else:
-            # createUser returned false, the user could not be created.
-            return render_template('basic.html', content="Could not create user.")
+            # createUser returned false, the room could not be created.
+            return render_template('basic.html', content="Could not create room.")
 
     form = form_CreateRoom()
     rooms = getAllRooms()
