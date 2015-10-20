@@ -68,7 +68,7 @@ else:
 #db.session.add(admin3)
 #db.session.commit()
 
-
+# http://localhost:5000/admin/users
 
 #users = User.query.all()
 
@@ -93,7 +93,7 @@ def db_test():
     return render_template('test.html', title=title, users=users)
 
 class test_form(Form):
-    name = StringField('name', validators=[DataRequired()])
+    name = StringField('Name', validators=[DataRequired()])
 
 @app.route("/wtftest", methods=['GET', 'POST'])
 def wtf_test():
