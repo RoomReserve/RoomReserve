@@ -14,24 +14,41 @@
 </form>
 <hr />
 
-<table>
-		<tr>
-			<td>id</td>
-			<td>First Name</td>
-			<td>Last Name</td>
-			<td>Email</td>
-			<td>Role</td>
-	{% for u in users %}
-		<tr>
-			<td>{{ u.id }}</td>
-			<td>{{ u.first }}</td>
-			<td>{{ u.last }}</td>
-      <td><strong>{{ u.email }}</strong></td>
-      <td>{{ u.role }}</td>
-		</tr>
-	{% endfor %}
-</table>
 
+<div class="panel panel-info col-md-9">
+  <div class="panel-heading">
+    <h3 class="panel-title">Users</h3>
+  </div>
+  <div class="panel-body">
+    <div class="col-md-12">
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>id</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Email</th>
+              <th>Role</th>
+            </tr>
+          </thead>
+          <tbody>
+          {% for u in users %}
+            <tr>
+              <td>{{ u.id }}</td>
+        			<td>{{ u.first }}</td>
+        			<td>{{ u.last }}</td>
+              <td><strong>{{ u.email }}</strong></td>
+              <td>{{ u.role }}</td>
+            </tr>
+          {% endfor %}
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 {% endblock %}
