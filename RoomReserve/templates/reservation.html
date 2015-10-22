@@ -1,0 +1,57 @@
+{% extends 'default.html' %}
+
+{% block body1 %}
+
+
+<!-- ****************** THIS NEEDS TO BE COMPLETED STILL ************************ -->
+
+<form class="well" method="POST" action="/admin/users">
+  {{ form.csrf_token }}
+  {{ form.firstname.label }} {{ form.firstname(size=20) }}
+  {{ form.lastname.label }} {{ form.lastname(size=20) }} <br />
+  {{ form.email.label }} {{ form.email(size=50) }} <br />
+  {{ form.password.label }} {{ form.password(size=20) }} <br />
+  {{ form.role.label }} {{ form.role(size=20) }}
+
+  <input type="submit" value="Create">
+</form>
+<hr />
+
+
+<div class="panel panel-info col-md-9">
+  <div class="panel-heading">
+    <h3 class="panel-title">Users</h3>
+  </div>
+  <div class="panel-body">
+    <div class="col-md-12">
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>id</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Email</th>
+              <th>Role</th>
+            </tr>
+          </thead>
+          <tbody>
+          {% for u in users %}
+            <tr>
+              <td>{{ u.id }}</td>
+        			<td>{{ u.first }}</td>
+        			<td>{{ u.last }}</td>
+              <td><strong>{{ u.email }}</strong></td>
+              <td>{{ u.role }}</td>
+            </tr>
+          {% endfor %}
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}
