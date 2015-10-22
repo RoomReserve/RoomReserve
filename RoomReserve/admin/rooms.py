@@ -1,16 +1,24 @@
 from RoomReserve import *
 
 class form_CreateRoom(Form):
+
+
     building = SelectField('Building',\
             choices=[], \
             validators=[DataRequired()])
     floor = SelectField('Floor',\
-            choices=[], \
+            choices=[("ab", "ab"), ("cd","cd")], \
             validators=[DataRequired()])
     roomnumber = IntegerField('Room Number', validators=[DataRequired()])
     capacity = IntegerField('Capacity', validators=[DataRequired()])
     active = BooleanField('Active')
     description = TextAreaField('Description')
+
+    def __init__(self):
+        super(form_CreateRoom, self).__init__()
+        from RoomReserve.admin.building import getAllBuildings
+        for b in getAllBuildings():
+            self.building.choices.append((b.id, b.name))
 
 
 
@@ -47,22 +55,19 @@ def page_rooms():
     return render_template('listrooms.html', form=form, rooms=rooms)
 
 def getAllRooms():
-    # returns all rooms in a dictionary
+    # returns all rooms
     rooms = []
     for me in db.session.query(Room):
     	rooms.append(me)
     return rooms
 
-def getUser(myemail):
-    # returns single user object with the given email
-    # if no user is found with that email, return false.
-    users = []
-    for me in db.session.query(User).filter_by(email=myemail):
-        # Gets users from User where email=myemail
-    	users.append(me)
-    if len(users) == 1:
-        # if we got a user back, return it.
-        return users[0]
+def getRoomInBuilding(bldgID, rn):
+    # returns single room object with the given building and room number
+    # if room number is not found in building, return false.
+    #TODO: Test this to see if it works.
+    room = db.session.query(Room).filter_by(buildingID=bldgID, roomnumber=rn).first()
+    if room is not None:
+        return room
     return False
 
 def getRoomById(id):
@@ -87,6 +92,6 @@ def createRoom(rn, fl, bldg, cap, desc, st):
         return True
 
     except Exception as e:
-        # Prints why the user could not be added in the terminal.
+        # Prints why the room could not be added in the terminal.
         print(e)
         return False
