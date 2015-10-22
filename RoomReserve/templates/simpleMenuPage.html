@@ -1,0 +1,18 @@
+{% extends 'default.html' %}
+
+{% block body1 %}
+
+	<div class="well">
+		{% for link in links %}
+
+      {% if link.bold %}<strong>{% endif %}
+      {% if link.italics %}<em>{% endif %}
+      <a href="{{ link.url }}">{{ link.title }}</a>
+      {% if link.italics %}</em>{% endif %}
+      {% if link.bold %}</strong>{% endif %}
+      <br />
+      
+    {% endfor %}
+	</div>
+
+{% endblock %}
