@@ -9,7 +9,6 @@ class form_CreateBuilding(Form):
 
 
 
-
 @app.route('/admin/buildings', methods=['GET', 'POST'])
 def page_buildings():
 

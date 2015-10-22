@@ -22,8 +22,6 @@ class form_CreateRoom(Form):
 
 
 
-
-
 @app.route('/admin/rooms', methods=['GET', 'POST'])
 def page_rooms():
 

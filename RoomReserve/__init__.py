@@ -82,14 +82,14 @@ else:
 
 #users = User.query.all()
 
-import atexit
-@atexit.register
-def droptables():
+# import atexit
+# @atexit.register
+# def droptables():
     #DELETE THIS WHEN WE ARE READY TO MOVE TO PERMANANT DATABASES
     #DELETE THIS WHEN WE ARE READY TO MOVE TO PERMANANT DATABASES
-    db.drop_all()
-    db.session.commit()
-    print("All tables are dropped.")
+    # db.drop_all()
+    # db.session.commit()
+    # print("All tables are dropped.")
     #DELETE THIS WHEN WE ARE READY TO MOVE TO PERMANANT DATABASES
     #DELETE THIS WHEN WE ARE READY TO MOVE TO PERMANANT DATABASES
 
