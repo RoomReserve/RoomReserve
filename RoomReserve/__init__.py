@@ -28,6 +28,7 @@ import RoomReserve.helpers.session
 import RoomReserve.helpers.static_variables as Static
 import RoomReserve.homepage
 import RoomReserve.helpers.errorhandlers
+import RoomReserve.admin.admin
 import RoomReserve.admin.user
 import RoomReserve.admin.building
 import RoomReserve.admin.rooms
@@ -116,9 +117,3 @@ def wtf_test():
         return render_template('basic.html', content=content)
     else:
         return RoomReserve.helpers.errorhandlers.page_error400(400)
-
-
-@app.route("/today")
-def page_today():
-	title="Today's Activity"
-	return render_template('basic.html',title=title)
