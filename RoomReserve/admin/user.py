@@ -5,12 +5,13 @@ class form_CreateUser(Form):
     lastname = StringField('Last Name', validators=[DataRequired()])
     email = StringField('Email Address', validators=[DataRequired()])
     password = PasswordField('Password')
-    role = RadioField('Role',\
+    role = SelectField('Role',\
         choices=[('admin', 'Administraitor'),\
                 ('standard', 'Standard User'),\
                 ('readonly', 'Read Only'),\
                 ('inactive', 'Inactive')\
                 ])
+
 
 @app.route('/admin/users', methods=['GET', 'POST'])
 def page_users():
