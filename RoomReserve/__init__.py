@@ -7,25 +7,25 @@ from wtforms import *
 from wtforms.validators import *
 from wtforms import StringField, TextField, SelectField
 
+#flask-heroku
+from flask.ext.heroku import Heroku
+
 #these are imported for the engine and session
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from flask.ext.heroku import Heroku
+
 
 #Start flask instance
 app = Flask(__name__)
 app.secret_key = 'x95xe1gxceHGxeaSx0exf5xf4xbaxb5x1dxe5'
 
-# engine = create_engine('sqlite:///connection.db')
 heroku = Heroku(app)
 db = SQLAlchemy(app)
 
+#postgresql database
 DATABASE_URL = "postgres://mzatibmbfmcifk:jNbQucN2VmHYlx8eQt7hRDyU3Y@ec2-54-225-199-108.compute-1.amazonaws.com:5432/d2476jmdne4ujp"
 app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URL
 
-
-# DBSession = sessionmaker()
-# DBSession.bind = engine
 
 #DatabaseTables
 from RoomReserve.dbtables.user import User
