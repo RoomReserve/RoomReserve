@@ -108,3 +108,9 @@ def wtf_test():
         return render_template('basic.html', content=content)
     else:
         return RoomReserve.helpers.errorhandlers.page_error400(400)
+
+@app.route("/today")
+def page_today():
+
+	title="Today's Activity"
+	return render_template('today.html',title=title)

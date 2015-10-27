@@ -1,0 +1,16 @@
+{% extends 'default.html' %}
+
+{% block body1 %}
+	<div class="panel panel-info col-md">
+		<div class="panel-body">
+			<h3 class="panel-title">Welcome to Today's News</h3>
+		</div>
+	</div>
+
+	{% if not content %}
+	{% else %}
+	<div class="well">
+		{{ content | safe }}
+	</div>
+	{% endif %}
+{% endblock %}
