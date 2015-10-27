@@ -21,17 +21,17 @@ app.secret_key = 'x95xe1gxceHGxeaSx0exf5xf4xbaxb5x1dxe5'
 
 heroku = Heroku(app)
 db = SQLAlchemy(app)
-<<<<<<< HEAD
+
 if sys.platform == 'darwin':
 	# running on a mac
 	DATABASE_URL = "sqlite:////tmp/tempdb_rr.db"
 else:
 	DATABASE_URL = "postgres://mzatibmbfmcifk:jNbQucN2VmHYlx8eQt7hRDyU3Y@ec2-54-225-199-108.compute-1.amazonaws.com:5432/d2476jmdne4ujp"
-=======
+
 
 #postgresql database
-DATABASE_URL = "postgres://mzatibmbfmcifk:jNbQucN2VmHYlx8eQt7hRDyU3Y@ec2-54-225-199-108.compute-1.amazonaws.com:5432/d2476jmdne4ujp"
->>>>>>> origin/master
+# DATABASE_URL = "postgres://mzatibmbfmcifk:jNbQucN2VmHYlx8eQt7hRDyU3Y@ec2-54-225-199-108.compute-1.amazonaws.com:5432/d2476jmdne4ujp"
+
 app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URL
 
 
