@@ -3,15 +3,23 @@
 {% block body1 %}
 
 
-<!-- ****************** THIS NEEDS TO BE COMPLETED STILL ************************ -->
-
-<form class="well" method="POST" action="/admin/users">
+<form class="well" method="POST" action="/admin/reservation">
   {{ form.csrf_token }}
-  {{ form.firstname.label }} {{ form.firstname(size=20) }}
-  {{ form.lastname.label }} {{ form.lastname(size=20) }} <br />
-  {{ form.email.label }} {{ form.email(size=50) }} <br />
-  {{ form.password.label }} {{ form.password(size=20) }} <br />
-  {{ form.role.label }} {{ form.role(size=20) }}
+  {{ form.guestID.label }} {{ form.guestID(size=20) }}
+  {{ form.username.label }} {{ form.username(size=20) }} <br />
+  {{ form.roomID.label }} {{ form.roomID(size=20) }} <br />
+  {{ form.monthIn.label }} {{ form.monthIn(size=20) }}
+  {{ form.dayIn.label }} {{ form.dayIn(size=20) }}
+  {{ form.yearIn.label }} {{ form.yearIn(size=20) }}
+  {{ form.hourIn.label }} {{ form.hourIn(size=20) }}
+  {{ form.minuteIn.label }} {{ form.minuteIn(size=20) }}<br />
+  {{ form.monthOut.label }} {{ form.monthOut(size=20) }}
+  {{ form.dayOut.label }} {{ form.dayOut(size=20) }}
+  {{ form.yearOut.label }} {{ form.yearOut(size=20) }}
+  {{ form.hourOut.label }} {{ form.hourOut(size=20) }}
+  {{ form.minuteOut.label }} {{ form.minuteOut(size=20) }}<br />
+  {{ form.status.label }} {{ form.status(size=20) }}<br/>
+  {{ form.notes.label }} {{ form.notes(size=20) }}<br/>
 
   <input type="submit" value="Create">
 </form>
@@ -20,7 +28,7 @@
 
 <div class="panel panel-info col-md-9">
   <div class="panel-heading">
-    <h3 class="panel-title">Users</h3>
+    <h3 class="panel-title">Reservations</h3>
   </div>
   <div class="panel-body">
     <div class="col-md-12">
@@ -28,21 +36,27 @@
         <table class="table table-striped">
           <thead>
             <tr>
-              <th>id</th>
-              <th>First Name</th>
-              <th>Last Name</th>
-              <th>Email</th>
-              <th>Role</th>
+              <th>guestID </th>
+              <th>username</th>
+              <th>roomID </th>
+              <th>checkIn</th>
+              <th>checkOut </th>
+              <th>status</th>
+              <th>notes</th>
             </tr>
           </thead>
           <tbody>
-          {% for u in users %}
+          {% for r in reservation %}
             <tr>
-              <td>{{ u.id }}</td>
-        			<td>{{ u.first }}</td>
-        			<td>{{ u.last }}</td>
-              <td><strong>{{ u.email }}</strong></td>
-              <td>{{ u.role }}</td>
+              <td>{{ r.id }}</td>
+        			<td>{{ r.guest }}</td>
+        			<td>{{ r.madeby }}</td>
+        			<td>{{ r.place }}</td>
+        			<td>{{ r.checkintime }}</td>
+        			<td>{{ r.checkouttime }}</td>
+        			
+              <td>{{ r.status }}</td>
+              <td>{{ r.notes }}</td>
             </tr>
           {% endfor %}
 
