@@ -6,7 +6,7 @@ class form_CreateUser(Form):
     email = StringField('Email Address', validators=[DataRequired()])
     password = PasswordField('Password')
     role = SelectField('Role',\
-        choices=[('admin', 'Administraitor'),\
+        choices=[('admin', 'Administrator'),\
                 ('standard', 'Standard User'),\
                 ('readonly', 'Read Only'),\
                 ('inactive', 'Inactive')\
