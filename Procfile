@@ -1,1 +1,1 @@
-web: gunicorn --pythonpath app RoomReserve:app
+web: gunicorn RoomReserve:app
