@@ -13,9 +13,12 @@ from sqlalchemy.orm import sessionmaker
 #Start flask instance
 app = Flask(__name__)
 app.secret_key = 'x95xe1gxceHGxeaSx0exf5xf4xbaxb5x1dxe5'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/test2.db'
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/test2.db'
+engine = create_engine('sqlite:///connection.db')
 db = SQLAlchemy(app)
 
+DBSession = sessionmaker()
+DBSession.bind = engine
 
 #DatabaseTables
 from RoomReserve.dbtables.user import User
