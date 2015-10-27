@@ -1,3 +1,4 @@
+import os
 from flask import *
 from jinja2 import Template
 from flask.ext.sqlalchemy import SQLAlchemy
@@ -14,14 +15,15 @@ from flask.ext.heroku import Heroku
 #Start flask instance
 app = Flask(__name__)
 app.secret_key = 'x95xe1gxceHGxeaSx0exf5xf4xbaxb5x1dxe5'
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
 
-engine = create_engine('sqlite:///connection.db')
+# engine = create_engine('sqlite:///connection.db')
 heroku = Heroku(app)
 db = SQLAlchemy(app)
 
-DBSession = sessionmaker()
-DBSession.bind = engine
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
+
+# DBSession = sessionmaker()
+# DBSession.bind = engine
 
 #DatabaseTables
 from RoomReserve.dbtables.user import User
