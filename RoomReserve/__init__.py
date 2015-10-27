@@ -53,8 +53,6 @@ import RoomReserve.admin.rooms
 
 
 
-
-
 #this will be helpful for engine reference: http://docs.sqlalchemy.org/en/rel_0_9/core/engines.html
 
 # an Engine, which the Session will use for connection resources
@@ -85,20 +83,6 @@ else:
     db.session.add(admin)
     db.session.commit()
 
-
-#admin = User('Dorjee', 'Dhondup', 'dhondo01@luther.edu', 'admin')
-#admin2 = User('Ryan', 'Bennett', 'bennry01@luther.edu', 'admin')
-#admin3 = User('Zach', 'Stakel', 'dsfd@luther.edu', 'admin')
-#print("Default users created.")
-
-#db.session.add(admin)
-#db.session.add(admin2)
-#db.session.add(admin3)
-#db.session.commit()
-
-# http://localhost:5000/admin/users
-
-#users = User.query.all()
 
 
 
