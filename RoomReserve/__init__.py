@@ -1,4 +1,4 @@
-import os
+import os, sys
 from flask import *
 from jinja2 import Template
 from flask.ext.sqlalchemy import SQLAlchemy
@@ -19,8 +19,11 @@ app.secret_key = 'x95xe1gxceHGxeaSx0exf5xf4xbaxb5x1dxe5'
 # engine = create_engine('sqlite:///connection.db')
 heroku = Heroku(app)
 db = SQLAlchemy(app)
-
-DATABASE_URL = "postgres://mzatibmbfmcifk:jNbQucN2VmHYlx8eQt7hRDyU3Y@ec2-54-225-199-108.compute-1.amazonaws.com:5432/d2476jmdne4ujp"
+if sys.platform == 'darwin':
+	# running on a mac
+	DATABASE_URL = "sqlite:////tmp/tempdb_rr.db"
+else:
+	DATABASE_URL = "postgres://mzatibmbfmcifk:jNbQucN2VmHYlx8eQt7hRDyU3Y@ec2-54-225-199-108.compute-1.amazonaws.com:5432/d2476jmdne4ujp"
 app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URL
 
 
@@ -100,7 +103,7 @@ else:
 
 @app.route("/dbtest")
 def db_test():
-    title = "DB Works!"
+    title = sys.platform
     users = User.query.all()
     return render_template('test.html', title=title, users=users)
 
