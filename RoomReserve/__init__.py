@@ -20,7 +20,9 @@ app.secret_key = 'x95xe1gxceHGxeaSx0exf5xf4xbaxb5x1dxe5'
 heroku = Heroku(app)
 db = SQLAlchemy(app)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
+DATABASE_URL = "postgresql://mzatibmbfmcifk:jNbQucN2VmHYlx8eQt7hRDyU3Y@ec2-54-225-199-108.compute-1.amazonaws.com/d2476jmdne4ujp"
+app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URL
+
 
 # DBSession = sessionmaker()
 # DBSession.bind = engine
