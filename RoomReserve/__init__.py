@@ -9,12 +9,15 @@ from wtforms import StringField, TextField, SelectField
 #these are imported for the engine and session
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+from flask.ext.heroku import Heroku
 
 #Start flask instance
 app = Flask(__name__)
 app.secret_key = 'x95xe1gxceHGxeaSx0exf5xf4xbaxb5x1dxe5'
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/test2.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
+
 engine = create_engine('sqlite:///connection.db')
+heroku = Heroku(app)
 db = SQLAlchemy(app)
 
 DBSession = sessionmaker()
