@@ -5,7 +5,7 @@ from RoomReserve import *
 def page_homepage():
 
 	title="RoomReserve"
-	content = "<strong>Welcome to RoomReserve!</strong>"
+	content = "<strong>Welcome to RoomReserve!</strong> =)"
 
 	# if 'username' in session:
 	#     content += ' Logged in as %s' % escape(session['username'])
