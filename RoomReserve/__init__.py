@@ -112,6 +112,5 @@ def wtf_test():
 
 @app.route("/today")
 def page_today():
-
 	title="Today's Activity"
 	return render('today.html',title=title)

@@ -8,7 +8,5 @@ def page_homepage():
 	content = "<strong>Welcome to RoomReserve!</strong> =)"
 	content += "\n debug: running on " + sys.platform
 
-	# if 'username' in session:
-	#     content += ' Logged in as %s' % escape(session['username'])
 
 	return render('basic.html', title=title, content=content)
