@@ -11,4 +11,4 @@ def page_homepage():
 	# if 'username' in session:
 	#     content += ' Logged in as %s' % escape(session['username'])
 
-	return render_template('basic.html', title=title, content=content)
+	return render('basic.html', title=title, content=content)

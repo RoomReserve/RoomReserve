@@ -29,11 +29,11 @@ def page_buildings():
             pass
         else:
             # createBuilding returned false, the building could not be created.
-            return render_template('basic.html', content="Could not create building.")
+            return render('basic.html', content="Could not create building.")
 
     form = form_CreateBuilding()
     buildings = getAllBuildings()
-    return render_template('listbuildings.html', form=form, buildings=buildings)
+    return render('listbuildings.html', form=form, buildings=buildings)
 
 def getAllBuildings():
     # returns all buildings in a dictionary

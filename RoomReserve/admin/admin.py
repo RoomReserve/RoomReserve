@@ -9,4 +9,4 @@ def page_admin():
     links.add("/admin/buildings", "Buildings", italics=True)
     links.add("/admin/rooms", "Rooms", bold=True, italics=True)
 
-    return render_template('simpleMenuPage.html', title=title, links=links.getLinks())
+    return render('simpleMenuPage.html', title=title, links=links.getLinks())
