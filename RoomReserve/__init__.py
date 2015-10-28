@@ -114,4 +114,4 @@ def wtf_test():
 def page_today():
 
 	title="Today's Activity"
-	return render_template('today.html',title=title)
+	return render('today.html',title=title)
