@@ -1,7 +1,13 @@
 <!doctype html>
 <html>
 <head>
-  <title>{{ title }}</title>
+  <title>
+    {% if not title %}
+     {{ appname }}
+    {% else %}
+     {{ title }}
+    {% endif %}
+  </title>
 
   {%include 'parts/bootstrap.html' %}
 
