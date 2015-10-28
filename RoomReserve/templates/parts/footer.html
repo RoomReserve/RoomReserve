@@ -5,11 +5,12 @@
 
 		<!--<p class="text-muted"> {{ appname }}, {{ build }}, {{ site }} </p>-->
 		{% if not withGlobals %}
-		<div class="alert alert-info">Hey developer! You probably called this page using render_template(),
+		 <div class="alert alert-info">Hey developer! You probably called this page using render_template(),
 			but you should really be using render() because it will pass in some nice global variables
 		  for use in your templates. =)
+		 </div>
+		{% else %}
+		 <p class="small text-muted">Made with {{ feeling }} at Luther College.</p>
 		{% endif %}
-
-		<p class="small text-muted">Made with magic at Luther College.</p>
 	</div>
 </div>
