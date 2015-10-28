@@ -1,12 +1,13 @@
 <div id="footer">
 	<div class="container">
 		<p class="text-muted"> RoomReserve. In Development.</p>
-			<!-- {% if session.username %}
-				<p>Logged in as {{session.username}}. <a href="logout">Logout</a><p>
-			{% else %}
-				<a href="login">Log in</a>
-			{%endif%} -->
+
 
 		<!--<p class="text-muted"> {{ appname }}, {{ build }}, {{ site }} </p>-->
+		{% if not withGlobals %}
+		<div class="alert alert-info">Hey developer! You probably called this page using render_template(),
+			but you should really be using render() because it will pass in some nice global variables
+		  for use in your templates. =)
+		{% endif %}
 	</div>
 </div>
