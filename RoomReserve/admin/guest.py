@@ -30,11 +30,11 @@ def page_guest():
             pass
         else:
             # createGuest returned false, the guest could not be created.
-            return render_template('basic.html', content="Could not create guest.")
+            return render('basic.html', content="Could not create guest.")
 
     form = form_CreateGuest()
     guests = getAllGuests()
-    return render_template('guests.html', form=form, guests=guests)
+    return render('guests.html', form=form, guests=guests)
 
 def getAllGuests():
     # returns all guests in a dictionary

@@ -46,11 +46,11 @@ def page_rooms():
             pass
         else:
             # createUser returned false, the room could not be created.
-            return render_template('basic.html', content="Could not create room.")
+            return render('basic.html', content="Could not create room.")
 
     form = form_CreateRoom()
     rooms = getAllRooms()
-    return render_template('listrooms.html', form=form, rooms=rooms)
+    return render('listrooms.html', form=form, rooms=rooms)
 
 def getAllRooms():
     # returns all rooms

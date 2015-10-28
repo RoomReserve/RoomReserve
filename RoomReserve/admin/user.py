@@ -32,11 +32,11 @@ def page_users():
             pass
         else:
             # createUser returned false, the user could not be created.
-            return render_template('basic.html', content="Could not create user.")
+            return render('basic.html', content="Could not create user.")
 
     form = form_CreateUser()
     users = getAllUsers()
-    return render_template('users.html', form=form, users=users)
+    return render('users.html', form=form, users=users)
 
 def getAllUsers():
     # returns all users in a dictionary
