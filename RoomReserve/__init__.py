@@ -41,6 +41,7 @@ from RoomReserve.dbtables.room import Room
 from RoomReserve.dbtables.reservation import Reservation
 
 #RoomReserve modules
+from RoomReserve.helpers.render import render
 import RoomReserve.helpers.session
 import RoomReserve.helpers.static_variables as Static
 import RoomReserve.homepage
