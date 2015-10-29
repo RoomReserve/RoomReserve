@@ -7,8 +7,11 @@ from wtforms import *
 from wtforms.validators import *
 from wtforms import StringField, TextField, SelectField
 
-#flask-heroku
+# flask-heroku
 from flask.ext.heroku import Heroku
+
+# flask-login
+from flask.ext.login import LoginManager
 
 #these are imported for the engine and session
 from sqlalchemy import create_engine
@@ -22,11 +25,16 @@ app.secret_key = 'x95xe1gxceHGxeaSx0exf5xf4xbaxb5x1dxe5'
 heroku = Heroku(app)
 db = SQLAlchemy(app)
 
+
+login_manager = LoginManager()
+login_manager.init_app(app)
+
+
 if sys.platform == 'darwin':
 	# running on a mac
 	DATABASE_URL = "sqlite:////tmp/tempdb_rr.db"
 else:
-	#heroku postgresql database
+	# heroku postgresql database
 	DATABASE_URL = "postgres://mzatibmbfmcifk:jNbQucN2VmHYlx8eQt7hRDyU3Y@ec2-54-225-199-108.compute-1.amazonaws.com:5432/d2476jmdne4ujp"
 
 
