@@ -2,7 +2,7 @@ from RoomReserve import *
 
 @app.route("/")
 @app.route("/index")
-def page_homepage():
+def index():
 
 	title="RoomReserve"
 	content = "<strong>Welcome to RoomReserve!</strong> =)"

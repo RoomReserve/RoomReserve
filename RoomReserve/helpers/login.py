@@ -28,4 +28,8 @@ def login():
     flash('Logged in successfully')
     print("Logged in as")
     print(registered_user)
-    return redirect("/")
+    try:
+        next = request.args.get('next')
+    except:
+        next = url_for('index')
+    return redirect(next or url_for('index'))
