@@ -22,10 +22,10 @@ class User(db.Model):
 		return True
 
 	def is_active(self):
-		return not self.role="inactive"
+		return not self.role=="inactive"
 
 	def is_anonymous(self):
 		return False
 
 	def get_id(self):
-		return unicode(self.id)
+		return self.id
