@@ -1,0 +1,28 @@
+{% extends 'default.html' %}
+
+{% block body1 %}
+
+<form action="" method=post class="form-horizontal">
+  <h2>Login to Flask Application </h2>
+  <div class="control-group">
+      <div class="controls">
+        <input type="text" id="email" name="email" class="input-xlarge"
+          placeholder="Email Address" required>
+      </div>
+  </div>
+
+  <div class="control-group">
+      <div class="controls">
+        <input type="password" id="password" name="password" class="input-xlarge"
+          placeholder="Password" required>
+      </div>
+  </div>
+
+  <div class="control-group">
+      <div class="controls">
+        <button type="submit" class="btn btn-success">Signin</button>
+      </div>
+  </div>
+</form>
+
+{% endblock %}

@@ -7,26 +7,38 @@ from wtforms import *
 from wtforms.validators import *
 from wtforms import StringField, TextField, SelectField
 
-#flask-heroku
+# flask-heroku
 from flask.ext.heroku import Heroku
+
+# flask-login
+from flask.ext.login import LoginManager, login_user, logout_user, current_user, login_required
 
 #these are imported for the engine and session
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
 
-#Start flask instance
+# Start flask instance
 app = Flask(__name__)
 app.secret_key = 'x95xe1gxceHGxeaSx0exf5xf4xbaxb5x1dxe5'
 
 heroku = Heroku(app)
 db = SQLAlchemy(app)
 
+# FLASK-LOGIN
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = 'login'
+
+
+
+
+# DATABASE SELECTION
 if sys.platform == 'darwin':
 	# running on a mac
 	DATABASE_URL = "sqlite:////tmp/tempdb_rr.db"
 else:
-	#heroku postgresql database
+	# heroku postgresql database
 	DATABASE_URL = "postgres://mzatibmbfmcifk:jNbQucN2VmHYlx8eQt7hRDyU3Y@ec2-54-225-199-108.compute-1.amazonaws.com:5432/d2476jmdne4ujp"
 
 
@@ -42,7 +54,7 @@ from RoomReserve.dbtables.reservation import Reservation
 
 #RoomReserve modules
 from RoomReserve.helpers.render import render
-import RoomReserve.helpers.session
+import RoomReserve.helpers.login
 import RoomReserve.helpers.static_variables as Static
 import RoomReserve.homepage
 import RoomReserve.helpers.errorhandlers
