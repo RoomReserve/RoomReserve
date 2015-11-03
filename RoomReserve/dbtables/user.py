@@ -16,4 +16,16 @@ class User(db.Model):
 		self.password = password
 
 	def __repr__(self):
-		return '%r %r' % (self.first, self.last)
+		return '<User %r' % (self.email)
+
+	def is_authenticated(self):
+		return True
+
+	def is_active(self):
+		return not self.role="inactive"
+
+	def is_anonymous(self):
+		return False
+
+	def get_id(self):
+		return unicode(self.id)
