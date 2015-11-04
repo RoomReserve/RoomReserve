@@ -25,9 +25,8 @@ def page_users():
         password = formdata['password']
         role = formdata['role']
 
-        # create the user
-        # TODO: add support for passwords. Currently they are ignored.
-        if createUser(firstname, lastname, email, role):
+
+        if createUser(firstname, lastname, email, role, password):
             # user created sucessfully
             pass
         else:
@@ -69,12 +68,12 @@ def getUserById(id):
         return users[0]
     return False
 
-def createUser(fn, ln, em, ro):
+def createUser(fn, ln, em, ro, pw="helloworld"):
     # Adds a user to the database.
     # TODO: add support for passwords.
     # Returns True if user added successfully, else False.
     try:
-        me = User(fn, ln, em, ro)
+        me = User(fn, ln, em, ro, pw)
         db.session.add(me)
         db.session.commit()
         return True
