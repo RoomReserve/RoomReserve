@@ -14,6 +14,7 @@ class User(db.Model):
 		self.last = last
 		self.email = email
 		self.role = role
+		self.is_anonymous = False
 		self.password = self.generate_password(password)
 
 	def __repr__(self):
@@ -28,8 +29,23 @@ class User(db.Model):
 	def is_authenticated(self):
 		return True
 
+	def is_admin(self):
+		return self.role=="admin"
+
+	def is_standard(self):
+		return self.role=="standard"
+
+	def is_readonly(self):
+		return self.role=="readonly"
+
+	def getRole(self):
+		return self.role
+
 	def is_active(self):
 		return not self.role=="inactive"
+
+	def is_inactive(self):
+		return not self.is_active()
 
 	def is_anonymous(self):
 		return False

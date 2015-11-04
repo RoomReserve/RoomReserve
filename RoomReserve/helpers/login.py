@@ -27,20 +27,44 @@ def login():
         if not registered_user.check_password(password):
             # wrong password
             print("User password does not match", password)
-            print(registered_user.password)
             return redirect(url_for('login'))
-
+        if registered_user.is_inactive():
+            return render('basic.html', content="Your account is inactive.")
     else:
-        print("No such user")
+        print("No such user " + email)
         return redirect(url_for('login'))
 
     login_user(registered_user)
     flash('Logged in successfully')
-    print("Logged in as")
-    print(registered_user)
-
     try:
         next = request.args.get('next')
     except:
         next = url_for('index')
     return redirect(next or url_for('index'))
+
+@app.route('/login/switch')
+def switchUser():
+    logout_user()
+    return redirect(url_for('login'))
+
+def adminrequired(function):
+    @login_required
+    def checkIfAdmin(*args, **kwargs):
+        if current_user.is_admin():
+            return function(*args, **kwargs)
+        return render('basic.html', content=\
+        "Your permission level is "+current_user.getRole()+\
+        ". You must be an Administrator to do this.<br />"+\
+        "<a href="+url_for('switchUser')+">Login as another user</a>.")
+    return checkIfAdmin
+
+def standardrequired(function):
+    @login_required
+    def checkIfStandard(*args, **kwargs):
+        if current_user.is_standard() or current_user.is_admin():
+            return function(*args, **kwargs)
+        return render('basic.html', content=\
+        "Your permission level is "+current_user.getRole()+\
+        ". You must be a Standard User or Administrator to do this.<br />"+\
+        "<a href="+url_for('switchUser')+">Login as another user</a>.")
+    return checkIfAdmin
