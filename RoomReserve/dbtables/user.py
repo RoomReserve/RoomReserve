@@ -8,13 +8,18 @@ class User(db.Model):
 	email = db.Column(db.String(50), unique=True)
 	password = db.Column(db.String(160), unique=False)
 	role = db.Column(db.String(100), unique=False)
+	#	Possible roles:
+	#	- admin
+	#	- standard
+	#	- readonly
+	#	- inactive
+
 
 	def __init__(self, first, last, email, role, password):
 		self.first = first
 		self.last = last
 		self.email = email
 		self.role = role
-		self.is_anonymous = False
 		self.password = self.generate_password(password)
 
 	def __repr__(self):
@@ -38,6 +43,12 @@ class User(db.Model):
 	def is_readonly(self):
 		return self.role=="readonly"
 
+	def getName(self):
+		return self.first + " " + self.last
+
+	def getEmail(self):
+		return self.email
+		
 	def getRole(self):
 		return self.role
 
