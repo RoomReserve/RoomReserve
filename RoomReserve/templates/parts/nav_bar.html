@@ -16,8 +16,8 @@
         <li><a href="/admin">Configuration</a></li>
         <li>
           {% if current_user_name %}
-    			<div class="dropdown" id="UserDropdownMenu-Logged-In">
-    				<button class="btn btn-default dropdown-toggle" height=25px; type="button" data-toggle="dropdown">{{ current_user_name }}
+    			<div class="dropdown">
+    				<button class="btn btn-default dropdown-toggle" height=25px; type="button" data-toggle="dropdown" id="UserDropdownMenu-Logged-In">{{ current_user_name }}
     					<span class="caret"></span></button>
     					<ul class="dropdown-menu">
     						<li></li>
