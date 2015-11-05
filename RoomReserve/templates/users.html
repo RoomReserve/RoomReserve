@@ -10,7 +10,7 @@
     {{ form.csrf_token }}
     {{ form.firstname.label }} {{ form.firstname(size=20) }}
     {{ form.lastname.label }} {{ form.lastname(size=20) }} <br />
-    {{ form.email.label }} {{ form.email(size=50) }} <br />
+    {{ form.email.label }} {{ form.email(size=20) }} <br />
     {{ form.password.label }} {{ form.password(size=20) }} <br />
     {{ form.role.label }} {{ form.role}} <br /><br />
 
@@ -35,7 +35,7 @@
     <h3 class="panel-title">Users</h3>
   </div>
   <div class="panel-body">
-    <div class="col-md-12">
+    <div class="col-xs-12">
       <div class="table-responsive">
         <table class="table table-striped">
           <thead>
