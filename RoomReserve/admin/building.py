@@ -5,7 +5,6 @@ class form_CreateBuilding(Form):
     numFloors = IntegerField('Number of Floors') #not required
     active = BooleanField('Active')
     description = TextAreaField('Description')
-    notes = TextAreaField('Notes')
 
 
 
