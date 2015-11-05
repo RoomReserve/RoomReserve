@@ -10,4 +10,9 @@ def render(template, *args, **kwargs):
     kwargs['build'] = 'in development. Running on ' + sys.platform
     kwargs['feeling'] = feelings[random.randrange(0,len(feelings))]
 
+    if current_user.is_authenticated:
+        kwargs['current_user_name'] = current_user.getName()
+        kwargs['current_user_email'] = current_user.getEmail()
+        kwargs['current_user_role'] = current_user.getRole()
+
     return render_template(template, *args, **kwargs)

@@ -48,7 +48,10 @@ def page_rooms():
             # createUser returned false, the room could not be created.
             return render('basic.html', content="Could not create room.")
 
-    form = form_CreateRoom()
+    if current_user.is_admin():
+        form = form_CreateRoom()
+    else:
+        form = False
     rooms = getAllRooms()
     return render('listrooms.html', form=form, rooms=rooms)
 

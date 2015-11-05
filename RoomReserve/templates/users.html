@@ -2,17 +2,32 @@
 
 {% block body1 %}
 
-<form class="well" method="POST" action="/admin/users">
-  {{ form.csrf_token }}
-  {{ form.firstname.label }} {{ form.firstname(size=20) }}
-  {{ form.lastname.label }} {{ form.lastname(size=20) }} <br />
-  {{ form.email.label }} {{ form.email(size=50) }} <br />
-  {{ form.password.label }} {{ form.password(size=20) }} <br />
-  {{ form.role.label }} {{ form.role}} <br /><br />
 
-  <input type="submit" value="Create">
-</form>
-<hr />
+
+<div>
+  {% if form %}
+  <form class="well" method="POST" action="/admin/users">
+    {{ form.csrf_token }}
+    {{ form.firstname.label }} {{ form.firstname(size=20) }}
+    {{ form.lastname.label }} {{ form.lastname(size=20) }} <br />
+    {{ form.email.label }} {{ form.email(size=50) }} <br />
+    {{ form.password.label }} {{ form.password(size=20) }} <br />
+    {{ form.role.label }} {{ form.role}} <br /><br />
+
+    <input type="submit" value="Create">
+  </form>
+
+  {% else %}
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+      <em>You don't have permission to create users.</em>
+    </div>
+  </div>
+  {% endif %}
+  <hr />
+</div>
+
 
 
 <div class="panel panel-info col-md">

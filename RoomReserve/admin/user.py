@@ -33,8 +33,11 @@ def page_users():
             # createUser returned false, the user could not be created.
             return render('basic.html', content="Could not create user.")
 
-    form = form_CreateUser()
     users = getAllUsers()
+    if current_user.is_admin():
+        form = form_CreateUser()
+    else:
+        form = False
     return render('users.html', form=form, users=users)
 
 def getAllUsers():

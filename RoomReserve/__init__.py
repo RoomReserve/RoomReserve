@@ -54,7 +54,7 @@ from RoomReserve.dbtables.reservation import Reservation
 
 #RoomReserve modules
 from RoomReserve.helpers.render import render
-import RoomReserve.helpers.login
+import RoomReserve.helpers.login as Login
 import RoomReserve.helpers.static_variables as Static
 import RoomReserve.homepage
 import RoomReserve.helpers.errorhandlers
@@ -62,21 +62,6 @@ import RoomReserve.admin.admin
 import RoomReserve.admin.user
 import RoomReserve.admin.building
 import RoomReserve.admin.rooms
-
-
-
-
-#this will be helpful for engine reference: http://docs.sqlalchemy.org/en/rel_0_9/core/engines.html
-
-# an Engine, which the Session will use for connection resources
-#some_engine = create_engine('postgresql://scott:tiger@localhost/')
-#we will need to change the target of the create_engine
-
-# create a configured "Session" class, this is our "session factory" it is recommended that we keep this at the global scope.
-#Session = sessionmaker(bind=some_engine)
-
-# the following is an example on how to create a Session, I don't believe we need this at a global scope but can have multiple.
-#session = Session()
 
 
 # Creates database classes as defined in the
@@ -88,14 +73,27 @@ defaultAdmins = []
 for me in db.session.query(User).filter_by(email='admin@localhost'):
 	defaultAdmins.append(me)
 if len(defaultAdmins) > 0:
-    #default admin is already created
-    print("Default admin account admin@localhost exists.")
+	#default admin is already created
+	print("Default admin account admin@localhost exists.")
 else:
-    admin = User('Default', 'Admin', 'admin@localhost', 'admin')
-    print("Default admin account 'admin@localhost' created. Welcome to RoomReserve.")
-    db.session.add(admin)
-    db.session.commit()
+	createDefaultAccounts()
 
+def createDefaultAccounts():
+	# Creates an account of each role for testing purposes.
+	admin = User('Default pw is rr', 'Admin', 'admin@localhost', 'admin', 'rr')
+
+	standard = User('Default pw is rr', 'Standard', 'standard@localhost', 'standard', 'rr')
+
+	readonly = User('Default pw is rr', 'Readonly', 'ro@localhost', 'readonly', 'rr')
+
+	inactive = User('Default pw is rr', 'Inactive', 'inactive@localhost', 'inactive', 'rr')
+
+	db.session.add(admin)
+	db.session.add(standard)
+	db.session.add(readonly)
+	db.session.add(inactive)
+	db.session.commit()
+	print("Default admin account 'admin@localhost' created. Welcome to RoomReserve.")
 
 
 
@@ -103,26 +101,44 @@ else:
 
 @app.route("/dbtest")
 def db_test():
-    title = sys.platform
-    users = User.query.all()
-    return render_template('test.html', title=title, users=users)
+	title = sys.platform
+	users = User.query.all()
+	return render_template('test.html', title=title, users=users)
 
 class test_form(Form):
-    name = StringField('Name', validators=[DataRequired()])
+	name = StringField('Name', validators=[DataRequired()])
 
 @app.route("/wtftest", methods=['GET', 'POST'])
 def wtf_test():
-    if request.method == 'GET':
-        form = test_form()
-        return render_template('formtest.html', form=form)
-    elif request.method == 'POST':
-        content = "hello "
-        content += request.form['name']
-        return render_template('basic.html', content=content)
-    else:
-        return RoomReserve.helpers.errorhandlers.page_error400(400)
+	if request.method == 'GET':
+		form = test_form()
+		return render_template('formtest.html', form=form)
+	elif request.method == 'POST':
+		content = "hello "
+		content += request.form['name']
+		return render_template('basic.html', content=content)
+	else:
+		return RoomReserve.helpers.errorhandlers.page_error400(400)
 
 @app.route("/today")
 def page_today():
 	title="Today's Activity"
 	return render('today.html',title=title)
+
+
+
+@app.route('/droptables', methods=['GET', 'POST'])
+def droptables():
+	# Drops all the data we have currently.
+	password = 'delete'
+	if request.method == 'POST' and request.form['verify'] == password:
+		db.drop_all()
+		db.create_all()
+		createDefaultAccounts()
+		print("TABLES REBUILT")
+		return render_template('basic.html',title="Tables erased.",content="Data has been reset")
+	else:
+		content = 'Type the password to verify. <form action="/droptables" method="POST">'
+		content += '<input type="text" name="verify">'
+		content += '<input type="submit" value="Delete All Data">'
+		return render_template('basic.html',title="Drop Table Verification",content=content)
