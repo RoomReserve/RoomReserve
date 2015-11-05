@@ -7,7 +7,7 @@ class form_CreateRoom(Form):
             choices=[], \
             validators=[DataRequired()])
     floor = SelectField('Floor',\
-            choices=[("ab", "ab"), ("cd","cd")], \
+            choices=[(1,1), (2,2), (3,3), (4,4), (5,5), (6,6), (7,7), (8,8)], \
             validators=[DataRequired()])
     roomnumber = IntegerField('Room Number', validators=[DataRequired()])
     capacity = IntegerField('Capacity', validators=[DataRequired()])
