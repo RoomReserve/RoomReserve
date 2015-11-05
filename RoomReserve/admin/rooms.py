@@ -12,11 +12,12 @@ class form_CreateRoom(Form):
     roomnumber = IntegerField('Room Number', validators=[DataRequired()])
     capacity = IntegerField('Capacity', validators=[DataRequired()])
     active = BooleanField('Active')
-    description = TextAreaField('Description')
+
 
     def __init__(self):
         super(form_CreateRoom, self).__init__()
         from RoomReserve.admin.building import getAllBuildings
+        print(self.building.choices)
         for b in getAllBuildings():
             self.building.choices.append((b.id, b.name))
 
