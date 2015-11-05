@@ -33,26 +33,42 @@
 {% endif %}
 <hr />
 
-<table>
-		<tr>
-			<td>id</td>
-			<td>Building</td>
-			<td>Floor</td>
-			<td>Room Number</td>
-			<td>Capacity</td>
-      <td>Status</td>
-	{% for r in rooms %}
-		<tr>
-			<td>{{ r.id }}</td>
-			<td>{{ r.building }}</td>
-			<td>{{ r.floor }}</td>
-      <td><strong>{{ r.roomnumber }}</strong></td>
-      <td>{{ r.capacity }}</td>
-      <td>{{ r.status }}</td>
-		</tr>
-	{% endfor %}
-</table>
 
+<div class="panel panel-primary col-md">
+  <div class="panel-heading">
+    <h3 class="panel-title">Rooms</h3>
+  </div>
+  <div class="panel-body">
+    <div class="col-md-12">
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>id</th>
+              <th>Building</th>
+              <th>Floor</th>
+              <th>Room Number</th>
+              <th>Capacity</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for r in rooms %}
+          		<tr>
+          			<td>{{ r.id }}</td>
+          			<td>{{ r.building }}</td>
+          			<td>{{ r.floor }}</td>
+                <td><strong>{{ r.roomnumber }}</strong></td>
+                <td>{{ r.capacity }}</td>
+                <td>{{ r.status }}</td>
+          		</tr>
+          	{% endfor %}
 
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
 
 {% endblock %}
