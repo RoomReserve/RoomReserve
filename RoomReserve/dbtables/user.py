@@ -67,6 +67,56 @@ class User(db.Model):
 		# Return this users role
 		return self.role
 
+	def setFirstName(self, fn):
+		# Changes/sets the first name for the user
+		# Returns the first name. False upon failure
+		try:
+			self.first = fn
+			db.session.commit()
+		except:
+			return False
+		return self.first
+
+	def setLastName(self, ln):
+		# Changes/sets the last name for the user
+		# Returns the last name. False upon failure
+		try:
+			self.last = ln
+			db.session.commit()
+		except:
+			return False
+		return self.last
+
+	def setEmail(self, em):
+		# Changes/sets the email address for the user
+		# Returns the email. False upon failure
+		try:
+			self.email = em
+			db.session.commit()
+		except:
+			return False
+		return self.email
+
+	def setPassword(self, pw_plaintext):
+		# Changes/sets the email address for the user
+		# Returns True upon success. False upon failure
+		try:
+			self.password = self.generate_password(pw_plaintext)
+			db.session.commit()
+		except:
+			return False
+		return True
+
+	def setRole(self, newRole):
+		# Changes/sets the email address for the user
+		# Returns the role. False upon failure
+		try:
+			self.role = ro
+			db.session.commit()
+		except:
+			return False
+		return self.role
+
 	def is_active(self):
 		# Returns True/False if this user is not inactive
 		return not self.role=="inactive"
