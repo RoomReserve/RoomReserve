@@ -42,6 +42,17 @@ def page_users():
         form = False
     return render('users.html', form=form, users=users)
 
+@app.route('/admin/users/<id>', methods=['GET', 'POST'])
+def page_updateUser(id):
+    if current_user.is_admin():
+        # Only admins can edit users
+        allowEdit = True
+    else:
+        allowEdit = False
+
+    form = form_createUser
+    return render('users_edit.html', form=form, allowEdit=allowEdit)
+
 def getAllUsers():
     # returns all users in a list
     users = []
