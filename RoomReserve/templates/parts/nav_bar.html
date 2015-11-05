@@ -14,6 +14,22 @@
         <li><a href="/">Home</a></li>
         <li><a href="/today">Today</a></li>
         <li><a href="/admin">Configuration</a></li>
+        <li>
+          {% if current_user_name %}
+    			<div class="dropdown">
+    				<button class="btn btn-default btn-xs dropdown-toggle" type="button" data-toggle="dropdown">{{ current_user_name }}
+    					<span class="caret"></span></button>
+    					<ul class="dropdown-menu">
+    						<li></li>
+    						<li><a href="#"><em>{{ current_user_role }}</em></a></li>
+    						<li><a href="/logout">Log out</a></li>
+    					</ul>
+    				</div>
+    
+    			{% else %}
+    				<a href="/login"><span class="label label-default">Log in</span></a>
+    			{% endif %}
+        </li>
       </ul>
     </div><!--/.nav-collapse -->
   </div>
