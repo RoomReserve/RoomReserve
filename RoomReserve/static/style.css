@@ -2,3 +2,8 @@ h1 {
 	font-family: "Helvetica Neue";
 	text-align: center;
 }
+
+#UserDropdownMenu-Logged-In{
+	position: relative;
+	top: 10px;
+}
