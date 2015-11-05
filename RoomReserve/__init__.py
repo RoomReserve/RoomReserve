@@ -69,14 +69,7 @@ import RoomReserve.admin.rooms
 db.create_all()
 db.session.commit()
 
-defaultAdmins = []
-for me in db.session.query(User).filter_by(email='admin@localhost'):
-	defaultAdmins.append(me)
-if len(defaultAdmins) > 0:
-	#default admin is already created
-	print("Default admin account admin@localhost exists.")
-else:
-	createDefaultAccounts()
+
 
 def createDefaultAccounts():
 	# Creates an account of each role for testing purposes.
@@ -96,6 +89,14 @@ def createDefaultAccounts():
 	print("Default admin account 'admin@localhost' created. Welcome to RoomReserve.")
 
 
+defaultAdmins = []
+for me in db.session.query(User).filter_by(email='admin@localhost'):
+	defaultAdmins.append(me)
+if len(defaultAdmins) > 0:
+	#default admin is already created
+	print("Default admin account admin@localhost exists.")
+else:
+	createDefaultAccounts()
 
 # Try not to add additional page routes in here.
 
