@@ -31,8 +31,11 @@ def page_buildings():
             # createBuilding returned false, the building could not be created.
             return render('basic.html', content="Could not create building.")
 
-    form = form_CreateBuilding()
     buildings = getAllBuildings()
+    if current_user.is_admin():
+        form = form_CreateBuilding()
+    else:
+        form = False
     return render('listbuildings.html', form=form, buildings=buildings)
 
 def getAllBuildings():
