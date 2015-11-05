@@ -36,22 +36,42 @@
 
 <hr />
 
-<table>
-		<tr>
-			<td>id</td>
-			<td>Name</td>
-			<td>Floors</td>
-			<td>Status</td>
-	{% for b in buildings %}
-		<tr>
-			<td>{{ b.id }}</td>
-			<td><strong>{{ b.name }}</strong></td>
-			<td>{{ b.numfloors }}</td>
-      <td>{{ b.status }}</td>
-		</tr>
-	{% endfor %}
-</table>
 
+<div class="panel panel-primary col-md">
+  <div class="panel-heading">
+    <h3 class="panel-title">Buildings</h3>
+  </div>
+  <div class="panel-body">
+    <div class="col-md-12">
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>id</th>
+              <th>Floors</th>
+              <th>Status</th>
+              <th>Description</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for b in buildings %}
+          		<tr>
+          			<td>{{ b.id }}</td>
+          			<td><strong>{{ b.name }}</strong></td>
+          			<td>{{ b.numfloors }}</td>
+                <td>{{ b.status }}</td>
+                <td>{{b.description}}</td>
+                <td>{{b.notes}}</td>
 
+          		</tr>
+          	{% endfor %}
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
 
 {% endblock %}
