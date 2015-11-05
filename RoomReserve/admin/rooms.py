@@ -49,8 +49,10 @@ def page_rooms():
             return render('basic.html', content="Could not create room.")
 
     if current_user.is_admin():
+        # Only admins should see the form to create rooms
         form = form_CreateRoom()
     else:
+        # Not an admin, don't show the form
         form = False
     rooms = getAllRooms()
     return render('listrooms.html', form=form, rooms=rooms)

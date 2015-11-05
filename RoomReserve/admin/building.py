@@ -32,15 +32,19 @@ def page_buildings():
             # createBuilding returned false, the building could not be created.
             return render('basic.html', content="Could not create building.")
 
+    # Get all the buildings currently in the database
+    # so that they can be displayed on the page.
     buildings = getAllBuildings()
     if current_user.is_admin():
+        # Only admins should see the form to create buildings
         form = form_CreateBuilding()
     else:
+        # Not an admin, don't get the form.
         form = False
     return render('listbuildings.html', form=form, buildings=buildings)
 
 def getAllBuildings():
-    # returns all buildings in a dictionary
+    # returns all buildings in a list
     buildings = []
     for me in db.session.query(Building):
     	buildings.append(me)
