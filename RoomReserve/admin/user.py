@@ -35,13 +35,15 @@ def page_users():
 
     users = getAllUsers()
     if current_user.is_admin():
+        # Only admins can see the form to create users.
         form = form_CreateUser()
     else:
+        # Not an admin, no form.
         form = False
     return render('users.html', form=form, users=users)
 
 def getAllUsers():
-    # returns all users in a dictionary
+    # returns all users in a list
     users = []
     for me in db.session.query(User):
     	users.append(me)
