@@ -2,7 +2,7 @@ from RoomReserve import *
 
 import random
 
-feelings = ["magic", "love", "happiness", "friendship", "smiles", "laughter"]
+feelings = ["magic", "love", "happiness", "friendship", "smiles", "laughter", "care"]
 
 def render(template, *args, **kwargs):
     kwargs['withGlobals']=True
