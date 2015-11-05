@@ -10,7 +10,7 @@ h1 {
 }
 
 #Home-Button-Link, #Today-Button-Link, #Configuration-Button-Link, #Login-Button-Link{
-	height: 45px;
+	height: 20px;
 	margin-top: 10px;
 	margin-bottom: 10px;
 }
