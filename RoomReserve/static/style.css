@@ -8,3 +8,9 @@ h1 {
 	top: 10px;
 	width: 90%;
 }
+
+#Home-Button-Link, #Today-Button-Link, #Configuration-Button-Link, #Login-Button-Link{
+	height: 10px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
