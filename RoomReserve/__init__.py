@@ -109,6 +109,10 @@ def db_test():
 class test_form(Form):
 	name = StringField('Name', validators=[DataRequired()])
 
+@app.route("/overlaytest")
+def overlay_test():
+	return render('default.html')
+
 @app.route("/wtftest", methods=['GET', 'POST'])
 def wtf_test():
 	if request.method == 'GET':
