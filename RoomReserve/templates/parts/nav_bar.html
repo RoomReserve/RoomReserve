@@ -1,36 +1,36 @@
-<!-- Fixed navbar -->
-<div class="navbar navbar-default" role="navigation">
-  <div class="container">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="/">RoomReserve</a>
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/">{{ appname }}</a>
     </div>
-    <div class="collapse navbar-collapse">
-      <ul class="nav navbar-nav pull-right">
-        <li><a href="/" id="Home-Button-Link">Home</a></li>
-        <li><a href="/today" id="Today-Button-Link">Today</a></li>
-        <li><a href="/admin" id="Configuration-Button-Link">Configuration</a></li>
-        <li>
-          {% if current_user_name %}
-    			<div class="dropdown">
-    				<button class="btn btn-default dropdown-toggle" height=25px; type="button" data-toggle="dropdown" id="UserDropdownMenu-Logged-In">{{ current_user_name }}
-    					<span class="caret"></span></button>
-    					<ul class="dropdown-menu">
-    						<li></li>
-    						<li><a href="#"><em>{{ current_user_role }}</em></a></li>
-    						<li><a href="/logout">Log out</a></li>
-    					</ul>
-    				</div>
-
-    			{% else %}
-    				<a href="/login" id="Login-Button-Link"><span class="label label-default">Log in</span></a>
-    			{% endif %}
+    <!-- /.navbar-header -->
+    <ul class="nav navbar-top-links navbar-right">
+        <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
+            </a>
+            <ul class="dropdown-menu dropdown-user">
+                {% if logged_in %}
+                  <li><a href="/admin/users/{{ current_user_id }}"><i class="fa fa-user fa-fw"></i> My Profile</a>
+                  </li>
+                  <li class="divider"></li>
+                  <li><a href="/logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                  </li>
+                {% else %}
+                  <li><a href="/login"><i class="fa fa-sign-in fa-fw"></i> Log in</a></li>
+                {% endif %}
+            </ul>
+            <!-- /.dropdown-user -->
         </li>
-      </ul>
-    </div><!--/.nav-collapse -->
-  </div>
-</div>
+        <!-- /.dropdown -->
+    </ul>
+    <!-- /.navbar-top-links -->
+
+    {% include 'parts/sidebar.html' %}
+</nav>

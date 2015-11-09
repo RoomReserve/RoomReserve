@@ -1,30 +1,81 @@
-<div id="sidebar-wrapper">
-    <ul class="sidebar-nav">
-        <li class="sidebar-brand">
-            <a href="#">
-                Dashboard
-            </a>
-        </li>
-        <li>
-            <a href="#">Create Reservation/a>
-        </li>
-        <li>
-            <a href="#">New Guest</a>
-        </li>
-        <li>
-            <a href="#">Edit Reservation</a>
-        </li>
-        <li>
-            <a href="#">Search</a>
-        </li>
-        <li>
-            <a href="#">Extra Tab</a>
-        </li>
-        <li>
-            <a href="#">Extra Tab</a>
-        </li>
-        <li>
-            <a href="#">Extra Tab</a>
-        </li>
-    </ul>
+<div class="navbar-default sidebar" role="navigation">
+    <div class="sidebar-nav navbar-collapse">
+        <ul class="nav" id="side-menu">
+
+            <li class="sidebar-search">
+              <form action="/res/find">
+                <div class="input-group custom-search-form">
+                    <input type="text" id="search" class="form-control" placeholder="Search for Reservation...">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="submit">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </span>
+                </div>
+              </form>
+            </li>
+
+
+
+            <li>
+                <a href="#">
+                  <i class="fa fa-calendar fa-fw"></i> Reservations<span class="fa arrow"></span>
+                </a>
+                <ul class="nav nav-second-level">
+                    <li>
+                        <a href="/res/new">Create Reservation</a>
+                    </li>
+                    <li>
+                        <a href="res/find">Edit Reservation</a>
+                    </li>
+                </ul>
+                <!-- /.nav-second-level -->
+            </li>
+
+            <li>
+                <a href="#"><i class="fa fa-wrench fa-fw"></i> Guests<span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                    <li>
+                        <a href="/guest">New Guest</a>
+                    </li>
+                    <li>
+                        <a href="/guest">Find Guest</a>
+                    </li>
+                </ul>
+                <!-- /.nav-second-level -->
+            </li>
+
+            <li>
+              <a href="/admin"><i class="fa fa-cogs"></i> Configuration</a>
+            </li>
+
+            <li>
+                <a href="#"><i class="fa fa-sitemap fa-fw"></i> Multi-Level Dropdown<span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                    <li>
+                        <a href="#">Second Level Item</a>
+                    </li>
+                    <li>
+                        <a href="#">Second Level Item</a>
+                    </li>
+                    <li>
+                        <a href="#">Third Level <span class="fa arrow"></span></a>
+                        <ul class="nav nav-third-level">
+                            <li>
+                                <a href="#">Third Level Item</a>
+                            </li>
+                            <li>
+                                <a href="#">Third Level Item</a>
+                            </li>
+                        </ul>
+                        <!-- /.nav-third-level -->
+                    </li>
+                </ul>
+                <!-- /.nav-second-level -->
+            </li>
+
+        </ul>
+    </div>
+    <!-- /.sidebar-collapse -->
 </div>
+<!-- /.navbar-static-side -->

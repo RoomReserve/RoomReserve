@@ -15,17 +15,32 @@
 </head>
 
 <body>
-  <div class="container">
+  <div class="wrapper">
 
   {% include 'parts/nav_bar.html' %}
 
-  <h2>{{ title }}</h2>
-	{% block body1 %} {% endblock %}
+  <!-- Page Content -->
+  <div id="page-wrapper">
+      <div class="container-fluid">
+          <div class="row">
+              <div class="col-lg-12">
+                <h2>{{ title }}</h2>
+                {% block body1 %} {% endblock %}
+
+                {%include 'parts/footer.html' %}
+              </div>
+              <!-- /.col-lg-12 -->
+          </div>
+          <!-- /.row -->
+      </div>
+      <!-- /.container-fluid -->
+  </div>
+  <!-- /#page-wrapper -->
 
 
  </div>
 
-{%include 'parts/footer.html' %}
+{% include 'parts/bootstrap_foot.html' %}
 
 </body>
 </html>

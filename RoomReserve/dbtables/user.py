@@ -55,6 +55,9 @@ class User(db.Model):
 		# returns True/False
 		return self.role=="readonly" or is_standard(self)
 
+	def getID(self):
+		return self.id
+
 	def getName(self):
 		# Return this users full name in a string.
 		return self.first + " " + self.last
