@@ -10,8 +10,8 @@ def page_admin():
     # This object stores the links that we want on the page
     links = linkList()
 
-    links.add("/admin/users", "Users", bold=True)
-    links.add("/admin/buildings", "Buildings", italics=True)
-    links.add("/admin/rooms", "Rooms", bold=True, italics=True)
+    links.add("/admin/users", "Users", fa_icon="fa-user")
+    links.add("/admin/buildings", "Buildings", fa_icon="fa-building")
+    links.add("/admin/rooms", "Rooms", fa_icon="fa-home")
 
     return render('simpleMenuPage.html', title=title, links=links.getLinks())
