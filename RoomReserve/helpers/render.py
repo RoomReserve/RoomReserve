@@ -19,5 +19,6 @@ def render(template, *args, **kwargs):
         kwargs['current_user_name'] = current_user.getName()
         kwargs['current_user_email'] = current_user.getEmail()
         kwargs['current_user_role'] = current_user.getRole()
+        kwargs['current_user_id'] = current_user.getID()
 
     return render_template(template, *args, **kwargs)
