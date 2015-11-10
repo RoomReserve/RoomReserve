@@ -1,4 +1,5 @@
 from RoomReserve import *
+from RoomReserve.admin.building import getBuildingById as getBuildingById
 
 class Room(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
@@ -18,6 +19,9 @@ class Room(db.Model):
 		self.description = description
 		self.status = status
 		self.notes = notes
+
+	def getMyBuildingName(self):
+		return getBuildingById(self.buildingID).getBuildingName()
 
 	def __repr__(self):
 		return '%r %r %r' % (self.roomnumber, self.floor, self.bullding)

@@ -17,6 +17,7 @@ class form_CreateRoom(Form):
     def __init__(self):
         super(form_CreateRoom, self).__init__()
         from RoomReserve.admin.building import getAllBuildings
+        self.building.choices = []
 
         for b in getAllBuildings():
             self.building.choices.append((b.id, b.name))
