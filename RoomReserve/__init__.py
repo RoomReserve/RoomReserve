@@ -66,7 +66,8 @@ import RoomReserve.admin.admin
 import RoomReserve.admin.user
 import RoomReserve.admin.building
 import RoomReserve.admin.rooms
-
+import RoomReserve.admin.guest
+import RoomReserve.admin.reservation
 
 # Creates database classes as defined in the
 # above imports from RoomReserve.dbtables.*
