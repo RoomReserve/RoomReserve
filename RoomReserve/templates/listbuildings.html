@@ -59,7 +59,7 @@
             {% for b in buildings %}
           		<tr>
           			<td>{{ b.id }}</td>
-          			<td><strong>{{ b.name }}</strong></td>
+          			<td><strong><a href = "/edit/building">{{ b.name }}</a></strong></td>
           			<td>{{ b.numfloors }}</td>
                 <td>{{ b.status }}</td>
                 <td>{{b.description}}</td>
