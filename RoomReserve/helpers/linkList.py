@@ -15,10 +15,10 @@ class linkList():
     def __init__(self):
         self.links = []
 
-    def add(self, url, title, bold=False, italics=False):
+    def add(self, url, title, fa_icon="none", bold=False, italics=False):
         # Required parameters: url, title
-        # Optional parameters: bold, italics (boolean)
-        self.links.append(linkItem(url,title,bold,italics))
+        # Optional parameters: fa_icon (font-awesome icon), bold, italics (boolean)
+        self.links.append(linkItem(url,title,fa_icon,bold,italics))
 
     def getLinks(self):
         return self.links
@@ -28,10 +28,13 @@ class linkList():
 class linkItem():
     url = ""
     title = ""
+    fa_icon = "none"
     bold = False
     italics = False
-    def __init__(self,url,title, bold, italics):
+
+    def __init__(self,url,title, fa_icon, bold, italics):
         self.url = url
         self.title = title
+        self.fa_icon = fa_icon
         self.bold = bold
         self.italics = italics

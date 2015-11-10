@@ -15,5 +15,8 @@ class Building(db.Model):
 		self.description = description
 		self.notes = notes
 
+	def getBuildingName(self):
+		return self.name
+
 	def __repr__(self):
 		return '%r %r %r' % (self.roomnumber, self.floor, self.bullding)

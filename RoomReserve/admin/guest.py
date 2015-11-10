@@ -7,7 +7,7 @@ class form_CreateGuest(Form):
     phone = StringField('Phone Number', validators=[DataRequired()])
     address = StringField('Address', validators=[DataRequired()])
     payment = StringField('Payment', validators=[DataRequired()])
-    notes = StringField('Notes')
+    notes = TextAreaField('Notes')
 
 
 @app.route('/admin/guest', methods=['GET', 'POST'])

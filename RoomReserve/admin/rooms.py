@@ -7,16 +7,18 @@ class form_CreateRoom(Form):
             choices=[], \
             validators=[DataRequired()])
     floor = SelectField('Floor',\
-            choices=[("ab", "ab"), ("cd","cd")], \
+            choices=[(1,1), (2,2), (3,3), (4,4), (5,5), (6,6), (7,7), (8,8)], \
             validators=[DataRequired()])
     roomnumber = IntegerField('Room Number', validators=[DataRequired()])
     capacity = IntegerField('Capacity', validators=[DataRequired()])
     active = BooleanField('Active')
-    description = TextAreaField('Description')
+
 
     def __init__(self):
         super(form_CreateRoom, self).__init__()
         from RoomReserve.admin.building import getAllBuildings
+        self.building.choices = []
+
         for b in getAllBuildings():
             self.building.choices.append((b.id, b.name))
 
@@ -33,7 +35,8 @@ def page_rooms():
         roomnumber = formdata['roomnumber']
         capacity = formdata['capacity']
         active = formdata['active']
-        description = formdata['description']
+        #description = formdata['description']
+        description = ""
 
         if active:
             status = "Ready"

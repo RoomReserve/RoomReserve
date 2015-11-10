@@ -48,21 +48,22 @@
           <thead>
             <tr>
               <th>id</th>
+              <th>Name</th>
               <th>Floors</th>
               <th>Status</th>
               <th>Description</th>
-              <th>Notes</th>
+
             </tr>
           </thead>
           <tbody>
             {% for b in buildings %}
           		<tr>
           			<td>{{ b.id }}</td>
-          			<td><strong>{{ b.name }}</strong></td>
+          			<td><strong><a href = "/edit/building">{{ b.name }}</a></strong></td>
           			<td>{{ b.numfloors }}</td>
                 <td>{{ b.status }}</td>
                 <td>{{b.description}}</td>
-                <td>{{b.notes}}</td>
+
 
           		</tr>
           	{% endfor %}

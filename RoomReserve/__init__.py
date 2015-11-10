@@ -7,6 +7,9 @@ from wtforms import *
 from wtforms.validators import *
 from wtforms import StringField, TextField, SelectField
 
+#RoomReserve static variables
+import RoomReserve.helpers.static_variables as Static
+
 # flask-heroku
 from flask.ext.heroku import Heroku
 
@@ -44,6 +47,9 @@ else:
 
 app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URL
 
+from RoomReserve.helpers.render import render
+
+
 
 #DatabaseTables
 from RoomReserve.dbtables.user import User
@@ -53,16 +59,15 @@ from RoomReserve.dbtables.room import Room
 from RoomReserve.dbtables.reservation import Reservation
 
 #RoomReserve modules
-from RoomReserve.helpers.render import render
 import RoomReserve.helpers.login as Login
-import RoomReserve.helpers.static_variables as Static
 import RoomReserve.homepage
 import RoomReserve.helpers.errorhandlers
 import RoomReserve.admin.admin
 import RoomReserve.admin.user
 import RoomReserve.admin.building
 import RoomReserve.admin.rooms
-
+import RoomReserve.admin.guest
+#import RoomReserve.admin.reservation
 
 # Creates database classes as defined in the
 # above imports from RoomReserve.dbtables.*
@@ -108,6 +113,10 @@ def db_test():
 
 class test_form(Form):
 	name = StringField('Name', validators=[DataRequired()])
+
+@app.route("/overlaytest")
+def overlay_test():
+	return render('default.html')
 
 @app.route("/wtftest", methods=['GET', 'POST'])
 def wtf_test():

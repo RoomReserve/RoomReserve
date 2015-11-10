@@ -5,13 +5,17 @@
 	<div class="well">
 		{% for link in links %}
 
+			{% if not link.fa_icon=="none" %}
+			<i class="fa {{ link.fa_icon }} fa-fw"></i>
+			{% endif %}
+
       {% if link.bold %}<strong>{% endif %}
       {% if link.italics %}<em>{% endif %}
       <a href="{{ link.url }}">{{ link.title }}</a>
       {% if link.italics %}</em>{% endif %}
       {% if link.bold %}</strong>{% endif %}
       <br />
-      
+
     {% endfor %}
 	</div>
 
