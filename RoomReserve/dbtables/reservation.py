@@ -2,22 +2,48 @@ from RoomReserve import *
 
 class Reservation(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
-	guest = db.Column(db.Integer, db.ForeignKey(Guest.id), nullable=False)
+	guestID = db.Column(db.Integer, db.ForeignKey(Guest.id), nullable=False)
 	madeby = db.Column(db.Integer, db.ForeignKey(User.id), nullable=False)
-	place = db.Column(db.Integer, db.ForeignKey(Room.id), nullable=False)
+	roomID = db.Column(db.Integer, db.ForeignKey(Room.id), nullable=False)
 	checkintime = db.Column(db.DateTime, nullable=False, unique=False)
 	checkouttime = db.Column(db.DateTime, nullable=False, unique=False)
 	status = db.Column(db.String(20), unique=False, nullable=False)
 	notes = db.Column(db.String(500), unique=False)
 
-	def __init__(self, guest, madeby, place, checkintime, checkouttime, status="Unarrived", notes=""):
-		self.guest = guest
+	def __init__(self, guest, madeby, room, checkintime, checkouttime, status="Unarrived", notes=""):
+		self.guest = self.setGuest(guest)
 		self.madeby = madeby
-		self.place = place
+		self.roomID = self.setRoom(room)
 		self.checkintime = checkintime
 		self.checkouttime = checkouttime
 		self.status = status
 		self.notes = notes
+
+	def setRoom(room=None,roomID=0):
+		if room:
+			# we were given a room object, get the roomID
+			self.roomID = room.getID()
+		elif roomID:
+			# we were given a roomID, that's exactly what we need
+			self.roomID = roomID
+		else:
+			abort(428, description="Not a valid Room accessor request. \
+			You must supply setRoom with a Room object (room=myRoom), \
+			or a roomID (roomID=myRoomID).")
+		return self.roomID
+
+	def setGuest(guest=None,guestID=0):
+		if guest:
+			# we were given a guest object, get the guestID
+			self.guestID = guest.getID()
+		elif guestID:
+			# we were given a guestID, that's exactly what we need
+			self.guestID = guestID
+		else:
+			abort(428, description="Not a valid Guest accessor request. \
+			You must supply setGuest with a Guest object (guest=myGuest), \
+			or a guestID (guestID=myGuestID).")
+		return self.guestID
 
 	def __repr__(self):
 		return '%r %r' % (self.time, self.place)

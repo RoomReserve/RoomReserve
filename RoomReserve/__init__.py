@@ -6,6 +6,7 @@ from flask_wtf import Form
 from wtforms import *
 from wtforms.validators import *
 from wtforms import StringField, TextField, SelectField
+from datetime import datetime
 
 #RoomReserve static variables
 import RoomReserve.helpers.static_variables as Static
@@ -67,7 +68,7 @@ import RoomReserve.admin.user
 import RoomReserve.admin.building
 import RoomReserve.admin.rooms
 import RoomReserve.admin.guest
-#import RoomReserve.admin.reservation
+import RoomReserve.admin.reservation
 
 # Creates database classes as defined in the
 # above imports from RoomReserve.dbtables.*
