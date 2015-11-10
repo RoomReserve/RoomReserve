@@ -34,7 +34,8 @@ def page_rooms():
         roomnumber = formdata['roomnumber']
         capacity = formdata['capacity']
         active = formdata['active']
-        description = formdata['description']
+        #description = formdata['description']
+        description = ""
 
         if active:
             status = "Ready"
