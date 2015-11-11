@@ -103,7 +103,7 @@ def createDefaultAccounts():
 		print("Default admin account 'admin@localhost' created. Welcome to RoomReserve.")
 
 
-	createDefaultAccounts()
+createDefaultAccounts()
 
 # Try not to add additional page routes in here.
 
