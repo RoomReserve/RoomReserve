@@ -99,7 +99,7 @@ def page_reservation():
 
     form = form_CreateReservation()
     reservations = getAllReservations()
-    return render_template('reservation.html', form=form, reservations=reservations)
+    return render('reservation.html', form=form, reservations=reservations)
 
 def getAllReservations():
     # returns all reservations in a list
