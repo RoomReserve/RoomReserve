@@ -40,7 +40,7 @@ class form_CreateReservation(Form):
 
 
 
-    monthIn = SelectField('Month In', choices=hourList, validators=[DataRequired()])
+    monthIn = SelectField('Month In', choices=monthList, validators=[DataRequired()])
     dayIn = SelectField('Day', choices=dayList, validators=[DataRequired()])
     yearIn = SelectField('Year', choices=yearList, validators=[DataRequired()])
     hourIn = SelectField('Hour', choices=hourList, validators=[DataRequired()])
