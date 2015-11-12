@@ -6,6 +6,7 @@ from flask_wtf import Form
 from wtforms import *
 from wtforms.validators import *
 from wtforms import StringField, TextField, SelectField
+from datetime import datetime
 
 #RoomReserve static variables
 import RoomReserve.helpers.static_variables as Static
@@ -67,7 +68,7 @@ import RoomReserve.admin.user
 import RoomReserve.admin.building
 import RoomReserve.admin.rooms
 import RoomReserve.admin.guest
-#import RoomReserve.admin.reservation
+import RoomReserve.admin.reservation
 
 # Creates database classes as defined in the
 # above imports from RoomReserve.dbtables.*
@@ -78,30 +79,31 @@ db.session.commit()
 
 def createDefaultAccounts():
 	# Creates an account of each role for testing purposes.
-	admin = User('Default pw is rr', 'Admin', 'admin@localhost', 'admin', 'rr')
 
-	standard = User('Default pw is rr', 'Standard', 'standard@localhost', 'standard', 'rr')
+	defaultAdmins = []
+	for me in db.session.query(User).filter_by(email='admin@localhost'):
+		defaultAdmins.append(me)
+	if len(defaultAdmins) > 0:
+		#default admin is already created
+		print("Default admin account admin@localhost exists.")
+	else:
+		admin = User('Default pw is rr', 'Admin', 'admin@localhost', 'admin', 'rr')
 
-	readonly = User('Default pw is rr', 'Readonly', 'ro@localhost', 'readonly', 'rr')
+		standard = User('Default pw is rr', 'Standard', 'standard@localhost', 'standard', 'rr')
 
-	inactive = User('Default pw is rr', 'Inactive', 'inactive@localhost', 'inactive', 'rr')
+		readonly = User('Default pw is rr', 'Readonly', 'ro@localhost', 'readonly', 'rr')
 
-	db.session.add(admin)
-	db.session.add(standard)
-	db.session.add(readonly)
-	db.session.add(inactive)
-	db.session.commit()
-	print("Default admin account 'admin@localhost' created. Welcome to RoomReserve.")
+		inactive = User('Default pw is rr', 'Inactive', 'inactive@localhost', 'inactive', 'rr')
+
+		db.session.add(admin)
+		db.session.add(standard)
+		db.session.add(readonly)
+		db.session.add(inactive)
+		db.session.commit()
+		print("Default admin account 'admin@localhost' created. Welcome to RoomReserve.")
 
 
-defaultAdmins = []
-for me in db.session.query(User).filter_by(email='admin@localhost'):
-	defaultAdmins.append(me)
-if len(defaultAdmins) > 0:
-	#default admin is already created
-	print("Default admin account admin@localhost exists.")
-else:
-	createDefaultAccounts()
+createDefaultAccounts()
 
 # Try not to add additional page routes in here.
 
@@ -140,13 +142,24 @@ def page_today():
 @app.route('/droptables', methods=['GET', 'POST'])
 def droptables():
 	# Drops all the data we have currently.
-	password = 'delete'
-	if request.method == 'POST' and request.form['verify'] == password:
+	deleteAll_Password = 'deleteall'
+	deleteAll_ExceptUsers = 'delete'
+
+
+	if request.method == 'POST' and request.form['verify'] == deleteAll_Password:
 		db.drop_all()
 		db.create_all()
 		createDefaultAccounts()
 		print("TABLES REBUILT")
 		return render_template('basic.html',title="Tables erased.",content="Data has been reset")
+
+	elif request.method == 'POST' and request.form['verify'] == deleteAll_ExceptUsers:
+		db.drop_all(bind=Reservation)
+		db.create_all()
+		createDefaultAccounts()
+		print("TABLES REBUILT")
+		return render_template('basic.html',title="Tables erased.",content="SOME data has been reset")
+
 	else:
 		content = 'Type the password to verify. <form action="/droptables" method="POST">'
 		content += '<input type="text" name="verify">'

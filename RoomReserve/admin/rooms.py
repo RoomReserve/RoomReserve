@@ -11,7 +11,7 @@ class form_CreateRoom(Form):
             validators=[DataRequired()])
     roomnumber = IntegerField('Room Number', validators=[DataRequired()])
     capacity = IntegerField('Capacity', validators=[DataRequired()])
-    active = BooleanField('Active')
+    active = BooleanField('Active', default=True)
 
 
     def __init__(self):
@@ -25,6 +25,7 @@ class form_CreateRoom(Form):
 
 
 @app.route('/admin/rooms', methods=['GET', 'POST'])
+@login_required
 def page_rooms():
 
     if request.method == 'POST':
@@ -34,14 +35,13 @@ def page_rooms():
         floor = formdata['floor']
         roomnumber = formdata['roomnumber']
         capacity = formdata['capacity']
-        active = formdata['active']
+        if 'active' in formdata:
+            status = Static.ready_status
+        else:
+            status = Static.inactive_status
         #description = formdata['description']
         description = ""
 
-        if active:
-            status = "Ready"
-        else:
-            status = "Inactive"
 
         # create the room
         if createRoom(roomnumber, floor, building, capacity, description, status):

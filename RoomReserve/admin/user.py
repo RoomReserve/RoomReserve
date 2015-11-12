@@ -14,6 +14,7 @@ class form_CreateUser(Form):
 
 
 @app.route('/admin/users', methods=['GET', 'POST'])
+@login_required
 def page_users():
 
     if request.method == 'POST':
