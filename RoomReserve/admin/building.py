@@ -3,7 +3,7 @@ from RoomReserve import *
 class form_CreateBuilding(Form):
     name = StringField('Building Name', validators=[DataRequired()])
     numFloors = IntegerField('Number of Floors') #not required
-    active = BooleanField('Active')
+    active = BooleanField('Active', default=True)
     description = TextAreaField('Description')
 
 
@@ -19,7 +19,7 @@ def page_buildings():
         name = formdata['name']
         numFloors = formdata['numFloors']
         description = formdata['description']
-        if formdata['active']:
+        if 'active' in formdata:
             status = Static.ready_status
         else:
             status = Static.inactive_status
