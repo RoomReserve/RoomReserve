@@ -10,6 +10,7 @@ class form_CreateBuilding(Form):
 
 
 @app.route('/admin/buildings', methods=['GET', 'POST'])
+@login_required
 def page_buildings():
 
     if request.method == 'POST':

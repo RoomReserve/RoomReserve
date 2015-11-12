@@ -63,6 +63,7 @@ class form_CreateReservation(Form):
 
 
 @app.route('/admin/reservation', methods=['GET', 'POST'])
+@login_required
 def page_reservation():
 
     if request.method == 'POST':

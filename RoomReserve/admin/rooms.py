@@ -25,6 +25,7 @@ class form_CreateRoom(Form):
 
 
 @app.route('/admin/rooms', methods=['GET', 'POST'])
+@login_required
 def page_rooms():
 
     if request.method == 'POST':

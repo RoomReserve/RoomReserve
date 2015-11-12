@@ -2,7 +2,7 @@ from RoomReserve import *
 from RoomReserve.helpers.linkList import linkList
 
 @app.route("/admin")
-@Login.login_required
+@login_required
 def page_admin():
 
     title="Configuration"

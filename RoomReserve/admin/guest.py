@@ -11,6 +11,7 @@ class form_CreateGuest(Form):
 
 
 @app.route('/admin/guest', methods=['GET', 'POST'])
+@login_required
 def page_guest():
 
     if request.method == 'POST':
