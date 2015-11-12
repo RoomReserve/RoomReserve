@@ -25,10 +25,10 @@ def page_guestfind():
             pass
         else:
             # createGuest returned false, the guest could not be created.
-            return render('basic.html', content="Could not create guest.")
+            return render('basic.html', content="Could not find guest.")
 
     form = form_FindGuest()
-    guests = getAllGuests()
+    guests = getGuestSearch(firstname, lastname, email, phone)
     return render('guestfind.html', form=form, guests=guests)
     
     
