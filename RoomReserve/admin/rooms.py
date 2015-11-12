@@ -11,7 +11,7 @@ class form_CreateRoom(Form):
             validators=[DataRequired()])
     roomnumber = IntegerField('Room Number', validators=[DataRequired()])
     capacity = IntegerField('Capacity', validators=[DataRequired()])
-    active = BooleanField('Active')
+    active = BooleanField('Active', default=True)
 
 
     def __init__(self):
