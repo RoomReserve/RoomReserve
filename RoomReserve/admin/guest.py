@@ -24,6 +24,7 @@ def page_guest():
         for char in formdata['phone']:
             if char in "0123456789":
                 phone += char
+        phone = int(phone)
         address = formdata['address']
         payment = formdata['payment']
         notes = formdata['notes']
