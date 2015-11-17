@@ -59,11 +59,31 @@ def page_updateUser(id):
     else:
         allowEdit = False
 
-    form = form_CreateUser()
     myUser = getUserById(id)
 
+    if request.method == 'POST':
+        # the form has been filled out, import the data
+        formdata = request.form
+        firstname = formdata['firstname']
+        lastname = formdata['lastname']
+        email = formdata['email']
+        role = formdata['role']
+
+        if firstname != myUser.first:
+            myUser.setFirstName(firstname)
+        if lastname != myUser.last:
+            myUser.setLastName(lastname)
+        if email != myUser.email:
+            myUser.setEmail(email)
+        if role != myUser.role:
+            myUser.setRole(role)
+
+        return redirect(url_for('page_users'))
+
+
+    form = form_CreateUser()
     form.populate(myUser, allowEdit)
-    return render('users_edit.html', form=form, allowEdit=allowEdit)
+    return render('users_edit.html', form=form, userid=id, allowEdit=allowEdit)
 
 def getAllUsers():
     # returns all users in a list

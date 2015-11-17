@@ -5,13 +5,20 @@
 
 
 <div>
-  <form class="well" method="POST" action="/admin/users">
-    {{ form.csrf_token }}
-    {{ form.firstname.label }} {{ form.firstname(size=20) }}
-    {{ form.lastname.label }} {{ form.lastname(size=20) }} <br />
-    {{ form.email.label }} {{ form.email(size=20) }} <br />
-    {{ form.password.label }} {{ form.password(size=20) }} <br />
-    {{ form.role.label }} {{ form.role}} <br /><br />
+
+  <form class="well" method="POST" action="/admin/users/{{ userid }}">
+    {% for field in form %}
+      <tr>
+          <td>{{ field.label }}</td>
+          {% if allowEdit %}
+          <td>{{ field }}</td>
+          {% else %}
+          <td>{{ field(readonly=True) }}
+          {% endif %}
+          <br />
+      </tr>
+    {% endfor %}
+
 
     <input type="submit" value="Edit">
   </form>
