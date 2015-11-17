@@ -20,7 +20,10 @@ def page_guest():
         firstname = formdata['firstname']
         lastname = formdata['lastname']
         email = formdata['email']
-        phone = formdata['phone']
+        phone = ""
+        for char in formdata['phone']:
+            if char in "0123456789":
+                phone += char
         address = formdata['address']
         payment = formdata['payment']
         notes = formdata['notes']
