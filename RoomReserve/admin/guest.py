@@ -3,7 +3,7 @@ from RoomReserve import *
 class form_CreateGuest(Form):
     firstname = StringField('First Name', validators=[DataRequired()])
     lastname = StringField('Last Name', validators=[DataRequired()])
-    email = StringField('Email Address', validators=[DataRequired()], type = "email")
+    email = StringField('Email Address', validators=[DataRequired()])
     phone = StringField('Phone Number', validators=[DataRequired()])
     address = StringField('Address', validators=[DataRequired()])
     payment = StringField('Payment', validators=[DataRequired()])
