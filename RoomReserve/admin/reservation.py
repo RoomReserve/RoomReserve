@@ -46,7 +46,7 @@ class form_CreateReservation(Form):
     hourIn = SelectField('Hour', choices=hourList, validators=[DataRequired()])
     minuteIn = SelectField('Minute', choices=minuteList, validators=[DataRequired()])
 
-    monthOut = SelectField('Month Out', choices=hourList, validators=[DataRequired()])
+    monthOut = SelectField('Month Out', choices=monthList, validators=[DataRequired()])
     dayOut = SelectField('Day', choices=dayList, validators=[DataRequired()])
     yearOut = SelectField('Year', choices=yearList, validators=[DataRequired()])
     hourOut = SelectField('Hour', choices=hourList, validators=[DataRequired()])
