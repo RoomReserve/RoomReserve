@@ -1,0 +1,22 @@
+{% extends 'default.html' %}
+
+{% block body1 %}
+
+
+
+<div>
+  <form class="well" method="POST" action="/admin/users">
+    {{ form.csrf_token }}
+    {{ form.firstname.label }} {{ form.firstname(size=20) }}
+    {{ form.lastname.label }} {{ form.lastname(size=20) }} <br />
+    {{ form.email.label }} {{ form.email(size=20) }} <br />
+    {{ form.password.label }} {{ form.password(size=20) }} <br />
+    {{ form.role.label }} {{ form.role}} <br /><br />
+
+    <input type="submit" value="Edit">
+  </form>
+
+</div>
+
+
+{% endblock %}

@@ -6,11 +6,19 @@ class form_CreateUser(Form):
     email = StringField('Email Address', validators=[DataRequired()])
     password = PasswordField('Password')
     role = SelectField('Role',\
-        choices=[('admin', 'Administrator'),\
-                ('standard', 'Standard User'),\
-                ('readonly', 'Read Only'),\
-                ('inactive', 'Inactive')\
+        choices=[(Static.role_admin, 'Administrator'),\
+                (Static.role_standard, 'Standard User'),\
+                (Static.role_readonly, 'Read Only'),\
+                (Static.role_inactive, 'Inactive')\
                 ])
+
+    def populate(self, thisUser, allowEdit=False):
+        self.firstname.default = thisUser.first
+        self.lastname.default = thisUser.last
+        self.email.default = thisUser.email
+        self.password.default = ""
+        self.role.default = thisUser.role
+        self.process()
 
 
 @app.route('/admin/users', methods=['GET', 'POST'])
@@ -51,7 +59,10 @@ def page_updateUser(id):
     else:
         allowEdit = False
 
-    form = form_createUser
+    form = form_CreateUser()
+    myUser = getUserById(id)
+
+    form.populate(myUser, allowEdit)
     return render('users_edit.html', form=form, allowEdit=allowEdit)
 
 def getAllUsers():
