@@ -2,7 +2,7 @@
 
 {% block body1 %}
 
-
+<div>
 <form class="well" method="POST" action="/admin/reservation">
   {{ form.csrf_token }}
   {{ form.guestID.label }} {{ form.guestID }}
@@ -24,9 +24,9 @@
   <input type="submit" value="Create">
 </form>
 <hr />
+</div>
 
-
-<div class="panel panel-info col-md-9">
+<div class="panel panel-primary col-md">
   <div class="panel-heading">
     <h3 class="panel-title">Reservations</h3>
   </div>

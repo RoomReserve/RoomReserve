@@ -34,7 +34,7 @@
 <hr />
 
 
-<div class="panel panel-success col-md">
+<div class="panel panel-primary col-md">
   <div class="panel-heading">
     <h3 class="panel-title">Rooms</h3>
   </div>
@@ -58,7 +58,7 @@
           			<td>{{ r.id }}</td>
           			<td>{{ r.getMyBuildingName() }}</td>
           			<td>{{ r.floor }}</td>
-                <td><strong>{{ r.roomnumber }}</strong></td>
+                <td><a href = "/edit/room"><strong>{{ r.roomnumber }}</strong></a></td>
                 <td>{{ r.capacity }}</td>
                 <td>{{ r.status }}</td>
           		</tr>

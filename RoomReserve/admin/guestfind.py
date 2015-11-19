@@ -1,18 +1,14 @@
 from RoomReserve import *
 
-class form_CreateGuest(Form):
+class form_FindGuest(Form):
     firstname = StringField('First Name', validators=[DataRequired()])
     lastname = StringField('Last Name', validators=[DataRequired()])
     email = StringField('Email Address', validators=[DataRequired()])
     phone = StringField('Phone Number', validators=[DataRequired()])
-    address = StringField('Address', validators=[DataRequired()])
-    payment = StringField('Payment', validators=[DataRequired()])
-    notes = TextAreaField('Notes')
 
 
-@app.route('/admin/guest', methods=['GET', 'POST'])
-@login_required
-def page_guest():
+@app.route('/admin/guestfind', methods=['GET', 'POST'])
+def page_guestfind():
 
     if request.method == 'POST':
         # the form has been filled out, import the data
@@ -20,30 +16,23 @@ def page_guest():
         firstname = formdata['firstname']
         lastname = formdata['lastname']
         email = formdata['email']
-        phone = ""
-        for char in formdata['phone']:
-            if char in "0123456789":
-                phone += char
-        phone = int(phone)
-        address = formdata['address']
-        payment = ""
-        for char in formdata['payment']:
-            if char in "0123456789":
-                payment += char
-        payment = int(payment)
-        notes = formdata['notes']
+        phone = formdata['phone']
+
 
         # create the guest
-        if createGuest(firstname, lastname, email, phone, address, payment, notes):
-            # guest created sucessfully
+        if getGuestSearch(firstname, lastname, email, phone):
+            # guest found sucessfully
             pass
         else:
             # createGuest returned false, the guest could not be created.
-            return render('basic.html', content="Could not create guest.")
+            return render('basic.html', content="Could not find guest.")
 
-    form = form_CreateGuest()
-    guests = getAllGuests()
-    return render('guests.html', form=form, guests=guests)
+    form = form_FindGuest()
+    guests = getGuestSearch(firstname, lastname, email, phone)
+    return render('guestfind.html', form=form, guests=guests)
+    
+    
+
 
 def getAllGuests():
     # returns all guests in a dictionary
@@ -62,6 +51,43 @@ def getGuestByPhone(myphone):
     if len(guests) == 1:
         # if we got a guest back, return it.
         return guests[0]
+    return False
+    
+def getGuestSearch(first, last, email, phone):
+    guests = []
+    filterstring = ""
+    
+    # make a query from which fields are filled
+    if first != "":
+      filterstring += "first=first"
+      
+    if last != "":
+      if filterstring != "":
+        filterstring += ",last=last"
+        
+      else:
+        filterstring += "last=last"
+        
+    if email != "":
+      if filterstring != "":
+        filterstring += ",email=email"
+        
+      else:
+        filterstring += "email=email"
+        
+    if phone != "":
+      if filterstring != "":
+        filterstring += ",phone=phone"
+        
+      else:
+        filterstring += "phone=phone"
+        
+    for me in db.session.query(Guest).filter_by(filterstring):
+        # Gets guests from Guest where phone=myphone
+    	guests.append(me)
+    if len(guests) >= 1:
+        # if we got a guest back, return it.
+        return guests
     return False
 
 def getGuestByEmail(myEmail):

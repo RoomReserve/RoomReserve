@@ -2,24 +2,21 @@
 
 {% block body1 %}
 
-<form class="well" method="POST" action="/admin/guest">
+<form class="well" method="POST" action="/admin/guestfind">
   {{ form.csrf_token }}
   {{ form.firstname.label }} {{ form.firstname(size=20) }}
   {{ form.lastname.label }} {{ form.lastname(size=20) }} <br />
   {{ form.email.label }} {{ form.email(size=50) }} <br />
   {{ form.phone.label }} {{ form.phone(size=20) }} <br />
-  {{ form.address.label }} {{ form.address(size=50) }} <br />
-  {{ form.payment.label }} {{ form.payment(size=25) }} <br />
-  {{ form.notes.label }} {{ form.notes(size=300) }} <br /><br />
 
-  <input type="submit" value="Create">
+  <input type="submit" value="Search">
 </form>
 <hr />
 
 
 <div class="panel panel-info col-md">
   <div class="panel-heading">
-    <h3 class="panel-title">Guests</h3>
+    <h3 class="panel-title">Search Guests</h3>
   </div>
   <div class="panel-body">
     <div class="col-md-12">
@@ -32,9 +29,7 @@
               <th>Last Name</th>
               <th>Email</th>
               <th>Phone</th>
-              <th>Address</th>
-              <th>Payment</th>
-              <th>Notes</th>
+
             </tr>
           </thead>
           <tbody>
@@ -45,9 +40,6 @@
         			<td>{{ u.last }}</td>
               <td>{{ u.email }}</td>
               <td>{{ u.phone }}</td>
-              <td>{{ u.address }}</td>
-              <td> ${{ u.payment }}</td>
-              <td>{{ u.notes }}</td>
             </tr>
           {% endfor %}
 
