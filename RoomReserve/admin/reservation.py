@@ -76,7 +76,7 @@ class form_CreateReservation(Form):
 #});
 
 # @app.restrict('GET')
-@jsonify
+# @jsonify
 def tag_autocomplete(self):
     if 'query' not in request.params:
         abort(400)
