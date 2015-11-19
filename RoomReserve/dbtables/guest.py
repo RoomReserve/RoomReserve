@@ -5,7 +5,7 @@ class Guest(db.Model):
 	first = db.Column(db.String(40), unique=False)
 	last = db.Column(db.String(40), unique=False)
 	email = db.Column(db.String(50), unique=True)
-	phone = db.Column(db.Integer, unique=False)
+	phone = db.Column(db.String(20), unique=False)
 	address = db.Column(db.String(75), unique=False)
 	payment = db.Column(db.Integer, unique=False)
 	notes = db.Column(db.String(500), unique=False)
