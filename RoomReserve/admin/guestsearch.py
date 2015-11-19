@@ -28,7 +28,7 @@ def page_guestsearch():
             return render('basic.html', content="Could not find guest.")
 
     form = form_FindGuest()
-    guests = getGuestSearch(firstname, lastname, email, phone)
+    guests = getAllGuests()
     return render('guestsearch.html', form=form, guests=guests)
     
     
