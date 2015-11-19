@@ -6,6 +6,20 @@
 
 <div>
 
+  {% if isCurrentUser %}
+    <div class="alert alert-warning" role="alert">
+      You are currently logged in as this user.
+    </div>
+  {% endif %}
+  {% if not allowEdit %}
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+        <em>You don't have permission to edit users.</em>
+      </div>
+    </div>
+  {% endif %}
+
   <form class="well" method="POST" action="/admin/users/{{ userid }}">
     {% for field in form %}
       <tr>
@@ -19,8 +33,9 @@
       </tr>
     {% endfor %}
 
-
+    {% if allowEdit %}
     <input type="submit" value="Edit">
+    {% endif %}
   </form>
 
 </div>
