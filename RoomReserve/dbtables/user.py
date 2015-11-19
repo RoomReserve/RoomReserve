@@ -114,7 +114,7 @@ class User(db.Model):
 		# Changes/sets the email address for the user
 		# Returns the role. False upon failure
 		try:
-			self.role = ro
+			self.role = newRole
 			db.session.commit()
 		except:
 			return False

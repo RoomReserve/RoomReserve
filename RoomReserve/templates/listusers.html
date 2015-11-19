@@ -50,7 +50,7 @@
           <tbody>
           {% for u in users %}
             <tr>
-              <td>{{ u.id }}</td>
+              <td><a href="/admin/users/{{ u.id }}">{{ u.id }}</a></td>
         			<td>{{ u.first }}</td>
         			<td>{{ u.last }}</td>
               <td><strong>{{ u.email }}</strong></td>

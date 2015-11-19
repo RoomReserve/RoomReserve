@@ -6,11 +6,19 @@ class form_CreateUser(Form):
     email = StringField('Email Address', validators=[DataRequired()])
     password = PasswordField('Password')
     role = SelectField('Role',\
-        choices=[('admin', 'Administrator'),\
-                ('standard', 'Standard User'),\
-                ('readonly', 'Read Only'),\
-                ('inactive', 'Inactive')\
+        choices=[(Static.role_admin, 'Administrator'),\
+                (Static.role_standard, 'Standard User'),\
+                (Static.role_readonly, 'Read Only'),\
+                (Static.role_inactive, 'Inactive')\
                 ])
+
+    def populate(self, thisUser, allowEdit=False):
+        self.firstname.default = thisUser.first
+        self.lastname.default = thisUser.last
+        self.email.default = thisUser.email
+        self.password.default = ""
+        self.role.default = thisUser.role
+        self.process()
 
 
 @app.route('/admin/users', methods=['GET', 'POST'])
@@ -41,7 +49,45 @@ def page_users():
     else:
         # Not an admin, no form.
         form = False
-    return render('users.html', form=form, users=users)
+    return render('listusers.html', form=form, users=users)
+
+@app.route('/admin/users/<id>', methods=['GET', 'POST'])
+def page_updateUser(id):
+    id=int(id)
+    myUser = getUserById(id)
+
+    if current_user.is_admin() or current_user.getID() == id:
+        # Only admins can edit users
+        # Users can edit themselves
+        allowEdit = True
+    else:
+        allowEdit = False
+
+
+    if request.method == 'POST':
+        # the form has been filled out, import the data
+        formdata = request.form
+        firstname = formdata['firstname']
+        lastname = formdata['lastname']
+        email = formdata['email']
+        role = formdata['role']
+
+        if firstname != myUser.first:
+            myUser.setFirstName(firstname)
+        if lastname != myUser.last:
+            myUser.setLastName(lastname)
+        if email != myUser.email:
+            myUser.setEmail(email)
+        if role != myUser.role:
+            myUser.setRole(role)
+
+        return redirect(url_for('page_users'))
+
+
+    form = form_CreateUser()
+    form.populate(myUser, allowEdit)
+    return render('users_edit.html', form=form, userid=id, allowEdit=allowEdit,\
+                    isCurrentUser=(current_user.getID()==id))
 
 def getAllUsers():
     # returns all users in a list
