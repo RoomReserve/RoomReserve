@@ -7,8 +7,8 @@ class form_FindGuest(Form):
     phone = StringField('Phone Number', validators=[DataRequired()])
 
 
-@app.route('/admin/guestfind', methods=['GET', 'POST'])
-def page_guestfind():
+@app.route('/admin/guestsearch', methods=['GET', 'POST'])
+def page_guestsearch():
 
     if request.method == 'POST':
         # the form has been filled out, import the data
@@ -29,7 +29,7 @@ def page_guestfind():
 
     form = form_FindGuest()
     guests = getGuestSearch(firstname, lastname, email, phone)
-    return render('guestfind.html', form=form, guests=guests)
+    return render('guestsearch.html', form=form, guests=guests)
     
     
 
