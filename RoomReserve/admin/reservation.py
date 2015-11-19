@@ -59,7 +59,7 @@ class form_CreateReservation(Form):
                 ('checkedout', 'Checked Out'),\
                 ('waiting', 'Waiting')\
                 ])
-    notes = StringField('Check Out Time', validators=[DataRequired()])
+    notes = TextAreaField('Notes', validators=[DataRequired()])
 
 
 @app.route('/admin/reservation', methods=['GET', 'POST'])
