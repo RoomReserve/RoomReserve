@@ -22,7 +22,7 @@ class Building(db.Model):
 		return self.name
 
 	def get_floors(self):
-		return self.numfloors(self)
+		return self.numfloors
 
 	def get_description(self):
 		return self.description
