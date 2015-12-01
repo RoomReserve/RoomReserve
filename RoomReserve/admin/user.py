@@ -25,27 +25,6 @@ class form_CreateUser(Form):
 @login_required
 def page_users():
 
-
-    # Editor
-
-    def edit_form(id):
-        form = form_CreateUser()
-        id=int(id)
-        myUser = getUserById(id)
-        form.populate(myUser)
-        print("---editform")
-        return form
-
-    def allowEdit(id):
-        if current_user.is_admin() or current_user.getID() == id:
-            # Only admins can edit users
-            # Users can edit themselves
-            return True
-        else:
-            return False
-
-    # /Editor
-
     if request.method == 'POST':
         # the form has been filled out, import the data
         formdata = request.form
@@ -70,8 +49,7 @@ def page_users():
     else:
         # Not an admin, no form.
         form = False
-    return render('listusers.html', form=form, users=users,
-    edit_form=edit_form, allowEdit=allowEdit)
+    return render('listusers.html', form=form, users=users)
 
 @app.route('/admin/users/<id>', methods=['GET', 'POST'])
 def page_updateUser(id):

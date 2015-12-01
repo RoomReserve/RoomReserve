@@ -2,21 +2,21 @@
 
 {% block body1 %}
 
-<form class="well" method="POST" action="/admin/guestfind">
+<form class="well" method="POST" action="/admin/guestsearch">
   {{ form.csrf_token }}
   {{ form.firstname.label }} {{ form.firstname(size=20) }}
   {{ form.lastname.label }} {{ form.lastname(size=20) }} <br />
   {{ form.email.label }} {{ form.email(size=50) }} <br />
-  {{ form.phone.label }} {{ form.phone(size=20) }} <br />
+  {{ form.phone.label }} {{ form.phone(size=20) }} <br /> </br>
 
-  <input type="submit" value="Search">
+  <input type="submit"  class="btn-primary" value="Search">
 </form>
 <hr />
 
 
-<div class="panel panel-info col-md">
+<div class="panel panel-primary col-md">
   <div class="panel-heading">
-    <h3 class="panel-title">Search Guests</h3>
+    <h3 class="panel-title">Search Result</h3>
   </div>
   <div class="panel-body">
     <div class="col-md-12">
@@ -29,7 +29,6 @@
               <th>Last Name</th>
               <th>Email</th>
               <th>Phone</th>
-
             </tr>
           </thead>
           <tbody>
