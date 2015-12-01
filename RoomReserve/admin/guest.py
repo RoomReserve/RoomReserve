@@ -46,9 +46,22 @@ def page_guest():
     return render('guests.html', form=form, guests=guests)
 
 def getAllGuests():
-    # returns all guests in a dictionary
+    # returns all guests in a list
     guests = []
     for me in db.session.query(Guest):
+    	guests.append(me)
+    return guests
+
+def getGuestByFirstName(fn):
+    # returns
+    guests = []
+    for me in db.session.query(Guest).filer_by(first=fn):
+    	guests.append(me)
+    return guests
+
+def getGuestByLastName(ln):
+
+    for me in db.session.query(Guest).filer_by(last=ln):
     	guests.append(me)
     return guests
 
