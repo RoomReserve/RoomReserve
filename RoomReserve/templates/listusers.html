@@ -43,12 +43,12 @@
         <div class="modal-body">
 
 
-          {% if isCurrentUser %}
+          {% if isCurrentUser(u.id) %}
             <div class="alert alert-warning" role="alert">
               You are currently logged in as this user.
             </div>
           {% endif %}
-          {% if not allowEdit %}
+          {% if not allowEdit(u.id) %}
             <div class="panel panel-default">
               <div class="panel-body">
                 <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
@@ -112,7 +112,7 @@
           <tbody>
           {% for u in users %}
             <tr>
-              <td><a href="/admin/users/{{ u.id }}">{{ u.id }}</a></td>
+              <td>{{ u.id }}</td>
         			<td>{{ u.first }}</td>
         			<td>{{ u.last }}</td>
               <td><strong>{{ u.email }}</strong></td>

@@ -43,6 +43,8 @@ def page_users():
         else:
             return False
 
+    def isCurrentUser(id):
+        return current_user.getID() == id
     # /Editor
 
     if request.method == 'POST':
@@ -70,20 +72,12 @@ def page_users():
         # Not an admin, no form.
         form = False
     return render('listusers.html', form=form, users=users,
-    edit_form=edit_form, allowEdit=allowEdit)
+    edit_form=edit_form, allowEdit=allowEdit, isCurrentUser=isCurrentUser)
 
 @app.route('/admin/users/<id>', methods=['GET', 'POST'])
 def page_updateUser(id):
     id=int(id)
     myUser = getUserById(id)
-
-    if current_user.is_admin() or current_user.getID() == id:
-        # Only admins can edit users
-        # Users can edit themselves
-        allowEdit = True
-    else:
-        allowEdit = False
-
 
     if request.method == 'POST':
         # the form has been filled out, import the data
@@ -102,13 +96,7 @@ def page_updateUser(id):
         if role != myUser.role:
             myUser.setRole(role)
 
-        return redirect(url_for('page_users'))
-
-
-    form = form_CreateUser()
-    form.populate(myUser, allowEdit)
-    return render('users_edit.html', form=form, userid=id, allowEdit=allowEdit,\
-                    isCurrentUser=(current_user.getID()==id))
+    return redirect(url_for('page_users'))
 
 def getAllUsers():
     # returns all users in a list
