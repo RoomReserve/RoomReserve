@@ -33,7 +33,6 @@ def page_users():
         id=int(id)
         myUser = getUserById(id)
         form.populate(myUser)
-        print("---editform")
         return form
 
     def allowEdit(id):
