@@ -64,6 +64,34 @@ class form_CreateReservation(Form):
 
 @app.route('/admin/reservation', methods=['GET', 'POST'])
 @login_required
+
+#this stuff below is supposed to get autocomplete to work.
+#Below might also need the following:
+
+#$("#sometextfield").autocomplete({
+#            serviceUrl:'/api/product_autocomplete',
+#            onSelect: function(val, data) {
+#              /* Handle data here */
+#            },
+#});
+
+# @jsonify
+# @app.restrict('GET')
+
+def tag_autocomplete(self):
+    if 'query' not in request.params:
+        abort(400)
+    fragment = request.params['query']
+    keywords = fragment.split()
+    searchstring = "%%".join(keywords)
+    searchstring = '%%%s%%' %(searchstring)
+    try:
+        ac_q = Session.query(Tag)
+        res = ac_q.filter(Tag.name.ilike(searchstring)).limit(10)
+        return dict(query=fragment, suggestions=[r.name for r in res], data=["%s" %(r.name) for r in res])
+    except NoResultFound:
+        return dict(query=fragment, suggestions=[], data=[])
+            
 def page_reservation():
 
     if request.method == 'POST':

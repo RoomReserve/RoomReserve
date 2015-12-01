@@ -1,16 +1,28 @@
 # Holds links for simpleMenuPage(s)
 
-# ::Sample usage::
-# @app.route("/admin")
-# def page_admin():
-#     title="Configuration"
-#     links = linkList()
-#     links.add("/admin/users", "Users", bold=True)
-#     links.add("/admin/buildings", "Buildings", italics=True)
-#     links.add("/admin/rooms", "Rooms", bold=True, italics=True)
-#     return render_template('simpleMenuPage.html', title=title, links=links.getLinks())
+class linkList(object):
+    '''
+    Holds linkItem objects for a list of links.
+    For use with a simpleMenuPage template.
 
-class linkList():
+    Parameters:
+    url
+    title
+    fa_icon (font-awesome icon)
+    bold (boolean)
+    italics (boolean)
+
+    Sample usage:
+    @app.route("/admin")
+    def page_admin():
+        title="Configuration"
+        links = linkList()
+        links.add("/admin/users", "Users", bold=True)
+        links.add("/admin/buildings", "Buildings", italics=True)
+        links.add("/admin/rooms", "Rooms", bold=True, italics=True)
+        return render_template('simpleMenuPage.html', title=title, links=links.getLinks())
+    '''
+
     links = []
     def __init__(self):
         self.links = []
@@ -25,7 +37,16 @@ class linkList():
 
 
 
-class linkItem():
+class linkItem(object):
+    '''
+    A link item for a linkList.
+    Parameters:
+    url
+    title
+    fa_icon (font-awesome icon)
+    bold (boolean)
+    italics (boolean)
+    '''
     url = ""
     title = ""
     fa_icon = "none"
