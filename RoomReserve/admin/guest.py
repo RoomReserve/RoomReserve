@@ -55,13 +55,13 @@ def getAllGuests():
 def getGuestByFirstName(fn):
     # returns
     guests = []
-    for me in db.session.query(Guest).filer_by(first=fn):
+    for me in db.session.query(Guest).fitler_by(first=fn):
     	guests.append(me)
     return guests
 
 def getGuestByLastName(ln):
 
-    for me in db.session.query(Guest).filer_by(last=ln):
+    for me in db.session.query(Guest).filter_by(last=ln):
     	guests.append(me)
     return guests
 
