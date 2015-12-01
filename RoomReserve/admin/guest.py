@@ -1,12 +1,12 @@
 from RoomReserve import *
 
 class form_CreateGuest(Form):
-    firstname = StringField('First Name', validators=[validators.Length(min=1, max=40)])
-    lastname = StringField('Last Name', validators=[validators.Length(min=1, max=40)])
-    email = StringField('Email Address', validators=[validators.email()])
-    phone = StringField('Phone Number', validators=[validators.Length(min=10, max=20)])
-    address = StringField('Address', validators=[validators.Length(min=1, max=75)])
-    payment = StringField('Payment', validators=[validators.Length(min=1, max=7)])
+    firstname = StringField('First Name', [validators.Length(min=1, max=40)])
+    lastname = StringField('Last Name', [validators.Length(min=1, max=40)])
+    email = StringField('Email Address', [validators.email()])
+    phone = StringField('Phone Number', [validators.Length(min=10, max=20)])
+    address = StringField('Address', [validators.Length(min=1, max=75)])
+    payment = StringField('Payment', [validators.Length(min=1, max=7)])
     notes = TextAreaField('Notes')
 
 
