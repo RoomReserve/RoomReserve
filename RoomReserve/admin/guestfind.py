@@ -1,6 +1,5 @@
 from RoomReserve import *
 
-
 class form_FindGuest(Form):
     firstname = StringField('First Name', validators=[DataRequired()])
     lastname = StringField('Last Name', validators=[DataRequired()])
@@ -8,10 +7,8 @@ class form_FindGuest(Form):
     phone = StringField('Phone Number', validators=[DataRequired()])
 
 
-
-
-@app.route('/admin/guestsearch', methods=['GET', 'POST'])
-def page_guestsearch():
+@app.route('/admin/guestfind', methods=['GET', 'POST'])
+def page_guestfind():
 
     if request.method == 'POST':
         # the form has been filled out, import the data
@@ -24,16 +21,16 @@ def page_guestsearch():
 
         # create the guest
         if getGuestSearch(firstname, lastname, email, phone):
-            guests = getGuestSearch(firstname, lastname, email, phone)
             # guest found sucessfully
             pass
         else:
             # createGuest returned false, the guest could not be created.
             return render('basic.html', content="Could not find guest.")
-        return render('guestsearch.html', form=form, guests=guests)
 
     form = form_FindGuest()
-    return render('guestsearch.html', form=form)
+    guests = getGuestSearch(firstname, lastname, email, phone)
+    return render('guestfind.html', form=form, guests=guests)
+    
     
 
 
@@ -56,6 +53,42 @@ def getGuestByPhone(myphone):
         return guests[0]
     return False
     
+def getGuestSearch(first, last, email, phone):
+    guests = []
+    filterstring = ""
+    
+    # make a query from which fields are filled
+    if first != "":
+      filterstring += "first=first"
+      
+    if last != "":
+      if filterstring != "":
+        filterstring += ",last=last"
+        
+      else:
+        filterstring += "last=last"
+        
+    if email != "":
+      if filterstring != "":
+        filterstring += ",email=email"
+        
+      else:
+        filterstring += "email=email"
+        
+    if phone != "":
+      if filterstring != "":
+        filterstring += ",phone=phone"
+        
+      else:
+        filterstring += "phone=phone"
+        
+    for me in db.session.query(Guest).filter_by(filterstring):
+        # Gets guests from Guest where phone=myphone
+    	guests.append(me)
+    if len(guests) >= 1:
+        # if we got a guest back, return it.
+        return guests
+    return False
 
 def getGuestByEmail(myEmail):
     # returns single guest object with the given Email
@@ -94,8 +127,3 @@ def createGuest(fn, ln, em, ph, addr, paym, notes):
         # Prints why the guest could not be added in the terminal.
         print(e)
         return False
-        
-
-def getGuestSearch(first, last, email, phone):
-    guests = []
-
