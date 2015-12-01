@@ -2,15 +2,6 @@
 
 {% block body1 %}
 
-<form class="well" method="POST" action="/admin/guestsearch">
-  {{ form.csrf_token }}
-  {{ form.firstname.label }} {{ form.firstname(size=20) }}
-
-
-  <input type="submit"  class="btn-primary" value="Search">
-</form>
-<hr />
-
 
 <div class="panel panel-primary col-md">
   <div class="panel-heading">
@@ -33,8 +24,8 @@
           {% for u in guests %}
             <tr>
               <td>{{ u.id }}</td>
-              <td>{{ u.first }}</td>
-              <td>{{ u.last }}</td>
+        			<td>{{ u.first }}</td>
+        			<td>{{ u.last }}</td>
               <td>{{ u.email }}</td>
               <td>{{ u.phone }}</td>
             </tr>

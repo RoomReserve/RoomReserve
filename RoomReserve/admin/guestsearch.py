@@ -1,101 +1,48 @@
-from RoomReserve import *
+from RoomReserve import * 
+from RoomReserve.admin.guest import *
 
 
-class form_FindGuest(Form):
+class form_SearchGuest(Form):
     firstname = StringField('First Name', validators=[DataRequired()])
-    lastname = StringField('Last Name', validators=[DataRequired()])
-    email = StringField('Email Address', validators=[DataRequired()])
-    phone = StringField('Phone Number', validators=[DataRequired()])
+    # lastname = StringField('Last Name', validators=[DataRequired()])
+    
+
+# Get all the guest info from the database
+def guestQuery(gid):
+
+    result = []
+    q = getGuest(gid)
+    result.append(q)
+
+    return result
+
+def findGuestid(name):
+
+    q = session.query(Guest).filter(Guest.first == first).one() 
+    return q.id
 
 
+@app.route('/admin/guestsearch', methods=['GET','POST'])
 
-
-@app.route('/admin/guestsearch', methods=['GET', 'POST'])
-def page_guestsearch():
+def guestsearch():
+    form = form_SearchGuest()
 
     if request.method == 'POST':
-        # the form has been filled out, import the data
-        formdata = request.form
-        firstname = formdata['firstname']
-        lastname = formdata['lastname']
-        email = formdata['email']
-        phone = formdata['phone']
+        if 'firstname' in request.form: 
+            firstname = request.form['firstname']
 
-
-        # create the guest
-        if getGuestSearch(firstname, lastname, email, phone):
-            guests = getGuestSearch(firstname, lastname, email, phone)
-            # guest found sucessfully
-            pass
-        else:
-            # createGuest returned false, the guest could not be created.
-            return render('basic.html', content="Could not find guest.")
-        return render('guestsearch.html', form=form, guests=guests)
-
-    form = form_FindGuest()
+            gid = getGuestByFirstName(firstname)[0].id
+            gid = str(gid)
+            full_url = url_for('gprofile', gid=gid)
+            return redirect(full_url)
+            
     return render('guestsearch.html', form=form)
-    
 
 
-def getAllGuests():
-    # returns all guests in a dictionary
-    guests = []
-    for me in db.session.query(Guest):
-    	guests.append(me)
-    return guests
+# Guest Profile
+@app.route('/admin/gprofile/<gid>')
+def gprofile(gid):
+    guests = guestQuery(gid)
 
-def getGuestByPhone(myphone):
-    # returns single guest object with the given phone number
-    # if no guest is found with that phone number, return false.
-    guests = []
-    for me in db.session.query(Guest).filter_by(phone=myphone):
-        # Gets guests from Guest where phone=myphone
-    	guests.append(me)
-    if len(guests) == 1:
-        # if we got a guest back, return it.
-        return guests[0]
-    return False
-    
-
-def getGuestByEmail(myEmail):
-    # returns single guest object with the given Email
-    # if no guest is found with that phone number, return false.
-    guests = []
-    for me in db.session.query(Guest).filter_by(email=myEmail):
-        # Gets guests from Guest where email=myEmail
-    	guests.append(me)
-    if len(guests) == 1:
-        # if we got a guest back, return it.
-        return guests[0]
-    return False
-
-def getGuest(myid):
-    # returns single guest object with the given id
-    # if no guest is found with that id, return false.
-    guests = []
-    for me in db.session.query(Guest).filter_by(id=myid):
-        # Gets guest from Guest where id=myid
-    	guests.append(me)
-    if len(guests) == 1:
-        # if we got a guest back, return it.
-        return guests[0]
-    return False
-
-def createGuest(fn, ln, em, ph, addr, paym, notes):
-    # Adds a guest to the database.
-    # Returns True if guest added successfully, else False.
-    try:
-        me = Guest(fn, ln, em, ph, addr, paym, notes)
-        db.session.add(me)
-        db.session.commit()
-        return True
-
-    except Exception as e:
-        # Prints why the guest could not be added in the terminal.
-        print(e)
-        return False
-        
-
-def getGuestSearch(first, last, email, phone):
-    guests = []
+    return render('gprofile.html', guests=guests)
 
