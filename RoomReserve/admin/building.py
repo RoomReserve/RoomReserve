@@ -6,12 +6,33 @@ class form_CreateBuilding(Form):
     active = BooleanField('Active', default=True)
     description = TextAreaField('Description')
 
+    def populate(self, thisBuilding):
+        self.name.default = thisBuilding.name
+        self.numFloors.default = thisBuilding.numfloors
+        #self.active.default = thisBuilding.status
+        self.description.default = thisBuilding.description
+        self.process()
 
 
 
 @app.route('/admin/buildings', methods=['GET', 'POST'])
 @login_required
 def page_buildings():
+
+    # Editor
+    def edit_form(id):
+        form = form_CreateBuilding()
+        id=int(id)
+        form.populate(getBuildingById(id))
+        return form
+
+    def allowEdit(id=0):
+        if current_user.is_admin():
+            # Only admins can edit buildings
+            return True
+        else:
+            return False
+    # /Editor
 
     if request.method == 'POST':
         # the form has been filled out, import the data
@@ -41,7 +62,30 @@ def page_buildings():
     else:
         # Not an admin, don't get the form.
         form = False
-    return render('listbuildings.html', form=form, buildings=buildings)
+    return render('listbuildings.html', form=form, buildings=buildings, \
+      edit_form=edit_form, allowEdit=allowEdit)
+
+@app.route('/admin/buildings/<id>', methods=['POST'])
+def page_updateBuilding(id):
+    id=int(id)
+    myBuilding = getBuildingById(id)
+
+    formdata = request.form
+    name = formdata['name']
+    numfloors = int(formdata['numFloors'])
+    description = formdata['description']
+
+    if name != myBuilding.get_name():
+        myBuilding.set_name(name)
+    if numfloors != myBuilding.get_floors():
+        myBuilding.set_floors(numfloors)
+    # if status does not match
+    #   change status
+    if description != myBuilding.get_status():
+        myBuilding.set_description(description)
+
+    return redirect(url_for('page_buildings'))
+
 
 def getAllBuildings():
     # returns all buildings in a list
