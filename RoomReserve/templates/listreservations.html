@@ -1,0 +1,114 @@
+{% extends 'default.html' %}
+
+{% block body1 %}
+
+<!-- NEED TO ADD POPULATE TO ADMIN FILE -->
+
+
+<!-- Modal -->
+{% for r in reservations %}
+  <div class="modal fade" id="editReservation_{{ r.id }}" tabindex="-1" role="dialog" aria-labelledby="editReservationModal">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Edit Reservation</h4>
+        </div>
+        <div class="modal-body">
+
+          {% if not allowEdit() %}
+            <div class="panel panel-default">
+              <div class="panel-body">
+                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                <em>You don't have permission to edit reservations.</em>
+              </div>
+            </div>
+          {% endif %}
+          <form class="well" method="POST" action="/admin/reservation/{{ r.id }}">
+          
+          <!-- got here on edits!!!!! -->
+          
+            {% for field in edit_form(b.id) %}
+              <tr>
+                  <td>{{ field.label }}</td>
+                  {% if allowEdit() %}
+                    <td>{{ field }}</td>
+                  {% else %}
+                    <td>{{ field(readonly=True) }}
+                  {% endif %}
+                  <br />
+              </tr>
+            {% endfor %}
+
+            {% if allowEdit() %}
+            <br>
+            <input type="submit" class="btn-primary" value="Save Changes ">
+            {% endif %}
+          </form>
+
+
+        </div><!-- ./modal-body-->
+
+        <!--
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Save changes</button>
+        </div>
+        -->
+
+      </div>
+    </div>
+  </div>
+{% endfor %}
+<!-- /Modal -->
+
+
+
+<!-- Table of buildings -->
+<div class="panel panel-primary col-md">
+  <div class="panel-heading">
+    <h3 class="panel-title">Buildings</h3>
+  </div>
+  <div class="panel-body">
+    <div class="col-md-12">
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>id</th>
+              <th>Name</th>
+              <th>Floors</th>
+              <th>Status</th>
+              <th>Description</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for b in buildings %}
+          		<tr>
+          			<td>{{ b.id }}</td>
+          			<td><strong>{{ b.name }}</strong></td>
+          			<td>{{ b.numfloors }}</td>
+                <td>{{ b.status }}</td>
+                <td>{{b.description}}</td>
+                <td>
+                  <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#editBuilding_{{ b.id }}">
+                    {% if allowEdit() %}
+                      Edit
+                    {% else %}
+                      View
+                    {% endif %}
+                  </button>
+                </td>
+
+          		</tr>
+          	{% endfor %}
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
