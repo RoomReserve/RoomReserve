@@ -14,7 +14,7 @@ class form_CreateGuest(Form):
 @login_required
 def page_guest():
 
-    if request.method == 'POST':
+    if request.method == 'POST' and form.validate():
         # the form has been filled out, import the data
         formdata = request.form
         firstname = formdata['firstname']
