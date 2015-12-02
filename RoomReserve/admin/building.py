@@ -7,6 +7,13 @@ class form_CreateBuilding(Form):
     description = TextAreaField('Description')
 
     def populate(self, thisBuilding):
+        '''
+        Populates the fields of the form with the data currently
+        in the building given.
+
+        Parameters: a building object
+        '''
+
         self.name.default = thisBuilding.name
         self.numFloors.default = thisBuilding.numfloors
         #self.active.default = thisBuilding.status
@@ -21,12 +28,24 @@ def page_buildings():
 
     # Editor
     def edit_form(id):
+        '''
+        Returns the form back populated with the building information
+        from the ID given.
+
+        Parameters: id for a building.
+        '''
         form = form_CreateBuilding()
         id=int(id)
         form.populate(getBuildingById(id))
         return form
 
     def allowEdit(id=0):
+        '''
+        Figures out if the current user should be allowed
+        to edit the building. Currently, the buildingID is ignored.
+
+        Parameters: buildingID (optional)
+        '''
         if current_user.is_admin():
             # Only admins can edit buildings
             return True
@@ -67,6 +86,12 @@ def page_buildings():
 
 @app.route('/admin/buildings/<id>', methods=['POST'])
 def page_updateBuilding(id):
+    '''
+    Processing page for the building update form.
+
+    When update is complete, redirect to the list of buildings page
+    '''
+
     id=int(id)
     myBuilding = getBuildingById(id)
 
@@ -75,6 +100,8 @@ def page_updateBuilding(id):
     numfloors = int(formdata['numFloors'])
     description = formdata['description']
 
+    # Check to see if any of the fields have changed
+    # update any that have changed.
     if name != myBuilding.get_name():
         myBuilding.set_name(name)
     if numfloors != myBuilding.get_floors():
@@ -94,7 +121,7 @@ def getAllBuildings():
     	buildings.append(me)
     return buildings
 
-def getBuilding(myname):
+def getBuildingByName(myname):
     # returns single building object with the given name
     # if no building is found with that name, return false.
     building = []
@@ -107,6 +134,10 @@ def getBuilding(myname):
     return False # returns false if the building wasn't returned.
     # This can be for two reasons:
     # No building was found or two building were found with the same name (should never happen)
+
+def getBuilding(myname):
+    # See documentation for getBuildingByName
+    return getBuildingByName(myname)
 
 def getBuildingById(id):
     # returns single building object with the given id

@@ -39,15 +39,22 @@ login_manager.login_view = 'login'
 
 
 # DATABASE SELECTION
-if sys.platform == 'darwin':
-	# running on a mac
-	DATABASE_URL = "sqlite:////tmp/tempdb_rr.db"
-else:
-	# heroku postgresql database
-	DATABASE_URL = "postgres://mzatibmbfmcifk:jNbQucN2VmHYlx8eQt7hRDyU3Y@ec2-54-225-199-108.compute-1.amazonaws.com:5432/d2476jmdne4ujp"
+def set_database():
+	'''
+	Uses a temporary database if the program detects that
+	it is running on a mac, otherwise it uses the production
+	database on Heroku postgres.
+	'''
+	if sys.platform == 'darwin':
+		# running on a mac
+		DATABASE_URL = "sqlite:////tmp/tempdb_rr.db"
+	else:
+		# heroku postgresql database
+		DATABASE_URL = "postgres://mzatibmbfmcifk:jNbQucN2VmHYlx8eQt7hRDyU3Y@ec2-54-225-199-108.compute-1.amazonaws.com:5432/d2476jmdne4ujp"
 
 
-app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URL
+	app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URL
+set_database()
 
 from RoomReserve.helpers.render import render
 
@@ -80,7 +87,9 @@ db.session.commit()
 
 
 def createDefaultAccounts():
-	# Creates an account of each role for testing purposes.
+	'''
+	Creates an account of each role for testing purposes.
+	'''
 
 	defaultAdmins = []
 	for me in db.session.query(User).filter_by(email='admin@localhost'):
@@ -117,10 +126,6 @@ def db_test():
 
 class test_form(Form):
 	name = StringField('Name', validators=[DataRequired()])
-
-@app.route("/overlaytest")
-def overlay_test():
-	return render('default.html')
 
 @app.route("/wtftest", methods=['GET', 'POST'])
 def wtf_test():

@@ -16,21 +16,27 @@ class Building(db.Model):
 		self.notes = notes
 
 	def getBuildingName(self):
+		# See documentation for get_name
 		return self.get_name()
 
 	def get_name(self):
+		# Returns the name of the building
 		return self.name
 
 	def get_floors(self):
+		# Returns the number of floors of the building
 		return self.numfloors
 
 	def get_description(self):
+		# Returns the description of the building
 		return self.description
 
 	def get_status(self):
+		# Returns the status code of the building
 		return self.status
 
 	def get_notes(self):
+		# Returns the notes field of the building
 		return self.notes
 
 	def set_name(self, name):
