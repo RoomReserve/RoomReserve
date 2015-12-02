@@ -13,7 +13,7 @@ class User(db.Model):
 	#	- standard
 	#	- readonly
 	#	- inactive
-
+	#   Defined in RoomReserve.helpers.static_variables
 
 	def __init__(self, first, last, email, role, password):
 		self.first = first
