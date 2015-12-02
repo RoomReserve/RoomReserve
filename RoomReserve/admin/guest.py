@@ -4,7 +4,7 @@ class form_CreateGuest(Form):
     firstname = StringField('First Name', [validators.Length(min=1, max=40)])
     lastname = StringField('Last Name', [validators.Length(min=1, max=40)])
     email = StringField('Email Address', [validators.email()])
-    phone = StringField('Phone Number', [validators.Length(min=10, max=20)])
+    phone = StringField('Phone Number', [validators.Length(min=4, max=20)])
     address = StringField('Address', [validators.Length(min=1, max=75)])
     payment = StringField('Payment', [validators.Length(min=1, max=7)])
     notes = TextAreaField('Notes')
@@ -13,6 +13,8 @@ class form_CreateGuest(Form):
 @app.route('/admin/guest', methods=['GET', 'POST'])
 @login_required
 def page_guest():
+
+    form = form_CreateGuest()
 
     if request.method == 'POST' and form.validate():
         # the form has been filled out, import the data
@@ -41,7 +43,6 @@ def page_guest():
             # createGuest returned false, the guest could not be created.
             return render('basic.html', content="Could not create guest.")
 
-    form = form_CreateGuest()
     guests = getAllGuests()
     return render('guests.html', form=form, guests=guests)
 
@@ -53,16 +54,27 @@ def getAllGuests():
     return guests
 
 def getGuestByFirstName(fn):
-    # returns
+    # returns a list of all guests with that first name
     guests = []
     for me in db.session.query(Guest).filter_by(first=fn):
     	guests.append(me)
     return guests
 
 def getGuestByLastName(ln):
-
+    # returns a list of all guests with that last name
+    guests = []
     for me in db.session.query(Guest).filter_by(last=ln):
     	guests.append(me)
+    return guests
+
+def getGuestByName(first, last):
+    # returns a list of all guests with that first and last name
+    # parameters: (first, last)
+    # remember that it is possible to have a guest that has the
+    # same first and last name as another.
+    guests = []
+    for me in db.session.query(Guest).filter_by(first=first, last=last):
+        guests.append(me)
     return guests
 
 def getGuestByPhone(myphone):
@@ -100,6 +112,10 @@ def getGuest(myid):
         # if we got a guest back, return it.
         return guests[0]
     return False
+
+def getGuestByID(myID):
+    # see docs for getGuest
+    return getGuest(myID)
 
 def createGuest(fn, ln, em, ph, addr, paym, notes):
     # Adds a guest to the database.
