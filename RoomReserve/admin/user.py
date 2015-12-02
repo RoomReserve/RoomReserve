@@ -12,7 +12,13 @@ class form_CreateUser(Form):
                 (Static.role_inactive, 'Inactive')\
                 ])
 
-    def populate(self, thisUser, allowEdit=False):
+    def populate(self, thisUser):
+        '''
+        Populates the fields of the form with the data currently
+        in the user given.
+
+        Parameters: a user object
+        '''
         self.firstname.default = thisUser.first
         self.lastname.default = thisUser.last
         self.email.default = thisUser.email
@@ -29,6 +35,12 @@ def page_users():
     # Editor
 
     def edit_form(id):
+        '''
+        Returns the form back populated with the user information
+        from the ID given.
+
+        Parameters: id for a user.
+        '''
         form = form_CreateUser()
         id=int(id)
         myUser = getUserById(id)
@@ -36,6 +48,12 @@ def page_users():
         return form
 
     def allowEdit(id):
+        '''
+        Figures out if the current user should be allowed
+        to edit the user object.
+
+        Parameters: User ID for the user we want to edit
+        '''
         if current_user.is_admin() or current_user.getID() == id:
             # Only admins can edit users
             # Users can edit themselves
@@ -44,6 +62,12 @@ def page_users():
             return False
 
     def isCurrentUser(id):
+        '''
+        Returns true if the userID given is that
+        of the current logged in user.
+
+        Parameters: userID
+        '''
         return current_user.getID() == id
     # /Editor
 
@@ -129,9 +153,8 @@ def getUserById(id):
         return users[0]
     return False
 
-def createUser(fn, ln, em, ro, pw="helloworld"):
+def createUser(fn, ln, em, ro, pw):
     # Adds a user to the database.
-    # TODO: add support for passwords.
     # Returns True if user added successfully, else False.
     try:
         me = User(fn, ln, em, ro, pw)
