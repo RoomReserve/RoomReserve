@@ -123,7 +123,7 @@ def page_reservation():
             pass
         else:
             # createUser returned false, the user could not be created.
-            return render_template('basic.html', content="Could not create reservation.")
+            return render('basic.html', content="Could not create reservation.")
 
     form = form_CreateReservation()
     reservations = getAllReservations()
