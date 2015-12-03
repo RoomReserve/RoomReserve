@@ -1,12 +1,12 @@
 from RoomReserve import *
 
 class form_CreateGuest(Form):
-    firstname = StringField('First Name', [validators.Length(min=1, max=40)])
-    lastname = StringField('Last Name', [validators.Length(min=1, max=40)])
-    email = StringField('Email Address', [validators.email()])
-    phone = StringField('Phone Number', [validators.Length(min=4, max=20)])
-    address = StringField('Address', [validators.Length(min=1, max=75)])
-    payment = StringField('Payment', [validators.Length(min=1, max=7)])
+    firstname = StringField('First Name', validators=[DataRequired()])
+    lastname = StringField('Last Name', validators=[DataRequired()])
+    email = StringField('Email Address', validators=[DataRequired()])
+    phone = StringField('Phone Number', validators=[DataRequired()])
+    address = StringField('Address', validators=[DataRequired()])
+    payment = StringField('Payment', validators=[DataRequired()])
     notes = TextAreaField('Notes')
 
 
@@ -16,7 +16,7 @@ def page_guest():
 
     form = form_CreateGuest()
 
-    if request.method == 'POST' and form.validate():
+    if request.method == 'POST':
         # the form has been filled out, import the data
         formdata = request.form
         firstname = formdata['firstname']
