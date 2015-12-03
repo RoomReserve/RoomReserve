@@ -14,7 +14,7 @@ def page_error500(e):
 	desc="Something major has gone wrong. You should check your log files. 500 INTERNAL SERVER ERROR"
 	desc += "\n \n"
 	try:
-		desc += '\n' + str(traceback.print_exc())
+		desc += '\n' + str(traceback.format_exc())
 	except:
 		desc += "\n Error not displayed."
 	title="500 - Database error"
