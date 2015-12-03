@@ -1,4 +1,6 @@
 from RoomReserve import *
+import traceback
+
 
 #----Error Pages----
 @app.errorhandler(404)
@@ -10,11 +12,11 @@ def page_error404(e):
 @app.errorhandler(500)
 def page_error500(e):
 	desc="Something major has gone wrong. You should check your log files. 500 INTERNAL SERVER ERROR"
-	desc += "\n"
+	desc += "\n \n"
 	try:
-		desc += str(e)
+		desc += '\n' + str(traceback.print_exc())
 	except:
-		desc += "Error not displayed."
+		desc += "\n Error not displayed."
 	title="500 - Database error"
 	return render('error.html',desc=desc,title=title), 500
 
