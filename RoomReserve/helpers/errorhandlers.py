@@ -11,13 +11,13 @@ def page_error404(e):
 
 @app.errorhandler(500)
 def page_error500(e):
-	desc="Something major has gone wrong. You should check your log files. 500 INTERNAL SERVER ERROR"
-	desc += "\n \n"
+	desc="There is a coding error. The stack trace is printed below."
+	desc += "\n"
 	try:
 		desc += '\n' + str(traceback.format_exc())
 	except:
 		desc += "\n Error not displayed."
-	title="500 - Database error"
+	title="500 - Internal Server Error"
 	desc = desc.replace('\n', '<br>')
 	return render('error.html',desc=desc,title=title), 500
 
