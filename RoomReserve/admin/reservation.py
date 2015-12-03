@@ -114,8 +114,8 @@ def page_reservation():
         hourOut = formdata['hourOut']
         minuteOut = formdata['minuteOut']
 
-        checkIn = datetime(yearIn, monthIn,  dayIn, hourIn, minuteIn)
-        checkOut = datetime(yearOut, monthOut,  dayOut, hourOut, minuteOut)
+        checkIn = datetime(int(yearIn), int(monthIn),  int(dayIn), int(hourIn), int(minuteIn))
+        checkOut = datetime(int(yearOut), int(monthOut),  int(dayOut), int(hourOut), int(minuteOut))
 
         # create the reservation
         if createReservation(guestID, username, roomID, checkIn, checkOut, status, notes):
