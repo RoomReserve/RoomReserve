@@ -24,26 +24,28 @@ def findGuestid(name):
 
 @app.route('/admin/guestsearch', methods=['GET','POST'])
 
+# Need a more detailed guest search
 def guestsearch():
     form = form_SearchGuest()
 
     if request.method == 'POST':
-        if 'firstname' in request.form: 
+        if 'firstname' or 'lastname' in request.form: 
             firstname = request.form['firstname']
-
-            gid = getGuestByFirstName(firstname)[0].id
-            gid = str(gid)
-            full_url = url_for('gprofile', gid=gid)
-            return redirect(full_url)
-
-        if 'lastname' in request.form: 
             lastname = request.form['lastname']
 
-            gid = getGuestByFirstName(lastname)[0].id
-            gid = str(gid)
-            full_url = url_for('gprofile', gid=gid)
-            return redirect(full_url) 
-            
+            guests = []
+
+            if firstname and lastname:
+                guests = guests + getGuestByName(first=firstname,last=lastname)
+
+            elif firstname:
+                guests = guests + getGuestByFirstName(firstname)
+
+            elif lastname:
+                guests = guests + getGuestByLastName(lastname)
+
+            return render('guestsearch.html', form=form, guests=guests)
+
     return render('guestsearch.html', form=form)
 
 
