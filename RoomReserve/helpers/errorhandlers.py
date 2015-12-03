@@ -12,9 +12,9 @@ def page_error500(e):
 	desc="Something major has gone wrong. You should check your log files. 500 INTERNAL SERVER ERROR"
 	desc += "\n"
 	try:
-		desc += e
+		desc += str(e)
 	except:
-		desc += "errorhandlers.py: e could not concat. Error not displayed."
+		desc += "Error not displayed."
 	title="500 - Database error"
 	return render('error.html',desc=desc,title=title), 500
 
