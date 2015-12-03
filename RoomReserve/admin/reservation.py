@@ -4,9 +4,9 @@ class form_CreateReservation(Form):
 
     #guestID and roomID we will need to make some form of searching for them and having a list come up.
 
-    guestID = StringField('Guest ID', validators=[DataRequired()])
+    guestID = IntegerField('Guest ID', validators=[DataRequired()])
     username = IntegerField('Your user id', validators=[DataRequired()])
-    roomID = StringField('Room ID', validators=[DataRequired()])
+    roomID = IntegerField('Room ID', validators=[DataRequired()])
 
 
 
@@ -87,10 +87,10 @@ class form_CreateReservation(Form):
         return dict(query=fragment, suggestions=[r.name for r in res], data=["%s" %(r.name) for r in res])
     except NoResultFound:
         return dict(query=fragment, suggestions=[], data=[]) """
-        
+
 @app.route('/admin/reservation', methods=['GET', 'POST'])
 @login_required
-            
+
 def page_reservation():
 
     if request.method == 'POST':
