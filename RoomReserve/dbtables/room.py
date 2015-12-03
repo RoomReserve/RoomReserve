@@ -52,7 +52,7 @@ class Room(db.Model):
 		# returns the notes for this room
 		return self.notes
 
-	def set_roomnumber(self, rn):
+	def set_room_number(self, rn):
 		# Changes/sets the room number of the room
 		# Returns the new room number. False upon failure
 		try:
@@ -62,7 +62,7 @@ class Room(db.Model):
 			return False
 		return self.roomnumber
 
-	def set_buildingID(self, bID ):
+	def set_building_id(self, bID ):
 		# Changes/sets the buildingID of the room
 		# Returns the new buildingID. False upon failure
 		try:
