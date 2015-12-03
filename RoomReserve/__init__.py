@@ -2,7 +2,7 @@ import os, sys
 from flask import *
 from jinja2 import Template
 from flask.ext.sqlalchemy import SQLAlchemy
-from flask_wtf import Form
+from flask_wtf import Form, validators
 from wtforms import *
 from wtforms.validators import *
 from wtforms import StringField, TextField, SelectField
