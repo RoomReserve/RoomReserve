@@ -5,7 +5,7 @@ class form_CreateReservation(Form):
     #guestID and roomID we will need to make some form of searching for them and having a list come up.
 
     guestID = StringField('Guest ID', validators=[DataRequired()])
-    username = StringField('Your Name', validators=[DataRequired()])
+    username = IntegerField('Your user id', validators=[DataRequired()])
     roomID = StringField('Room ID', validators=[DataRequired()])
 
 
