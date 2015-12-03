@@ -11,15 +11,15 @@ class Reservation(db.Model):
 	notes = db.Column(db.String(500), unique=False)
 
 	def __init__(self, guest, madeby, room, checkintime, checkouttime, status="Unarrived", notes=""):
-		self.guest = self.setGuest(guest)
+		self.guest = self.setGuest(guestID=guest)
 		self.madeby = madeby
-		self.roomID = self.setRoom(room)
+		self.roomID = self.setRoom(roomID=room)
 		self.checkintime = checkintime
 		self.checkouttime = checkouttime
 		self.status = status
 		self.notes = notes
 
-	def setRoom(room=None,roomID=0):
+	def setRoom(self, room=None,roomID=0):
 		if room:
 			# we were given a room object, get the roomID
 			self.roomID = room.getID()
@@ -32,7 +32,7 @@ class Reservation(db.Model):
 			or a roomID (roomID=myRoomID).")
 		return self.roomID
 
-	def setGuest(guest=None,guestID=0):
+	def setGuest(self, guest=None,guestID=0):
 		if guest:
 			# we were given a guest object, get the guestID
 			self.guestID = guest.getID()
