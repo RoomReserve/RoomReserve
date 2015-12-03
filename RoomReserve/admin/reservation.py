@@ -96,9 +96,9 @@ def page_reservation():
     if request.method == 'POST':
         # the form has been filled out, import the data
         formdata = request.form
-        guestID = formdata['guestID']
-        username = formdata['username']
-        roomID = formdata['roomID']
+        guestID = int(formdata['guestID'])
+        username = int(formdata['username'])
+        roomID = int(formdata['roomID'])
         status = formdata['status']
         notes = formdata['notes']
 
