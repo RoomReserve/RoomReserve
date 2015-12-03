@@ -5,11 +5,11 @@
 <form class="well" method="POST" action="/admin/guestsearch">
   {{ form.csrf_token }}
   {{ form.firstname.label }} {{ form.firstname(size=20) }}
-
+  {{ form.lastname.label }} {{ form.lastname(size=20) }}
 
   <input type="submit"  class="btn-primary" value="Search">
 </form>
-<hr />
+<hr/>
 
 
 {% endblock %}

@@ -4,7 +4,7 @@ from RoomReserve.admin.guest import *
 
 class form_SearchGuest(Form):
     firstname = StringField('First Name', validators=[DataRequired()])
-    # lastname = StringField('Last Name', validators=[DataRequired()])
+    lastname = StringField('Last Name', validators=[DataRequired()])
     
 
 # Get all the guest info from the database
@@ -35,6 +35,14 @@ def guestsearch():
             gid = str(gid)
             full_url = url_for('gprofile', gid=gid)
             return redirect(full_url)
+
+        if 'lastname' in request.form: 
+            lastname = request.form['lastname']
+
+            gid = getGuestByFirstName(lastname)[0].id
+            gid = str(gid)
+            full_url = url_for('gprofile', gid=gid)
+            return redirect(full_url) 
             
     return render('guestsearch.html', form=form)
 
