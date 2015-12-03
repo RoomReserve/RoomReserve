@@ -78,7 +78,7 @@ class form_CreateReservation(Form):
 # @jsonify
 # @app.restrict('GET')
 
-def tag_autocomplete(self):
+""" def tag_autocomplete(self):
     if 'query' not in request.params:
         abort(400)
     fragment = request.params['query']
@@ -90,7 +90,7 @@ def tag_autocomplete(self):
         res = ac_q.filter(Tag.name.ilike(searchstring)).limit(10)
         return dict(query=fragment, suggestions=[r.name for r in res], data=["%s" %(r.name) for r in res])
     except NoResultFound:
-        return dict(query=fragment, suggestions=[], data=[])
+        return dict(query=fragment, suggestions=[], data=[]) """
             
 def page_reservation():
 
