@@ -18,6 +18,7 @@ def page_error500(e):
 	except:
 		desc += "\n Error not displayed."
 	title="500 - Database error"
+	desc = desc.replace('\n', '<br>')
 	return render('error.html',desc=desc,title=title), 500
 
 @app.errorhandler(400)
