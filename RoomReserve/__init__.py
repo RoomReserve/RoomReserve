@@ -54,6 +54,7 @@ def set_database():
 
 
 	app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URL
+
 set_database()
 
 from RoomReserve.helpers.render import render
