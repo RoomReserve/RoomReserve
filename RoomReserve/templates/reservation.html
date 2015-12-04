@@ -6,7 +6,7 @@
 <form class="well" method="POST" action="/admin/reservation">
   {{ form.csrf_token }}
   {{ form.guestID.label }} {{ form.guestID }}
-  {{ form.username.label }} {{ form.username }} <br />
+  {{ form.userID.label }} {{ form.userID }} <br />
   {{ form.roomID.label }} {{ form.roomID }} <br />
   {{ form.monthIn.label }} {{ form.monthIn }}
   {{ form.dayIn.label }} {{ form.dayIn }}
@@ -38,7 +38,7 @@
             <tr>
               <th>reservationID </th>
               <th>guestID </th>
-              <th>username</th>
+              <th>userID</th>
               <th>roomID </th>
               <th>checkIn</th>
               <th>checkOut </th>

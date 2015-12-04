@@ -5,7 +5,7 @@ class form_CreateReservation(Form):
     #guestID and roomID we will need to make some form of searching for them and having a list come up.
 
     guestID = IntegerField('Guest ID', validators=[DataRequired()])
-    username = IntegerField('User ID', validators=[DataRequired()])
+    userID = IntegerField('User ID', validators=[DataRequired()])
     roomID = IntegerField('Room ID', validators=[DataRequired()])
 
     minuteList = []
@@ -101,7 +101,7 @@ def page_reservation():
         # the form has been filled out, import the data
         formdata = request.form
         guestID = int(formdata['guestID'])
-        username = int(formdata['username'])
+        userID = int(formdata['userID'])
         roomID = int(formdata['roomID'])
         status = formdata['status']
         notes = formdata['notes']
@@ -122,7 +122,7 @@ def page_reservation():
         checkOut = datetime(int(yearOut), int(monthOut),  int(dayOut), int(hourOut), int(minuteOut))
 
         # create the reservation
-        if createReservation(guestID, username, roomID, checkIn, checkOut, status, notes):
+        if createReservation(guestID, userID, roomID, checkIn, checkOut, status, notes):
             # Reservation created sucessfully
             pass
         else:
