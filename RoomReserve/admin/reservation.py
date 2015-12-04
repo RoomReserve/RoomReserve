@@ -37,16 +37,16 @@ class form_CreateReservation(Form):
 
 
 
-    monthIn = SelectField('Month In', choices=monthList, validators=[DataRequired()])
-    dayIn = SelectField('Day', choices=dayList, validators=[DataRequired()])
+    monthIn = SelectField('Month In', default=12, choices=monthList, validators=[DataRequired()])
+    dayIn = SelectField('Day', default=8, choices=dayList, validators=[DataRequired()])
     yearIn = SelectField('Year', choices=yearList, validators=[DataRequired()])
-    hourIn = SelectField('Hour', choices=hourList, validators=[DataRequired()])
+    hourIn = SelectField('Hour', default=14, choices=hourList, validators=[DataRequired()])
     minuteIn = SelectField('Minute', choices=minuteList, validators=[DataRequired()])
 
     monthOut = SelectField('Month Out', choices=monthList, validators=[DataRequired()])
     dayOut = SelectField('Day', choices=dayList, validators=[DataRequired()])
-    yearOut = SelectField('Year', choices=yearList, validators=[DataRequired()])
-    hourOut = SelectField('Hour', choices=hourList, validators=[DataRequired()])
+    yearOut = SelectField('Year', default=2016, choices=yearList, validators=[DataRequired()])
+    hourOut = SelectField('Hour',  default=8, choices=hourList, validators=[DataRequired()])
     minuteOut = SelectField('Minute', choices=minuteList, validators=[DataRequired()])
 
 
