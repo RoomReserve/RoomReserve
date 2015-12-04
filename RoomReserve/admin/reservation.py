@@ -50,7 +50,7 @@ class form_CreateReservation(Form):
     minuteOut = SelectField('Minute', choices=minuteList, validators=[DataRequired()])
 
 
-    status = SelectField('Status',\
+    status = SelectField('Status', default='unarrived',\
         choices=[('checkedin', 'Checked In'),\
                 ('unarrived', 'Unarrived'),\
                 ('checkedout', 'Checked Out'),\
