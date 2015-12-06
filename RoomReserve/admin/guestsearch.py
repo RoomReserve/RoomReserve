@@ -25,7 +25,7 @@ def findGuestid(name):
 
 @app.route('/admin/guestsearch', methods=['GET','POST'])
 
-# Need a more detailed guest search
+
 def guestsearch():
     form = form_SearchGuest()
 
@@ -35,6 +35,7 @@ def guestsearch():
             lastname = request.form['lastname']
             email = request.form['email']
 
+            # Add support for search by lowercase name
             firstname = firstname.capitalize()
             lastname = lastname.capitalize()
 
@@ -43,7 +44,6 @@ def guestsearch():
 
             if firstname and lastname and email:
                 guests = guests + getGuestByName(first=firstname,last=lastname,email=email)
-
 
             if firstname and lastname:
                 guests = guests + getGuestByName(first=firstname,last=lastname)
