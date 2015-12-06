@@ -33,6 +33,11 @@ def guestsearch():
             firstname = request.form['firstname']
             lastname = request.form['lastname']
 
+            firstname = firstname.capitalize()
+            lastname = lastname.capitalize()
+            # print(firstname)
+            # print(lastname.capitalize())
+
             guests = []
 
             if firstname and lastname:
