@@ -77,6 +77,35 @@ def getGuestByName(first, last):
         guests.append(me)
     return guests
 
+def getGuestByNameAndEmail(first, last, email):
+    # returns a list of all guests with that first, last name and email
+    # parameters: (first, last, email)
+    # remember that it is possible to have a guest that has the
+    # same first and last name as another.
+    guests = []
+    for me in db.session.query(Guest).filter_by(first=first, last=last, email=email):
+        guests.append(me)
+    return guests
+
+def getGuestByFirstNameAndEmail(first, email):
+    # returns a list of all guests with that first name and email
+    # parameters: (first, email)
+
+    guests = []
+    for me in db.session.query(Guest).filter_by(first=first, email=email):
+        guests.append(me)
+    return guests
+
+def getGuestByLastNameAndEmail(last, email):
+    # returns a list of all guests with that last name and email
+    # parameters: (last, email)
+
+    guests = []
+    for me in db.session.query(Guest).filter_by(last=first, email=email):
+        guests.append(me)
+    return guests
+
+
 def getGuestByPhone(myphone):
     # returns single guest object with the given phone number
     # if no guest is found with that phone number, return false.
@@ -89,17 +118,25 @@ def getGuestByPhone(myphone):
         return guests[0]
     return False
 
+# def getGuestByEmail(myEmail):
+#     # returns single guest object with the given Email
+#     # if no guest is found with that phone number, return false.
+#     guests = []
+#     for me in db.session.query(Guest).filter_by(email=myEmail):
+#         # Gets guests from Guest where email=myEmail
+#     	guests.append(me)
+#     if len(guests) == 1:
+#         # if we got a guest back, return it.
+#         return guests[0]
+#     return False
+
 def getGuestByEmail(myEmail):
-    # returns single guest object with the given Email
-    # if no guest is found with that phone number, return false.
+    # returns a list of all guests with that email
     guests = []
     for me in db.session.query(Guest).filter_by(email=myEmail):
-        # Gets guests from Guest where email=myEmail
-    	guests.append(me)
-    if len(guests) == 1:
-        # if we got a guest back, return it.
-        return guests[0]
-    return False
+        guests.append(me)
+    return guests
+
 
 def getGuest(myid):
     # returns single guest object with the given id
