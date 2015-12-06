@@ -35,8 +35,7 @@ def guestsearch():
 
             firstname = firstname.capitalize()
             lastname = lastname.capitalize()
-            # print(firstname)
-            # print(lastname.capitalize())
+
 
             guests = []
 
