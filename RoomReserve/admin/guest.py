@@ -109,6 +109,9 @@ def getGuestByPhone(myPhone):
     return guests
 
 
+### The following method does not work:
+#### TypeError: can only concatenate list (not "Guest") to list
+
 # def getGuestByPhone(myPhone):
 #     # returns single guest object with the given phone number
 #     # if no guest is found with that phone number, return false.
