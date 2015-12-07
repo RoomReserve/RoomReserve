@@ -60,10 +60,6 @@ class form_CreateReservation(Form):
     notes = TextAreaField('Notes', validators=[DataRequired()])
 
 
-    # def __init__(self):
-    #     self.status.default = 'unarrived'
-    #     self.process()
-
 
 #this stuff below is supposed to get autocomplete to work.
 #Below might also need the following:
