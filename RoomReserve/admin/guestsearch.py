@@ -40,7 +40,6 @@ def guestsearch():
             for char in request.form['phone']:
                 if char in "0123456789":
                     phone += char
-            phone = int(phone)
 
             # Add support for search by lowercase name
             firstname = firstname.capitalize()
