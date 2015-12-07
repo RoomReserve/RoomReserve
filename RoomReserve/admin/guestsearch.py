@@ -35,15 +35,17 @@ def guestsearch():
             firstname = request.form['firstname']
             lastname = request.form['lastname']
             email = request.form['email']
+
             phone = ""
             for char in request.form['phone']:
                 if char in "0123456789":
                     phone += char
-            # phone = int(phone)
+            phone = int(phone)
 
             # Add support for search by lowercase name
             firstname = firstname.capitalize()
             lastname = lastname.capitalize()
+            lastname = str(lastname)
 
 
             guests = []
