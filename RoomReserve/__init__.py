@@ -6,10 +6,9 @@ from flask_wtf import Form, validators
 from wtforms import *
 from wtforms.validators import *
 from wtforms import StringField, TextField, SelectField
-#from wtforms_components import read_only as wtf_make_read_only
 from datetime import datetime
 
-#RoomReserve static variables
+#RoomReserve constant variables
 import RoomReserve.helpers.static_variables as Static
 
 # flask-heroku
@@ -30,7 +29,7 @@ app.secret_key = 'x95xe1gxceHGxeaSx0exf5xf4xbaxb5x1dxe5'
 heroku = Heroku(app)
 db = SQLAlchemy(app)
 
-# FLASK-LOGIN
+# Initialize Flask Login Manager
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'
@@ -117,7 +116,7 @@ def createDefaultAccounts():
 
 createDefaultAccounts()
 
-# Try not to add additional page routes in here.
+# tests:
 
 @app.route("/dbtest")
 def db_test():
