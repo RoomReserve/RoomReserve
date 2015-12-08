@@ -50,7 +50,7 @@ def page_rooms():
         '''
         form = form_CreateRoom()
         id=int(id)
-        form.populate(getRoomById(id))
+        form.populate(getRoomByID(id))
         return form
 
     def allowEdit(id=0):
@@ -150,7 +150,7 @@ def getRoomInBuilding(bldgID, rn):
         return room
     return False
 
-def getRoomById(id):
+def getRoomByID(id):
     # returns single room object with the given id
     # if no room is found with that id, return false.
     rooms = []
