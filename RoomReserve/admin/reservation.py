@@ -156,6 +156,33 @@ def get_reservations_by_roomID(roomID, startDate=None, endDate=None, **kwargs):
         kwargs['checkouttime'] = endDate
     return db.session.query(Reservation).filter_by(**kwargs)
 
+
+
+
+def find_available_rooms(startDate, endDate, buildingID=None):
+
+    def is_room_available(roomID, delor):
+        for res in get_active_reservations_for_roomID(roomID):
+            if delorean_helper.delorean_crash(res.get_delorean(), delor):
+                retrun False
+        return True
+
+    delor = delorean_helper.create_delorean(startDate, endDate)
+    availableRooms = []
+    for rm in getActiveRooms():
+        if is_room_available(roomID,delor):
+            availableRooms.append(rm)
+    return availableRooms
+
+def get_active_reservations_for_roomID(roomID):
+    return db.session.query(Reservation).filter( \
+        Reservation.roomID==roomID, \
+        Reservation.status != Static.checkedout_status, \
+        Reservation.status != Static.cancelled_status \
+        )
+
+
+
 def createReservation(guestID, madeby, roomID, checkin, checkout, status, notes):
     # Adds a reservation to the database.
     # Returns True if user added successfully, else False.

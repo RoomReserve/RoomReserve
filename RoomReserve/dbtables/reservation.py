@@ -85,5 +85,9 @@ class Reservation(db.Model):
 			or a guestID (guestID=myGuestID).")
 		return self.guestID
 
+
+	def getDelorean(self):
+		return delorean_helper.create_delorean(self.checkintime, self.checkouttime)
+
 	def __repr__(self):
 		return '<Reservation %r>' % (self.id)

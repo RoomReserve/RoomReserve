@@ -141,6 +141,11 @@ def getAllRooms():
     	rooms.append(me)
     return rooms
 
+def getActiveRooms(buildingID=None):
+    if buildingID:
+        return db.session.query(Room).filter_by(status=Static.ready_status, buildingID=buildingID)
+    return db.session.query(Room).filter_by(status=Static.ready_status)
+
 def getRoomInBuilding(bldgID, rn):
     # returns single room object with the given building and room number
     # if room number is not found in building, return false.
