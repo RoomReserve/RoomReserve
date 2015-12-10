@@ -35,7 +35,7 @@ def page_guest():
             if char in "0123456789":
                 payment += char
         payment = int(payment)
-        
+
         notes = formdata['notes']
 
         # create the guest
@@ -58,15 +58,7 @@ def getAllGuests():
 
 def getGuest(myid):
     # returns single guest object with the given id
-    # if no guest is found with that id, return false.
-    guests = []
-    for me in db.session.query(Guest).filter_by(id=myid):
-        # Gets guest from Guest where id=myid
-        guests.append(me)
-    if len(guests) == 1:
-        # if we got a guest back, return it.
-        return guests[0]
-    return False
+    return db.session.query(Guest).filter_by(id=myid).first()
 
 def getGuestByID(myID):
     # see docs for getGuest
