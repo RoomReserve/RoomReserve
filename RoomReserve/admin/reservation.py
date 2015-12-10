@@ -164,7 +164,7 @@ def find_available_rooms(startDate, endDate, buildingID=None):
     def is_room_available(roomID, delor):
         for res in get_active_reservations_for_roomID(roomID):
             if delorean_helper.delorean_crash(res.get_delorean(), delor):
-                retrun False
+                return False
         return True
 
     delor = delorean_helper.create_delorean(startDate, endDate)
