@@ -86,7 +86,7 @@ class Reservation(db.Model):
 		return self.guestID
 
 
-	def getDelorean(self):
+	def get_delorean(self):
 		return delorean_helper.create_delorean(self.checkintime, self.checkouttime)
 
 	def __repr__(self):
