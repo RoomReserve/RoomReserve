@@ -160,7 +160,7 @@ def get_reservations_by_roomID(roomID, startDate=None, endDate=None, **kwargs):
 
 
 def find_available_rooms(startDate, endDate, buildingID=None):
-
+    from RoomReserve.admin.rooms import getActiveRooms
     def is_room_available(roomID, delor):
         for res in get_active_reservations_for_roomID(roomID):
             if delorean_helper.delorean_crash(res.get_delorean(), delor):
@@ -170,11 +170,12 @@ def find_available_rooms(startDate, endDate, buildingID=None):
     delor = delorean_helper.create_delorean(startDate, endDate)
     availableRooms = []
     for rm in getActiveRooms():
-        if is_room_available(roomID,delor):
+        if is_room_available(rm.getID(),delor):
             availableRooms.append(rm)
     return availableRooms
 
 def get_active_reservations_for_roomID(roomID):
+
     return db.session.query(Reservation).filter( \
         Reservation.roomID==roomID, \
         Reservation.status != Static.checkedout_status, \
