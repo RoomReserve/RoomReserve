@@ -10,18 +10,18 @@ class Form_Wizard_Form(Form):
 @Login.standard_required
 def page_reservation_wizard():
     form = Form_Wizard_Form()
-    if request.method == 'POST':
-        formdata = request.form
-        indate = formdata['check_in_date']
-        outdate = formdata['check_out_date']
-        capacity = formdata['capacity']
+    return render('reswizard/wizard1.html', form=form)
 
-        indate = delorean.parse(indate).naive()
-        outdate = delorean.parse(outdate).naive()
+@app.route('/res/step-2', methods=['POST'])
+#@Login.standard_required
+def page_reservation_wizard():
+    formdata = request.form
+    indate = formdata['check_in_date']
+    outdate = formdata['check_out_date']
+    capacity = formdata['capacity']
 
-        availableRooms = find_available_rooms(indate, outdate)
-        return render('reswizard.html', form=form, rooms=availableRooms)
+    indate = delorean.parse(indate).naive()
+    outdate = delorean.parse(outdate).naive()
 
-
-
-    return render('reswizard.html', form=form)
+    availableRooms = find_available_rooms(indate, outdate)
+    return render('reswizard/wizard2.html', rooms=availableRooms)
