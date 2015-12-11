@@ -124,10 +124,10 @@ def page_updateUser(id):
 
 def getAllUsers():
     # returns all users in a list
-    users = []
-    for me in db.session.query(User):
-    	users.append(me)
-    return users
+    # users = []
+    # for me in db.session.query(User):
+    # 	users.append(me)
+    return db.session.query(User)
 
 def getUser(myemail):
     # returns single user object with the given email

@@ -1,4 +1,6 @@
 from RoomReserve import *
+import traceback
+
 
 #----Error Pages----
 @app.errorhandler(404)
@@ -9,13 +11,14 @@ def page_error404(e):
 
 @app.errorhandler(500)
 def page_error500(e):
-	desc="Something major has gone wrong. You should check your log files. 500 INTERNAL SERVER ERROR"
+	desc="There is a coding error. The stack trace is printed below."
 	desc += "\n"
 	try:
-		desc += e
+		desc += '\n' + str(traceback.format_exc())
 	except:
-		desc += "errorhandlers.py: e could not concat. Error not displayed."
-	title="500 - Database error"
+		desc += "\n Error not displayed."
+	title="500 - Internal Server Error"
+	desc = desc.replace('\n', '<br>')
 	return render('error.html',desc=desc,title=title), 500
 
 @app.errorhandler(400)

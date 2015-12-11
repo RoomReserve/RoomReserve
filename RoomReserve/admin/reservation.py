@@ -4,13 +4,10 @@ class form_CreateReservation(Form):
 
     #guestID and roomID we will need to make some form of searching for them and having a list come up.
 
-    guestID = StringField('Guest ID', validators=[DataRequired()])
-    username = StringField('Your Name', validators=[DataRequired()])
-    roomID = StringField('Room ID', validators=[DataRequired()])
+    guestID = IntegerField('Guest ID', validators=[DataRequired()])
+    userID = IntegerField('User ID', validators=[DataRequired()])
+    roomID = IntegerField('Room ID', validators=[DataRequired()])
 
-
-
-    #the lists below may need to be created into tuples............... Yeah. We'll see.
     minuteList = []
     hourList = []
     monthList = [(1, "January"), (2, "February"), (3, "March"), (4, "April"), (5, "May"), (6, "June"), (7, "July"), (8, "August"), (9, "September"), (10, "October"), (11, "November"), (12, "December")]
@@ -40,30 +37,29 @@ class form_CreateReservation(Form):
 
 
 
-    monthIn = SelectField('Month In', choices=monthList, validators=[DataRequired()])
-    dayIn = SelectField('Day', choices=dayList, validators=[DataRequired()])
+    monthIn = SelectField('Month In', default=12, choices=monthList, validators=[DataRequired()])
+    dayIn = SelectField('Day', default=8, choices=dayList, validators=[DataRequired()])
     yearIn = SelectField('Year', choices=yearList, validators=[DataRequired()])
-    hourIn = SelectField('Hour', choices=hourList, validators=[DataRequired()])
+    hourIn = SelectField('Hour', default=14, choices=hourList, validators=[DataRequired()])
     minuteIn = SelectField('Minute', choices=minuteList, validators=[DataRequired()])
 
     monthOut = SelectField('Month Out', choices=monthList, validators=[DataRequired()])
     dayOut = SelectField('Day', choices=dayList, validators=[DataRequired()])
-    yearOut = SelectField('Year', choices=yearList, validators=[DataRequired()])
-    hourOut = SelectField('Hour', choices=hourList, validators=[DataRequired()])
+    yearOut = SelectField('Year', default=2016, choices=yearList, validators=[DataRequired()])
+    hourOut = SelectField('Hour',  default=8, choices=hourList, validators=[DataRequired()])
     minuteOut = SelectField('Minute', choices=minuteList, validators=[DataRequired()])
 
 
-    status = RadioField('Status',\
+    status = SelectField('Status', default='unarrived',\
         choices=[('checkedin', 'Checked In'),\
                 ('unarrived', 'Unarrived'),\
                 ('checkedout', 'Checked Out'),\
                 ('waiting', 'Waiting')\
                 ])
+
     notes = TextAreaField('Notes', validators=[DataRequired()])
 
 
-@app.route('/admin/reservation', methods=['GET', 'POST'])
-@login_required
 
 #this stuff below is supposed to get autocomplete to work.
 #Below might also need the following:
@@ -78,7 +74,7 @@ class form_CreateReservation(Form):
 # @jsonify
 # @app.restrict('GET')
 
-def tag_autocomplete(self):
+""" def tag_autocomplete(self):
     if 'query' not in request.params:
         abort(400)
     fragment = request.params['query']
@@ -90,16 +86,19 @@ def tag_autocomplete(self):
         res = ac_q.filter(Tag.name.ilike(searchstring)).limit(10)
         return dict(query=fragment, suggestions=[r.name for r in res], data=["%s" %(r.name) for r in res])
     except NoResultFound:
-        return dict(query=fragment, suggestions=[], data=[])
-            
+        return dict(query=fragment, suggestions=[], data=[]) """
+
+@app.route('/admin/reservation', methods=['GET', 'POST'])
+@login_required
+
 def page_reservation():
 
     if request.method == 'POST':
         # the form has been filled out, import the data
         formdata = request.form
-        guestID = formdata['guestID']
-        username = formdata['username']
-        roomID = formdata['roomID']
+        guestID = int(formdata['guestID'])
+        userID = int(formdata['userID'])
+        roomID = int(formdata['roomID'])
         status = formdata['status']
         notes = formdata['notes']
 
@@ -115,51 +114,91 @@ def page_reservation():
         hourOut = formdata['hourOut']
         minuteOut = formdata['minuteOut']
 
-        checkIn = datetime(yearIn, monthIn,  dayIn, hourIn, minuteIn)
-        checkOut = datetime(yearOut, monthOut,  dayOut, hourOut, minuteOut)
+        checkIn = datetime(int(yearIn), int(monthIn),  int(dayIn), int(hourIn), int(minuteIn))
+        checkOut = datetime(int(yearOut), int(monthOut),  int(dayOut), int(hourOut), int(minuteOut))
 
         # create the reservation
-        if createReservation(guestID, username, roomID, checkIn, checkOut, status, notes):
+        if createReservation(guestID, userID, roomID, checkIn, checkOut, status, notes):
             # Reservation created sucessfully
             pass
         else:
             # createUser returned false, the user could not be created.
-            return render_template('basic.html', content="Could not create reservation.")
+            return render('basic.html', content="Sorry, could not create reservation. Something's not right!")
 
     form = form_CreateReservation()
     reservations = getAllReservations()
     return render('reservation.html', form=form, reservations=reservations)
 
+
+
+
 def getAllReservations():
     # returns all reservations in a list
-    reservations = []
-    for me in db.session.query(Reservation):
-    	reservations.append(me)
-    return reservations
+    return db.session.query(Reservation)
 
-
-def getReservation(id):
+def getReservationByID(id):
     # returns single res object with the given id
-    # if no res is found with that id, return false.
-    reservations = []
-    for me in db.session.query(Reservation).filter_by(id=id):
-        # Gets reservations from Reservation where id=id
-    	reservations.append(me)
-    if len(reservations) == 1:
-        # if we got a res back, return it.
-        return reservations[0]
-    return False
+    return db.session.query(Reservation).filter_by(id=id).one_or_none()
+
+def get_reservations_by_guestID(guestID, startDate=None, endDate=None, **kwargs):
+    kwargs={'guestID':guestID}
+    if startDate:
+        kwargs['checkintime'] = startDate
+    if endDate:
+        kwargs['checkouttime'] = endDate
+    return db.session.query(Reservation).filter_by(**kwargs)
+
+def get_reservations_by_roomID(roomID, startDate=None, endDate=None, **kwargs):
+    kwargs={'roomID':roomID}
+    if startDate:
+        kwargs['checkintime'] = startDate
+    if endDate:
+        kwargs['checkouttime'] = endDate
+    return db.session.query(Reservation).filter_by(**kwargs)
+
+
+
+
+def find_available_rooms(startDate, endDate, buildingID=None):
+    from RoomReserve.admin.rooms import getActiveRooms
+    def is_room_available(roomID, delor):
+        for res in get_active_reservations_for_roomID(roomID):
+            if delorean_helper.delorean_crash(res.get_delorean(), delor):
+                return False
+        return True
+
+    delor = delorean_helper.create_delorean(startDate, endDate)
+    availableRooms = []
+    for rm in getActiveRooms():
+        if is_room_available(rm.getID(),delor):
+            availableRooms.append(rm)
+    return availableRooms
+
+def get_active_reservations_for_roomID(roomID):
+
+    return db.session.query(Reservation).filter( \
+        Reservation.roomID==roomID, \
+        Reservation.status != Static.checkedout_status, \
+        Reservation.status != Static.cancelled_status \
+        )
+
+
 
 def createReservation(guestID, madeby, roomID, checkin, checkout, status, notes):
     # Adds a reservation to the database.
     # Returns True if user added successfully, else False.
-    try:
-        me = Reservation(guestID, madeby, roomID, checkin, checkout, status, notes)
-        db.session.add(me)
-        db.session.commit()
-        return True
+    # try:
+    #     me = Reservation(guestID, madeby, roomID, checkin, checkout, status, notes)
+    #     db.session.add(me)
+    #     db.session.commit()
+    #     return True
+    #
+    # except Exception as e:
+    #     # Prints why the reservation could not be added in the terminal.
+    #     print(e)
+    #     return False
 
-    except Exception as e:
-        # Prints why the reservation could not be added in the terminal.
-        print(e)
-        return False
+    me = Reservation(guestID, madeby, roomID, checkin, checkout, status, notes)
+    db.session.add(me)
+    db.session.commit()
+    return True

@@ -48,12 +48,12 @@ class User(db.Model):
 	def is_standard(self):
 		# Is this user a standard user or above?
 		# returns True/False
-		return self.role=="standard" or is_admin(self)
+		return self.role=="standard" or self.is_admin()
 
 	def is_readonly(self):
 		# Is this user a readonly user or above?
 		# returns True/False
-		return self.role=="readonly" or is_standard(self)
+		return self.role=="readonly" or self.is_standard()
 
 	def getID(self):
 		return self.id

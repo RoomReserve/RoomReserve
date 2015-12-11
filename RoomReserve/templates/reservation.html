@@ -6,7 +6,7 @@
 <form class="well" method="POST" action="/admin/reservation">
   {{ form.csrf_token }}
   {{ form.guestID.label }} {{ form.guestID }}
-  {{ form.username.label }} {{ form.username }} <br />
+  {{ form.userID.label }} {{ form.userID }} <br />
   {{ form.roomID.label }} {{ form.roomID }} <br />
   {{ form.monthIn.label }} {{ form.monthIn }}
   {{ form.dayIn.label }} {{ form.dayIn }}
@@ -19,11 +19,11 @@
   {{ form.hourOut.label }} {{ form.hourOut }}
   {{ form.minuteOut.label }} {{ form.minuteOut }}<br />
   {{ form.status.label }} {{ form.status }}<br/>
-  {{ form.notes.label }} {{ form.notes }}<br/>
+  {{ form.notes.label }} {{ form.notes }}<br/> </br>
 
   <input type="submit" class="btn-primary" value="Create">
 </form>
-<hr />
+<hr/>
 </div>
 
 <div class="panel panel-primary col-md">
@@ -36,8 +36,9 @@
         <table class="table table-striped">
           <thead>
             <tr>
+              <th>reservationID </th>
               <th>guestID </th>
-              <th>username</th>
+              <th>userID</th>
               <th>roomID </th>
               <th>checkIn</th>
               <th>checkOut </th>
@@ -46,19 +47,18 @@
             </tr>
           </thead>
           <tbody>
-          <!--{% for r in reservations %}
+          {% for r in reservations %}
             <tr>
               <td>{{ r.id }}</td>
-        			<td>{{ r.guest }}</td>
+        			<td>{{ r.guestID }}</td>
         			<td>{{ r.madeby }}</td>
-        			<td>{{ r.place }}</td>
+        			<td>{{ r.roomID }}</td>
         			<td>{{ r.checkintime }}</td>
         			<td>{{ r.checkouttime }}</td>
-
               <td>{{ r.status }}</td>
               <td>{{ r.notes }}</td>
             </tr>
-          {% endfor %} -->
+          {% endfor %} 
 
           </tbody>
         </table>

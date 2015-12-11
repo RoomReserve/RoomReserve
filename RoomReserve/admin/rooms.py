@@ -22,11 +22,52 @@ class form_CreateRoom(Form):
         for b in getAllBuildings():
             self.building.choices.append((b.id, b.name))
 
+    def populate(self, thisRoom):
+        '''
+        Populates the fields of the form with the data currently
+        in the room given.
 
+        Parameters: a room object
+        '''
+        self.building.default = thisRoom.get_building_id()
+        self.floor.default = thisRoom.get_floor()
+        self.roomnumber.default = thisRoom.get_room_number()
+        self.capacity.default = thisRoom.get_capacity()
+        #TODO: implement status
+        self.process()
 
 @app.route('/admin/rooms', methods=['GET', 'POST'])
 @login_required
 def page_rooms():
+
+    # Editor
+    def edit_form(id):
+        '''
+        Returns the form back populated with the room information
+        from the ID given.
+
+        Parameters: id for a room.
+        '''
+        form = form_CreateRoom()
+        id=int(id)
+        form.populate(getRoomByID(id))
+        return form
+
+    def allowEdit(id=0):
+        '''
+        Figures out if the current user should be allowed
+        to edit the room. Currently, the roomID is ignored.
+
+        Parameters: roomID (optional)
+        '''
+        if current_user.is_admin():
+            # Only admins can edit rooms
+            return True
+        else:
+            return False
+    # /Editor
+
+
 
     if request.method == 'POST':
         # the form has been filled out, import the data
@@ -58,7 +99,40 @@ def page_rooms():
         # Not an admin, don't show the form
         form = False
     rooms = getAllRooms()
-    return render('listrooms.html', form=form, rooms=rooms)
+    return render('listrooms.html', form=form, rooms=rooms, \
+      edit_form=edit_form, allowEdit=allowEdit)
+
+@app.route('/admin/rooms/<id>', methods=['POST'])
+def page_updateRoom(id):
+    '''
+    Processing page for the room update form.
+
+    When update is complete, redirect to the list of rooms page
+    '''
+
+    id=int(id)
+    myRoom = getRoomById(id)
+
+    formdata = request.form
+    building = formdata['building']
+    floor = formdata['floor']
+    roomnumber = formdata['roomnumber']
+    capacity = formdata['capacity']
+
+    # Check to see if any of the fields have changed
+    # update any that have changed.
+    if building != myRoom.get_building_id():
+        myRoom.set_building_id(building)
+    if floor != myRoom.get_floor():
+        myRoom.set_floor(floor)
+    if roomnumber != myRoom.get_room_number():
+        myRoom.set_room_number(roomnumber)
+    if capacity != myRoom.get_capacity():
+        myRoom.set_capacity(capacity)
+
+    return redirect(url_for('page_rooms'))
+
+
 
 def getAllRooms():
     # returns all rooms
@@ -66,6 +140,11 @@ def getAllRooms():
     for me in db.session.query(Room):
     	rooms.append(me)
     return rooms
+
+def getActiveRooms(buildingID=None):
+    if buildingID:
+        return db.session.query(Room).filter_by(status=Static.ready_status, buildingID=buildingID)
+    return db.session.query(Room).filter_by(status=Static.ready_status)
 
 def getRoomInBuilding(bldgID, rn):
     # returns single room object with the given building and room number
@@ -76,7 +155,7 @@ def getRoomInBuilding(bldgID, rn):
         return room
     return False
 
-def getRoomById(id):
+def getRoomByID(id):
     # returns single room object with the given id
     # if no room is found with that id, return false.
     rooms = []

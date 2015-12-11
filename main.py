@@ -1,5 +1,3 @@
-# Runtime = Python3.4.3
-
 from RoomReserve import app
 app.run(debug=True)
 

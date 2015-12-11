@@ -1,12 +1,12 @@
 from RoomReserve import *
 
 class form_CreateGuest(Form):
-    firstname = StringField('First Name', [validators.Length(min=1, max=40)])
-    lastname = StringField('Last Name', [validators.Length(min=1, max=40)])
-    email = StringField('Email Address', [validators.email()])
-    phone = StringField('Phone Number', [validators.Length(min=4, max=20)])
-    address = StringField('Address', [validators.Length(min=1, max=75)])
-    payment = StringField('Payment', [validators.Length(min=1, max=7)])
+    firstname = StringField('First Name', validators=[DataRequired()])
+    lastname = StringField('Last Name', validators=[DataRequired()])
+    email = StringField('Email Address', validators=[DataRequired()])
+    phone = StringField('Phone Number', validators=[DataRequired()])
+    address = StringField('Address', validators=[DataRequired()])
+    payment = StringField('Payment', validators=[DataRequired()])
     notes = TextAreaField('Notes')
 
 
@@ -16,23 +16,26 @@ def page_guest():
 
     form = form_CreateGuest()
 
-    if request.method == 'POST' and form.validate():
+    if request.method == 'POST':
         # the form has been filled out, import the data
         formdata = request.form
         firstname = formdata['firstname']
         lastname = formdata['lastname']
         email = formdata['email']
+
         phone = ""
         for char in formdata['phone']:
             if char in "0123456789":
                 phone += char
         phone = int(phone)
         address = formdata['address']
+
         payment = ""
         for char in formdata['payment']:
             if char in "0123456789":
                 payment += char
         payment = int(payment)
+
         notes = formdata['notes']
 
         # create the guest
@@ -52,6 +55,14 @@ def getAllGuests():
     for me in db.session.query(Guest):
     	guests.append(me)
     return guests
+
+def getGuest(myid):
+    # returns single guest object with the given id
+    return db.session.query(Guest).filter_by(id=myid).first()
+
+def getGuestByID(myID):
+    # see docs for getGuest
+    return getGuest(myID)
 
 def getGuestByFirstName(fn):
     # returns a list of all guests with that first name
@@ -77,45 +88,83 @@ def getGuestByName(first, last):
         guests.append(me)
     return guests
 
-def getGuestByPhone(myphone):
-    # returns single guest object with the given phone number
-    # if no guest is found with that phone number, return false.
-    guests = []
-    for me in db.session.query(Guest).filter_by(phone=myphone):
-        # Gets guests from Guest where phone=myphone
-    	guests.append(me)
-    if len(guests) == 1:
-        # if we got a guest back, return it.
-        return guests[0]
-    return False
-
 def getGuestByEmail(myEmail):
-    # returns single guest object with the given Email
-    # if no guest is found with that phone number, return false.
+    # returns a list of all guests with that email
     guests = []
     for me in db.session.query(Guest).filter_by(email=myEmail):
-        # Gets guests from Guest where email=myEmail
-    	guests.append(me)
-    if len(guests) == 1:
-        # if we got a guest back, return it.
-        return guests[0]
-    return False
+        guests.append(me)
+    return guests
 
-def getGuest(myid):
-    # returns single guest object with the given id
-    # if no guest is found with that id, return false.
+
+def getGuestByPhone(myPhone):
+    # returns a list of all guests with that phone
     guests = []
-    for me in db.session.query(Guest).filter_by(id=myid):
-        # Gets guest from Guest where id=myid
-    	guests.append(me)
-    if len(guests) == 1:
-        # if we got a guest back, return it.
-        return guests[0]
-    return False
+    for me in db.session.query(Guest).filter_by(phone=myPhone):
+        guests.append(me)
+    return guests
 
-def getGuestByID(myID):
-    # see docs for getGuest
-    return getGuest(myID)
+
+### The following method does not work:
+#### TypeError: can only concatenate list (not "Guest") to list
+
+# def getGuestByPhone(myPhone):
+#     # returns single guest object with the given phone number
+#     # if no guest is found with that phone number, return false.
+#     guests = []
+#     for me in db.session.query(Guest).filter_by(phone=myPhone):
+#         # Gets guests from Guest where phone=myPhone
+#         guests.append(me)
+#     if len(guests) == 1:
+#         # if we got a guest back, return it.
+#         return guests[0]
+#     return False
+
+
+def getGuestByNameAndEmail(first, last, email):
+    # returns a list of all guests with that first, last name and email
+    # parameters: (first, last, email)
+    # remember that it is possible to have a guest that has the
+    # same first and last name as another.
+    guests = []
+    for me in db.session.query(Guest).filter_by(first=first, last=last, email=email):
+        guests.append(me)
+    return guests
+
+def getGuestByFirstNameAndEmail(first, email):
+    # returns a list of all guests with that first name and email
+    # parameters: (first, email)
+
+    guests = []
+    for me in db.session.query(Guest).filter_by(first=first, email=email):
+        guests.append(me)
+    return guests
+
+def getGuestByLastNameAndEmail(last, email):
+    # returns a list of all guests with that last name and email
+    # parameters: (last, email)
+
+    guests = []
+    for me in db.session.query(Guest).filter_by(last=first, email=email):
+        guests.append(me)
+    return guests
+
+def getGuestByFirstNameAndPhone(first, phone):
+    # returns a list of all guests with that first name and email
+    # parameters: (first, phone)
+
+    guests = []
+    for me in db.session.query(Guest).filter_by(first=first, phone=phone):
+        guests.append(me)
+    return guests
+
+def getGuestByLastNameAndPhone(last, phone):
+    # returns a list of all guests with that last name and phone
+    # parameters: (last, phone)
+
+    guests = []
+    for me in db.session.query(Guest).filter_by(last=first, phone=phone):
+        guests.append(me)
+    return guests
 
 def createGuest(fn, ln, em, ph, addr, paym, notes):
     # Adds a guest to the database.
