@@ -140,26 +140,20 @@ def getReservationByID(id):
     # returns single res object with the given id
     return db.session.query(Reservation).filter_by(id=id).one_or_none()
 
-def get_reservations_by_guestID(guestID, startDate=None, endDate=None, **kwargs):
-    kwargs={'guestID':guestID}
-    if startDate:
-        kwargs['checkintime'] = startDate
-    if endDate:
-        kwargs['checkouttime'] = endDate
-    return db.session.query(Reservation).filter_by(**kwargs)
-
-def get_reservations_by_roomID(roomID, startDate=None, endDate=None, **kwargs):
-    kwargs={'roomID':roomID}
-    if startDate:
-        kwargs['checkintime'] = startDate
-    if endDate:
-        kwargs['checkouttime'] = endDate
-    return db.session.query(Reservation).filter_by(**kwargs)
-
-
-
 
 def find_available_rooms(startDate, endDate, buildingID=None):
+    '''
+    Returns a list of room objects that do not have reservations during
+    the requested date ranges.
+    Parameters: datetime startDate, datetime endDate.
+    Optional parameters: buildingID, capacity
+    When buildingID is passed, it only returns rooms in that buildingID.
+    When a capacity is passed, it only returns rooms that can hold
+    that many or more people.
+    '''
+    # TODO: Implement buildingID filtering
+    # TODO: Implement lowest capacity filtering
+
     from RoomReserve.admin.rooms import getActiveRooms
     def is_room_available(roomID, delor):
         for res in get_active_reservations_for_roomID(roomID):
@@ -175,6 +169,10 @@ def find_available_rooms(startDate, endDate, buildingID=None):
     return availableRooms
 
 def get_active_reservations_for_roomID(roomID):
+    '''
+    Parameters: roomID
+    Returns a list of upcomming and current reservations for that roomID.
+    '''
 
     return db.session.query(Reservation).filter( \
         Reservation.roomID==roomID, \
@@ -185,7 +183,11 @@ def get_active_reservations_for_roomID(roomID):
 
 
 def createReservation(guestID, madeby, roomID, checkin, checkout, status, notes):
-    # Adds a reservation to the database.
+    '''
+    Adds a reservation to the database
+    '''
+    # TODO: catch errors.
+
     # Returns True if user added successfully, else False.
     # try:
     #     me = Reservation(guestID, madeby, roomID, checkin, checkout, status, notes)
