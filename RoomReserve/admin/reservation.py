@@ -51,10 +51,10 @@ class form_CreateReservation(Form):
 
 
     status = SelectField('Status', default='unarrived',\
-        choices=[('checkedin', 'Checked In'),\
-                ('unarrived', 'Unarrived'),\
-                ('checkedout', 'Checked Out'),\
-                ('waiting', 'Waiting')\
+        choices=[(CONST.checkedin_status, 'Checked In'),\
+                (CONST.unarrived_status, 'Unarrived'),\
+                (CONST.checkedout_status, 'Checked Out'),\
+                (CONST.waiting_status, 'Waiting')\
                 ])
 
     notes = TextAreaField('Notes', validators=[DataRequired()])

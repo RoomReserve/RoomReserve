@@ -12,7 +12,7 @@ class Reservation(db.Model):
 	status = db.Column(db.String(20), unique=False, nullable=False)
 	notes = db.Column(db.String(500), unique=False)
 
-	def __init__(self, guest, madeby, room, checkintime, checkouttime, status="Unarrived", notes=""):
+	def __init__(self, guest, madeby, room, checkintime, checkouttime, status=CONST.unarrived_status, notes=""):
 		self.guest = self.setGuest(guestID=guest)
 		self.madeby = madeby
 		self.roomID = self.setRoom(roomID=room)
