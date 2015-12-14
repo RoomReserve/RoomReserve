@@ -176,8 +176,8 @@ def get_active_reservations_for_roomID(roomID):
 
     return db.session.query(Reservation).filter( \
         Reservation.roomID==roomID, \
-        Reservation.status != Static.checkedout_status, \
-        Reservation.status != Static.cancelled_status \
+        Reservation.status != CONST.checkedout_status, \
+        Reservation.status != CONST.cancelled_status \
         )
 
 

@@ -36,9 +36,9 @@ class Reservation(db.Model):
 			Checks to see if the roomID corresponds to a valid room
 			Returns True if the roomID exists, else False.
 			'''
-		    if getRoomByID(myid):
-		        return True
-		    return False
+			if getRoomByID(myid):
+				return True
+			return False
 
 		if room:
 			# we were given a room object, get the roomID
@@ -74,9 +74,9 @@ class Reservation(db.Model):
 			Checks to see if the guestID corresponds to a valid guest
 			Returns True if the guestID exists, else False.
 			'''
-		    if getGuestByID(myid):
-		        return True
-		    return False
+			if getGuestByID(myid):
+				return True
+			return False
 
 		if guest:
 			# we were given a guest object, get the guestID
