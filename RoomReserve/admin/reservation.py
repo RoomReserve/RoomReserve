@@ -138,7 +138,7 @@ def getAllReservations():
 
 def getReservationByID(id):
     # returns single res object with the given id
-    return db.session.query(Reservation).filter_by(id=id).one_or_none()
+    return db.session.query(Reservation).filter_by(id=id).first()
 
 
 def find_available_rooms(startDate, endDate, buildingID=None):
