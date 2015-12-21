@@ -177,12 +177,13 @@ def get_active_reservations_for_roomID(roomID):
     return db.session.query(Reservation).filter( \
         Reservation.roomID==roomID, \
         Reservation.status != CONST.checkedout_status, \
-        Reservation.status != CONST.cancelled_status \
+        Reservation.status != CONST.cancelled_status, \
+        Reservation.status != CONST.draft_status \
         )
 
 
 
-def createReservation(guestID, madeby, roomID, checkin, checkout, status, notes):
+def createReservation(guestID, madeby, roomID, checkin, checkout, status, notes=""):
     '''
     Adds a reservation to the database
     '''
@@ -203,4 +204,4 @@ def createReservation(guestID, madeby, roomID, checkin, checkout, status, notes)
     me = Reservation(guestID, madeby, roomID, checkin, checkout, status, notes)
     db.session.add(me)
     db.session.commit()
-    return True
+    return me
