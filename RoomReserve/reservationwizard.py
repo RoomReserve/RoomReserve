@@ -35,12 +35,12 @@ def page_reservation_wizard_2():
     formdata = request.form
     indate = formdata['check_in_date']
     outdate = formdata['check_out_date']
-    capacity = formdata['capacity']
+    capacity = int(formdata['capacity'])
 
     indate = delorean.parse(indate).naive()
     outdate = delorean.parse(outdate).naive()
 
-    availableRooms = find_available_rooms(indate, outdate)
+    availableRooms = find_available_rooms(indate, outdate, capacity=capacity)
 
     myRes = createReservation(guestID=-1, madeby=current_user.getID(), roomID=-1, \
                         checkin=indate, checkout=outdate, status=CONST.draft_status)

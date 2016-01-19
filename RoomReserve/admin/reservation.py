@@ -141,7 +141,7 @@ def getReservationByID(id):
     return db.session.query(Reservation).filter_by(id=id).first()
 
 
-def find_available_rooms(startDate, endDate, buildingID=None):
+def find_available_rooms(startDate, endDate, buildingID=None, capacity=0):
     '''
     Returns a list of room objects that do not have reservations during
     the requested date ranges.
@@ -152,7 +152,6 @@ def find_available_rooms(startDate, endDate, buildingID=None):
     that many or more people.
     '''
     # TODO: Implement buildingID filtering
-    # TODO: Implement lowest capacity filtering
 
     from RoomReserve.admin.rooms import getActiveRooms
     def is_room_available(roomID, delor):
@@ -164,8 +163,9 @@ def find_available_rooms(startDate, endDate, buildingID=None):
     delor = delorean_helper.create_delorean(startDate, endDate)
     availableRooms = []
     for rm in getActiveRooms():
-        if is_room_available(rm.getID(),delor):
-            availableRooms.append(rm)
+        if capacity and rm.get_capacity() >= capacity:
+            if is_room_available(rm.getID(),delor):
+                availableRooms.append(rm)
     return availableRooms
 
 def get_active_reservations_for_roomID(roomID):
