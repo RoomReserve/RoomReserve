@@ -11,3 +11,4 @@ flask-heroku==0.1.9
 gunicorn==19.3.0
 itsdangerous==0.24
 psycopg2==2.6.1
+Delorean==0.5.0
