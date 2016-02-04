@@ -60,14 +60,25 @@ def page_reservation_wizard_3():
     res.setRoom(room=room)
     buildingName = getBuildingById(room.get_building_id()).get_name()
 
+    from RoomReserve.admin.guestsearch import form_SearchGuest
+    guestSearchForm = form_SearchGuest()
+
+    from RoomReserve.admin.guest import form_CreateGuest
+    createGuestForm = form_CreateGuest()
+
+    return render('reswizard/wizard3.html', guestSearchForm=guestSearchForm,\
+        room=getRoomByID(res.getRoomID()), buildingName=buildingName)
+
+@app.route('/res/step-3/new', methods=['POST'])
+def page_reservation_wizard_3_new_guest():
+    pass
+
+@app.route('/res/step-3/search', methods=['POST'])
+def page_reservation_wizard_3_existing_guest():
     '''
-    TODO: Make guest information form.
-    Allow option to find an existing guest
-    or create a new one
+    The user has selected to search for an existing guest.
+    Display the results of the search and allow the selection of one.
+    Also have an option for making a new guest in case the user
+    doesn't find the guest they were looking for.
     '''
-
-
-
-
-
-    return render('reswizard/wizard3.html', room=getRoomByID(res.getRoomID()), buildingName=buildingName)
+    from RoomReserve.admin.guestsearch import guestsearch
