@@ -6,10 +6,10 @@ class form_CreateUser(Form):
     email = StringField('Email Address', validators=[DataRequired()])
     password = PasswordField('Password')
     role = SelectField('Role',\
-        choices=[(CONST.role_admin, 'Administrator'),\
-                (CONST.role_standard, 'Standard User'),\
-                (CONST.role_readonly, 'Read Only'),\
-                (CONST.role_inactive, 'Inactive')\
+        choices=[(Static.role_admin, 'Administrator'),\
+                (Static.role_standard, 'Standard User'),\
+                (Static.role_readonly, 'Read Only'),\
+                (Static.role_inactive, 'Inactive')\
                 ])
 
     def populate(self, thisUser):

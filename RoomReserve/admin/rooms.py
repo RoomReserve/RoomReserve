@@ -77,9 +77,9 @@ def page_rooms():
         roomnumber = formdata['roomnumber']
         capacity = formdata['capacity']
         if 'active' in formdata:
-            status = CONST.ready_status
+            status = Static.ready_status
         else:
-            status = CONST.inactive_status
+            status = Static.inactive_status
         #description = formdata['description']
         description = ""
 
@@ -143,8 +143,8 @@ def getAllRooms():
 
 def getActiveRooms(buildingID=None):
     if buildingID:
-        return db.session.query(Room).filter_by(status=CONST.ready_status, buildingID=buildingID)
-    return db.session.query(Room).filter_by(status=CONST.ready_status)
+        return db.session.query(Room).filter_by(status=Static.ready_status, buildingID=buildingID)
+    return db.session.query(Room).filter_by(status=Static.ready_status)
 
 def getRoomInBuilding(bldgID, rn):
     # returns single room object with the given building and room number
