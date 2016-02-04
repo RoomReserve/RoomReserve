@@ -129,76 +129,36 @@ def page_reservation():
     reservations = getAllReservations()
     return render('reservation.html', form=form, reservations=reservations)
 
-
-
-
 def getAllReservations():
     # returns all reservations in a list
-    return db.session.query(Reservation)
+    reservations = []
+    for me in db.session.query(Reservation):
+    	reservations.append(me)
+    return reservations
 
-def getReservationByID(id):
+
+def getReservation(id):
     # returns single res object with the given id
-    return db.session.query(Reservation).filter_by(id=id).one_or_none()
-
-def get_reservations_by_guestID(guestID, startDate=None, endDate=None, **kwargs):
-    kwargs={'guestID':guestID}
-    if startDate:
-        kwargs['checkintime'] = startDate
-    if endDate:
-        kwargs['checkouttime'] = endDate
-    return db.session.query(Reservation).filter_by(**kwargs)
-
-def get_reservations_by_roomID(roomID, startDate=None, endDate=None, **kwargs):
-    kwargs={'roomID':roomID}
-    if startDate:
-        kwargs['checkintime'] = startDate
-    if endDate:
-        kwargs['checkouttime'] = endDate
-    return db.session.query(Reservation).filter_by(**kwargs)
-
-
-
-
-def find_available_rooms(startDate, endDate, buildingID=None):
-    from RoomReserve.admin.rooms import getActiveRooms
-    def is_room_available(roomID, delor):
-        for res in get_active_reservations_for_roomID(roomID):
-            if delorean_helper.delorean_crash(res.get_delorean(), delor):
-                return False
-        return True
-
-    delor = delorean_helper.create_delorean(startDate, endDate)
-    availableRooms = []
-    for rm in getActiveRooms():
-        if is_room_available(rm.getID(),delor):
-            availableRooms.append(rm)
-    return availableRooms
-
-def get_active_reservations_for_roomID(roomID):
-
-    return db.session.query(Reservation).filter( \
-        Reservation.roomID==roomID, \
-        Reservation.status != Static.checkedout_status, \
-        Reservation.status != Static.cancelled_status \
-        )
-
-
+    # if no res is found with that id, return false.
+    reservations = []
+    for me in db.session.query(Reservation).filter_by(id=id):
+        # Gets reservations from Reservation where id=id
+    	reservations.append(me)
+    if len(reservations) == 1:
+        # if we got a res back, return it.
+        return reservations[0]
+    return False
 
 def createReservation(guestID, madeby, roomID, checkin, checkout, status, notes):
     # Adds a reservation to the database.
     # Returns True if user added successfully, else False.
-    # try:
-    #     me = Reservation(guestID, madeby, roomID, checkin, checkout, status, notes)
-    #     db.session.add(me)
-    #     db.session.commit()
-    #     return True
-    #
-    # except Exception as e:
-    #     # Prints why the reservation could not be added in the terminal.
-    #     print(e)
-    #     return False
+    try:
+        me = Reservation(guestID, madeby, roomID, checkin, checkout, status, notes)
+        db.session.add(me)
+        db.session.commit()
+        return True
 
-    me = Reservation(guestID, madeby, roomID, checkin, checkout, status, notes)
-    db.session.add(me)
-    db.session.commit()
-    return True
+    except Exception as e:
+        # Prints why the reservation could not be added in the terminal.
+        print(e)
+        return False
