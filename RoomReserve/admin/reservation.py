@@ -51,10 +51,10 @@ class form_CreateReservation(Form):
 
 
     status = SelectField('Status', default='unarrived',\
-        choices=[(CONST.checkedin_status, 'Checked In'),\
-                (CONST.unarrived_status, 'Unarrived'),\
-                (CONST.checkedout_status, 'Checked Out'),\
-                (CONST.waiting_status, 'Waiting')\
+        choices=[('checkedin', 'Checked In'),\
+                ('unarrived', 'Unarrived'),\
+                ('checkedout', 'Checked Out'),\
+                ('waiting', 'Waiting')\
                 ])
 
     notes = TextAreaField('Notes', validators=[DataRequired()])
@@ -129,79 +129,36 @@ def page_reservation():
     reservations = getAllReservations()
     return render('reservation.html', form=form, reservations=reservations)
 
-
-
-
 def getAllReservations():
     # returns all reservations in a list
-    return db.session.query(Reservation)
+    reservations = []
+    for me in db.session.query(Reservation):
+    	reservations.append(me)
+    return reservations
 
-def getReservationByID(id):
+
+def getReservation(id):
     # returns single res object with the given id
-    return db.session.query(Reservation).filter_by(id=id).first()
+    # if no res is found with that id, return false.
+    reservations = []
+    for me in db.session.query(Reservation).filter_by(id=id):
+        # Gets reservations from Reservation where id=id
+    	reservations.append(me)
+    if len(reservations) == 1:
+        # if we got a res back, return it.
+        return reservations[0]
+    return False
 
-
-def find_available_rooms(startDate, endDate, buildingID=None, capacity=0):
-    '''
-    Returns a list of room objects that do not have reservations during
-    the requested date ranges.
-    Parameters: datetime startDate, datetime endDate.
-    Optional parameters: buildingID, capacity
-    When buildingID is passed, it only returns rooms in that buildingID.
-    When a capacity is passed, it only returns rooms that can hold
-    that many or more people.
-    '''
-    # TODO: Implement buildingID filtering
-
-    from RoomReserve.admin.rooms import getActiveRooms
-    def is_room_available(roomID, delor):
-        for res in get_active_reservations_for_roomID(roomID):
-            if delorean_helper.delorean_crash(res.get_delorean(), delor):
-                return False
+def createReservation(guestID, madeby, roomID, checkin, checkout, status, notes):
+    # Adds a reservation to the database.
+    # Returns True if user added successfully, else False.
+    try:
+        me = Reservation(guestID, madeby, roomID, checkin, checkout, status, notes)
+        db.session.add(me)
+        db.session.commit()
         return True
 
-    delor = delorean_helper.create_delorean(startDate, endDate)
-    availableRooms = []
-    for rm in getActiveRooms():
-        if capacity and rm.get_capacity() >= capacity:
-            if is_room_available(rm.getID(),delor):
-                availableRooms.append(rm)
-    return availableRooms
-
-def get_active_reservations_for_roomID(roomID):
-    '''
-    Parameters: roomID
-    Returns a list of upcomming and current reservations for that roomID.
-    '''
-
-    return db.session.query(Reservation).filter( \
-        Reservation.roomID==roomID, \
-        Reservation.status != CONST.checkedout_status, \
-        Reservation.status != CONST.cancelled_status, \
-        Reservation.status != CONST.draft_status \
-        )
-
-
-
-def createReservation(guestID, madeby, roomID, checkin, checkout, status, notes=""):
-    '''
-    Adds a reservation to the database
-    '''
-    # TODO: catch errors.
-
-    # Returns True if user added successfully, else False.
-    # try:
-    #     me = Reservation(guestID, madeby, roomID, checkin, checkout, status, notes)
-    #     db.session.add(me)
-    #     db.session.commit()
-    #     return True
-    #
-    # except Exception as e:
-    #     # Prints why the reservation could not be added in the terminal.
-    #     print(e)
-    #     return False
-
-    me = Reservation(guestID, madeby, roomID, checkin, checkout, status, notes)
-    db.session.add(me)
-    db.session.commit()
-    return me
+    except Exception as e:
+        # Prints why the reservation could not be added in the terminal.
+        print(e)
+        return False

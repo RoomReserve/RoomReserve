@@ -5,14 +5,6 @@ ready_status="Ready"
 inactive_status="Inactive"
 occupied_status="Occupied"
 
-unarrived_status="unarrived"
-checkedin_status="checkedin"
-checkedout_status="checkedout"
-waiting_status="waiting"
-cancelled_status="cancelled"
-
-draft_status="draft"
-
 
 #user roles
 role_admin = 'admin'

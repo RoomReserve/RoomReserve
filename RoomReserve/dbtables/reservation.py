@@ -1,111 +1,49 @@
 from RoomReserve import *
-from RoomReserve.admin.guest import getGuestByID
-from RoomReserve.admin.rooms import getRoomByID
 
 class Reservation(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
-	guestID = db.Column(db.Integer, db.ForeignKey(Guest.id))
+	guestID = db.Column(db.Integer, db.ForeignKey(Guest.id), nullable=False)
 	madeby = db.Column(db.Integer, db.ForeignKey(User.id), nullable=False)
-	roomID = db.Column(db.Integer, db.ForeignKey(Room.id))
+	roomID = db.Column(db.Integer, db.ForeignKey(Room.id), nullable=False)
 	checkintime = db.Column(db.DateTime, nullable=False, unique=False)
 	checkouttime = db.Column(db.DateTime, nullable=False, unique=False)
 	status = db.Column(db.String(20), unique=False, nullable=False)
 	notes = db.Column(db.String(500), unique=False)
 
-	def __init__(self, guest, madeby, room, checkintime, checkouttime, status=CONST.unarrived_status, notes=""):
+	def __init__(self, guest, madeby, room, checkintime, checkouttime, status="Unarrived", notes=""):
+		self.guest = self.setGuest(guestID=guest)
 		self.madeby = madeby
+		self.roomID = self.setRoom(roomID=room)
 		self.checkintime = checkintime
 		self.checkouttime = checkouttime
 		self.status = status
 		self.notes = notes
 
-		if status is not CONST.draft_status:
-			self.guest = self.setGuest(guestID=guest)
-			self.roomID = self.setRoom(roomID=room)
-		else:
-			self.guest = None
-			self.roomID = None
-
-	def setRoom(self, roomID=None, room=None):
-		class RoomDoesNotExistException(Exception):
-			'''
-			An exception to throw when a requested room doesn't exist
-			'''
-			def __init__(self, value):
-				self.value = value
-			def __str__(self):
-				return "Room " + repr(self.value) + " does not exist"
-
-		def roomExists(myid):
-			'''
-			Checks to see if the roomID corresponds to a valid room
-			Returns True if the roomID exists, else False.
-			'''
-			if getRoomByID(myid):
-				return True
-			return False
-
+	def setRoom(self, room=None,roomID=0):
 		if room:
 			# we were given a room object, get the roomID
-			roomID = room.getID()
-
-		if roomExists(roomID):
+			self.roomID = room.getID()
+		elif roomID:
+			# we were given a roomID, that's exactly what we need
 			self.roomID = roomID
-			db.session.commit()
 		else:
-			raise RoomDoesNotExistException(roomID)
-
+			abort(428, description="Not a valid Room accessor request. \
+			You must supply setRoom with a Room object (room=myRoom), \
+			or a roomID (roomID=myRoomID).")
 		return self.roomID
 
-	def setGuest(self, guestID=None, guest=None):
-		class GuestDoesNotExistException(Exception):
-			'''
-			An exception to throw when a requested room doesn't exist
-			'''
-			def __init__(self, value):
-				self.value = value
-			def __str__(self):
-				return "Guest " + repr(self.value) + " does not exist"
-
-		def guestExists(myid):
-			'''
-			Checks to see if the guestID corresponds to a valid guest
-			Returns True if the guestID exists, else False.
-			'''
-			if getGuestByID(myid):
-				return True
-			return False
-
+	def setGuest(self, guest=None,guestID=0):
 		if guest:
 			# we were given a guest object, get the guestID
-			guestID=guest.getID()
-
-		if guestExists(guestID):
+			self.guestID = guest.getID()
+		elif guestID:
+			# we were given a guestID, that's exactly what we need
 			self.guestID = guestID
-			db.session.commit()
 		else:
-			raise GuestDoesNotExistException(guestID)
-
+			abort(428, description="Not a valid Guest accessor request. \
+			You must supply setGuest with a Guest object (guest=myGuest), \
+			or a guestID (guestID=myGuestID).")
 		return self.guestID
 
-
-	def set_status(self, status):
-		self.status = status
-		db.session.commit()
-
-	def getID(self):
-		return self.id
-
-	def getRoomID(self):
-		return self.roomID
-
-	def get_delorean(self):
-		'''
-		Returns the time range for the reservation.
-		The range is from the check in date to the check out date,
-		does not include the check out date.
-		'''
-		return delorean_helper.create_delorean(self.checkintime, self.checkouttime)
-
 	def __repr__(self):
-		return '<Reservation %r>' % (self.id)
+		return '%r %r' % (self.time, self.place)
