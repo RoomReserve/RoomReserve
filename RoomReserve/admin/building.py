@@ -60,9 +60,9 @@ def page_buildings():
         numFloors = formdata['numFloors']
         description = formdata['description']
         if 'active' in formdata:
-            status = CONST.ready_status
+            status = Static.ready_status
         else:
-            status = CONST.inactive_status
+            status = Static.inactive_status
 
         # create the building
         if createBuilding(name, numFloors, description, status):

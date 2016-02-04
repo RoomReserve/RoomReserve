@@ -11,8 +11,6 @@ checkedout_status="checkedout"
 waiting_status="waiting"
 cancelled_status="cancelled"
 
-draft_status="draft"
-
 
 #user roles
 role_admin = 'admin'
