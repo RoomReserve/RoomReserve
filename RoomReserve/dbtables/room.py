@@ -23,6 +23,9 @@ class Room(db.Model):
 	def getMyBuildingName(self):
 		return getBuildingById(self.buildingID).getBuildingName()
 
+	def getID(self):
+		return self.id
+
 	def get_room_number(self):
 		# returns the room number of this room
 		return self.roomnumber
@@ -105,7 +108,7 @@ class Room(db.Model):
 	def set_status(self, st):
 		# Changes/sets the status of the room
 		# Returns the new status. False upon failure
-		# Status codes can be found in RoomReserve.helpers.static_variables
+		# Status codes can be found in RoomReserve.helpers.constant_variables
 		try:
 			self.status = st
 			db.session.commit()

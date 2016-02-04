@@ -6,10 +6,10 @@ class form_CreateUser(Form):
     email = StringField('Email Address', validators=[DataRequired()])
     password = PasswordField('Password')
     role = SelectField('Role',\
-        choices=[(Static.role_admin, 'Administrator'),\
-                (Static.role_standard, 'Standard User'),\
-                (Static.role_readonly, 'Read Only'),\
-                (Static.role_inactive, 'Inactive')\
+        choices=[(CONST.role_admin, 'Administrator'),\
+                (CONST.role_standard, 'Standard User'),\
+                (CONST.role_readonly, 'Read Only'),\
+                (CONST.role_inactive, 'Inactive')\
                 ])
 
     def populate(self, thisUser):
@@ -124,10 +124,10 @@ def page_updateUser(id):
 
 def getAllUsers():
     # returns all users in a list
-    users = []
-    for me in db.session.query(User):
-    	users.append(me)
-    return users
+    # users = []
+    # for me in db.session.query(User):
+    # 	users.append(me)
+    return db.session.query(User)
 
 def getUser(myemail):
     # returns single user object with the given email

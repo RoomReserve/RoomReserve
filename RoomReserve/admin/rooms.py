@@ -50,7 +50,7 @@ def page_rooms():
         '''
         form = form_CreateRoom()
         id=int(id)
-        form.populate(getRoomById(id))
+        form.populate(getRoomByID(id))
         return form
 
     def allowEdit(id=0):
@@ -77,9 +77,9 @@ def page_rooms():
         roomnumber = formdata['roomnumber']
         capacity = formdata['capacity']
         if 'active' in formdata:
-            status = Static.ready_status
+            status = CONST.ready_status
         else:
-            status = Static.inactive_status
+            status = CONST.inactive_status
         #description = formdata['description']
         description = ""
 
@@ -141,6 +141,11 @@ def getAllRooms():
     	rooms.append(me)
     return rooms
 
+def getActiveRooms(buildingID=None):
+    if buildingID:
+        return db.session.query(Room).filter_by(status=CONST.ready_status, buildingID=buildingID)
+    return db.session.query(Room).filter_by(status=CONST.ready_status)
+
 def getRoomInBuilding(bldgID, rn):
     # returns single room object with the given building and room number
     # if room number is not found in building, return false.
@@ -150,7 +155,7 @@ def getRoomInBuilding(bldgID, rn):
         return room
     return False
 
-def getRoomById(id):
+def getRoomByID(id):
     # returns single room object with the given id
     # if no room is found with that id, return false.
     rooms = []

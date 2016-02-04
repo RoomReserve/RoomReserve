@@ -1,0 +1,38 @@
+{% extends 'default.html' %}
+
+{% block body1 %}
+
+{% if form %}
+  <form class="well" method="POST" action="/res/step-2">
+    {% for field in form %}
+      <tr>
+      {% if field.type == "BooleanField" %}
+          <td></td>
+          <td>{{ field }} {{ field.label }}</td>
+          <br />
+      {% elif field.type == "TextAreaField" %}
+          <td>{{ field.label }}:</td><br />
+          <td>{{ field }}</td>
+          <br />
+      {% else %}
+          <td>{{ field.label }}</td>
+          <td>{{ field }}</td>
+          <br />
+      {% endif %}
+      </tr>
+{% endfor %}
+
+    <input type="submit" class="btn-primary" value="Create">
+  </form>
+
+{% else %}
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+      <em>You don't have permission create reservations.</em>
+    </div>
+  </div>
+{% endif %}
+
+
+{% endblock %}
