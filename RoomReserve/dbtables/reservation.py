@@ -23,19 +23,12 @@ class Reservation(db.Model):
 
 	def setRoom(self, roomID=None, room=None):
 		class RoomDoesNotExistException(Exception):
-			'''
-			An exception to throw when a requested room doesn't exist
-			'''
 			def __init__(self, value):
 				self.value = value
 			def __str__(self):
 				return "Room " + repr(self.value) + " does not exist"
 
 		def roomExists(myid):
-			'''
-			Checks to see if the roomID corresponds to a valid room
-			Returns True if the roomID exists, else False.
-			'''
 		    if getRoomByID(myid):
 		        return True
 		    return False
@@ -61,19 +54,12 @@ class Reservation(db.Model):
 
 	def setGuest(self, guestID=None, guest=None):
 		class GuestDoesNotExistException(Exception):
-			'''
-			An exception to throw when a requested room doesn't exist
-			'''
 			def __init__(self, value):
 				self.value = value
 			def __str__(self):
 				return "Guest " + repr(self.value) + " does not exist"
 
 		def guestExists(myid):
-			'''
-			Checks to see if the guestID corresponds to a valid guest
-			Returns True if the guestID exists, else False.
-			'''
 		    if getGuestByID(myid):
 		        return True
 		    return False
@@ -101,11 +87,6 @@ class Reservation(db.Model):
 
 
 	def get_delorean(self):
-		'''
-		Returns the time range for the reservation.
-		The range is from the check in date to the check out date,
-		does not include the check out date.
-		'''
 		return delorean_helper.create_delorean(self.checkintime, self.checkouttime)
 
 	def __repr__(self):
