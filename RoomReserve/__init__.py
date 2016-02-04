@@ -6,15 +6,15 @@ from flask_wtf import Form, validators
 from wtforms import *
 from wtforms.validators import *
 from wtforms import StringField, TextField, SelectField
-
-# Date & Time helpers
 from datetime import datetime
 import delorean
 from delorean import Delorean
 import RoomReserve.helpers.delorean_helper as delorean_helper
 
+
 #RoomReserve constant variables
 import RoomReserve.helpers.constant_variables as CONST
+
 
 # flask-heroku
 from flask.ext.heroku import Heroku
@@ -34,7 +34,7 @@ app.secret_key = 'x95xe1gxceHGxeaSx0exf5xf4xbaxb5x1dxe5'
 heroku = Heroku(app)
 db = SQLAlchemy(app)
 
-# Initialize Flask Login Manager
+# FLASK-LOGIN
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'
@@ -122,7 +122,7 @@ def createDefaultAccounts():
 
 createDefaultAccounts()
 
-# tests:
+# Try not to add additional page routes in here.
 
 @app.route("/dbtest")
 def db_test():
