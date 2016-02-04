@@ -4,22 +4,27 @@ from RoomReserve.admin.rooms import getRoomByID
 
 class Reservation(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
-	guestID = db.Column(db.Integer, db.ForeignKey(Guest.id), nullable=False)
+	guestID = db.Column(db.Integer, db.ForeignKey(Guest.id))
 	madeby = db.Column(db.Integer, db.ForeignKey(User.id), nullable=False)
-	roomID = db.Column(db.Integer, db.ForeignKey(Room.id), nullable=False)
+	roomID = db.Column(db.Integer, db.ForeignKey(Room.id))
 	checkintime = db.Column(db.DateTime, nullable=False, unique=False)
 	checkouttime = db.Column(db.DateTime, nullable=False, unique=False)
 	status = db.Column(db.String(20), unique=False, nullable=False)
 	notes = db.Column(db.String(500), unique=False)
 
-	def __init__(self, guest, madeby, room, checkintime, checkouttime, status="Unarrived", notes=""):
-		self.guest = self.setGuest(guestID=guest)
+	def __init__(self, guest, madeby, room, checkintime, checkouttime, status=CONST.unarrived_status, notes=""):
 		self.madeby = madeby
-		self.roomID = self.setRoom(roomID=room)
 		self.checkintime = checkintime
 		self.checkouttime = checkouttime
 		self.status = status
 		self.notes = notes
+
+		if status is not CONST.draft_status:
+			self.guest = self.setGuest(guestID=guest)
+			self.roomID = self.setRoom(roomID=room)
+		else:
+			self.guest = None
+			self.roomID = None
 
 	def setRoom(self, roomID=None, room=None):
 		class RoomDoesNotExistException(Exception):
@@ -36,27 +41,20 @@ class Reservation(db.Model):
 			Checks to see if the roomID corresponds to a valid room
 			Returns True if the roomID exists, else False.
 			'''
-		    if getRoomByID(myid):
-		        return True
-		    return False
+			if getRoomByID(myid):
+				return True
+			return False
 
 		if room:
 			# we were given a room object, get the roomID
 			roomID = room.getID()
-			if roomExists(roomID):
-				self.roomID = roomID
-			else:
-				raise RoomDoesNotExistException(roomID)
-		elif roomID:
-			# we were given a roomID, that's exactly what we need
-			if roomExists(roomID):
-				self.roomID = roomID
-			else:
-				raise RoomDoesNotExistException(roomID)
+
+		if roomExists(roomID):
+			self.roomID = roomID
+			db.session.commit()
 		else:
-			abort(428, description="Not a valid Room accessor request. \
-			You must supply setRoom with a Room object (room=myRoom), \
-			or a roomID (roomID=myRoomID).")
+			raise RoomDoesNotExistException(roomID)
+
 		return self.roomID
 
 	def setGuest(self, guestID=None, guest=None):
@@ -74,31 +72,32 @@ class Reservation(db.Model):
 			Checks to see if the guestID corresponds to a valid guest
 			Returns True if the guestID exists, else False.
 			'''
-		    if getGuestByID(myid):
-		        return True
-		    return False
+			if getGuestByID(myid):
+				return True
+			return False
 
 		if guest:
 			# we were given a guest object, get the guestID
 			guestID=guest.getID()
-			if guestExists(guestID):
-				self.guestID = guestID
-			else:
-				raise GuestDoesNotExistException(guestID)
 
-		elif guestID:
-			# we were given a guestID, that's exactly what we need
-			if guestExists(guestID):
-				self.guestID = guestID
-			else:
-				raise GuestDoesNotExistException(guestID)
-
+		if guestExists(guestID):
+			self.guestID = guestID
+			db.session.commit()
 		else:
-			abort(428, description="Not a valid Guest accessor request. \
-			You must supply setGuest with a Guest object (guest=myGuest), \
-			or a guestID (guestID=myGuestID).")
+			raise GuestDoesNotExistException(guestID)
+
 		return self.guestID
 
+
+	def set_status(self, status):
+		self.status = status
+		db.session.commit()
+
+	def getID(self):
+		return self.id
+
+	def getRoomID(self):
+		return self.roomID
 
 	def get_delorean(self):
 		'''

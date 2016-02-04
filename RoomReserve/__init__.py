@@ -14,7 +14,7 @@ from delorean import Delorean
 import RoomReserve.helpers.delorean_helper as delorean_helper
 
 #RoomReserve constant variables
-import RoomReserve.helpers.static_variables as Static
+import RoomReserve.helpers.constant_variables as CONST
 
 # flask-heroku
 from flask.ext.heroku import Heroku

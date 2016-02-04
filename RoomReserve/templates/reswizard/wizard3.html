@@ -1,0 +1,14 @@
+{% extends 'default.html' %}
+
+{% block body1 %}
+
+<p>Creating a new reservation for {{ buildingName }} {{ room.get_room_number() }}.</p>
+
+<h5>Guest Information</h5>
+
+<button>Existing Guest</button>
+<button>New Guest</button>
+
+
+
+{% endblock %}

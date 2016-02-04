@@ -51,10 +51,10 @@ class form_CreateReservation(Form):
 
 
     status = SelectField('Status', default='unarrived',\
-        choices=[('checkedin', 'Checked In'),\
-                ('unarrived', 'Unarrived'),\
-                ('checkedout', 'Checked Out'),\
-                ('waiting', 'Waiting')\
+        choices=[(CONST.checkedin_status, 'Checked In'),\
+                (CONST.unarrived_status, 'Unarrived'),\
+                (CONST.checkedout_status, 'Checked Out'),\
+                (CONST.waiting_status, 'Waiting')\
                 ])
 
     notes = TextAreaField('Notes', validators=[DataRequired()])
@@ -138,10 +138,10 @@ def getAllReservations():
 
 def getReservationByID(id):
     # returns single res object with the given id
-    return db.session.query(Reservation).filter_by(id=id).one_or_none()
+    return db.session.query(Reservation).filter_by(id=id).first()
 
 
-def find_available_rooms(startDate, endDate, buildingID=None):
+def find_available_rooms(startDate, endDate, buildingID=None, capacity=0):
     '''
     Returns a list of room objects that do not have reservations during
     the requested date ranges.
@@ -152,7 +152,6 @@ def find_available_rooms(startDate, endDate, buildingID=None):
     that many or more people.
     '''
     # TODO: Implement buildingID filtering
-    # TODO: Implement lowest capacity filtering
 
     from RoomReserve.admin.rooms import getActiveRooms
     def is_room_available(roomID, delor):
@@ -164,8 +163,9 @@ def find_available_rooms(startDate, endDate, buildingID=None):
     delor = delorean_helper.create_delorean(startDate, endDate)
     availableRooms = []
     for rm in getActiveRooms():
-        if is_room_available(rm.getID(),delor):
-            availableRooms.append(rm)
+        if capacity and rm.get_capacity() >= capacity:
+            if is_room_available(rm.getID(),delor):
+                availableRooms.append(rm)
     return availableRooms
 
 def get_active_reservations_for_roomID(roomID):
@@ -176,13 +176,14 @@ def get_active_reservations_for_roomID(roomID):
 
     return db.session.query(Reservation).filter( \
         Reservation.roomID==roomID, \
-        Reservation.status != Static.checkedout_status, \
-        Reservation.status != Static.cancelled_status \
+        Reservation.status != CONST.checkedout_status, \
+        Reservation.status != CONST.cancelled_status, \
+        Reservation.status != CONST.draft_status \
         )
 
 
 
-def createReservation(guestID, madeby, roomID, checkin, checkout, status, notes):
+def createReservation(guestID, madeby, roomID, checkin, checkout, status, notes=""):
     '''
     Adds a reservation to the database
     '''
@@ -203,4 +204,4 @@ def createReservation(guestID, madeby, roomID, checkin, checkout, status, notes)
     me = Reservation(guestID, madeby, roomID, checkin, checkout, status, notes)
     db.session.add(me)
     db.session.commit()
-    return True
+    return me
