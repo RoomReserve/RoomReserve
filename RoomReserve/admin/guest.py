@@ -104,22 +104,6 @@ def getGuestByPhone(myPhone):
     return guests
 
 
-### The following method does not work:
-#### TypeError: can only concatenate list (not "Guest") to list
-
-# def getGuestByPhone(myPhone):
-#     # returns single guest object with the given phone number
-#     # if no guest is found with that phone number, return false.
-#     guests = []
-#     for me in db.session.query(Guest).filter_by(phone=myPhone):
-#         # Gets guests from Guest where phone=myPhone
-#         guests.append(me)
-#     if len(guests) == 1:
-#         # if we got a guest back, return it.
-#         return guests[0]
-#     return False
-
-
 def getGuestByNameAndEmail(first, last, email):
     # returns a list of all guests with that first, last name and email
     # parameters: (first, last, email)
