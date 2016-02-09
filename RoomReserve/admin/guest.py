@@ -18,36 +18,50 @@ def page_guest():
 
     if request.method == 'POST':
         # the form has been filled out, import the data
-        formdata = request.form
-        firstname = formdata['firstname']
-        lastname = formdata['lastname']
-        email = formdata['email']
-
-        phone = ""
-        for char in formdata['phone']:
-            if char in "0123456789":
-                phone += char
-        phone = int(phone)
-        address = formdata['address']
-
-        payment = ""
-        for char in formdata['payment']:
-            if char in "0123456789":
-                payment += char
-        payment = int(payment)
-
-        notes = formdata['notes']
-
-        # create the guest
-        if createGuest(firstname, lastname, email, phone, address, payment, notes):
+        if processCreateGuestForm(request.form):
             # guest created sucessfully
             pass
         else:
             # createGuest returned false, the guest could not be created.
             return render('basic.html', content="Could not create guest.")
 
+
     guests = getAllGuests()
     return render('guests.html', form=form, guests=guests)
+
+def processCreateGuestForm(formdata):
+    '''
+    Parameters: formdata (request.form) from a CreateGuest form.
+    Returns true if guest created successfully
+     else false.
+    '''
+    firstname = formdata['firstname']
+    lastname = formdata['lastname']
+    email = formdata['email']
+
+    phone = ""
+    for char in formdata['phone']:
+        if char in "0123456789":
+            phone += char
+    phone = int(phone)
+    address = formdata['address']
+
+    payment = ""
+    for char in formdata['payment']:
+        if char in "0123456789":
+            payment += char
+    payment = int(payment)
+
+    notes = formdata['notes']
+
+    # create the guest
+    if createGuest(firstname, lastname, email, phone, address, payment, notes):
+        # guest created sucessfully
+        return True
+    else:
+        # createGuest returned false, the guest could not be created.
+        return False
+
 
 def getAllGuests():
     # returns all guests in a list
