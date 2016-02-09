@@ -122,6 +122,32 @@ def createDefaultAccounts():
 
 createDefaultAccounts()
 
+
+def createSampleGuests():
+	'''
+	Create few guest users for testing purposes
+	'''
+
+	sampleGuests = []
+	for g in db.session.query(Guest).filter_by(email='i.newton@gmail.com'):
+		sampleGuests.append(g)
+	if len(sampleGuests) > 0:
+		print('Sample guest account i.newton@gmail.com exists.')
+	else:
+		guest1 = Guest("Isaac", "Newton", "i.newton@gmail.com", "523-343-4545", "Iowa City, Iowa", "45", "Paid")
+		guest2 = Guest("Bruce", "Lee", "b.lee@gmail.com", "323-543-9845", "Chicago, Illinois", "75", "Paid")
+		guest3 = Guest("Katie", "Smith", "k.smith@gmail.com", "583-343-7845", "NYC, New York", "505", "Not Paid")
+
+		db.session.add(guest1)
+		db.session.add(guest2)
+		db.session.add(guest3)
+		db.session.commit()
+		print("Sample guests added.")
+
+
+createSampleGuests()
+
+
 # Try not to add additional page routes in here.
 
 @app.route("/dbtest")
