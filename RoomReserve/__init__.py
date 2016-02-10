@@ -174,30 +174,30 @@ createDefaultAccounts()
 # createSampleBuildings()
 
 
-def createSampleRooms():
-	'''
-	Create sample rooms for testing purposes
-	'''
+# def createSampleRooms():
+# 	'''
+# 	Create sample rooms for testing purposes
+# 	'''
 
-	sampleRooms = []
-	for b in db.session.query(Room).filter_by(roomnumber = '401'):
-		sampleRooms.append(b)
-	if len(sampleRooms) > 0:
-		print('Sample room exists.')
-	else:
-		m401 = Room('401', '4', '1', 'Corner Room', 'Ready')
-		d202 = Room('202', '2', '2', 'Corner rooms', 'Ready')
-		b402 = Room('402', '4', '3', 'Single Room', 'Ready')
-		y319 = Room('319', '3', '4', 'Double Room', 'Unavailable')
-		db.session.add(m401)
-		db.session.add(d202)
-		db.session.add(b402)
-		db.session.add(y319)
-		db.session.commit()
-		print("Sample rooms added.")
+# 	sampleRooms = []
+# 	for b in db.session.query(Room).filter_by(roomnumber = '401'):
+# 		sampleRooms.append(b)
+# 	if len(sampleRooms) > 0:
+# 		print('Sample room exists.')
+# 	else:
+# 		m401 = Room('401', '4', '1', 'Corner Room', 'Ready')
+# 		d202 = Room('202', '2', '2', 'Corner rooms', 'Ready')
+# 		b402 = Room('402', '4', '3', 'Single Room', 'Ready')
+# 		y319 = Room('319', '3', '4', 'Double Room', 'Unavailable')
+# 		db.session.add(m401)
+# 		db.session.add(d202)
+# 		db.session.add(b402)
+# 		db.session.add(y319)
+# 		db.session.commit()
+# 		print("Sample rooms added.")
 
 
-createSampleRooms()
+# createSampleRooms()
 
 
 # Try not to add additional page routes in here.
