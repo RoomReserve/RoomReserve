@@ -54,7 +54,7 @@ def set_database():
 		DATABASE_URL = "sqlite:////tmp/tempdb_rr.db"
 	else:
 		# heroku postgresql database
-		DATABASE_URL = "postgres://rrbxapkedalvsh:uvgVtldssvp3GECdAVB9e3mOUl@ec2-54-83-17-9.compute-1.amazonaws.com:5432/d5r02un6qtqh6h"
+		DATABASE_URL = "postgres://cypesbhdqdjwdm:_Fc_oDYnfvYp8Ma5F3aOnJMHXd@ec2-54-83-17-9.compute-1.amazonaws.com:5432/d5r02un6qtqh6h"
 
 
 	app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URL
