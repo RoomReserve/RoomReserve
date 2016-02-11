@@ -235,8 +235,11 @@ def droptables():
 		db.drop_all()
 		db.create_all()
 		createDefaultAccounts()
+		createSampleGuests()
+		createSampleBuildings()
+		createSampleRooms()
 		print("TABLES REBUILT")
-		return render_template('basic.html',title="Tables erased.",content="Data has been reset")
+		return render('basic.html',title="Tables erased.",content="Data has been reset")
 
 	elif request.method == 'POST' and request.form['verify'] == deleteAll_ExceptUsers:
 		db.drop_all(bind=Reservation)
