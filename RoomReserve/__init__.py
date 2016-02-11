@@ -159,6 +159,7 @@ def createSampleBuildings():
 	else:
 		miller = Building('Miller Hall', '8', 'Available', 'Corner rooms are bigger')
 		brandt = Building('Brandt Hall', '5', 'Available', 'For First Years Only')
+
 		db.session.add(miller)
 		db.session.add(brandt)
 		db.session.commit()
@@ -179,10 +180,12 @@ def createSampleRooms():
 	if len(sampleRooms) > 0:
 		print('Sample room exists.')
 	else:
-		m401 = Room(401, 4, 1, 2, 'Corner Room', 'Ready')
+		m401 = Room(401, 4, 1, 2, 'Ready')
+		b202 = Room(202, 2, 2, 3, 'Unavailable')
 		db.session.add(m401)
+		db.session.add(b202)
 		db.session.commit()
-		print("Sample room added.")
+		print("Sample rooms added.")
 
 
 createSampleRooms()
