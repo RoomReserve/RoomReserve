@@ -243,10 +243,10 @@ def droptables():
 		db.create_all()
 		createDefaultAccounts()
 		print("TABLES REBUILT")
-		return render_template('basic.html',title="Tables erased.",content="SOME data has been reset")
+		return render('basic.html',title="Tables erased.",content="SOME data has been reset")
 
 	else:
 		content = 'Type the password to verify. <form action="/droptables" method="POST">'
 		content += '<input type="text" name="verify">'
 		content += '<input type="submit" value="Delete All Data">'
-		return render_template('basic.html',title="Drop Table Verification",content=content)
+		return render('basic.html',title="Drop Table Verification",content=content)
