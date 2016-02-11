@@ -179,7 +179,7 @@ def createSampleRooms():
 	if len(sampleRooms) > 0:
 		print('Sample room exists.')
 	else:
-		m401 = Room('401', '4', '1', 'Corner Room', 'Ready')
+		m401 = Room(401, 4, 1, 2, 'Corner Room', 'Ready')
 		db.session.add(m401)
 		db.session.commit()
 		print("Sample room added.")
