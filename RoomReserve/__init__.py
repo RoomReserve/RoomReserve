@@ -134,8 +134,8 @@ def createSampleGuests():
 	if len(sampleGuests) > 0:
 		print('Sample guest account i.newton@gmail.com exists.')
 	else:
-		guest1 = Guest('Isaac', 'Newton', 'i.newton@gmail.com', '523-343-4545', 'Iowa City, Iowa', '45', 'Paid')
-		guest2 = Guest('Bruce', 'Lee', 'b.lee@gmail.com', '323-543-9845', 'Chicago, Illinois', '750', 'Paid')
+		guest1 = Guest(first='Isaac', last='Newton', email='i.newton@gmail.com', phone='523-343-4545', address='Iowa City, Iowa', payment=45, notes="Paid")
+		guest2 = Guest(first='Bruce', last='Lee', email='b.lee@gmail.com', phone='454-999-3334', address='Chicago, Illinois', payment=5000, notes="Paid")
 
 		db.session.add(guest1)
 		db.session.add(guest2)
@@ -157,11 +157,12 @@ def createSampleBuildings():
 	if len(sampleBuildings) > 0:
 		print('Sample building exists.')
 	else:
-		miller = Building('Miller Hall', '8', 'Available', 'Corner rooms are bigger')
-		brandt = Building('Brandt Hall', '5', 'Available', 'For First Years Only')
-
+		miller = Building(name='Miller Hall', numfloors=8, status='Available', description="Corner rooms are bigger", notes="")
+		brandt = Building(name='Brandt Hall', numfloors=5, status='Available', description="First years only", notes="")
+		ylvi = Building(name='Ylvisaker Hall', numfloors=4, status='Available', description="First years only", notes="")		
 		db.session.add(miller)
 		db.session.add(brandt)
+		db.session.add(ylvi)
 		db.session.commit()
 		print("Sample buildings added.")
 
@@ -180,10 +181,12 @@ def createSampleRooms():
 	if len(sampleRooms) > 0:
 		print('Sample room exists.')
 	else:
-		m401 = Room(401, 4, 1, 2, 'Ready')
-		b202 = Room(202, 2, 2, 3, 'Unavailable')
+		m401 = Room(roomnumber='401', floor='4', buildingID='1', capacity='2', description="Corner Rooms are bigger",  status=CONST.ready_status, notes="")
+		b202 = Room(roomnumber='202', floor='2', buildingID='2', capacity='4', description="First Years Only", status=CONST.occupied_status, notes="")
+		yl319 = Room(roomnumber='319', floor='3', buildingID='3', capacity='2', description="First Years Only", status=CONST.inactive_status, notes="")
 		db.session.add(m401)
 		db.session.add(b202)
+		db.session.add(yl319)
 		db.session.commit()
 		print("Sample rooms added.")
 
