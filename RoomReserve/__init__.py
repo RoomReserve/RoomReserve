@@ -123,81 +123,69 @@ def createDefaultAccounts():
 createDefaultAccounts()
 
 
-# def createSampleGuests():
-# 	'''
-# 	Create few guest users for testing purposes
-# 	'''
+def createSampleGuests():
+	'''
+	Create few guest users for testing purposes
+	'''
 
-# 	sampleGuests = []
-# 	for g in db.session.query(Guest).filter_by(email='i.newton@gmail.com'):
-# 		sampleGuests.append(g)
-# 	if len(sampleGuests) > 0:
-# 		print('Sample guest account i.newton@gmail.com exists.')
-# 	else:
-# 		guest1 = Guest('Isaac', 'Newton', 'i.newton@gmail.com', '523-343-4545', 'Iowa City, Iowa', '45', 'Paid')
-# 		guest2 = Guest('Bruce', 'Lee', 'b.lee@gmail.com', '323-543-9845', 'Chicago, Illinois', '75', 'Paid')
-# 		guest3 = Guest('Katie', 'Smith', 'k.smith@gmail.com', '583-343-7845', 'NYC, New York', '505', 'Not Paid')
+	sampleGuests = []
+	for g in db.session.query(Guest).filter_by(email='i.newton@gmail.com'):
+		sampleGuests.append(g)
+	if len(sampleGuests) > 0:
+		print('Sample guest account i.newton@gmail.com exists.')
+	else:
+		guest1 = Guest('Isaac', 'Newton', 'i.newton@gmail.com', '523-343-4545', 'Iowa City, Iowa', '45', 'Paid')
+		guest2 = Guest('Bruce', 'Lee', 'b.lee@gmail.com', '323-543-9845', 'Chicago, Illinois', '750', 'Paid')
 
-# 		db.session.add(guest1)
-# 		db.session.add(guest2)
-# 		db.session.add(guest3)
-# 		db.session.commit()
-# 		print("Sample guests added.")
+		db.session.add(guest1)
+		db.session.add(guest2)
+		db.session.commit()
+		print("Sample guests added.")
 
 
-# createSampleGuests()
+createSampleGuests()
 
 
-# def createSampleBuildings():
-# 	'''
-# 	Create sample buildings for testing purposes
-# 	'''
+def createSampleBuildings():
+	'''
+	Create sample buildings for testing purposes
+	'''
 
-# 	sampleBuildings = []
-# 	for b in db.session.query(Building).filter_by(name='Miller Hall'):
-# 		sampleBuildings.append(b)
-# 	if len(sampleBuildings) > 0:
-# 		print('Sample building exists.')
-# 	else:
-# 		miller = Building('Miller Hall', '8', 'Available', 'Corner rooms are bigger')
-# 		dieseth = Building('Dieseth Hall', '8', 'Available', 'Corner rooms are bigger')
-# 		brandt = Building('Brandt Hall', '5', 'Available', 'For First Years Only')
-# 		ylvi = Building('Ylvisaker Hall', '4', 'Available', 'For First Years Only')
-# 		db.session.add(miller)
-# 		db.session.add(dieseth)
-# 		db.session.add(brandt)
-# 		db.session.add(ylvi)
-# 		db.session.commit()
-# 		print("Sample buildings added.")
+	sampleBuildings = []
+	for b in db.session.query(Building).filter_by(name='Miller Hall'):
+		sampleBuildings.append(b)
+	if len(sampleBuildings) > 0:
+		print('Sample building exists.')
+	else:
+		miller = Building('Miller Hall', '8', 'Available', 'Corner rooms are bigger')
+		brandt = Building('Brandt Hall', '5', 'Available', 'For First Years Only')
+		db.session.add(miller)
+		db.session.add(brandt)
+		db.session.commit()
+		print("Sample buildings added.")
 
 
-# createSampleBuildings()
+createSampleBuildings()
 
 
-# def createSampleRooms():
-# 	'''
-# 	Create sample rooms for testing purposes
-# 	'''
+def createSampleRooms():
+	'''
+	Create sample rooms for testing purposes
+	'''
 
-# 	sampleRooms = []
-# 	for b in db.session.query(Room).filter_by(roomnumber = '401'):
-# 		sampleRooms.append(b)
-# 	if len(sampleRooms) > 0:
-# 		print('Sample room exists.')
-# 	else:
-# 		m401 = Room('401', '4', '1', 'Corner Room', 'Ready')
-# 		d202 = Room('202', '2', '2', 'Corner rooms', 'Ready')
-# 		b402 = Room('402', '4', '3', 'Single Room', 'Ready')
-# 		y319 = Room('319', '3', '4', 'Double Room', 'Unavailable')
-# 		db.session.add(m401)
-# 		db.session.add(d202)
-# 		db.session.add(b402)
-# 		db.session.add(y319)
-# 		db.session.commit()
-# 		print("Sample rooms added.")
+	sampleRooms = []
+	for b in db.session.query(Room).filter_by(roomnumber = '401'):
+		sampleRooms.append(b)
+	if len(sampleRooms) > 0:
+		print('Sample room exists.')
+	else:
+		m401 = Room('401', '4', '1', 'Corner Room', 'Ready')
+		db.session.add(m401)
+		db.session.commit()
+		print("Sample room added.")
 
 
-# createSampleRooms()
+createSampleRooms()
 
 
 # Try not to add additional page routes in here.
