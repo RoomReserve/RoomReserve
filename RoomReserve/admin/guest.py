@@ -55,12 +55,8 @@ def processCreateGuestForm(formdata):
     notes = formdata['notes']
 
     # create the guest
-    if createGuest(firstname, lastname, email, phone, address, payment, notes):
-        # guest created sucessfully
-        return True
-    else:
-        # createGuest returned false, the guest could not be created.
-        return False
+    return createGuest(firstname, lastname, email, phone, address, payment, notes)
+
 
 
 def getAllGuests():
@@ -182,12 +178,12 @@ def getGuestByLastNameAndPhone(last, phone):
 
 def createGuest(fn, ln, em, ph, addr, paym, notes):
     # Adds a guest to the database.
-    # Returns True if guest added successfully, else False.
+    # Returns the Guest if guest added successfully, else False.
     try:
         me = Guest(fn, ln, em, ph, addr, paym, notes)
         db.session.add(me)
         db.session.commit()
-        return True
+        return me
 
     except Exception as e:
         # Prints why the guest could not be added in the terminal.
