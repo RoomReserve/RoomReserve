@@ -67,11 +67,35 @@ def page_reservation_wizard_3():
     createGuestForm = form_CreateGuest()
 
     return render('reswizard/wizard3.html', guestSearchForm=guestSearchForm,\
-        room=getRoomByID(res.getRoomID()), buildingName=buildingName)
+        room=getRoomByID(res.getRoomID()), buildingName=buildingName, resID=res.getID())
 
 @app.route('/res/step-3/new', methods=['POST'])
 def page_reservation_wizard_3_new_guest():
-    pass
+    '''
+    The user has selected to create a new guest.
+    Display the form to create a new guest
+    and use that new guest as the guest on the reservation.
+    '''
+    from RoomReserve.admin.guest import form_CreateGuest #, processCreateGuestForm
+    formdata = request.form
+    res = getReservationByID(int(formdata['resID']))
+
+    form = form_CreateGuest()
+
+    return render('reswizard/wizard3_newguest.html', form=form, res=res)
+
+@app.route('/res/step-3/new/process', methods=['POST'])
+def page_reservation_wizard_3_new_guest_process():
+    if request.method == 'POST':
+        # the form has been filled out, import the data
+        myGuest = processCreateGuestForm(request.form)
+        if myGuest == False:
+            # the guest could not be created.
+            return render('basic.html', content="Could not create guest.")
+        myGuestID = myGuest.getID()
+
+    return render('reswizard/wizard3_newguest.html', form=form)
+
 
 @app.route('/res/step-3/search', methods=['POST'])
 def page_reservation_wizard_3_existing_guest():
