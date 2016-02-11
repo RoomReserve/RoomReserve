@@ -99,6 +99,10 @@ class Reservation(db.Model):
 	def getRoomID(self):
 		return self.roomID
 
+	def get_room(self):
+		return getRoomByID(self.getRoomID())
+
+
 	def get_delorean(self):
 		'''
 		Returns the time range for the reservation.
