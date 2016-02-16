@@ -6,15 +6,15 @@ from flask_wtf import Form, validators
 from wtforms import *
 from wtforms.validators import *
 from wtforms import StringField, TextField, SelectField
-
-# Date & Time helpers
 from datetime import datetime
 import delorean
 from delorean import Delorean
 import RoomReserve.helpers.delorean_helper as delorean_helper
 
+
 #RoomReserve constant variables
 import RoomReserve.helpers.constant_variables as CONST
+
 
 # flask-heroku
 from flask.ext.heroku import Heroku
@@ -34,7 +34,7 @@ app.secret_key = 'x95xe1gxceHGxeaSx0exf5xf4xbaxb5x1dxe5'
 heroku = Heroku(app)
 db = SQLAlchemy(app)
 
-# Initialize Flask Login Manager
+# FLASK-LOGIN
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'
@@ -54,7 +54,7 @@ def set_database():
 		DATABASE_URL = "sqlite:////tmp/tempdb_rr.db"
 	else:
 		# heroku postgresql database
-		DATABASE_URL = "postgres://mzatibmbfmcifk:jNbQucN2VmHYlx8eQt7hRDyU3Y@ec2-54-225-199-108.compute-1.amazonaws.com:5432/d2476jmdne4ujp"
+		DATABASE_URL = "postgres://cypesbhdqdjwdm:_Fc_oDYnfvYp8Ma5F3aOnJMHXd@ec2-54-83-17-9.compute-1.amazonaws.com:5432/d5r02un6qtqh6h"
 
 
 	app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URL
@@ -122,7 +122,79 @@ def createDefaultAccounts():
 
 createDefaultAccounts()
 
-# tests:
+
+def createSampleGuests():
+	'''
+	Create few guest users for testing purposes
+	'''
+
+	sampleGuests = []
+	for g in db.session.query(Guest).filter_by(email='i.newton@gmail.com'):
+		sampleGuests.append(g)
+	if len(sampleGuests) > 0:
+		print('Sample guest account i.newton@gmail.com exists.')
+	else:
+		guest1 = Guest(first='Isaac', last='Newton', email='i.newton@gmail.com', phone='523-343-4545', address='Iowa City, Iowa', payment=45, notes="Paid")
+		guest2 = Guest(first='Bruce', last='Lee', email='b.lee@gmail.com', phone='454-999-3334', address='Chicago, Illinois', payment=5000, notes="Paid")
+
+		db.session.add(guest1)
+		db.session.add(guest2)
+		db.session.commit()
+		print("Sample guests added.")
+
+
+createSampleGuests()
+
+
+def createSampleBuildings():
+	'''
+	Create sample buildings for testing purposes
+	'''
+
+	sampleBuildings = []
+	for b in db.session.query(Building).filter_by(name='Miller Hall'):
+		sampleBuildings.append(b)
+	if len(sampleBuildings) > 0:
+		print('Sample building exists.')
+	else:
+		miller = Building(name='Miller Hall', numfloors=8, status='Available', description="Corner rooms are bigger", notes="")
+		brandt = Building(name='Brandt Hall', numfloors=5, status='Available', description="First years only", notes="")
+		ylvi = Building(name='Ylvisaker Hall', numfloors=4, status='Available', description="First years only", notes="")		
+		db.session.add(miller)
+		db.session.add(brandt)
+		db.session.add(ylvi)
+		db.session.commit()
+		print("Sample buildings added.")
+
+
+createSampleBuildings()
+
+
+def createSampleRooms():
+	'''
+	Create sample rooms for testing purposes
+	'''
+
+	sampleRooms = []
+	for b in db.session.query(Room).filter_by(roomnumber = '401'):
+		sampleRooms.append(b)
+	if len(sampleRooms) > 0:
+		print('Sample room exists.')
+	else:
+		m401 = Room(roomnumber='401', floor='4', buildingID='1', capacity='2', description="Corner Rooms are bigger",  status=CONST.ready_status, notes="")
+		b202 = Room(roomnumber='202', floor='2', buildingID='2', capacity='4', description="First Years Only", status=CONST.occupied_status, notes="")
+		yl319 = Room(roomnumber='319', floor='3', buildingID='3', capacity='2', description="First Years Only", status=CONST.inactive_status, notes="")
+		db.session.add(m401)
+		db.session.add(b202)
+		db.session.add(yl319)
+		db.session.commit()
+		print("Sample rooms added.")
+
+
+createSampleRooms()
+
+
+# Try not to add additional page routes in here.
 
 @app.route("/dbtest")
 def db_test():
@@ -163,18 +235,21 @@ def droptables():
 		db.drop_all()
 		db.create_all()
 		createDefaultAccounts()
+		createSampleGuests()
+		createSampleBuildings()
+		createSampleRooms()
 		print("TABLES REBUILT")
-		return render_template('basic.html',title="Tables erased.",content="Data has been reset")
+		return render('basic.html',title="Tables erased.",content="Data has been reset")
 
 	elif request.method == 'POST' and request.form['verify'] == deleteAll_ExceptUsers:
 		db.drop_all(bind=Reservation)
 		db.create_all()
 		createDefaultAccounts()
 		print("TABLES REBUILT")
-		return render_template('basic.html',title="Tables erased.",content="SOME data has been reset")
+		return render('basic.html',title="Tables erased.",content="SOME data has been reset")
 
 	else:
 		content = 'Type the password to verify. <form action="/droptables" method="POST">'
 		content += '<input type="text" name="verify">'
 		content += '<input type="submit" value="Delete All Data">'
-		return render_template('basic.html',title="Drop Table Verification",content=content)
+		return render('basic.html',title="Drop Table Verification",content=content)
