@@ -1,11 +1,79 @@
 {% extends 'default.html' %}
 
 {% block body1 %}
+
 	<div class="panel panel-info col-md">
 		<div class="panel-body">
-			<h3 class="panel-title">Welcome to Today's News</h3>
+			<h3 class="panel-title">Welcome to RoomReserve!</h3>
 		</div>
 	</div>
+
+	<br>
+	<div id="myCarousel" class="carousel slide" data-ride="carousel">
+	<!-- Indicators -->
+	<ol class="carousel-indicators">
+	  <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+	  <li data-target="#myCarousel" data-slide-to="1"></li>
+	  <li data-target="#myCarousel" data-slide-to="2"></li>
+	  <li data-target="#myCarousel" data-slide-to="3"></li>
+	  <li data-target="#myCarousel" data-slide-to="4"></li>
+	</ol>
+
+	<!-- Wrapper for slides -->
+	<div class="carousel-inner" role="listbox">
+	  <div class="item active">
+	    <img src="/static/img/reservation.jpg" alt="Reservations" width="460" height="345">
+		<div class="carousel-caption">
+		<h3>Campus Room Management System</h3>
+		<p>Reservations made easy.</p>
+		</div>
+	  </div>
+
+	  <div class="item">
+	    <img src="/static/img/baker_pic1.jpg" alt="Baker" width="460" height="345">
+		<div class="carousel-caption">
+		<h3>Baker Village</h3>
+		<p>The atmosphere in Baker Village has a touch of Scandinavian style.</p>
+		</div>
+	  </div>
+
+	  <div class="item">
+	    <img src="/static/img/ylvi_pic1.jpg" alt="Ylvisaker Hall" width="460" height="345">
+		<div class="carousel-caption">
+		<h3>Ylvisaker Hall</h3>
+		<p>The atmosphere in Ylvisaker Hall has a touch of sun and shades.</p>
+		</div>
+	  </div>
+
+	  <div class="item">
+	    <img src="/static/img/brandt_pic1.jpg" alt="Flower" width="460" height="345">
+		<div class="carousel-caption">
+		<h3>Brandt Hall</h3>
+		<p>Brandt Hall has been renovated since it was built.</p>
+		</div>
+	  </div>
+
+	  <div class="item">
+	    <img src="/static/img/olson_pic1.jpg" alt="Flower" width="460" height="345">
+		<div class="carousel-caption">
+		<h3>Olson Hall</h3>
+		<p>Olson Hall was built in honor of Mr. Olson.</p>
+		</div> 
+	  </div>
+
+	</div>
+
+	<!-- Left and right controls -->
+	<a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+	  <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+	  <span class="sr-only">Previous</span>
+	</a>
+	<a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+	  <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+	  <span class="sr-only">Next</span>
+	</a>
+	</div>
+
 
 	{% if not content %}
 	{% else %}
