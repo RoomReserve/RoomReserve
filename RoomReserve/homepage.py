@@ -6,8 +6,8 @@ from RoomReserve import *
 def index():
 
 	title="RoomReserve"
-	content = "<strong>Welcome to RoomReserve!</strong>"
+	content = ""
 	# content += "\n debug: running on " + sys.platform
 
 
-	return render('homepage.html', title=title, content=content)
+	return render('today.html', title=title, content=content)
