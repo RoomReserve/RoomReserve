@@ -20,31 +20,39 @@ class Guest(db.Model):
 		self.payment = payment
 		self.notes = notes
 
-	def get_first_name():
+	def get_id(self):
+		# Returns the ID of the guest.
+		return self.id
+
+	def getID(self):
+		# Alias for self.get_id()
+		return self.get_id()
+
+	def get_first_name(self):
 		# Returns the first name of the guest
 		return self.first
 
-	def get_last_name():
+	def get_last_name(self):
 		# Returns the last name of the guest
 		return self.last
 
-	def get_email():
+	def get_email(self):
 		# Returns the email of the guest
 		return self.email
 
-	def get_address():
+	def get_address(self):
 		# Returns the address of the guest
 		return self.address
 
-	def get_payment():
+	def get_payment(self):
 		# Returns the payment amount of the guest
 		return self.payment
 
-	def get_notes():
+	def get_notes(self):
 		# Returns the notes of the guest
 		return self.notes
 
-	def set_first_name(fn):
+	def set_first_name(self, fn):
 		# Changes/sets the first name of the guest
 		# Returns the new name. False upon failure
 		try:
@@ -54,7 +62,7 @@ class Guest(db.Model):
 			return False
 		return self.first
 
-	def set_last_name(ln):
+	def set_last_name(self, ln):
 		# Changes/sets the last name of the guest
 		# Returns the new name. False upon failure
 		try:
@@ -64,7 +72,7 @@ class Guest(db.Model):
 			return False
 		return self.last
 
-	def set_email(em):
+	def set_email(self, em):
 		# Changes/sets the email of the guest
 		# Returns the new email. False upon failure
 		try:
@@ -74,7 +82,7 @@ class Guest(db.Model):
 			return False
 		return self.email
 
-	def set_phone(ph):
+	def set_phone(self, ph):
 		# Changes/sets the phone number of the guest
 		# Returns the phone number. False upon failure
 		try:
@@ -84,7 +92,7 @@ class Guest(db.Model):
 			return False
 		return self.phone
 
-	def set_address(addr):
+	def set_address(self, addr):
 		# Changes/sets the address of the guest
 		# Returns the new address. False upon failure
 		try:
@@ -94,7 +102,7 @@ class Guest(db.Model):
 			return False
 		return self.address
 
-	def set_payment(pmt):
+	def set_payment(self, pmt):
 		# Changes/sets the payment amount of the guest
 		# Returns the new payment amount. False upon failure
 		try:
@@ -104,7 +112,7 @@ class Guest(db.Model):
 			return False
 		return self.payment
 
-	def set_notes(notes):
+	def set_notes(self, notes):
 		# Changes/sets the notes field of the guest
 		# Returns the new notes value. False upon failure
 		try:
