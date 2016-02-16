@@ -86,15 +86,19 @@ def page_reservation_wizard_3_new_guest():
 
 @app.route('/res/step-3/new/process', methods=['POST'])
 def page_reservation_wizard_3_new_guest_process():
-    if request.method == 'POST':
-        # the form has been filled out, import the data
-        myGuest = processCreateGuestForm(request.form)
-        if myGuest == False:
-            # the guest could not be created.
-            return render('basic.html', content="Could not create guest.")
-        myGuestID = myGuest.getID()
+    # the form has been filled out, import the data
+    formdata = request.form
+    from RoomReserve.admin.guest import form_CreateGuest, processCreateGuestForm
+    myGuest = processCreateGuestForm(formdata)
+    if myGuest == False:
+        # the guest could not be created.
+        return render('basic.html', content="Could not create guest.")
+    myGuestID = myGuest.get_id()
+    myRes = getReservationByID(int(formdata['resID']))
+    myRes.setGuest(guestID=myGuestID)
 
-    return render('reswizard/wizard3_newguest.html', form=form)
+
+    return render('reswizard/confirm.html', res=myRes)
 
 
 @app.route('/res/step-3/search', methods=['POST'])
@@ -106,3 +110,15 @@ def page_reservation_wizard_3_existing_guest():
     doesn't find the guest they were looking for.
     '''
     from RoomReserve.admin.guestsearch import guestsearch
+
+@app.route('/res/confirm', methods=['POST'])
+def page_draft_reservation_confirm():
+    '''
+    The reservation wizard is done.
+    Make the reservation non-draft and give the user a confirmation number.
+    '''
+    formdata = request.form
+    res = getReservationByID(int(formdata['resID']))
+    res.set_status(CONST.unarrived_status)
+
+    return render('basic.html', content = "Confirmation Number: " + str(res.getID()))

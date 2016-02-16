@@ -1,0 +1,25 @@
+{% extends 'default.html' %}
+
+{% block body1 %}
+
+<h2>Reservation Details</h2>
+
+<p>Please review the information below and press "Finish" to confim your reservation.</p>
+
+<table>
+  <tr>
+    <td> Check-in </td>
+    <td> implement </td>
+  </tr>
+    <td> Room Numer </td>
+    <td> {{ res.get_room().getMyBuildingName() }} {{ res.get_room().get_room_number() }} </td>
+  </tr>
+
+
+<form class="well" method="POST" action="/res/confirm">
+  <input type="hidden" name="resID" value="{{ res.getID() }}">
+  <input type="submit" class="btn-primary" value="Finish">
+</form>
+
+
+{% endblock %}
