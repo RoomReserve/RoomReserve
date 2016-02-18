@@ -10,4 +10,4 @@ def index():
 	# content += "\n debug: running on " + sys.platform
 
 
-	return render('today.html', title=title, content=content)
+	return render('homepage.html', title=title, content=content)
