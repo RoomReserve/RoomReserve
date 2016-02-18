@@ -3,7 +3,7 @@
 {% block body1 %}
 
 {% if form %}
-  <form class="well" method="POST" action="/res/step-2">
+  <form class="well" method="POST" action="/res/new/room">
     {% for field in form %}
       <tr>
       {% if field.type == "BooleanField" %}

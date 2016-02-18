@@ -21,7 +21,7 @@ def page_reservation_wizard():
     form = Form_Wizard_Form()
     return render('reswizard/wizard1.html', form=form)
 
-@app.route('/res/step-2', methods=['POST'])
+@app.route('/res/new/room', methods=['POST'])
 #@Login.standard_required
 def page_reservation_wizard_2():
     '''
@@ -48,7 +48,7 @@ def page_reservation_wizard_2():
 
 
 
-@app.route('/res/step-3', methods=['POST'])
+@app.route('/res/new/guest', methods=['POST'])
 def page_reservation_wizard_3():
     '''
     Updates the reservation with the selected room.
@@ -71,7 +71,7 @@ def page_reservation_wizard_3():
     return render('reswizard/wizard3.html', guestSearchForm=guestSearchForm,\
         room=getRoomByID(res.getRoomID()), buildingName=buildingName, resID=res.getID())
 
-@app.route('/res/step-3/new', methods=['POST'])
+@app.route('/res/new/guest/new', methods=['POST'])
 def page_reservation_wizard_3_new_guest():
     '''
     The user has selected to create a new guest.
@@ -87,7 +87,7 @@ def page_reservation_wizard_3_new_guest():
     return render('reswizard/wizard3_newguest.html', form=form, res=res)
 
 
-@app.route('/res/step-3/new/process', methods=['POST'])
+@app.route('/res/new/guest/new/process', methods=['POST'])
 def page_reservation_wizard_3_new_guest_process():
     # the form has been filled out, import the data
     formdata = request.form
@@ -104,7 +104,7 @@ def page_reservation_wizard_3_new_guest_process():
     return render('reswizard/confirm.html', res=myRes)
 
 
-@app.route('/res/step-3/search', methods=['POST'])
+@app.route('/res/new/guest/search', methods=['POST'])
 def page_reservation_wizard_3_search_existing_guest():
     '''
     The user has selected to search for an existing guest.
@@ -135,21 +135,17 @@ def page_reservation_wizard_3_search_existing_guest():
 
         guests = guestsearch(firstname, lastname, email, phone)
 
-        return render('guestsearch.html', resID=myResID, form=form, target="/res/step-3/search", guests=guests)
+        return render('guestsearch.html', resID=myResID, form=form, target="/res/new/guest/search", guests=guests)
 
-    return render('guestsearch.html', resID=myResID, form=form, target="/res/step-3/search")
-
-
+    return render('guestsearch.html', resID=myResID, form=form, target="/res/new/guest/search")
 
 
-
-
-@app.route('/res/step-3/search/process', methods=['POST'])
+@app.route('/res/new/guest/search/process', methods=['POST'])
 def page_reservation_wizard_3_search_existing_guest_process():
     formdata = request.form
     myRes = getReservationByID(int(formdata['resID']))
     myRes.setGuest(guestID=int(formdata['guestID']))
-    
+
     return render('reswizard/confirm.html', res=myRes)
 
 

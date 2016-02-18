@@ -48,7 +48,7 @@
               <td>{{ u.phone }}</td>
               <td>
                 {% if resID %}
-                  <form action="/res/step-3/search/process" method="POST">
+                  <form action="/res/new/guest/search/process" method="POST">
                     <input type="hidden" name="resID" value="{{ resID }}">
                     <input type="hidden" name="guestID" value="{{ u.id }}">
                     <input type="submit" class="btn btn-primary" value="Select">

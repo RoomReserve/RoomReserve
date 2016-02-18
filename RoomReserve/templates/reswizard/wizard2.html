@@ -28,7 +28,7 @@
                 <td><strong>{{ r.roomnumber }}</strong></td>
                 <td>{{ r.capacity }}</td>
                 <td>
-                  <form action="/res/step-3" method="POST">
+                  <form action="/res/new/guest" method="POST">
                     <input type="hidden" name="resID" value="{{ resID }}">
                     <input type="hidden" name="roomID" value="{{ r.id }}">
                     <input type="submit" class="btn btn-primary" value="Select">

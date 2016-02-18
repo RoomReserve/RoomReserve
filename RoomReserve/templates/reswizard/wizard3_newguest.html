@@ -4,7 +4,7 @@
 
 <p>Creating a new reservation for {{ buildingName }} {{ res.get_room().get_room_number() }}.</p>
 
-<form class="well" method="POST" action="/res/step-3/new/process">
+<form class="well" method="POST" action="/res/new/guest/new/process">
   {{ form.csrf_token }}
   {{ form.firstname.label }} {{ form.firstname(size=20) }}
   {{ form.lastname.label }} {{ form.lastname(size=20) }} <br />
