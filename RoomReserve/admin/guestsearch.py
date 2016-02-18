@@ -48,6 +48,9 @@ def guestsearch_page():
     return render('guestsearch.html', form=form)
 
 def guestsearch(firstname, lastname, email, phone):
+        '''
+        Returns a list containing the matching guests
+        '''
 
         # Add support for search by lowercase name
         firstname = firstname.capitalize()
