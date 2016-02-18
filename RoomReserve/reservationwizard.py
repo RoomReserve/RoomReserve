@@ -46,6 +46,8 @@ def page_reservation_wizard_2():
                         checkin=indate, checkout=outdate, status=CONST.draft_status)
     return render('reswizard/wizard2.html', rooms=availableRooms, resID=myRes.getID())
 
+
+
 @app.route('/res/step-3', methods=['POST'])
 def page_reservation_wizard_3():
     '''
@@ -84,6 +86,7 @@ def page_reservation_wizard_3_new_guest():
 
     return render('reswizard/wizard3_newguest.html', form=form, res=res)
 
+
 @app.route('/res/step-3/new/process', methods=['POST'])
 def page_reservation_wizard_3_new_guest_process():
     # the form has been filled out, import the data
@@ -102,14 +105,53 @@ def page_reservation_wizard_3_new_guest_process():
 
 
 @app.route('/res/step-3/search', methods=['POST'])
-def page_reservation_wizard_3_existing_guest():
+def page_reservation_wizard_3_search_existing_guest():
     '''
     The user has selected to search for an existing guest.
     Display the results of the search and allow the selection of one.
-    Also have an option for making a new guest in case the user
+
+    TODO: Also have an option for making a new guest in case the user
     doesn't find the guest they were looking for.
     '''
-    from RoomReserve.admin.guestsearch import guestsearch
+    from RoomReserve.admin.guestsearch import guestsearch, form_SearchGuest
+    form = form_SearchGuest()
+
+    formdata = request.form
+    myResID = int(formdata['resID'])
+    # myRes = getReservationByID(int(formdata['resID']))
+    print("___+++___previous information processed")
+    #if search form submitted
+    if 'searching' in formdata:
+        print("___+++___Processing search information")
+        firstname = formdata['firstname']
+        lastname = formdata['lastname']
+        email = formdata['email']
+
+        #strip non-numbers out of phone number
+        phone = ""
+        for char in formdata['phone']:
+            if char in "0123456789":
+                phone += char
+
+        guests = guestsearch(firstname, lastname, email, phone)
+
+        return render('guestsearch.html', resID=myResID, form=form, target="/res/step-3/search", guests=guests)
+
+    return render('guestsearch.html', resID=myResID, form=form, target="/res/step-3/search")
+
+
+
+
+
+
+@app.route('/res/step-3/search/process', methods=['POST'])
+def page_reservation_wizard_3_search_existing_guest_process():
+    formdata = request.form
+    myRes = getReservationByID(int(formdata['resID']))
+    myRes.setGuest(guestID=int(formdata['guestID']))
+    
+    return render('reswizard/confirm.html', res=myRes)
+
 
 @app.route('/res/confirm', methods=['POST'])
 def page_draft_reservation_confirm():
