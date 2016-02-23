@@ -3,12 +3,17 @@
 {% block body1 %}
 
 
-<form class="well" method="POST" action="/admin/guestsearch">
+<form class="well" method="POST" action={% if target %}"{{target}}"{% else %}"/admin/guestsearch"{% endif %}>
   {{ form.csrf_token }}
   {{ form.firstname.label }} {{ form.firstname(size=20) }} <br>
   {{ form.lastname.label }} {{ form.lastname(size=20) }} <br>
   {{ form.email.label }} {{ form.email(size=20) }} <br>
   {{ form.phone.label }} {{ form.phone(size=20) }} <br>
+  {% if resID %}
+    Adding to res {{ resID }}
+    <input type="hidden" name="resID" value="{{ resID }}">
+    <input type="hidden" name="searching" value="True">
+  {% endif %}
   <br>
   <input type="submit"  class="btn-primary" value="Search">
 </form>
@@ -30,6 +35,7 @@
               <th>Last Name</th>
               <th>Email</th>
               <th>Phone</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -40,6 +46,16 @@
               <td>{{ u.last }}</td>
               <td>{{ u.email }}</td>
               <td>{{ u.phone }}</td>
+              <td>
+                {% if resID %}
+                  <form action="/res/new/guest/search/process" method="POST">
+                    <input type="hidden" name="resID" value="{{ resID }}">
+                    <input type="hidden" name="guestID" value="{{ u.id }}">
+                    <input type="submit" class="btn btn-primary" value="Select">
+                  </form>
+                {% else %}
+                  <button type="button" name="button">++View/Edit function++</button>
+                {% endif %}
             </tr>
           {% endfor %}
 

@@ -6,8 +6,14 @@
 
 <h5>Guest Information</h5>
 
-<button>Existing Guest</button>
-<button>New Guest</button>
+<form action="/res/new/guest/search" method="POST">
+  <input type="hidden" name="resID" value="{{ resID }}">
+  <input type="submit" class="btn btn-primary" value="Existing Guest">
+</form>
+<form action="/res/new/guest/new" method="POST">
+  <input type="hidden" name="resID" value="{{ resID }}">
+  <input type="submit" class="btn btn-primary" value="New Guest">
+</form>
 
 
 
