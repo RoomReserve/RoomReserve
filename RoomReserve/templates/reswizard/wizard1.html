@@ -1,28 +1,33 @@
 {% extends 'default.html' %}
 
+{% block head %}
+<!-- Include Date Range Picker -->
+<script type="text/javascript" src="/static/js/moment.min.js"></script>
+<script type="text/javascript" src="/static/js/daterangepicker.js"></script>
+<link rel="stylesheet" type="text/css" href="/static/css/daterangepicker.css" />
+{% endblock %}
+
+
 {% block body1 %}
 
 {% if form %}
-  <form class="well" method="POST" action="/res/new/room">
-    {% for field in form %}
-      <tr>
-      {% if field.type == "BooleanField" %}
-          <td></td>
-          <td>{{ field }} {{ field.label }}</td>
-          <br />
-      {% elif field.type == "TextAreaField" %}
-          <td>{{ field.label }}:</td><br />
-          <td>{{ field }}</td>
-          <br />
-      {% else %}
-          <td>{{ field.label }}</td>
-          <td>{{ field }}</td>
-          <br />
-      {% endif %}
-      </tr>
-{% endfor %}
 
-    <input type="submit" class="btn-primary" value="Create">
+  <form class="well" method="POST" action="/res/new/room">
+    Capacity <input type="text" name="capacity" size="2"/> <br />
+
+    Dates <input type="text" name="dates" value="" size="30"/>
+      <script type="text/javascript">
+      $(function() {
+        $('input[name="dates"]').daterangepicker({
+            autoApply: true,
+            locale: {
+              format: 'YYYY-MM-DD'
+            }
+        });
+      });
+      </script>
+      <br />
+    <input type="submit" class="btn-primary" value="Next ->">
   </form>
 
 {% else %}

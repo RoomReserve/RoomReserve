@@ -3,14 +3,6 @@ from RoomReserve.admin.reservation import find_available_rooms, createReservatio
 from RoomReserve.admin.rooms import getRoomByID
 from RoomReserve.admin.building import getBuildingById
 
-class Form_Wizard_Form(Form):
-    '''
-    The first form for the reservation wizard.
-    Asks for dates and capacity.
-    '''
-    check_in_date = DateField('Check In')
-    check_out_date = DateField('Check Out')
-    capacity = IntegerField()
 
 @app.route('/res/new', methods=['GET', 'POST'])
 @Login.standard_required
@@ -18,7 +10,8 @@ def page_reservation_wizard():
     '''
     The first page in the reservation wizard
     '''
-    form = Form_Wizard_Form()
+    if True: # User has permission to make reservations
+        form = True
     return render('reswizard/wizard1.html', form=form)
 
 @app.route('/res/new/room', methods=['POST'])
@@ -33,8 +26,8 @@ def page_reservation_wizard_2():
     during the time and fit the criteria
     '''
     formdata = request.form
-    indate = formdata['check_in_date']
-    outdate = formdata['check_out_date']
+    indate = formdata['dates'].split()[0]
+    outdate = formdata['dates'].split()[2]
     capacity = int(formdata['capacity'])
 
     indate = delorean.parse(indate).naive()
