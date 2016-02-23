@@ -20,10 +20,10 @@ class Reservation(db.Model):
 		self.notes = notes
 
 		if status is not CONST.draft_status:
-			self.guest = self.setGuest(guestID=guest)
+			self.guestID = self.setGuest(guestID=guest)
 			self.roomID = self.setRoom(roomID=room)
 		else:
-			self.guest = None
+			self.guestID = None
 			self.roomID = None
 
 	def setRoom(self, roomID=None, room=None):
@@ -101,6 +101,18 @@ class Reservation(db.Model):
 
 	def get_room(self):
 		return getRoomByID(self.getRoomID())
+
+	def getGuestID(self):
+		return self.guestID
+
+	def get_guest(self):
+		return getGuestByID(self.getGuestID())
+
+	def get_check_in_datetime(self):
+		return self.checkintime
+
+	def get_check_out_datetime(self):
+		return self.checkouttime
 
 
 	def get_delorean(self):
