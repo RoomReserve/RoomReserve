@@ -157,9 +157,9 @@ def createSampleBuildings():
 	if len(sampleBuildings) > 0:
 		print('Sample building exists.')
 	else:
-		miller = Building(name='Miller Hall', numfloors=8, status='Available', description="Corner rooms are bigger", notes="")
-		brandt = Building(name='Brandt Hall', numfloors=5, status='Available', description="First years only", notes="")
-		ylvi = Building(name='Ylvisaker Hall', numfloors=4, status='Available', description="First years only", notes="")		
+		miller = Building(name='Miller Hall', numfloors=8, status=CONST.ready_status, description="Corner rooms are bigger", notes="")
+		brandt = Building(name='Brandt Hall', numfloors=5, status=CONST.ready_status, description="First years only", notes="")
+		ylvi = Building(name='Ylvisaker Hall', numfloors=4, status=CONST.ready_status, description="First years only", notes="")		
 		db.session.add(miller)
 		db.session.add(brandt)
 		db.session.add(ylvi)
