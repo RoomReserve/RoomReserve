@@ -3,7 +3,9 @@ from RoomReserve import *
 class form_CreateBuilding(Form):
     name = StringField('Building Name', validators=[DataRequired()])
     numFloors = IntegerField('Number of Floors') #not required
-    active = BooleanField('Active', default=True)
+    status = SelectField('Status',\
+        choices=[(CONST.ready_status, 'Ready'),\
+                (CONST.inactive_status, 'Inactive')])
     description = TextAreaField('Description')
 
     def populate(self, thisBuilding):
@@ -16,7 +18,7 @@ class form_CreateBuilding(Form):
 
         self.name.default = thisBuilding.name
         self.numFloors.default = thisBuilding.numfloors
-        #self.active.default = thisBuilding.status
+        self.status.default = thisBuilding.status
         self.description.default = thisBuilding.description
         self.process()
 
@@ -59,10 +61,7 @@ def page_buildings():
         name = formdata['name']
         numFloors = formdata['numFloors']
         description = formdata['description']
-        if 'active' in formdata:
-            status = CONST.ready_status
-        else:
-            status = CONST.inactive_status
+        status = formdata['status']
 
         # create the building
         if createBuilding(name, numFloors, description, status):
@@ -99,6 +98,7 @@ def page_updateBuilding(id):
     name = formdata['name']
     numfloors = int(formdata['numFloors'])
     description = formdata['description']
+    status = formdata['status']
 
     # Check to see if any of the fields have changed
     # update any that have changed.
@@ -106,8 +106,8 @@ def page_updateBuilding(id):
         myBuilding.set_name(name)
     if numfloors != myBuilding.get_floors():
         myBuilding.set_floors(numfloors)
-    # if status does not match
-    #   change status
+    if status != myBuilding.get_status():
+        myBuilding.set_status(status)
     if description != myBuilding.get_status():
         myBuilding.set_description(description)
 
