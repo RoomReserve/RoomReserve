@@ -69,6 +69,10 @@ def getAllGuests():
 def getGuest(myid):
     # returns single guest object with the given id
     return db.session.query(Guest).filter_by(id=myid).first()
+    
+def getGuest(myid):
+    # returns multiple guest objects with the given id
+    return db.session.query(Guest).filter_by(id=myid)
 
 def getGuestByID(myID):
     # see docs for getGuest
