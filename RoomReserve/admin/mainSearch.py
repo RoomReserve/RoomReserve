@@ -1,102 +1,72 @@
 from RoomReserve import *
 from RoomReserve.admin.guest import *
+from RoomReserve.admin.reservation import *
+from RoomReserve.admin.rooms import *
+from RoomReserve.admin.building import *
 
-
-class form_SearchGuest(Form):
-    firstname = StringField('First Name', validators=[DataRequired()])
-    lastname = StringField('Last Name', validators=[DataRequired()])
-    email = StringField('Email Address', validators=[DataRequired()])
-    phone = StringField('Phone Number', validators=[DataRequired()])
-
-
-# Get all the guest info from the database
-def guestQuery(gid):
-
-    result = []
-    q = getGuest(gid)
-    result.append(q)
-
-    return result
-
-def findGuestid(name):
-
-    q = session.query(Guest).filter(Guest.first == first).one()
-    return q.id
-
+import re
 
 @app.route('/admin/guestsearch', methods=['GET','POST'])
-def guestsearch_page():
-    form = form_SearchGuest()
+def search_page():
+    guests = guestsearch(firstname, lastname, email, phone)
 
-    if request.method == 'POST':
-        formdata = request.form
-        if 'firstname' or 'lastname' or 'email' or 'phone' in formdata:
-            firstname = formdata['firstname']
-            lastname = formdata['lastname']
-            email = formdata['email']
 
-            #strip non-numbers out of phone number
-            phone = ""
-            for char in formdata['phone']:
-                if char in "0123456789":
-                    phone += char
+    return render('guestsearch.html', form=form, guests=guests)
 
-            guests = guestsearch(firstname, lastname, email, phone)
-
-        return render('guestsearch.html', form=form, guests=guests)
-
-    return render('guestsearch.html', form=form)
-
-def guestsearch(firstname, lastname, email, phone):
+def overallsearch(searchStr):
         '''
-        Returns a list containing the matching guests
+        Returns a list containing the matching strings
         '''
-
-        # Add support for search by lowercase name
-        firstname = firstname.capitalize()
-        lastname = lastname.capitalize()
-        lastname = str(lastname)
-
-
-        guests = []
-        if firstname and lastname and email and phone:
-            guests = guests + getGuestByName(first=firstname,last=lastname,email=email, phone=phone)
-
-        elif firstname and lastname and email:
-            guests = guests + getGuestByNameAndEmail(first=firstname,last=lastname,email=email)
-
-        elif firstname and lastname and phone:
-            guests = guests + getGuestByNameAndPhone(first=firstname,last=lastname,phone=phone)
-
-        elif firstname and lastname:
-            guests = guests + getGuestByName(first=firstname,last=lastname)
-
-        elif firstname and email:
-            guests = guests + getGuestByFirstNameAndEmail(first=firstname,email=email)
-
-        elif firstname and phone:
-            guests = guests + getGuestByFirstNameAndPhone(first=firstname,phone=phone)
-
-        elif lastname and email:
-            guests = guests + getGuestByLastNameAndEmail(last=lastname,email=email)
-
-        elif lastname and phone:
-            guests = guests + getGuestByFirstNameAndPhone(last=lastname,phone=phone)
-
-        elif firstname:
-            guests = guests + getGuestByFirstName(firstname)
-
-        elif lastname:
-            guests = guests + getGuestByLastName(lastname)
-
-        elif email:
-            guests = guests + getGuestByEmail(email)
-
-        elif phone:
-            guests = guests + getGuestByPhone(phone)
-
-        return guests
-
+    re.sub(r'[^\w]', '', searchStr) #removes all symbols
+    results = dict{"rooms":[], "reservations":[], "guests":[], "buildings":[]}
+    
+    if searchStr.isdigit(): #Either Reserve ID, Guest ID, Guest phone, room ID, room number
+        searchInt = int(searchStr)
+        resID = getReservationByID(searchInt)
+        guestID = getGuest(searchInt)
+        guestPhone = getGuestByPhone(searchInt)
+        roomID = getRoomByID(searchInt)
+        roomNum = getRoomByNum(searchInt)
+        
+        if len(resID) > 0:
+            for i in resID:
+                results["reservations"].append(i)
+        if len(guestID) > 0:
+            for i in guestID:
+                results["guests"].append(i)
+        if len(guestPhone) > 0:
+            for i in guestPhone:
+                results["guests"].append(i)
+        if len(roomID) > 0:
+            for i in roomID:
+                results["rooms"].append(i)
+        if len(resID) > 0:
+            for i in resID:
+                results["reservations"].append(i)
+        
+        
+    else: # either guest notes, first name, lastname, email, address, building, room status
+        guestfirst = getGuestByFirstName(searchStr)
+        guestlast = getGuestByLastName(searchStr)
+        guestemail = getGuestByEmail(searchStr)
+        roomID = getRoomByID(searchInt)
+        roomNum = getRoomByNum(searchInt)
+        
+        if len(guestfirst) > 0:
+            for i in guestfirst:
+                results["guests"].append(i)
+        if len(guestlast) > 0:
+            for i in guestlast:
+                results["guests"].append(i)
+        if len(guestemail) > 0:
+            for i in guestemail:
+                results["guests"].append(i)
+        if len(roomID) > 0:
+            for i in roomID:
+                results["rooms"].append(i)
+        if len(resID) > 0:
+            for i in resID:
+                results["reservations"].append(i)
 
 # Guest Profile
 @app.route('/admin/gprofile/<gid>')
