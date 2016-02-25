@@ -11,7 +11,10 @@ class form_CreateRoom(Form):
             validators=[DataRequired()])
     roomnumber = IntegerField('Room Number', validators=[DataRequired()])
     capacity = IntegerField('Capacity', validators=[DataRequired()])
-    active = BooleanField('Active', default=True)
+    status = SelectField('Status',\
+        choices=[(CONST.ready_status, 'Ready - Unoccupied'),\
+                (CONST.occupied_status, 'Ready - Occupied'),\
+                (CONST.inactive_status, 'Inactive')])
 
 
     def __init__(self):
@@ -33,7 +36,7 @@ class form_CreateRoom(Form):
         self.floor.default = thisRoom.get_floor()
         self.roomnumber.default = thisRoom.get_room_number()
         self.capacity.default = thisRoom.get_capacity()
-        #TODO: implement status
+        self.status.default = thisRoom.get_status()
         self.process()
 
 @app.route('/admin/rooms', methods=['GET', 'POST'])
@@ -111,13 +114,14 @@ def page_updateRoom(id):
     '''
 
     id=int(id)
-    myRoom = getRoomById(id)
+    myRoom = getRoomByID(id)
 
     formdata = request.form
     building = formdata['building']
     floor = formdata['floor']
     roomnumber = formdata['roomnumber']
     capacity = formdata['capacity']
+    status = formdata['status']
 
     # Check to see if any of the fields have changed
     # update any that have changed.
@@ -127,6 +131,8 @@ def page_updateRoom(id):
         myRoom.set_floor(floor)
     if roomnumber != myRoom.get_room_number():
         myRoom.set_room_number(roomnumber)
+    if status != myRoom.get_status():
+        myRoom.set_status(status)
     if capacity != myRoom.get_capacity():
         myRoom.set_capacity(capacity)
 
