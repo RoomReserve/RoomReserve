@@ -1,1 +1,1 @@
-$(document).ready(function(){$("#datatables").DataTable()});
+$(document).ready(function(){$("#datatables").DataTable({columnDefs:[{targets:5,orderable:!1}]})});

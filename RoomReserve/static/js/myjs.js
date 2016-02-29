@@ -1,3 +1,13 @@
 $(document).ready(function() {
-$('#datatables').DataTable();
+$('#datatables').DataTable(
+	{
+	// Disable sorting for 'Edit' button
+	  "columnDefs": [ {
+	      "targets": 5, 
+	      "orderable": false
+	    } ]
+	}
+	);
 } );
+
+
