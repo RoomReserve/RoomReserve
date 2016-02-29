@@ -1,0 +1,23 @@
+{% extends 'default.html' %}
+
+{% block body1 %}
+
+<hr>
+<div class="panel panel-primary col-md">
+	<div class="panel-heading">
+		<h3 class="panel-title">Welcome to RoomReserve!</h3>
+	</div>
+	<div class="panel-body">
+		More features will be added in the near future!
+	</div>
+</div>
+
+
+{% if not content %}
+{% else %}
+<div class="well">
+	{{ content | safe }}
+</div>
+{% endif %}
+
+{% endblock %}
