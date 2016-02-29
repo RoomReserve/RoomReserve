@@ -2,8 +2,8 @@
 
 {% block body1 %}
 
-
-<form class="well" method="POST" action={% if target %}"{{target}}"{% else %}"/admin/guestsearch"{% endif %}>
+<div class="well">
+<form method="POST" action={% if target %}"{{target}}"{% else %}"/admin/guestsearch"{% endif %}>
   {{ form.csrf_token }}
   {{ form.firstname.label }} {{ form.firstname(size=20) }} <br>
   {{ form.lastname.label }} {{ form.lastname(size=20) }} <br>
@@ -15,8 +15,17 @@
     <input type="hidden" name="searching" value="True">
   {% endif %}
   <br>
-  <input type="submit"  class="btn-primary" value="Search">
+  <input type="submit"  class="btn btn-primary" value="Search">
 </form>
+
+{% if resID %}
+  <br />
+  <form action="/res/new/guest/new" method="POST">
+    <input type="hidden" name="resID" value="{{ resID }}">
+    <input type="submit" class="btn btn-primary" value="Create New Guest">
+  </form>
+{% endif %}
+</div>
 <hr/>
 
 {% if guests %}
