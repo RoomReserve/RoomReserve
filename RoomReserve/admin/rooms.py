@@ -151,7 +151,7 @@ def getActiveRooms(buildingID=None):
     if buildingID:
         return db.session.query(Room).filter_by(status=CONST.ready_status, buildingID=buildingID)
     return db.session.query(Room).filter_by(status=CONST.ready_status)
-    
+
 def getRoomByStatus(statusSelect):
     rooms = []
     for me in db.session.query(Room).filter_by(status=statusSelect):
@@ -166,17 +166,17 @@ def getRoomInBuilding(bldgID, rn):
     if room is not None:
         return room
     return False
-    
+
 def getRoomInBuildingWithName(bldgName, rn):
     # returns single room object with the given building and room number
     # if room number is not found in building, return false.
-    #TODO: Test this to see if it works. 
+    #TODO: Test this to see if it works.
     # Miller 401
     rooms = []
     for builds in db.session.query(Building).filter_by(name=bldgName):
         roomReturned = getRoomInBuilding(builds.id, rn)
         if roomReturned != False:
-            rooms.append(roomReturned
+            rooms.append(roomReturned)
     return rooms
 
 def getRoomByNum(rn):
