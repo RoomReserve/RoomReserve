@@ -170,7 +170,7 @@ def getGuestByMatchingNotes(notes):
 
     guests = []
     for me in db.session.query(Guest):
-        if notes in me.get_notes:
+        if notes in me.get_notes():
             guests.append(me)
     return guests
 
