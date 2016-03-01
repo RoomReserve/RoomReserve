@@ -152,6 +152,12 @@ def getActiveRooms(buildingID=None):
         return db.session.query(Room).filter_by(status=CONST.ready_status, buildingID=buildingID)
     return db.session.query(Room).filter_by(status=CONST.ready_status)
 
+def getRoomByStatus(statusSelect):
+    rooms = []
+    for me in db.session.query(Room).filter_by(status=statusSelect):
+        rooms.append(me)
+    return rooms
+
 def getRoomInBuilding(bldgID, rn):
     # returns single room object with the given building and room number
     # if room number is not found in building, return false.
@@ -160,7 +166,18 @@ def getRoomInBuilding(bldgID, rn):
     if room is not None:
         return room
     return False
-<<<<<<< HEAD
+
+def getRoomInBuildingWithName(bldgName, rn):
+    # returns single room object with the given building and room number
+    # if room number is not found in building, return false.
+    #TODO: Test this to see if it works.
+    # Miller 401
+    rooms = []
+    for builds in db.session.query(Building).filter_by(name=bldgName):
+        roomReturned = getRoomInBuilding(builds.id, rn)
+        if roomReturned != False:
+            rooms.append(roomReturned)
+    return rooms
 
 def getRoomByNum(rn):
     # returns single room object with the given building and room number
@@ -168,8 +185,6 @@ def getRoomByNum(rn):
     #TODO: Test this to see if it works.
     return db.session.query(Room).filter_by(roomnumber=rn)
 
-=======
->>>>>>> parent of 6faa8f4... Merge branch 'master' into Room-editing
 
 def getRoomByID(id):
     # returns single room object with the given id

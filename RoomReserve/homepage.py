@@ -8,6 +8,4 @@ def index():
 	title="RoomReserve"
 	content = ""
 
-
-
 	return render('homepage.html', title=title, content=content)

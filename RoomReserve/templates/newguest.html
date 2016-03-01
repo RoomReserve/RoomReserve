@@ -61,75 +61,77 @@
   <br>
   <br>
 
-  {% block body1 %}
 
-  <form action="" method=post class="form-horizontal">
 
-    <br>
-    <!-- Sign in form -->
-    <div class="container">
-      <div class="row"> 
-        <div class="col-md-6 col-md-offset-3"> 
+  {% from "__guesthelper.html" import render_field %}
 
-          <div class="panel panel-primary">
-            <div class="panel-heading btn-lg"><h4>Sign in to RoomReserve</h4></div>
-            <div class="panel-body"> <br>
-              
-              <div class="form-group">
-                  <label for="inputemail" class="col-sm-2 control-label">Email</label>
-                  <div class="col-sm-10 col-lg-10">
-                    <input type="text" id="email" name="email" class="form-control"
-                      placeholder="Email Address" required>
-                  </div>
-              </div>
+  <div>
+    {% if form %}
+    <form class="well" method="POST" action="/newguest">
+      {{ form.csrf_token }}
+      {{ form.firstname.label }} {{ form.firstname(size=20) }}
+      {{ form.lastname.label }} {{ form.lastname(size=20) }} <br />
+      {{ form.email.label }} {{ form.email(size=30) }} <br />
+      {{ form.phone.label }} {{ form.phone(size=20) }} <br />
+      {{ form.address.label }} {{ form.address(size=30) }} <br />
+      {{ form.payment.label }} {{ form.payment(size=25) }} <br />
+      {{ form.notes.label }} {{ form.notes(size=300) }} <br /><br />
 
-              <div class="form-group">
-                  <label for="inputpassword" class="col-sm-2 control-label">Password</label>
-                  <div class="col-sm-10 col-lg-10">
-                    <input type="password" id="password" name="password" class="form-control"
-                      placeholder="Password" required>
-                  </div>
-              </div>
+      <input type="submit" class="btn-primary" value="Create">
+    </form>
+    {% endif %}
+    <hr />
+  </div>
 
-              <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-10">
-                  <div class="checkbox">
-                    <label>
-                      <input type="checkbox"> Remember me
-                    </label>
-                  </div>
-                </div>
-              </div>
 
-              <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-10">
-                  <button type="submit" class="btn btn-primary active btn-lg">Sign in</button>
-                </div>
-              </div>
+  <!-- Table of guests -->
+    <div class="panel panel-primary col-md">
+      <div class="panel-heading">
+        <h3 class="panel-title">Guests</h3>
+      </div>
+      <div class="panel-body">
+        <div class="col-md-12">
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>id</th>
+                  <th>First Name</th>
+                  <th>Last Name</th>
+                  <th>Email</th>
+                  <th>Phone</th>
+                  <th>Address</th>
+                  <th>Payment</th>
+                  <th>Notes</th>
+                </tr>
+              </thead>
+              <tbody>
+              {% for u in guests %}
+                <tr>
+                  <td>{{ u.id }}</td>
+                  <td>{{ u.first }}</td>
+                  <td>{{ u.last }}</td>
+                  <td>{{ u.email }}</td>
+                  <td>{{ u.phone }}</td>
+                  <td>{{ u.address }}</td>
+                  <td> ${{ u.payment }}</td>
+                  <td>{{ u.notes }}</td>
+                </tr>
+              {% endfor %}
 
-              <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-10">
-                  <span>Don't have a guest account? <a href="/newguest">Sign Up</a></span>
-                </div>
-              </div>      
-
-            </div>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
     </div>
-  </form>
-
-  {% endblock %}
-
-  <!-- /#page-wrapper -->
 
 
- </div>
+   </div>
 
-<br>
-<br>
-<p class="small text-muted" align="center">Made with {{ feeling }} at Luther College.</p>
+  <br>
+  <br>
+  <p class="small text-muted" align="center">Made with {{ feeling }} at Luther College.</p>
 
 {% include 'parts/bootstrap_foot.html' %}
 
