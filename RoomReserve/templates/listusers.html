@@ -70,8 +70,9 @@
             {% endfor %}
 
             {% if allowEdit(u.id) %}
-            <br>
-            <input type="submit" class="btn-primary" value="Save Changes ">
+            <br />
+            <button type="button" class="btn btn-danger btn-circle btn-lg" data-dismiss="modal" aria-label="Close"><i class="fa fa-times"></i></button>
+            <button type="submit" class="btn btn-success btn-circle btn-lg"><i class="fa fa-check"></i></button>
             {% endif %}
           </form>
 
@@ -119,11 +120,11 @@
               <td><strong>{{ u.email }}</strong></td>
               <td>{{ u.role }}</td>
               <td>
-                <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#editUser_{{ u.id }}">
+                <button type="button" class="btn btn-primary btn-circle btn-sm" data-toggle="modal" data-target="#editUser_{{ u.id }}">
                   {% if allowEdit(u.id) %}
-                    Edit
+                    <i class="fa fa-pencil"></i>
                   {% else %}
-                    View
+                    <i class="fa fa-info"></i>
                   {% endif %}
                 </button>
               </td>
