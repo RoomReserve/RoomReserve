@@ -161,6 +161,15 @@ def getRoomInBuilding(bldgID, rn):
         return room
     return False
     
+def getRoomInBuildingWithName(bldgName, rn):
+    # returns single room object with the given building and room number
+    # if room number is not found in building, return false.
+    #TODO: Test this to see if it works.
+    room = db.session.query(Room).filter_by(Building.name = bldgName, Building.id = Room.buildingID, roomnumber=rn).first()
+    if room is not None:
+        return [room]
+    return []
+    
 def getRoomByNum(rn):
     # returns single room object with the given building and room number
     # if room number is not found in building, return false.
