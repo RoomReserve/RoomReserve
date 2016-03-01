@@ -165,12 +165,30 @@ def getGuestByLastNameAndPhone(last, phone):
     return guests
     
 def getGuestByMatchingNotes(notes):
-    # returns a list of all guests with that last name and phone
-    # parameters: (last, phone)
+    # returns a list of all guests with that containing the notes string
+    # parameters: (notes)
 
     guests = []
+    if notes == None:
+        return guests
+    if len(notes) == 0:
+        return guests
     for me in db.session.query(Guest):
         if notes in me.get_notes():
+            guests.append(me)
+    return guests
+    
+def getGuestByAddress(address):
+    # returns a list of all guests with that cantaining the address string
+    # parameters: (address)
+
+    guests = []
+    if address == None:
+        return guests
+    if len(address) == 0:
+        return guests
+    for me in db.session.query(Guest):
+        if address in me.get_address():
             guests.append(me)
     return guests
 
