@@ -163,6 +163,16 @@ def getGuestByLastNameAndPhone(last, phone):
     for me in db.session.query(Guest).filter_by(last=first, phone=phone):
         guests.append(me)
     return guests
+    
+def getGuestByMatchingNotes(notes):
+    # returns a list of all guests with that last name and phone
+    # parameters: (last, phone)
+
+    guests = []
+    for me in db.session.query(Guest):
+        if notes in me.get_notes:
+            guests.append(me)
+    return guests
 
 def createGuest(fn, ln, em, ph, addr, paym, notes):
     # Adds a guest to the database.
