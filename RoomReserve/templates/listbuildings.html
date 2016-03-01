@@ -71,7 +71,8 @@
 
             {% if allowEdit() %}
             <br>
-            <input type="submit" class="btn-primary" value="Save Changes ">
+            <button type="button" class="btn btn-danger btn-circle btn-lg" data-dismiss="modal" aria-label="Close"><i class="fa fa-times"></i></button>
+            <button type="submit" class="btn btn-success btn-circle btn-lg"><i class="fa fa-check"></i></button>
             {% endif %}
           </form>
 
@@ -121,11 +122,11 @@
                 <td>{{ b.status }}</td>
                 <td>{{b.description}}</td>
                 <td>
-                  <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#editBuilding_{{ b.id }}">
+                  <button type="button" class="btn btn-primary btn-circle btn-sm" data-toggle="modal" data-target="#editBuilding_{{ b.id }}">
                     {% if allowEdit() %}
-                      Edit
+                      <i class="fa fa-pencil"></i>
                     {% else %}
-                      View
+                      <i class="fa fa-info"></i>
                     {% endif %}
                   </button>
                 </td>
