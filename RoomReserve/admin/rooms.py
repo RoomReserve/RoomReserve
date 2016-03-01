@@ -151,6 +151,12 @@ def getActiveRooms(buildingID=None):
     if buildingID:
         return db.session.query(Room).filter_by(status=CONST.ready_status, buildingID=buildingID)
     return db.session.query(Room).filter_by(status=CONST.ready_status)
+    
+def getRoomByStatus(statusSelect):
+    rooms = []
+    for me in db.session.query(Room).filter_by(status=statusSelect):
+        rooms.append(me)
+    return rooms
 
 def getRoomInBuilding(bldgID, rn):
     # returns single room object with the given building and room number
