@@ -160,7 +160,16 @@ def getRoomInBuilding(bldgID, rn):
     if room is not None:
         return room
     return False
-<<<<<<< HEAD
+    
+def getRoomInBuildingWithName(bldgName, rn):
+    # returns single room object with the given building and room number
+    # if room number is not found in building, return false.
+    #TODO: Test this to see if it works. 
+    # Miller 401
+    room = db.session.query(Room).filter_by(Building.name = bldgName, Building.id = Room.buildingID, roomnumber=rn).first()
+    if room is not None:
+        return [room]
+    return []
 
 def getRoomByNum(rn):
     # returns single room object with the given building and room number
@@ -168,8 +177,6 @@ def getRoomByNum(rn):
     #TODO: Test this to see if it works.
     return db.session.query(Room).filter_by(roomnumber=rn)
 
-=======
->>>>>>> parent of 6faa8f4... Merge branch 'master' into Room-editing
 
 def getRoomByID(id):
     # returns single room object with the given id
