@@ -2,9 +2,9 @@ import os, sys, time
 from flask import *
 from jinja2 import Template
 from flask.ext.sqlalchemy import SQLAlchemy
-from flask_wtf import Form, validators
 from wtforms import *
 from wtforms.validators import *
+from flask_wtf import Form, validators
 from wtforms import StringField, TextField, SelectField
 from datetime import datetime
 import delorean

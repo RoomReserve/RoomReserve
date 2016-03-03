@@ -13,7 +13,6 @@ class form_CreateGuest(Form):
 
 @app.route('/newguest', methods=['GET', 'POST'])
 def newguest():
-
     form = form_CreateGuest()
 
     if request.method == 'POST':
@@ -25,6 +24,6 @@ def newguest():
             # createGuest returned false, the guest could not be created.
             return render('basic.html', content="Could not create guest.")
 
+    return render('newguest.html', form=form)
 
-    guests = getAllGuests()
-    return render('newguest.html', form=form, guests=guests)
+
