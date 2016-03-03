@@ -5,13 +5,7 @@ from RoomReserve.admin.rooms import *
 from RoomReserve.admin.building import *
 import re
 
-@app.route('/admin/guestsearch', methods=['GET','POST'])
-def search_page():
-    guests = guestsearch(firstname, lastname, email, phone)
-
-
-    return render('guestsearch.html', form=form, guests=guests)
-
+@app.route('/admin/mainSearch', methods=['GET','POST'])
 def overallsearch(searchStr):
         '''
         Returns a list containing the matching strings
@@ -94,10 +88,5 @@ def overallsearch(searchStr):
         if len(roomBuildingMix) > 0:
             for i in roomBuildingMix:
                 results["rooms"].add(i)
-
-# Guest Profile
-@app.route('/admin/gprofile/<gid>')
-def gprofile(gid):
-    guests = guestQuery(gid)
-
-    return render('gprofile.html', guests=guests)
+                
+    return render('mainSearch.html', results=results)
