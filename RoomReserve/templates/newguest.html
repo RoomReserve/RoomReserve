@@ -15,123 +15,137 @@
   {% block head %} {% endblock %}
 </head>
 
+
+
 <body>
-  <div class="wrapper">
-  <!-- Navigation -->
-  <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
-      <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="/">{{ appname }}</a>
-      </div>
-      <!-- /.navbar-header -->
-      <ul class="nav navbar-top-links navbar-right">
-          <li class="dropdown">
-              <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                  <i class="fa fa-user fa-fw"></i>
-                    {% if logged_in %}
-                      {{ current_user_name }}
-                    {% else %}
-                      Welcome to RoomReserve!
+  <!-- Page Content -->
+  <div id="wrapper">
+      <div class="container-fluid">
+          <div class="row">
+              <div class="col-lg-12">
+                <h2>{{ title }}</h2>
+                {% block body1 %} {% endblock %}
+
+                  <!-- Navigation -->
+                  <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+                      <div class="navbar-header">
+                          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                              <span class="sr-only">Toggle navigation</span>
+                              <span class="icon-bar"></span>
+                              <span class="icon-bar"></span>
+                              <span class="icon-bar"></span>
+                          </button>
+                          <a class="navbar-brand" href="/">{{ appname }}</a>
+                      </div>
+                      <!-- /.navbar-header -->
+                      <ul class="nav navbar-top-links navbar-right">
+                          <li class="dropdown">
+                              <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                  <i class="fa fa-user fa-fw"></i>
+                                    {% if logged_in %}
+                                      {{ current_user_name }}
+                                    {% else %}
+                                      Welcome to RoomReserve!
+                                    {% endif %}
+                                    <i class="fa fa-caret-down"></i>
+                              </a>
+                              <ul class="dropdown-menu dropdown-user">
+                                  {% if logged_in %}
+                                    <li><a href="/admin/users#editUser_{{ current_user_id }}"><i class="fa fa-user fa-fw"></i> My Profile</a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li><a href="/logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                                    </li>
+                                  {% else %}
+                                    <li><a href="/login"><i class="fa fa-sign-in fa-fw"></i> Log in</a></li>
+                                  {% endif %}
+                              </ul>
+                              <!-- /.dropdown-user -->
+                          </li>
+                          <!-- /.dropdown -->
+                      </ul>
+                      <!-- /.navbar-top-links -->
+                  </nav>
+
+                  <br>
+                  <br>
+
+
+
+                  {% from "__guesthelper.html" import render_field %}
+
+                  <div>
+                    {% if form %}
+                    <form class="well" method="POST" action="/newguest">
+                      {{ form.csrf_token }}
+                      {{ form.firstname.label }} {{ form.firstname(size=20) }}
+                      {{ form.lastname.label }} {{ form.lastname(size=20) }} <br />
+                      {{ form.email.label }} {{ form.email(size=30) }} <br />
+                      {{ form.phone.label }} {{ form.phone(size=20) }} <br />
+                      {{ form.address.label }} {{ form.address(size=30) }} <br />
+                      {{ form.payment.label }} {{ form.payment(size=25) }} <br />
+                      {{ form.notes.label }} {{ form.notes(size=300) }} <br /><br />
+
+                      <input type="submit" class="btn-primary" value="Create">
+                    </form>
                     {% endif %}
-                    <i class="fa fa-caret-down"></i>
-              </a>
-              <ul class="dropdown-menu dropdown-user">
-                  {% if logged_in %}
-                    <li><a href="/admin/users#editUser_{{ current_user_id }}"><i class="fa fa-user fa-fw"></i> My Profile</a>
-                    </li>
-                    <li class="divider"></li>
-                    <li><a href="/logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
-                    </li>
-                  {% else %}
-                    <li><a href="/login"><i class="fa fa-sign-in fa-fw"></i> Log in</a></li>
-                  {% endif %}
-              </ul>
-              <!-- /.dropdown-user -->
-          </li>
-          <!-- /.dropdown -->
-      </ul>
-      <!-- /.navbar-top-links -->
-  </nav>
-
-  <br>
-  <br>
+                    <hr />
+                  </div>
 
 
+                  <!-- Table of guests -->
+                    <div class="panel panel-primary col-md">
+                      <div class="panel-heading">
+                        <h3 class="panel-title">Your information</h3>
+                      </div>
+                      <div class="panel-body">
+                        <div class="col-md-12">
+                          <div class="table-responsive">
+                            <table class="table table-striped">
+                              <thead>
+                                <tr>
+                                  <th>id</th>
+                                  <th>First Name</th>
+                                  <th>Last Name</th>
+                                  <th>Email</th>
+                                  <th>Phone</th>
+                                  <th>Address</th>
+                                  <th>Payment</th>
+                                  <th>Notes</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                              {% for u in guests %}
+                                <tr>
+                                  <td>{{ u.id }}</td>
+                                  <td>{{ u.first }}</td>
+                                  <td>{{ u.last }}</td>
+                                  <td>{{ u.email }}</td>
+                                  <td>{{ u.phone }}</td>
+                                  <td>{{ u.address }}</td>
+                                  <td> ${{ u.payment }}</td>
+                                  <td>{{ u.notes }}</td>
+                                </tr>
+                              {% endfor %}
 
-  {% from "__guesthelper.html" import render_field %}
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
 
-  <div>
-    {% if form %}
-    <form class="well" method="POST" action="/newguest">
-      {{ form.csrf_token }}
-      {{ form.firstname.label }} {{ form.firstname(size=20) }}
-      {{ form.lastname.label }} {{ form.lastname(size=20) }} <br />
-      {{ form.email.label }} {{ form.email(size=30) }} <br />
-      {{ form.phone.label }} {{ form.phone(size=20) }} <br />
-      {{ form.address.label }} {{ form.address(size=30) }} <br />
-      {{ form.payment.label }} {{ form.payment(size=25) }} <br />
-      {{ form.notes.label }} {{ form.notes(size=300) }} <br /><br />
+                   </div>
 
-      <input type="submit" class="btn-primary" value="Create">
-    </form>
-    {% endif %}
-    <hr />
-  </div>
-
-
-  <!-- Table of guests -->
-    <div class="panel panel-primary col-md">
-      <div class="panel-heading">
-        <h3 class="panel-title">Guests</h3>
-      </div>
-      <div class="panel-body">
-        <div class="col-md-12">
-          <div class="table-responsive">
-            <table class="table table-striped">
-              <thead>
-                <tr>
-                  <th>id</th>
-                  <th>First Name</th>
-                  <th>Last Name</th>
-                  <th>Email</th>
-                  <th>Phone</th>
-                  <th>Address</th>
-                  <th>Payment</th>
-                  <th>Notes</th>
-                </tr>
-              </thead>
-              <tbody>
-              {% for u in guests %}
-                <tr>
-                  <td>{{ u.id }}</td>
-                  <td>{{ u.first }}</td>
-                  <td>{{ u.last }}</td>
-                  <td>{{ u.email }}</td>
-                  <td>{{ u.phone }}</td>
-                  <td>{{ u.address }}</td>
-                  <td> ${{ u.payment }}</td>
-                  <td>{{ u.notes }}</td>
-                </tr>
-              {% endfor %}
-
-              </tbody>
-            </table>
+                {%include 'parts/footer.html' %}
+              </div>
+              <!-- /.col-lg-12 -->
           </div>
-        </div>
+          <!-- /.row -->
       </div>
-    </div>
-
-
-   </div>
-
-  <br>
-  <br>
-  <p class="small text-muted" align="center">Made with {{ feeling }} at Luther College.</p>
+      <!-- /.container-fluid -->
+  </div>
+  <!-- /#wrapper -->
 
 {% include 'parts/bootstrap_foot.html' %}
 
