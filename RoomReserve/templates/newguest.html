@@ -24,7 +24,7 @@
           <div class="row">
               <div class="col-lg-12">
                 <h2>{{ title }}</h2>
-                {% block body1 %}
+                {% block body1 %} {% endblock %}
 
                   <!-- Navigation -->
                   <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
@@ -74,40 +74,71 @@
 
                   {% from "__guesthelper.html" import render_field %}
 
-                  
-                  {% if form %}
-                  <form class="well" method="POST" action="/newguest">
-                    {{ form.csrf_token }}
-                    {{ form.firstname.label }} {{ form.firstname(size=20) }}
-                    {{ form.lastname.label }} {{ form.lastname(size=20) }} <br />
-                    {{ form.email.label }} {{ form.email(size=30) }} <br />
-                    {{ form.phone.label }} {{ form.phone(size=20) }} <br />
-                    {{ form.address.label }} {{ form.address(size=30) }} <br />
-                    {{ form.payment.label }} {{ form.payment(size=25) }} <br />
-                    {{ form.notes.label }} {{ form.notes(size=300) }} <br /><br />
+                  <div>
+                    {% if form %}
+                    <form class="well" method="POST" action="/newguest">
+                      {{ form.csrf_token }}
+                      {{ form.firstname.label }} {{ form.firstname(size=20) }}
+                      {{ form.lastname.label }} {{ form.lastname(size=20) }} <br />
+                      {{ form.email.label }} {{ form.email(size=30) }} <br />
+                      {{ form.phone.label }} {{ form.phone(size=20) }} <br />
+                      {{ form.address.label }} {{ form.address(size=30) }} <br />
+                      {{ form.payment.label }} {{ form.payment(size=25) }} <br />
+                      {{ form.notes.label }} {{ form.notes(size=300) }} <br /><br />
 
-                    <input type="submit" class="btn-primary" value="Create">
-                  </form>
-
-
-                  {% else %} 
-                  <div class="page-header">
-                    <h3>Congratulations!</h3>
-                    <div class="alert alert-success">
-                    You are successfully added to our database. Please see the jobs based on your skills.
-                    </div>
+                      <input type="submit" class="btn-primary" value="Create">
+                    </form>
+                    {% endif %}
+                    <hr />
                   </div>
 
 
-                  {% endif %}
-                  <hr />
+                  <!-- Table of guests -->
+                    <div class="panel panel-primary col-md">
+                      <div class="panel-heading">
+                        <h3 class="panel-title">Your information</h3>
+                      </div>
+                      <div class="panel-body">
+                        <div class="col-md-12">
+                          <div class="table-responsive">
+                            <table class="table table-striped">
+                              <thead>
+                                <tr>
+                                  <th>id</th>
+                                  <th>First Name</th>
+                                  <th>Last Name</th>
+                                  <th>Email</th>
+                                  <th>Phone</th>
+                                  <th>Address</th>
+                                  <th>Payment</th>
+                                  <th>Notes</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                              {% for u in guests %}
+                                <tr>
+                                  <td>{{ u.id }}</td>
+                                  <td>{{ u.first }}</td>
+                                  <td>{{ u.last }}</td>
+                                  <td>{{ u.email }}</td>
+                                  <td>{{ u.phone }}</td>
+                                  <td>{{ u.address }}</td>
+                                  <td> ${{ u.payment }}</td>
+                                  <td>{{ u.notes }}</td>
+                                </tr>
+                              {% endfor %}
 
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
 
-              </div>
+                   </div>
 
                 {%include 'parts/footer.html' %}
-
-            </div>
+              </div>
               <!-- /.col-lg-12 -->
           </div>
           <!-- /.row -->
@@ -117,6 +148,6 @@
   <!-- /#wrapper -->
 
 {% include 'parts/bootstrap_foot.html' %}
-{% endblock %}
+
 </body>
 </html>
