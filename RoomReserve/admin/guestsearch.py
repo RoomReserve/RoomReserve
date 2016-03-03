@@ -1,5 +1,6 @@
 from RoomReserve import *
 from RoomReserve.admin.guest import *
+import re
 
 
 class form_SearchGuest(Form):
@@ -36,10 +37,7 @@ def guestsearch_page():
             email = formdata['email']
 
             #strip non-numbers out of phone number
-            phone = ""
-            for char in formdata['phone']:
-                if char in "0123456789":
-                    phone += char
+            phone = re.sub(r'[^\w]', '', formdata['phone']) #easier way of taking out symbols
 
             guests = guestsearch(firstname, lastname, email, phone)
 
