@@ -1,4 +1,6 @@
 from RoomReserve import *
+from RoomReserve.admin.guest import getGuestByID
+from RoomReserve.admin.rooms import getRoomByID
 
 class form_CreateReservation(Form):
 
@@ -127,7 +129,8 @@ def page_reservation():
 
     form = form_CreateReservation()
     reservations = getAllReservations()
-    return render('reservation.html', form=form, reservations=reservations)
+    return render('reservation.html', form=form, reservations=reservations,
+    getGuestByID=getGuestByID, getRoomByID=getRoomByID)
 
 
 
@@ -139,7 +142,7 @@ def getAllReservations():
 def getReservationByID(id):
     # returns single res object with the given id
     return db.session.query(Reservation).filter_by(id=id).first()
-    
+
 def getReservationsByID(id):
     # returns single res object with the given id
     return db.session.query(Reservation).filter_by(id=id)
