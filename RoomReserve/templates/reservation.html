@@ -47,13 +47,17 @@
           <tbody>
           {% for r in reservations %}
             <tr>
+              <td>
               <td>{{ r.id }}</td>
               {% if r.guestID %}
         			  <td>{{ getGuestByID(r.guestID).get_last_name() }}, {{ getGuestByID(r.guestID).get_first_name() }}</td>
               {% endif %}
-              {% if r.roomID %}
-        			  <td>{{ getRoomByID(r.roomID).getMyBuildingName() }}   {{ getRoomByID(r.roomID).get_room_number() }}</td>
-              {% endif %}
+              </td>
+              <td>
+                {% if r.roomID %}
+          			  {{ getRoomByID(r.roomID).getMyBuildingName() }}   {{ getRoomByID(r.roomID).get_room_number() }}
+                {% endif %}
+              </td>
         			<td>{{ r.get_check_in_datetime().strftime("%B %d, %Y") }}</td>
         			<td>{{ r.get_check_out_datetime().strftime("%B %d, %Y") }}</td>
               <td>{{ r.status }}</td>
