@@ -36,29 +36,25 @@
         <table id="datatables" class="table table-striped">
           <thead>
             <tr>
-              <th>reservationID </th>
-              <th>guestID </th>
-              <th>userID</th>
-              <th>roomID </th>
-              <th>checkIn</th>
-              <th>checkOut </th>
-              <th>status</th>
-              <th>notes</th>
+              <th>ID</th>
+              <th>Guest</th>
+              <th>Room</th>
+              <th>Check In</th>
+              <th>Check Out</th>
+              <th>Status</th>
             </tr>
           </thead>
           <tbody>
           {% for r in reservations %}
             <tr>
               <td>{{ r.id }}</td>
-        			<td>{{ r.guestID }}</td>
-        			<td>{{ r.madeby }}</td>
-        			<td>{{ r.roomID }}</td>
-        			<td>{{ r.checkintime }}</td>
-        			<td>{{ r.checkouttime }}</td>
+        			<td>{{ getGuestByID(r.guestID).get_last_name() }}, {{ getGuestByID(r.guestID).get_first_name() }}</td>
+        			<td>{{ getRoomByID(r.roomID).getMyBuildingName() }}   {{ getRoomByID(r.roomID).get_room_number() }}</td>
+        			<td>{{ r.get_check_in_datetime().strftime("%B %d, %Y") }}</td>
+        			<td>{{ r.get_check_out_datetime().strftime("%B %d, %Y") }}</td>
               <td>{{ r.status }}</td>
-              <td>{{ r.notes }}</td>
             </tr>
-          {% endfor %} 
+          {% endfor %}
 
           </tbody>
         </table>
