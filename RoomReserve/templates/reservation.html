@@ -50,7 +50,7 @@
               <td>
               <td>{{ r.id }}</td>
               {% if r.guestID %}
-        			  <td>{{ getGuestByID(r.guestID).get_last_name() }}, {{ getGuestByID(r.guestID).get_first_name() }}</td>
+        			  {{ getGuestByID(r.guestID).get_last_name() }}, {{ getGuestByID(r.guestID).get_first_name() }}
               {% endif %}
               </td>
               <td>
