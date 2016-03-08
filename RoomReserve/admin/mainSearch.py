@@ -7,9 +7,9 @@ import re
 
 @app.route('/admin/mainSearch', methods=['GET','POST'])
 def overallsearch(searchStr):
-        '''
-        Returns a list containing the matching strings
-        '''
+    '''
+    Returns a list containing the matching string
+    '''
     searchStr = re.sub(r'[^\w]', '', searchStr) #removes all symbols
     results = dict{"rooms":set(), "reservations":set(), "guests":set(), "buildings":set()}
     
