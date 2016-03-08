@@ -91,9 +91,7 @@
               <th>Last Name</th>
               <th>Email</th>
               <th>Phone</th>
-              <th>Address</th>
-              <!-- <th>Payment</th> -->
-              <!-- <th>Notes</th> -->
+
               <th></th>
             </tr>
           </thead>
@@ -105,9 +103,6 @@
         			<td>{{ u.last }}</td>
               <td>{{ u.email }}</td>
               <td>{{ u.phone }}</td>
-              <td>{{ u.address }}</td>
-              <!-- <td> ${{ u.payment }}</td> -->
-              <!-- <td>{{ u.notes }}</td> -->
               <td>
                 <button type="button" class="btn btn-primary btn-circle btn-sm" data-toggle="modal" data-target="#editGuest_{{ u.id }}">
                   {% if allowEdit(u.id) %}
