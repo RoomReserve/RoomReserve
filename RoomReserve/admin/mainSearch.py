@@ -5,7 +5,24 @@ from RoomReserve.admin.rooms import *
 from RoomReserve.admin.building import *
 import re
 
+class form_MainSearch(Form):
+    search = StringField('searchString', validators=[DataRequired()])
+
+
 @app.route('/admin/mainSearch', methods=['GET','POST'])
+def mainsearch_page():
+    form = form_MainSearch()
+
+    if request.method == 'POST':
+        formdata = request.form
+        if 'search' in formdata:
+            searchStr = formdata['search']
+
+            results = overallsearch(searchStr)
+
+        return render('mainSearch.html', results=results)
+
+    return render('basic.html')
 def overallsearch(searchStr):
     '''
     Returns a list containing the matching string
@@ -93,4 +110,4 @@ def overallsearch(searchStr):
             for i in roomBuildingMix:
                 results["rooms"].add(i)
                 
-    return render('mainSearch.html', results=results)
+    return results
