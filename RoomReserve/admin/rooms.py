@@ -78,7 +78,6 @@ def page_rooms():
             status = CONST.ready_status
         else:
             status = CONST.inactive_status
-        #description = formdata['description']
         description = ""
 
 

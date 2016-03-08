@@ -4,23 +4,10 @@
 
 {% if form %}
 <form class="well" method="POST" action="/admin/buildings">
-  {% for field in form %}
-    <tr>
-    {% if field.type == "BooleanField" %}
-        <td></td>
-        <td>{{ field }} {{ field.label }}</td>
-        <br />
-    {% elif field.type == "TextAreaField" %}
-        <td>{{ field.label }}:</td><br />
-        <td>{{ field }}</td>
-        <br />
-    {% else %}
-        <td>{{ field.label }}</td>
-        <td>{{ field }}</td>
-        <br />
-    {% endif %}
-    </tr>
-{% endfor %}
+  {{ form.name.label }} {{ form.name}} <br>
+  {{ form.numFloors.label }} {{ form.numFloors }} <br>
+  {{ form.status.label }} {{ form.status }} <br>
+  {{ form.description.label }} {{ form.description }} <br><br>
 
   <input type="submit" class="btn-primary" value="Create">
 </form>
