@@ -47,8 +47,8 @@
           <tbody>
           {% for r in reservations %}
             <tr>
-              <td>
               <td>{{ r.id }}</td>
+              <td>
               {% if r.guestID %}
         			  {{ getGuestByID(r.guestID).get_last_name() }}, {{ getGuestByID(r.guestID).get_first_name() }}
               {% endif %}
