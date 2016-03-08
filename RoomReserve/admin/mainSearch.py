@@ -5,13 +5,34 @@ from RoomReserve.admin.rooms import *
 from RoomReserve.admin.building import *
 import re
 
+class form_MainSearch(Form):
+    search = StringField('searchString', validators=[DataRequired()])
+
+
 @app.route('/admin/mainSearch', methods=['GET','POST'])
+def mainsearch_page():
+    form = form_MainSearch()
+
+    if request.method == 'POST':
+        formdata = request.form
+        if 'search' in formdata:
+            searchStr = formdata['search']
+
+            results = overallsearch(searchStr)
+
+        return render('mainSearch.html', results=results)
+
+    return render('mainSearch.html', results=[])
 def overallsearch(searchStr):
-        '''
-        Returns a list containing the matching strings
-        '''
+    '''
+    Returns a list containing the matching string
+    '''
     searchStr = re.sub(r'[^\w]', '', searchStr) #removes all symbols
-    results = dict{"rooms":set(), "reservations":set(), "guests":set(), "buildings":set()}
+    results = {}
+    results["rooms"] = set()
+    results["reservations"] = set()
+    results["guests"] = set()
+    results["buildings"] = set()
     
     if searchStr.isdigit(): #Either Reserve ID, Guest ID, Guest phone, room ID, room number
         searchInt = int(searchStr)
@@ -89,4 +110,4 @@ def overallsearch(searchStr):
             for i in roomBuildingMix:
                 results["rooms"].add(i)
                 
-    return render('mainSearch.html', results=results)
+    return results
