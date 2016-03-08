@@ -182,9 +182,9 @@ def createSampleRooms():
 	if len(sampleRooms) > 0:
 		print('Sample room exists.')
 	else:
-		m401 = Room(roomnumber='401', floor='4', buildingID='1', capacity='2', description="Corner Rooms are bigger",  status=CONST.ready_status, notes="")
-		b202 = Room(roomnumber='202', floor='2', buildingID='2', capacity='4', description="First Years Only", status=CONST.occupied_status, notes="")
-		yl319 = Room(roomnumber='319', floor='3', buildingID='3', capacity='2', description="First Years Only", status=CONST.inactive_status, notes="")
+		m401 = Room(roomnumber='401', buildingID='1', capacity='2', description="Corner Rooms are bigger",  status=CONST.ready_status, notes="")
+		b202 = Room(roomnumber='202', buildingID='2', capacity='4', description="First Years Only", status=CONST.occupied_status, notes="")
+		yl319 = Room(roomnumber='319', buildingID='3', capacity='2', description="First Years Only", status=CONST.inactive_status, notes="")
 		db.session.add(m401)
 		db.session.add(b202)
 		db.session.add(yl319)

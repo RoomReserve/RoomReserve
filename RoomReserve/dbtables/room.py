@@ -5,16 +5,14 @@ class Room(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
 	roomnumber = db.Column(db.Integer, unique=False, nullable=False)
 	buildingID = db.Column(db.Integer, unique=False, nullable=False) #building ID number
-	floor = db.Column(db.Integer, unique=False, nullable=True)
 	capacity = db.Column(db.Integer, unique=False, nullable=True)
 	description = db.Column(db.String(500), unique=False)
 	status = db.Column(db.String(20), unique=False, nullable=False)
 	notes = db.Column(db.String(500), unique=False)
 
-	def __init__(self, roomnumber, floor, buildingID, capacity, description="", status="Ready", notes=""):
+	def __init__(self, roomnumber, buildingID, capacity, description="", status="Ready", notes=""):
 		self.roomnumber = roomnumber
 		self.buildingID = buildingID
-		self.floor = floor
 		self.capacity = capacity
 		self.description = description
 		self.status = status
@@ -34,10 +32,6 @@ class Room(db.Model):
 		# returns the buildingID for the building
 		# that this room is in
 		return self.buildingID
-
-	def get_floor(self):
-		# returns the floor number for this room
-		return self.floor
 
 	def get_capacity(self):
 		# returns the capacity for this room
@@ -75,15 +69,6 @@ class Room(db.Model):
 			return False
 		return self.buildingID
 
-	def set_floor(self, fl):
-		# Changes/sets the  of the room
-		# Returns the new . False upon failure
-		try:
-			self.floor = fl
-			db.session.commit()
-		except:
-			return False
-		return self.floor
 
 	def set_capacity(self, cap):
 		# Changes/sets the capacity of the room
@@ -127,4 +112,4 @@ class Room(db.Model):
 		return self.notes
 
 	def __repr__(self):
-		return '%r %r %r' % (self.roomnumber, self.floor, self.bullding)
+		return '%r %r %r' % (self.roomnumber, self.bullding)

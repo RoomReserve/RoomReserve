@@ -6,9 +6,6 @@ class form_CreateRoom(Form):
     building = SelectField('Building',\
             choices=[], \
             validators=[DataRequired()])
-    floor = SelectField('Floor',\
-            choices=[(1,1), (2,2), (3,3), (4,4), (5,5), (6,6), (7,7), (8,8)], \
-            validators=[DataRequired()])
     roomnumber = IntegerField('Room Number', validators=[DataRequired()])
     capacity = IntegerField('Capacity', validators=[DataRequired()])
     status = SelectField('Status',\
@@ -33,7 +30,6 @@ class form_CreateRoom(Form):
         Parameters: a room object
         '''
         self.building.default = thisRoom.get_building_id()
-        self.floor.default = thisRoom.get_floor()
         self.roomnumber.default = thisRoom.get_room_number()
         self.capacity.default = thisRoom.get_capacity()
         self.status.default = thisRoom.get_status()
@@ -76,7 +72,6 @@ def page_rooms():
         # the form has been filled out, import the data
         formdata = request.form
         building = formdata['building']
-        floor = formdata['floor']
         roomnumber = formdata['roomnumber']
         capacity = formdata['capacity']
         if 'active' in formdata:
@@ -88,7 +83,7 @@ def page_rooms():
 
 
         # create the room
-        if createRoom(roomnumber, floor, building, capacity, description, status):
+        if createRoom(roomnumber, building, capacity, description, status):
             # room created sucessfully
             pass
         else:
@@ -118,7 +113,6 @@ def page_updateRoom(id):
 
     formdata = request.form
     building = formdata['building']
-    floor = formdata['floor']
     roomnumber = formdata['roomnumber']
     capacity = formdata['capacity']
     status = formdata['status']
@@ -127,8 +121,6 @@ def page_updateRoom(id):
     # update any that have changed.
     if building != myRoom.get_building_id():
         myRoom.set_building_id(building)
-    if floor != myRoom.get_floor():
-        myRoom.set_floor(floor)
     if roomnumber != myRoom.get_room_number():
         myRoom.set_room_number(roomnumber)
     if status != myRoom.get_status():
