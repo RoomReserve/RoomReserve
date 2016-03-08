@@ -110,4 +110,9 @@ def overallsearch(searchStr):
             for i in roomBuildingMix:
                 results["rooms"].add(i)
                 
-    return results
+    everything = []            
+    for alist in results:
+        for item in alist:
+            everything.append(item)
+                
+    return everything
