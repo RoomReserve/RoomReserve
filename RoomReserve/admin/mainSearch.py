@@ -106,10 +106,5 @@ def overallsearch(searchStr):
         if len(roomBuildingMix) > 0:
             for i in roomBuildingMix:
                 results["rooms"].add(i)
-                
-    everything = []            
-    for alist in results:
-        for item in alist:
-            everything.append(item)
-                
-    return everything
+
+    return results
