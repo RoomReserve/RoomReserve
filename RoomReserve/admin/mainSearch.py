@@ -65,7 +65,7 @@ def overallsearch(searchStr):
         guestlast = getGuestByLastName(searchStr)
         guestemail = getGuestByEmail(searchStr)
         roomStatus = getRoomByStatus(searchStr)
-        guestaddress = []
+        guestAddress = []
         roomBuildingMix = []
         
         searchStrAsList = searchStr.split()
@@ -75,7 +75,7 @@ def overallsearch(searchStr):
         for i in searchStrAsList: #looking for a mix of strings and ints
             if i.isdigit():
                 #found a mix of strings and ints
-                guestaddress = getGuestByAddress(searchStr)
+                guestAddress = getGuestByAddress(searchStr)
                 intIndex = i
             else:
                 searchStrMinusInts += i
