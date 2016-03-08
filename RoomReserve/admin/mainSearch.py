@@ -22,7 +22,7 @@ def mainsearch_page():
 
         return render('mainSearch.html', results=results)
 
-    return render('mainSearch.html', form=form)
+    return render('mainSearch.html', results=[])
 def overallsearch(searchStr):
     '''
     Returns a list containing the matching string
