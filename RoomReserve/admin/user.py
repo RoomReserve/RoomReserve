@@ -98,7 +98,7 @@ def page_users():
     return render('listusers.html', form=form, users=users,
     edit_form=edit_form, allowEdit=allowEdit, isCurrentUser=isCurrentUser)
 
-@app.route('/admin/users/<id>', methods=['GET', 'POST'])
+@app.route('/admin/users/<id>', methods=['POST'])
 def page_updateUser(id):
     id=int(id)
     myUser = getUserById(id)

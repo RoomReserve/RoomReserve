@@ -66,7 +66,7 @@ class Guest(db.Model):
 		# Changes/sets the last name of the guest
 		# Returns the new name. False upon failure
 		try:
-			self.last = fn
+			self.last = ln
 			db.session.commit()
 		except:
 			return False
