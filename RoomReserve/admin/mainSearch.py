@@ -78,10 +78,7 @@ def overallsearch(searchStr):
                 guestaddress = getGuestByAddress(searchStr)
                 intIndex = i
             else:
-                if searchStrMinusInts == "":
-                    searchStrMinusInts += searchStrAsList[i]
-                else:
-                    searchStrMinusInts += " " + searchStrAsList[i]
+                searchStrMinusInts += i
                 
         if intIndex != -1 and searchStrMinusInts != "":
             roomBuildingMix = getRoomInBuildingWithName(searchStrMinusInts, int(searchStrAsList[intIndex]))
