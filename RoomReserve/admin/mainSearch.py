@@ -11,7 +11,11 @@ def overallsearch(searchStr):
     Returns a list containing the matching string
     '''
     searchStr = re.sub(r'[^\w]', '', searchStr) #removes all symbols
-    results = dict{"rooms":set(), "reservations":set(), "guests":set(), "buildings":set()}
+    results = {}
+    results["rooms"] = set()
+    results["reservations"] = set()
+    results["guests"] = set()
+    results["buildings"] = set()
     
     if searchStr.isdigit(): #Either Reserve ID, Guest ID, Guest phone, room ID, room number
         searchInt = int(searchStr)
