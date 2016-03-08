@@ -11,7 +11,7 @@ class Guest(db.Model):
 	notes = db.Column(db.String(500), unique=False)
 
 
-	def __init__(self, first, last, email, phone, address, payment, notes=""):
+	def __init__(self, first, last, email, phone, address, payment=0, notes=""):
 		self.first = first
 		self.last = last
 		self.email = email

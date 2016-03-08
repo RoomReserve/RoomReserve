@@ -1,4 +1,5 @@
 from RoomReserve import *
+import re
 
 class form_CreateGuest(Form):
     firstname = StringField('First Name', validators=[DataRequired()])
@@ -6,7 +7,7 @@ class form_CreateGuest(Form):
     email = StringField('Email Address', validators=[DataRequired()])
     phone = StringField('Phone Number', validators=[DataRequired()])
     address = StringField('Address', validators=[DataRequired()])
-    payment = StringField('Payment', validators=[DataRequired()])
+    payment = StringField('Payment')
     notes = TextAreaField('Notes')
 
 
@@ -39,18 +40,16 @@ def processCreateGuestForm(formdata):
     lastname = formdata['lastname']
     email = formdata['email']
 
-    phone = ""
-    for char in formdata['phone']:
-        if char in "0123456789":
-            phone += char
+    phone = re.sub(r'[^\w]', '', formdata['phone'])
     phone = int(phone)
+
     address = formdata['address']
 
-    payment = ""
-    for char in formdata['payment']:
-        if char in "0123456789":
-            payment += char
-    payment = int(payment)
+    payment = re.sub(r'[^\w]', '', formdata['payment'])
+    try:
+        payment = int(payment)
+    except ValueError:
+        payment = 0
 
     notes = formdata['notes']
 
@@ -69,7 +68,7 @@ def getAllGuests():
 def getGuest(myid):
     # returns single guest object with the given id
     return db.session.query(Guest).filter_by(id=myid).first()
-    
+
 def getGuests(myid):
     # returns multiple guest objects with the given id
     return db.session.query(Guest).filter_by(id=myid)
@@ -163,7 +162,7 @@ def getGuestByLastNameAndPhone(last, phone):
     for me in db.session.query(Guest).filter_by(last=first, phone=phone):
         guests.append(me)
     return guests
-    
+
 def getGuestByMatchingNotes(notes):
     # returns a list of all guests with that containing the notes string
     # parameters: (notes)
@@ -177,7 +176,7 @@ def getGuestByMatchingNotes(notes):
         if notes in me.get_notes():
             guests.append(me)
     return guests
-    
+
 def getGuestByAddress(address):
     # returns a list of all guests with that cantaining the address string
     # parameters: (address)
