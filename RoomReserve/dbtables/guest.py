@@ -44,6 +44,10 @@ class Guest(db.Model):
 		# Returns the address of the guest
 		return self.address
 
+	def get_phone(self):
+		# Returns the unformatted phone number of the guest
+		return self.phone
+
 	def get_payment(self):
 		# Returns the payment amount of the guest
 		return self.payment
