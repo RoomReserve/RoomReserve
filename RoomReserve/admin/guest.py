@@ -157,6 +157,11 @@ def getGuest(myid):
 
 def getGuests(myid):
     # returns multiple guest objects with the given id
+    return db.session.query(Guest).filter_by(id=myid):
+
+    
+def getGuestsByIDList(myid):
+    # returns multiple guest objects with the given id
     guests = []
     for me in db.session.query(Guest).filter_by(id=myid):
         guests.append(me)
