@@ -20,8 +20,6 @@ class form_CreateReservation(Form):
         myMin = "0" + str(min)
         minuteList.append((min, myMin))
 
-
-
     for min in range(10, 60):
         minuteList.append((min, str(min)))
 
@@ -36,8 +34,6 @@ class form_CreateReservation(Form):
 
     for year in range(2015, 2115):
         yearList.append((year, str(year)))
-
-
 
     monthIn = SelectField('Month In', default=12, choices=monthList, validators=[DataRequired()])
     dayIn = SelectField('Day', default=8, choices=dayList, validators=[DataRequired()])
@@ -60,35 +56,6 @@ class form_CreateReservation(Form):
                 ])
 
     notes = TextAreaField('Notes', validators=[DataRequired()])
-
-
-
-#this stuff below is supposed to get autocomplete to work.
-#Below might also need the following:
-
-#$("#sometextfield").autocomplete({
-#            serviceUrl:'/api/product_autocomplete',
-#            onSelect: function(val, data) {
-#              /* Handle data here */
-#            },
-#});
-
-# @jsonify
-# @app.restrict('GET')
-
-""" def tag_autocomplete(self):
-    if 'query' not in request.params:
-        abort(400)
-    fragment = request.params['query']
-    keywords = fragment.split()
-    searchstring = "%%".join(keywords)
-    searchstring = '%%%s%%' %(searchstring)
-    try:
-        ac_q = Session.query(Tag)
-        res = ac_q.filter(Tag.name.ilike(searchstring)).limit(10)
-        return dict(query=fragment, suggestions=[r.name for r in res], data=["%s" %(r.name) for r in res])
-    except NoResultFound:
-        return dict(query=fragment, suggestions=[], data=[]) """
 
 @app.route('/admin/reservation', methods=['GET', 'POST'])
 @login_required
@@ -129,11 +96,8 @@ def page_reservation():
 
     form = form_CreateReservation()
     reservations = getAllReservations()
-    return render('reservation.html', form=form, reservations=reservations,
+    return render('listreservations.html', form=form, reservations=reservations,
     getGuestByID=getGuestByID, getRoomByID=getRoomByID)
-
-
-
 
 def getAllReservations():
     # returns all reservations in a list
@@ -188,27 +152,18 @@ def get_active_reservations_for_roomID(roomID):
         Reservation.status != CONST.draft_status \
         )
 
-
-
 def createReservation(guestID, madeby, roomID, checkin, checkout, status, notes=""):
     '''
     Adds a reservation to the database
     '''
     # TODO: catch errors.
 
-    # Returns True if user added successfully, else False.
-    # try:
-    #     me = Reservation(guestID, madeby, roomID, checkin, checkout, status, notes)
-    #     db.session.add(me)
-    #     db.session.commit()
-    #     return True
-    #
-    # except Exception as e:
-    #     # Prints why the reservation could not be added in the terminal.
-    #     print(e)
-    #     return False
-
     me = Reservation(guestID, madeby, roomID, checkin, checkout, status, notes)
     db.session.add(me)
     db.session.commit()
     return me
+
+
+@app.route('/res/<int:resID>')
+def page_viewReservation(resID):
+    return render('basic.html', content=str(resID))
