@@ -105,11 +105,14 @@ def getAllReservations():
 
 def getReservationByID(id):
     # returns single res object with the given id
-    return db.session.query(Reservation).filter_by(id=id).first()
+    return getReservationsByID(id)
 
 def getReservationsByID(id):
     # returns single res object with the given id
-    return db.session.query(Reservation).filter_by(id=id)
+    res = []
+    for myres in db.session.query(Reservation).filter_by(id=id):
+        res.append(myres)
+    return res
 
 
 def find_available_rooms(startDate, endDate, buildingID=None, capacity=0):
