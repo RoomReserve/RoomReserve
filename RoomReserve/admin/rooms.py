@@ -208,10 +208,7 @@ def getRoomByID(id):
     for me in db.session.query(Room).filter_by(id=id):
         # Gets users from Room where id=id
     	rooms.append(me)
-    if len(rooms) == 1:
-        # if we got a room back, return it.
-        return rooms[0]
-    return False
+    return rooms
 
 def createRoom(rn, fl, bldg, cap, desc, st):
     # Adds a room to the database.
