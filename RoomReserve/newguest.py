@@ -18,8 +18,8 @@ def newguest():
     if request.method == 'POST':
         # the form has been filled out, import the data
         if processCreateGuestForm(request.form):
-            # guest created sucessfully
-            pass
+            print("Guest created successfully.")
+            return render('success.html', content="Thank you. Your guest account is created successfully.")
         else:
             # createGuest returned false, the guest could not be created.
             return render('basic.html', content="Could not create guest.")
