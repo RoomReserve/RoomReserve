@@ -28,6 +28,7 @@ def overallsearch(searchStr):
     Returns a list containing the matching string
     '''
     searchStr = re.sub(r'[^\w]', '', searchStr) #removes all symbols
+    searchStr = searchStr.lower()
     results = {}
     results["rooms"] = set()
     results["reservations"] = set()
@@ -61,10 +62,10 @@ def overallsearch(searchStr):
         
     else: # either guest notes, first name, lastname, email, address, building with room, room status
         guestnotes = getGuestByMatchingNotes(searchStr)
-        guestfirst = getGuestByFirstName(searchStr)
-        guestlast = getGuestByLastName(searchStr)
-        guestemail = getGuestByEmail(searchStr)
-        roomStatus = getRoomByStatus(searchStr)
+        guestfirst = getGuestByPartialFirstName(searchStr)
+        guestlast = getGuestByPartialLastName(searchStr)
+        guestemail = getGuestByPartialEmail(searchStr)
+        roomStatus = getRoomByPartialStatus(searchStr)
         guestAddress = []
         roomBuildingMix = []
         
@@ -81,7 +82,7 @@ def overallsearch(searchStr):
                 searchStrMinusInts += i
                 
         if intIndex != -1 and searchStrMinusInts != "":
-            roomBuildingMix = getRoomInBuildingWithName(searchStrMinusInts, int(searchStrAsList[intIndex]))
+            roomBuildingMix = getRoomInBuildingWithPartialName(searchStrMinusInts, int(searchStrAsList[intIndex]))
 
         
         
