@@ -1,7 +1,7 @@
 from RoomReserve import *
 from RoomReserve.admin.guest import processCreateGuestForm, getAllGuests 
 
-class form_CreateGuest(Form):
+class NewGuestForm(Form):
     firstname = StringField('First Name', validators=[DataRequired()])
     lastname = StringField('Last Name', validators=[DataRequired()])
     email = StringField('Email Address', validators=[DataRequired()])
@@ -13,7 +13,7 @@ class form_CreateGuest(Form):
 
 @app.route('/newguest', methods=['GET', 'POST'])
 def newguest():
-    form = form_CreateGuest()
+    form = NewGuestForm()
 
     if request.method == 'POST':
         # the form has been filled out, import the data
@@ -25,5 +25,3 @@ def newguest():
             return render('basic.html', content="Could not create guest.")
 
     return render('newguest.html', form=form)
-
-
