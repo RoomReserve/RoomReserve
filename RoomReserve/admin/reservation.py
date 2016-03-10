@@ -96,7 +96,7 @@ def page_reservation():
 
     form = form_CreateReservation()
     reservations = getAllReservations()
-    return render('reservation.html', form=form, reservations=reservations,
+    return render('listreservations.html', form=form, reservations=reservations,
     getGuestByID=getGuestByID, getRoomByID=getRoomByID)
 
 def getAllReservations():
@@ -162,3 +162,8 @@ def createReservation(guestID, madeby, roomID, checkin, checkout, status, notes=
     db.session.add(me)
     db.session.commit()
     return me
+
+
+@app.route('/res/<int:resID>')
+def page_viewReservation(resID):
+    return render('basic.html', content=str(resID))
