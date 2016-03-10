@@ -201,7 +201,7 @@ def getRoomByNum(rn):
     return rooms
 
 
-def getRoomByID(id):
+def getRoomByIDList(id):
     # returns single room object with the given id
     # if no room is found with that id, return false.
     rooms = []
@@ -209,6 +209,12 @@ def getRoomByID(id):
         # Gets users from Room where id=id
     	rooms.append(me)
     return rooms
+    
+
+def getRoomByID(id):
+    # returns single room object with the given id
+    # if no room is found with that id, return false.
+    return db.session.query(Room).filter_by(id=id).first():
 
 def createRoom(rn, fl, bldg, cap, desc, st):
     # Adds a room to the database.
