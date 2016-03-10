@@ -14,7 +14,6 @@
           <thead>
             <tr>
               <th>Building</th>
-              <th>Floor</th>
               <th>Room Number</th>
               <th>Capacity</th>
               <th></th>
@@ -24,7 +23,6 @@
             {% for r in rooms %}
           		<tr>
           			<td>{{ r.getMyBuildingName() }}</td>
-          			<td>{{ r.floor }}</td>
                 <td><strong>{{ r.roomnumber }}</strong></td>
                 <td>{{ r.capacity }}</td>
                 <td>
