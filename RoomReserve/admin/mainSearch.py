@@ -41,10 +41,10 @@ def overallsearch(searchStr):
     
     if searchStr.isdigit(): #Either Reserve ID, Guest ID, Guest phone, room ID, room number
         searchInt = int(searchStr)
-        resID = getReservationByID(searchInt)
-        guestID = getGuest(searchInt)
+        resID = getReservationByIDList(searchInt)
+        guestID = getGuestByIDList(searchInt)
         guestPhone = getGuestByPhone(searchInt)
-        roomID = getRoomByID(searchInt)
+        roomID = getRoomByIDList(searchInt)
         roomNum = getRoomByNum(searchInt)
         
         if len(resID) > 0:
