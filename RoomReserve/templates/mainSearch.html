@@ -44,7 +44,7 @@
           		<tr>
           			<td>{{ "Reservation" }}</td>
           			<td>{{ r.id }}</td>
-                <td>{{ (r.get_guest()).first + " " }}{{ (r.get_guest()).last }}</td>
+                <td>{{ r.get_guest().get_first_name() + " " }}{{ r.get_guest().get_last_name() }}</td>
                 <td>{{ r.status }}</td>
                 <td>
                 </td>
