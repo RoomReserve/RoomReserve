@@ -169,7 +169,7 @@ def getGuestsByIDList(myid):
 
 def getGuestByID(myID):
     # see docs for getGuest
-    return getGuests(myID)
+    return getGuest(myID)
 
 def getGuestByFirstName(fn):
     # returns a list of all guests with that first name
