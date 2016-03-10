@@ -222,8 +222,11 @@ def getGuestByEmail(myEmail):
 def getGuestByPhone(myPhone):
     # returns a list of all guests with that phone
     guests = []
-    for me in db.session.query(Guest).filter_by(phone=myPhone):
-        guests.append(me)
+    for me in db.session.query(Guest):
+        if me.phone != None:
+            phoneInt = int(re.sub(r'[^\w]', '', me.phone))
+            if myPhone == phoneInt:
+                guests.append(me)
     return guests
 
 
