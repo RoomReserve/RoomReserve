@@ -16,7 +16,6 @@
 </head>
 
 
-
 <body>
   <!-- Page Content -->
   <div id="wrapper">
@@ -77,16 +76,16 @@
                   
                   {% if form %}
                   <form class="well" method="POST" action="/newguest">
-                    {{ form.csrf_token }}
+                    {{ form.csrf}}
                     {{ form.firstname.label }} {{ form.firstname(size=20) }}
-                    {{ form.lastname.label }} {{ form.lastname(size=20) }} <br />
-                    {{ form.email.label }} {{ form.email(size=30) }} <br />
-                    {{ form.phone.label }} {{ form.phone(size=20) }} <br />
-                    {{ form.address.label }} {{ form.address(size=30) }} <br />
-                    {{ form.payment.label }} {{ form.payment(size=25) }} <br />
-                    {{ form.notes.label }} {{ form.notes(size=300) }} <br /><br />
+                    {{ form.lastname.label }} {{ form.lastname(size=20) }} <br>
+                    {{ form.email.label }} {{ form.email(size=30) }} <br>
+                    {{ form.phone.label }} {{ form.phone(size=20) }} <br>
+                    {{ form.address.label }} {{ form.address(size=30) }} <br>
+                    {{ form.payment.label }} {{ form.payment(size=25) }} <br>
+                    {{ form.notes.label }} {{ form.notes(size=300) }} <br><br>
 
-                    <input type="submit" class="btn-primary" value="Create">
+                    <input type="submit" class="btn btn-primary" value="Create">
                   </form>
 
 
@@ -94,14 +93,11 @@
                   <div class="page-header">
                     <h3>Congratulations!</h3>
                     <div class="alert alert-success">
-                    You are successfully added to our database. Please see the jobs based on your skills.
+                    Your guest account is created successfully!
                     </div>
                   </div>
-
-
                   {% endif %}
                   <hr />
-
 
               </div>
 
