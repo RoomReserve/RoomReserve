@@ -41,8 +41,8 @@ def overallsearch(searchStr):
     
     if searchStr.isdigit(): #Either Reserve ID, Guest ID, Guest phone, room ID, room number
         searchInt = int(searchStr)
-        resID = getReservationByID(searchInt)
-        guestID = getGuest(searchInt)
+        resID = list(getReservationByID(searchInt))
+        guestID = list(getGuest(searchInt))
         guestPhone = getGuestByPhone(searchInt)
         roomID = getRoomByID(searchInt)
         roomNum = getRoomByNum(searchInt)
@@ -59,9 +59,9 @@ def overallsearch(searchStr):
         if len(roomID) > 0:
             for i in roomID:
                 results["rooms"].add(i)
-        if len(resID) > 0:
-            for i in resID:
-                results["reservations"].add(i)
+        if len(roomNum) > 0:
+            for i in roomNum:
+                results["rooms"].add(i)
         
         
     else: # either guest notes, first name, lastname, email, address, building with room, room status
