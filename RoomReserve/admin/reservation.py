@@ -109,7 +109,8 @@ def getReservationByID(id):
 
 def getReservationsByID(id):
     # returns single res object with the given id
-    return db.session.query(Reservation).filter_by(id=id)
+    # alias for getReservationByID
+    return getReservationByID(id)
 
 
 def find_available_rooms(startDate, endDate, buildingID=None, capacity=0):
@@ -165,5 +166,12 @@ def createReservation(guestID, madeby, roomID, checkin, checkout, status, notes=
 
 
 @app.route('/res/<int:resID>')
+@login_required
 def page_viewReservation(resID):
-    return render('basic.html', content=str(resID))
+    res = getReservationByID(resID)
+    if res is None:
+        # Reservation not found
+        return render('basic.html', content="No such reservation with ID "+str(resID))
+
+
+    return render('reservation.html', res=res, guest=res.get_guest(), room=res.get_room())
