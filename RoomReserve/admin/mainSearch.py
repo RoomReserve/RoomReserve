@@ -69,7 +69,7 @@ def overallsearch(searchStr):
         searchStrAsList = searchStr.split()
         if len(searchStrAsList) > 0:
             guestfirst = getGuestByPartialFirstName(searchStrAsList[0])
-         if len(searchStrAsList) > 1:
+        if len(searchStrAsList) > 1:
             guestlast = getGuestByPartialLastName(searchStrAsList[1])
         guestemail = getGuestByPartialEmail(rawSearchStr)
         roomStatus = getRoomByPartialStatus(searchStr)
