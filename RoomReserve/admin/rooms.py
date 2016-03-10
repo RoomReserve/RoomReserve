@@ -148,6 +148,13 @@ def getRoomByStatus(statusSelect):
     for me in db.session.query(Room).filter_by(status=statusSelect):
         rooms.append(me)
     return rooms
+    
+def getRoomByPartialStatus(statusSelect):
+    rooms = []
+    for me in db.session.query(Room):
+        if statusSelect in me.get_status().lower():
+            rooms.append(me)
+    return rooms
 
 def getRoomInBuilding(bldgID, rn):
     # returns single room object with the given building and room number
@@ -169,6 +176,20 @@ def getRoomInBuildingWithName(bldgName, rn):
         if roomReturned != False:
             rooms.append(roomReturned)
     return rooms
+    
+def getRoomInBuildingWithPartialName(bldgName, rn):
+    # returns single room object with the given building and room number
+    # if room number is not found in building, return false.
+    #TODO: Test this to see if it works.
+    # Miller 401
+    rooms = []
+    for builds in db.session.query(Building).filter_by(name=bldgName):
+        if bldgName in builds.getBuildingName().lower():
+            roomReturned = getRoomInBuilding(builds.id, rn)
+            if roomReturned != False:
+                rooms.append(roomReturned)
+    return rooms
+
 
 def getRoomByNum(rn):
     # returns single room object with the given building and room number
