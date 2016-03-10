@@ -1,0 +1,103 @@
+{% extends 'default.html' %}
+
+{% block body1 %}
+
+<h1>Reservation {{ res.getID() }}</h1>
+
+<div class="col-lg-6">
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <tbody>
+
+            <tr> <!-- Guest -->
+              <td>Guest</td>
+              <td>
+                <table class="table">
+                  <tbody>
+                    <tr>
+                      <td>Name</td>
+                      <td>{{ guest.get_first_name() }} {{ guest.get_last_name() }}</td>
+                    </tr>
+                    <tr>
+                      <td>Email</td>
+                      <td>{{ guest.get_email() }}</td>
+                    </tr>
+                    <tr>
+                      <td>Phone</td>
+                      <td>{{ guest.get_phone() }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td>
+                <button type="button" class="btn btn-primary btn-circle btn-sm">
+                  {% if editingAllowed %}
+                    <i class="fa fa-pencil"></i>
+                  {% else %}
+                    <i class="fa fa-info"></i>
+                  {% endif %}
+                </button>
+              </td>
+            </tr> <!-- /Guest -->
+
+            <tr> <!-- Dates -->
+              <td>Dates</td>
+              <td>
+                <table class="table">
+                  <tbody>
+                    <tr>
+                      <td>In</td>
+                      <td>{{ res.get_check_in_datetime() }}</td>
+                    </tr>
+                    <tr>
+                      <td>Out</td>
+                      <td>{{ res.get_check_out_datetime() }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td>
+                <button type="button" class="btn btn-primary btn-circle btn-sm">
+                  {% if editingAllowed %}
+                    <i class="fa fa-pencil"></i>
+                  {% else %}
+                    <i class="fa fa-info"></i>
+                  {% endif %}
+                </button>
+              </td>
+            </tr><!-- /Dates -->
+
+            <tr> <!-- Room -->
+              <td>Room</td>
+              <td>
+                <table class="table">
+                  <tbody>
+                    <tr>
+                      <td></td>
+                      <td>{{ room.getMyBuildingName() }} {{ room.get_room_number() }} </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td>
+                <button type="button" class="btn btn-primary btn-circle btn-sm">
+                  {% if editingAllowed %}
+                    <i class="fa fa-pencil"></i>
+                  {% else %}
+                    <i class="fa fa-info"></i>
+                  {% endif %}
+                </button>
+              </td>
+            </tr><!-- /Room -->
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}
