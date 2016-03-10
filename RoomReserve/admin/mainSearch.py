@@ -84,7 +84,7 @@ def overallsearch(searchStr):
                 #found a mix of strings and ints
                 intIndex = i
             else:
-                if searchStrMinusInt != "":
+                if searchStrMinusInts != "":
                     searchStrMinusInts += " " + i
                 else:
                     searchStrMinusInts += i
