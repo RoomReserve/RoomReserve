@@ -42,7 +42,6 @@ login_manager.login_view = 'login'
 
 
 
-
 # DATABASE SELECTION
 def set_database():
 	'''
@@ -88,6 +87,8 @@ import RoomReserve.admin.guestsearch
 import RoomReserve.admin.dashboard
 import RoomReserve.admin.mainSearch
 import RoomReserve.newguest
+
+
 # Creates database classes as defined in the
 # above imports from RoomReserve.dbtables.*
 db.create_all()
@@ -199,32 +200,11 @@ createSampleRooms()
 
 # Try not to add additional page routes in here.
 
-@app.route("/dbtest")
-def db_test():
-	title = sys.platform
-	users = User.query.all()
-	return render_template('test.html', title=title, users=users)
-
-class test_form(Form):
-	name = StringField('Name', validators=[DataRequired()])
-
-@app.route("/wtftest", methods=['GET', 'POST'])
-def wtf_test():
-	if request.method == 'GET':
-		form = test_form()
-		return render_template('formtest.html', form=form)
-	elif request.method == 'POST':
-		content = "hello "
-		content += request.form['name']
-		return render_template('basic.html', content=content)
-	else:
-		return RoomReserve.helpers.errorhandlers.page_error400(400)
 
 @app.route("/today")
 def page_today():
 	title="Today's Activity"
 	return render('today.html',title=title)
-
 
 
 @app.route('/droptables', methods=['GET', 'POST'])
