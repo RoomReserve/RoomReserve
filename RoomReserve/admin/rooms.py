@@ -195,7 +195,10 @@ def getRoomByNum(rn):
     # returns single room object with the given building and room number
     # if room number is not found in building, return false.
     #TODO: Test this to see if it works.
-    return db.session.query(Room).filter_by(roomnumber=rn)
+    rooms = []
+    for room in db.session.query(Room).filter_by(roomnumber=rn):
+        rooms.append(room)
+    return rooms
 
 
 def getRoomByID(id):
