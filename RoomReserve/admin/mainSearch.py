@@ -44,7 +44,7 @@ def overallsearch(searchStr):
         resID = [getReservationByID(searchInt)]
         guestID = [getGuest(searchInt)]
         guestPhone = getGuestByPhone(searchInt)
-        roomID = getRoomByID(searchInt)
+        roomID = [getRoomByID(searchInt)]
         roomNum = getRoomByNum(searchInt)
         
         if len(resID) > 0:
@@ -110,7 +110,7 @@ def overallsearch(searchStr):
             for i in guestlast:
                 results["guests"].add(i)
         if len(anotherGuestFirst) > 0:
-            for i in guestlast:
+            for i in anotherGuestFirst:
                 results["guests"].add(i)
         if len(guestemail) > 0:
             for i in guestemail:
