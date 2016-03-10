@@ -27,13 +27,6 @@
                 <td>{{ r.getMyBuildingName() }}<a href = "/edit/room"><strong>{{ r.roomnumber }}</strong></a></td>
                 <td>{{ r.status }}</td>
                 <td>
-                  <!--<button type="button" class="btn btn-primary btn-circle btn-sm" data-toggle="modal" data-target="#editRoom_{{ r.id }}">
-                    {% if allowEdit() %}
-                      <i class="fa fa-pencil"></i>
-                    {% else %}
-                      <i class="fa fa-info"></i>
-                    {% endif %}
-                  </button> -->
                 </td>
           		</tr>
           	{% endfor %}
@@ -64,13 +57,6 @@
                 <td>{{ b.name }}</td>
                 <td>{{ b.status }}</td>
                 <td>
-                  <!--<button type="button" class="btn btn-primary btn-circle btn-sm" data-toggle="modal" data-target="#editBuilding_{{ b.id }}">
-                    {% if allowEdit() %}
-                      <i class="fa fa-pencil"></i>
-                    {% else %}
-                      <i class="fa fa-info"></i>
-                    {% endif %}
-                  </button> -->
                 </td>
           		</tr>
           	{% endfor %}
