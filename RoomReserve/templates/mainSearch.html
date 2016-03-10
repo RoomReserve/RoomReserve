@@ -21,7 +21,7 @@
           <tbody>
             {% for r in results['rooms'] %}
           		<tr>
-          			<td>{{ Room }}</td>
+          			<td>{{ "Room" }}</td>
           			<td>{{ r.id }}</td>
                 <td>{{ r.getMyBuildingName() }}<a href = "/edit/room"><strong>{{ r.roomnumber }}</strong></a></td>
                 <td>{{ r.status }}</td>
@@ -38,9 +38,9 @@
           	{% endfor %}
           	{% for g in results['guests'] %}
           		<tr>
-          			<td>{{ Guest }}</td>
+          			<td>{{ "Guest" }}</td>
           			<td>{{ g.id }}</td>
-                <td>{{ g.first }}{{ g.last }}</td>
+                <td>{{ g.first + " " }}{{ g.last }}</td>
                 <td>{{ g.notes }}</td>
                 <td>
                 </td>
@@ -48,9 +48,9 @@
           	{% endfor %}
           	{% for r in results['reservations'] %}
           		<tr>
-          			<td>{{ Reservation }}</td>
+          			<td>{{ "Reservation" }}</td>
           			<td>{{ r.id }}</td>
-                <td>{{ r.get_guest().first }}{{ r.get_guest().last }}</td>
+                <td>{{ r.get_guest().first + " " }}{{ r.get_guest().last }}</td>
                 <td>{{ r.status }}</td>
                 <td>
                 </td>
@@ -58,7 +58,7 @@
           	{% endfor %}
           	{% for b in results['buildings'] %}
           		<tr>
-          			<td>{{ Building }}</td>
+          			<td>{{ "Building" }}</td>
           			<td>{{ b.id }}</td>
                 <td>{{ b.name }}</td>
                 <td>{{ b.status }}</td>
