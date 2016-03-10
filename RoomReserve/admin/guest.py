@@ -283,7 +283,7 @@ def getGuestByMatchingNotes(notes):
     if len(notes) == 0:
         return guests
     for me in db.session.query(Guest):
-        if notes in me.get_notes():
+        if notes in me.get_notes().lower():
             guests.append(me)
     return guests
 
@@ -297,7 +297,7 @@ def getGuestByAddress(address):
     if len(address) == 0:
         return guests
     for me in db.session.query(Guest):
-        if address in me.get_address():
+        if address in me.get_address().lower():
             guests.append(me)
     return guests
 
