@@ -169,6 +169,30 @@ def getGuestByFirstName(fn):
     for me in db.session.query(Guest).filter_by(first=fn):
     	guests.append(me)
     return guests
+    
+def getGuestByPartialFirstName(fn):
+    # returns a list of all guests with that last name
+    guests = []
+    for me in db.session.query(Guest):
+    	if fn in me.get_first_name().lower():
+    	    guests.append(me)
+    return guests
+    
+def getGuestByPartialLastName(ln):
+    # returns a list of all guests with that last name
+    guests = []
+    for me in db.session.query(Guest):
+    	if ln in me.get_last_name().lower():
+    	    guests.append(me)
+    return guests
+    
+def getGuestByPartialEmail(emailstr):
+    # returns a list of all guests with that last name
+    guests = []
+    for me in db.session.query(Guest):
+    	if emailstr in me.get_email().lower():
+    	    guests.append(me)
+    return guests
 
 def getGuestByLastName(ln):
     # returns a list of all guests with that last name
