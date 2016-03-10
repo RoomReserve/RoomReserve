@@ -27,6 +27,8 @@ def overallsearch(searchStr):
     '''
     Returns a list containing the matching string
     '''
+
+    rawSearchStr = searchStr
     searchStr = re.sub(r'[^\w]', '', searchStr) #removes all symbols
     searchStr = searchStr.lower()
     results = {}
@@ -34,6 +36,8 @@ def overallsearch(searchStr):
     results["reservations"] = set()
     results["guests"] = set()
     results["buildings"] = set()
+    if len(searchStr) == 0:
+        return results
     
     if searchStr.isdigit(): #Either Reserve ID, Guest ID, Guest phone, room ID, room number
         searchInt = int(searchStr)
@@ -62,24 +66,28 @@ def overallsearch(searchStr):
         
     else: # either guest notes, first name, lastname, email, address, building with room, room status
         guestnotes = getGuestByMatchingNotes(searchStr)
-        guestfirst = getGuestByPartialFirstName(searchStr)
-        guestlast = getGuestByPartialLastName(searchStr)
-        guestemail = getGuestByPartialEmail(searchStr)
+        searchStrAsList = searchStr.split()
+        if len(searchStrAsList) > 0:
+            guestfirst = getGuestByPartialFirstName(searchStrAsList[0])
+         if len(searchStrAsList) > 1:
+            guestlast = getGuestByPartialLastName(searchStrAsList[1])
+        guestemail = getGuestByPartialEmail(rawSearchStr)
         roomStatus = getRoomByPartialStatus(searchStr)
-        guestAddress = []
+        guestAddress = getGuestByAddress(rawSearchStr)
         roomBuildingMix = []
         
-        searchStrAsList = searchStr.split()
         intIndex = -1
         searchStrMinusInts = ""
         
         for i in searchStrAsList: #looking for a mix of strings and ints
             if i.isdigit():
                 #found a mix of strings and ints
-                guestAddress = getGuestByAddress(searchStr)
                 intIndex = i
             else:
-                searchStrMinusInts += i
+                if searchStrMinusInt != "":
+                    searchStrMinusInts += " " + i
+                else:
+                    searchStrMinusInts += i
                 
         if intIndex != -1 and searchStrMinusInts != "":
             roomBuildingMix = getRoomInBuildingWithPartialName(searchStrMinusInts, int(searchStrAsList[intIndex]))
