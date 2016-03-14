@@ -7,31 +7,31 @@ import datetime
 # ::: Rooms :::
 
 def listOfAllTotalRooms():
-    return getAllRooms()
+    return list(getAllRooms())
 
 def numberOfAllTotalRooms():
     return len(listOfAllTotalRooms())
 
 def listOfActiveRooms():
-    return getActiveRooms()
+    return list(getActiveRooms())
 
 def numberOfActiveRooms():
     return len(getActiveRooms())
 
 def listOfRoomsCurrentlyOccupied():
-    return getRoomsByStatus(CONST.occupied_status)
+    return list(getRoomsByStatus(CONST.occupied_status))
 
 def numberOfRoomsCurrentlyOccupied():
     return len(listOfRoomsCurrentlyOccupied())
 
 def listOfRoomsCurrentlyUnoccupied():
-    return getRoomsByStatus(CONST.ready_status)
+    return list(getRoomsByStatus(CONST.ready_status))
 
 def numberOfRoomsCurrentlyUnoccupied():
     return len(listOfRoomsCurrentlyUnoccupied())
 
 def listOfInactiveRooms():
-    return getRoomsByStatus(CONST.inactive_status)
+    return list(getRoomsByStatus(CONST.inactive_status))
 
 def numberOfInactiveRooms():
     return len(listOfInactiveRooms())
@@ -41,7 +41,7 @@ def numberOfInactiveRooms():
 # ::: Reservations :::
 
 def listOfAllTotalReservations():
-    return getAllReservations()
+    return list(getAllReservations())
 
 def numberOfAllTotalReservations():
     return len(listOfAllTotalReservations())
@@ -49,7 +49,7 @@ def numberOfAllTotalReservations():
 def listOfAllUpcomingReservations():
     today = datetime.date.today()
     max = datetime.date.max
-    return getReservationsStartingBetweenDates(today, max)
+    return list(getReservationsStartingBetweenDates(today, max))
 
 def numberOfAllUpcomingReservations():
     return len(listOfAllUpcomingReservations())
@@ -58,7 +58,10 @@ def numberOfAllUpcomingReservations():
 # :::::: Reservations: Checking In ::::::
 
 def listOfReservationsCheckingInOnDate(dt):
-    return getReservationsStartingBetweenDates(dt, dt)
+    return list(getReservationsStartingBetweenDates(dt, dt))
+
+def numberOfReservationsCheckingInOnDate(dt):
+    return len(listOfReservationsCheckingInOnDate(dt))
 
 def listOfReservationsCheckingInToday():
     return listOfReservationsCheckingInOnDate(datetime.date.today())
@@ -76,7 +79,10 @@ def numberOfReservationsCheckingInTomorrow():
 # :::::: Reservations: Checking Out ::::::
 
 def listOfReservationsCheckingOutOnDate(dt):
-    return getReservationsEndingBetweenDates(dt, dt)
+    return list(getReservationsEndingBetweenDates(dt, dt))
+
+def numberOfReservationsCheckingOutOnDate(dt):
+    return len(listOfReservationsCheckingOutOnDate(dt))
 
 def listOfReservationsCheckingOutToday():
     return listOfReservationsCheckingOutOnDate(datetime.date.today())

@@ -1,8 +1,15 @@
 {% extends 'default.html' %}
 
+{% block head %}
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+{% endblock %}
+
+
 {% block body1 %}
 
-<hr>
+<hr />
 <div class="panel panel-primary col-md">
 	<div class="panel-heading">
 		<h3 class="panel-title">Welcome to RoomReserve!</h3>
@@ -12,12 +19,84 @@
 	</div>
 </div>
 
+<hr>
+<div class="panel panel-primary col-md">
+	<div class="panel-heading">
+		<h3 class="panel-title">This week's reservations</h3>
+	</div>
+	<div class="panel-body">
 
-{% if not content %}
-{% else %}
-<div class="well">
-	{{ content | safe }}
+		<div id="this-weeks-reservations" style="height: 250px;"></div>
+
+	</div>
 </div>
-{% endif %}
+
+<div class="row">
+	<div class="col-md-6">
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h3 class="panel-title">Rooms</h3>
+			</div>
+			<div class="panel-body">
+
+				<div id="rooms-status-donut" style="height: 250px;"></div>
+
+			</div>
+		</div>
+	</div>
+	<div class="col-md-6">
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h3 class="panel-title">Sample Donut Chart</h3>
+			</div>
+			<div class="panel-body">
+
+				<div id="sample-donut" style="height: 250px;"></div>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+
+<script>
+	new Morris.Donut({
+	  element: 'rooms-status-donut',
+	  data: [
+	    {label: "Occupied Rooms", value: {{ numInactiveRooms }} },
+	    {label: "Unoccupied Rooms", value: {{ numUnoccupiedRooms }} },
+	    {label: "Disabled Rooms", value: {{ numInactiveRooms }} }
+	  ]
+	});
+
+	new Morris.Donut({
+	  element: 'sample-donut',
+	  data: [
+	    {label: "Category A", value: 12},
+	    {label: "Subject B", value: 30},
+	    {label: "Status C", value: 20}
+	  ]
+	});
+
+	new Morris.Bar({
+	  element: 'this-weeks-reservations',
+	  data: [
+	    { y: 'Today', a: {{ chin[0] }}, b: {{ chout[0] }} },
+	    { y: 'Tomorrow', a: {{ chin[1] }},  b: {{ chout[1] }} },
+	    { y: '2 days', a: {{ chin[2] }},  b: {{ chout[2] }} },
+	    { y: '3 days', a: {{ chin[3] }},  b: {{ chout[3] }} },
+	    { y: '4 days', a: {{ chin[4] }},  b: {{ chout[4] }} },
+	    { y: '5 days', a: {{ chin[5] }},  b: {{ chout[5] }} },
+	    { y: '6 days', a: {{ chin[6] }},  b: {{ chout[6] }} }
+	  ],
+	  xkey: 'y',
+	  ykeys: ['a', 'b'],
+	  labels: ['Check Ins', 'Check Outs']
+	});
+
+</script>
 
 {% endblock %}
