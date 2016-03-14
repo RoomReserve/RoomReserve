@@ -79,13 +79,13 @@ def listOfReservationsCheckingOutOnDate(dt):
     return getReservationsEndingBetweenDates(dt, dt)
 
 def listOfReservationsCheckingOutToday():
-    return listOfReservationsCheckingInOnDate(datetime.date.today())
+    return listOfReservationsCheckingOutOnDate(datetime.date.today())
 
 def numberOfReservationsCheckingOutToday():
-    return len(listOfReservationsCheckingInToday())
+    return len(listOfReservationsCheckingOutToday())
 
 def listOfReservationsCheckingOutTomorrow():
-    return listOfReservationsCheckingInOnDate(datetime.date.today()+datetime.timedelta(days=1))
+    return listOfReservationsCheckingOutOnDate(datetime.date.today()+datetime.timedelta(days=1))
 
 def numberOfReservationsCheckingOutTomorrow():
-    return len(listOfReservationsCheckingInToday())
+    return len(listOfReservationsCheckingOutToday())
