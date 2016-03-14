@@ -38,7 +38,7 @@ def overallsearch(searchStr):
     results["buildings"] = set()
     if len(searchStr) == 0:
         return results
-    
+
     if searchStr.isdigit(): #Either Reserve ID, Guest ID, Guest phone, room ID, room number
         searchInt = int(searchStr)
         resID = getReservationsByIDList(searchInt)
@@ -46,7 +46,7 @@ def overallsearch(searchStr):
         guestPhone = getGuestByPhone(searchInt)
         roomID = getRoomByIDList(searchInt)
         roomNum = getRoomByNum(searchInt)
-        
+
         if len(resID) > 0:
             for i in resID:
                 results["reservations"].add(i)
@@ -62,8 +62,8 @@ def overallsearch(searchStr):
         if len(roomNum) > 0:
             for i in roomNum:
                 results["rooms"].add(i)
-        
-        
+
+
     else: # either guest notes, first name, lastname, email, address, building with room, room status
         guestnotes = getGuestByMatchingNotes(searchStr)
         searchStrAsList = searchStr.split()
@@ -78,13 +78,13 @@ def overallsearch(searchStr):
             else:
                 guestlast = getGuestByPartialLastName(searchStrAsList[0])
         guestemail = getGuestByPartialEmail(rawSearchStr)
-        roomStatus = getRoomByPartialStatus(searchStr)
+        roomStatus = getRoomsByPartialStatus(searchStr)
         guestAddress = getGuestByAddress(rawSearchStr)
         roomBuildingMix = []
-        
+
         intIndex = -1
         searchStrMinusInts = ""
-        
+
         for i in searchStrAsList: #looking for a mix of strings and ints
             if i.isdigit():
                 #found a mix of strings and ints
@@ -94,12 +94,12 @@ def overallsearch(searchStr):
                     searchStrMinusInts += " " + i
                 else:
                     searchStrMinusInts += i
-                
+
         if intIndex != -1 and searchStrMinusInts != "":
             roomBuildingMix = getRoomInBuildingWithPartialName(searchStrMinusInts, int(searchStrAsList[intIndex]))
 
-        
-        
+
+
         if len(guestnotes) > 0:
             for i in guestnotes:
                 results["guests"].add(i)
