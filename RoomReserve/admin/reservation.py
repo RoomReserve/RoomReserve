@@ -1,6 +1,7 @@
 from RoomReserve import *
 from RoomReserve.admin.guest import getGuestByID
 from RoomReserve.admin.rooms import getRoomByID
+import datetime
 
 class form_CreateReservation(Form):
 
@@ -113,11 +114,30 @@ def getReservationsByIDList(id):
     for myres in db.session.query(Reservation).filter_by(id=id):
         res.append(myres)
     return res
-    
+
 def getReservationsByID(id):
     # returns single res object with the given id
     return db.session.query(Reservation).filter_by(id=id).first()
 
+def getReservationsStartingBetweenDates(dStart, dEnd):
+    dEnd = dEnd + datetime.timedelta(days=1)
+    reslist = db.session.query(Reservation).filter( \
+        Reservation.checkintime >= dStart, \
+        Reservation.checkintime < dEnd, \
+        Reservation.status != CONST.draft_status )
+    if reslist:
+        return reslist
+    return []
+
+def getReservationsEndingBetweenDates(dStart, dEnd):
+    dEnd = dEnd + datetime.timedelta(days=1)
+    reslist = db.session.query(Reservation).filter( \
+        Reservation.checkouttime >= dStart, \
+        Reservation.checkouttime < dEnd, \
+        Reservation.status != CONST.draft_status )
+    if reslist:
+        return reslist
+    return []
 
 def find_available_rooms(startDate, endDate, buildingID=None, capacity=0):
     '''
