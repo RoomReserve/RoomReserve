@@ -139,17 +139,47 @@ def getAllRooms():
     return rooms
 
 def getActiveRooms(buildingID=None):
-    if buildingID:
-        return db.session.query(Room).filter_by(status=CONST.ready_status, buildingID=buildingID)
-    return db.session.query(Room).filter_by(status=CONST.ready_status)
+    '''
+    returns a list of rooms that are not inactive.
+    if a buildingID is passed, then it only displays rooms in the selected bldg.
+    '''
+    # if buildingID:
+    #     return db.session.query(Room).filter_by(status=CONST.ready_status, buildingID=buildingID)
+    # return db.session.query(Room).filter_by(status=CONST.ready_status)
 
-def getRoomByStatus(statusSelect):
+    if buildingID:
+        return db.session.query(Room).filter( \
+        Room.status != CONST.inactive_status, \
+        Room.buildingID == buildingID \
+        )
+    else:
+        return db.session.query(Room).filter( \
+        Room.status != CONST.inactive_status, \
+        )
+
+def getInactiveRooms(buildingID=None):
+    '''
+    returns a list of rooms that are marked inactive.
+    if a buildingID is passed, then it only displays rooms in the selected bldg.
+    '''
+
+    if buildingID:
+        return db.session.query(Room).filter( \
+        Room.status == CONST.inactive_status, \
+        Room.buildingID == buildingID \
+        )
+    else:
+        return db.session.query(Room).filter( \
+        Room.status == CONST.inactive_status, \
+        )
+
+def getRoomsByStatus(statusSelect):
     rooms = []
     for me in db.session.query(Room).filter_by(status=statusSelect):
         rooms.append(me)
     return rooms
-    
-def getRoomByPartialStatus(statusSelect):
+
+def getRoomsByPartialStatus(statusSelect):
     rooms = []
     for me in db.session.query(Room):
         if statusSelect in me.get_status().lower():
@@ -176,7 +206,7 @@ def getRoomInBuildingWithName(bldgName, rn):
         if roomReturned != False:
             rooms.append(roomReturned)
     return rooms
-    
+
 def getRoomInBuildingWithPartialName(bldgName, rn):
     # returns single room object with the given building and room number
     # if room number is not found in building, return false.
@@ -209,7 +239,7 @@ def getRoomByIDList(id):
         # Gets users from Room where id=id
     	rooms.append(me)
     return rooms
-    
+
 
 def getRoomByID(id):
     # returns single room object with the given id

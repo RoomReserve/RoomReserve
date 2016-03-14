@@ -87,6 +87,7 @@ import RoomReserve.admin.guestsearch
 import RoomReserve.admin.dashboard
 import RoomReserve.admin.mainSearch
 import RoomReserve.newguest
+import RoomReserve.helpers.stats as stats
 
 
 # Creates database classes as defined in the
@@ -163,7 +164,7 @@ def createSampleBuildings():
 	else:
 		miller = Building(name='Miller Hall', numfloors=8, status=CONST.ready_status, description="Corner rooms are bigger", notes="")
 		brandt = Building(name='Brandt Hall', numfloors=5, status=CONST.ready_status, description="First years only", notes="")
-		ylvi = Building(name='Ylvisaker Hall', numfloors=4, status=CONST.ready_status, description="First years only", notes="")		
+		ylvi = Building(name='Ylvisaker Hall', numfloors=4, status=CONST.ready_status, description="First years only", notes="")
 		db.session.add(miller)
 		db.session.add(brandt)
 		db.session.add(ylvi)
