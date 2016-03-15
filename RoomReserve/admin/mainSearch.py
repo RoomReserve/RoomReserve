@@ -79,21 +79,23 @@ def overallsearch(searchStr):
         guestAddress = getGuestByAddress(rawSearchStr)
         roomBuildingMix = []
 
-        intIndex = -1
+        intStr = ""
         searchStrMinusInts = ""
 
         for i in searchStrAsList: #looking for a mix of strings and ints
             if i.isdigit():
                 #found a mix of strings and ints
-                intIndex = i
+                intStr += i
             else:
                 if searchStrMinusInts != "":
                     searchStrMinusInts += " " + i
                 else:
                     searchStrMinusInts += i
 
-        if intIndex != -1 and searchStrMinusInts != "":
-            roomBuildingMix = getRoomInBuildingWithPartialName(searchStrMinusInts, int(searchStrAsList[intIndex]))
+        if intStr != "" and searchStrMinusInts != "":
+            roomBuildingMix = getRoomInBuildingWithPartialName(searchStrMinusInts, int(intStr))
+        elif searchStrMinusInts != "":
+            roomBuildingMix = getRoomInBuildingWithPartialName(searchStrMinusInts, -1)
 
 
 
