@@ -114,6 +114,8 @@ class Reservation(db.Model):
 	def get_check_out_datetime(self):
 		return self.checkouttime
 
+	def get_status(self):
+		return self.status
 
 	def get_delorean(self):
 		'''
