@@ -67,16 +67,13 @@ def overallsearch(searchStr):
     else: # either guest notes, first name, lastname, email, address, building with room, room status
         guestnotes = getGuestByMatchingNotes(searchStr)
         searchStrAsList = searchStr.split()
-        guestfirst = []
-        guestlast = []
-        anotherGuestFirst = []
-        if len(searchStrAsList) > 0:
-            guestfirst = getGuestByPartialFirstName(searchStrAsList[0])
-            if len(searchStrAsList) > 1:
-                guestlast = getGuestByPartialLastName(searchStrAsList[1])
-                anotherGuestFirst = getGuestByPartialFirstName(searchStrAsList[1])
-            else:
-                guestlast = getGuestByPartialLastName(searchStrAsList[0])
+        for aword in searchStrAsList:
+            firstname = getGuestByPartialFirstName(aword)
+            lastname = getGuestByPartialLastName(aword)
+            for item in firstname:
+                results["guests"].add(item)
+            for item in lastname:
+                results["guests"].add(item)
         guestemail = getGuestByPartialEmail(rawSearchStr)
         roomStatus = getRoomsByPartialStatus(searchStr)
         guestAddress = getGuestByAddress(rawSearchStr)
@@ -103,15 +100,7 @@ def overallsearch(searchStr):
         if len(guestnotes) > 0:
             for i in guestnotes:
                 results["guests"].add(i)
-        if len(guestfirst) > 0:
-            for i in guestfirst:
-                results["guests"].add(i)
-        if len(guestlast) > 0:
-            for i in guestlast:
-                results["guests"].add(i)
-        if len(anotherGuestFirst) > 0:
-            for i in anotherGuestFirst:
-                results["guests"].add(i)
+        #guest first and last names are handled earlier
         if len(guestemail) > 0:
             for i in guestemail:
                 results["guests"].add(i)
