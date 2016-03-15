@@ -65,11 +65,11 @@ def overallsearch(searchStr):
 
 
     else: # either guest notes, first name, lastname, email, address, building with room, room status
-        guestnotes = getGuestByMatchingNotes(searchStr)
+        guestnotes = getGuestByMatchingNotes(searchStr.lower())
         searchStrAsList = rawSearchStr.split()
         for aword in searchStrAsList:
-            firstname = getGuestByPartialFirstName(aword)
-            lastname = getGuestByPartialLastName(aword)
+            firstname = getGuestByPartialFirstName(aword.lower())
+            lastname = getGuestByPartialLastName(aword.ower())
             for item in firstname:
                 results["guests"].add(item)
             for item in lastname:
