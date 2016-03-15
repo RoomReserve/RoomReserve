@@ -213,11 +213,15 @@ def getRoomInBuildingWithPartialName(bldgName, rn):
     #TODO: Test this to see if it works.
     # Miller 401
     rooms = []
-    for builds in db.session.query(Building).filter_by(name=bldgName):
+    for builds in db.session.query(Building):
         if bldgName in builds.getBuildingName().lower():
-            roomReturned = getRoomInBuilding(builds.id, rn)
-            if roomReturned != False:
-                rooms.append(roomReturned)
+            if rn == -1:
+                for aroom in db.session.query(Room).filter_by(buildingID=builds.id):
+                    rooms.append(aroom)
+            else:
+                roomReturned = getRoomInBuilding(builds.id, rn)
+                if roomReturned != False:
+                    rooms.append(roomReturned)
     return rooms
 
 
