@@ -44,7 +44,15 @@
           		<tr>
           			<td>{{ "Reservation" }}</td>
           			<td>{{ r.id }}</td>
+          			{% if r.get_guest() != None %}
+          			
                 <td>{{ r.get_guest().get_first_name() + " " }}{{ r.get_guest().get_last_name() }}</td>
+                
+                {% else %}
+                
+                <td> No guest</td>
+                
+                {% endif %}
                 <td>{{ r.status }}</td>
                 <td>
                 </td>
