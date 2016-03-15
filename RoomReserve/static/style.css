@@ -16,3 +16,11 @@ h4 {
 	text-align: center;
 	text-decoration: none;
 }
+
+.tooltip-wrapper {
+  display: inline-block; /* display: block works as well */
+}
+
+.tooltip-wrapper .btn[disabled] {
+  /* don't let button block mouse events from reaching wrapper */
+  pointer-events: none;

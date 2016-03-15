@@ -3,7 +3,7 @@ $('#datatables').DataTable(
 	{
 	// Disable sorting for 'Edit' button
 	  "columnDefs": [ {
-	      "targets": 5, 
+	      "targets": 5,
 	      "orderable": false
 	    } ]
 	}
@@ -11,3 +11,7 @@ $('#datatables').DataTable(
 } );
 
 
+
+$(function() {
+    $('.tooltip-wrapper').tooltip({position: "bottom"});
+});
