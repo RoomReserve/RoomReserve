@@ -126,7 +126,7 @@
                     </p>
                 </div>
                 <div class="timeline-body">
-                  <p>Reservation created on __ by __</p>
+                  <p>Reservation created by {{ getUserById(res.madeby).getName() }}</p>
                 </div>
             </div>
           </li>
@@ -161,7 +161,7 @@
           </li>
           {% endif %}
 
-          {% if res.get_status() == CONST.draft_status %}
+          {% if res.isDraft() %}
           <li>
             <div class="timeline-badge danger"><i class="fa fa-exclamation"></i>
             </div>
@@ -171,12 +171,49 @@
                 </div>
                 <div class="timeline-body">
                   <p>This reservation has not been finished and confirmed.</p>
+                  {% if not res.guestIsSet() %}
+                    <a href="#" class = "btn btn-success btn-xs" role="button">
+                      {% if editingAllowed %}
+                        Assign Guest
+                      {% else %}
+                        Needs a guest
+                      {% endif %}
+                    </a>
+                  {% else %}
+                    <a href="#" class = "btn btn-success btn-xs disabled" role="button">
+                      <i class="fa fa-check"></i>Guest assigned
+                    </a>
+                  {% endif %}
+
+                  {% if not res.roomIsSet() %}
+                    <a href="#" class = "btn btn-success btn-xs" role="button">
+                      {% if editingAllowed %}
+                        Assign Room
+                      {% else %}
+                        Needs a room
+                      {% endif %}
+                    </a>
+                  {% else %}
+                    <a href="#" class = "btn btn-success btn-xs disabled" role="button">
+                      <i class="fa fa-check"></i>Room assigned
+                    </a>
+                  {% endif %}
+
+                  {% if res.guestIsSet() and res.roomIsSet() %}
+                    <a href="#" class = "btn btn-danger btn-xs" role="button">
+                      Confirm Reservation
+                    </a>
+                  {% else %}
+                    <a href="#" class = "btn btn-danger btn-xs disabled" role="button">
+                      Confirm Reservation
+                    </a>
+                  {% endif %}
                 </div>
             </div>
           </li>
           {% endif %}
 
-          {% if res.get_status() != CONST.unarrived_status and res.get_status() != CONST.draft_status %}
+          {% if res.get_status() == CONST.checkedin_status %}
           <li>
             <div class="timeline-badge success"><i class="fa fa-sign-in"></i>
             </div>
@@ -189,6 +226,9 @@
                 </div>
             </div>
           </li>
+          {% endif %}
+
+          {% if res.get_status() == CONST.checkedout_status %}
           <li>
             <div class="timeline-badge danger"><i class="fa fa-sign-out"></i>
             </div>
