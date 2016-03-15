@@ -93,9 +93,9 @@ def overallsearch(searchStr):
                     searchStrMinusInts += i
 
         if intStr != "" and searchStrMinusInts != "":
-            roomBuildingMix = getRoomInBuildingWithPartialName(searchStrMinusInts, int(intStr))
+            roomBuildingMix = getRoomInBuildingWithPartialName(searchStrMinusInts.lower(), int(intStr))
         elif searchStrMinusInts != "":
-            roomBuildingMix = getRoomInBuildingWithPartialName(searchStrMinusInts, -1)
+            roomBuildingMix = getRoomInBuildingWithPartialName(searchStrMinusInts.lower(), -1)
 
 
 
