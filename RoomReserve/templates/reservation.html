@@ -211,10 +211,18 @@
                     <a href="#" class = "btn btn-danger btn-xs" role="button">
                       Confirm Reservation
                     </a>
+                  {% elif res.guestIsSet() and not res.roomIsSet() %}
+                    <div class="tooltip-wrapper disabled" data-title="Missing Guest">
+                      <button class="btn btn-danger btn-xs" disabled>Confirm Reservation</button>
+                    </div>
+                  {% elif res.roomIsSet() and not res.guestIsSet() %}
+                    <div class="tooltip-wrapper disabled" data-title="Missing Room">
+                      <button class="btn btn-danger btn-xs" disabled>Confirm Reservation</button>
+                    </div>
                   {% else %}
-                    <a href="#" class = "btn btn-danger btn-xs disabled" role="button">
-                      Confirm Reservation
-                    </a>
+                    <div class="tooltip-wrapper disabled" data-title="Missing Room and Guest">
+                      <button class="btn btn-danger btn-xs" disabled>Confirm Reservation</button>
+                    </div>
                   {% endif %}
                 </div>
             </div>
