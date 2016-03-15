@@ -74,9 +74,9 @@ def overallsearch(searchStr):
                 results["guests"].add(item)
             for item in lastname:
                 results["guests"].add(item)
-        guestemail = getGuestByPartialEmail(rawSearchStr)
-        roomStatus = getRoomsByPartialStatus(searchStr)
-        guestAddress = getGuestByAddress(rawSearchStr)
+        guestemail = getGuestByPartialEmail(rawSearchStr.lower())
+        roomStatus = getRoomsByPartialStatus(searchStr.lower())
+        guestAddress = getGuestByAddress(rawSearchStr.lower())
         roomBuildingMix = []
 
         intStr = ""
