@@ -69,7 +69,7 @@ def overallsearch(searchStr):
         searchStrAsList = rawSearchStr.split()
         for aword in searchStrAsList:
             firstname = getGuestByPartialFirstName(aword.lower())
-            lastname = getGuestByPartialLastName(aword.ower())
+            lastname = getGuestByPartialLastName(aword.lower())
             for item in firstname:
                 results["guests"].add(item)
             for item in lastname:
