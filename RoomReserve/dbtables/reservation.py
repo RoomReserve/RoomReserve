@@ -96,11 +96,17 @@ class Reservation(db.Model):
 	def getID(self):
 		return self.id
 
+	def roomIsSet(self):
+		return self.roomID is not None
+
 	def getRoomID(self):
 		return self.roomID
 
 	def get_room(self):
 		return getRoomByID(self.getRoomID())
+
+	def guestIsSet(self):
+		return self.guestID is not None
 
 	def getGuestID(self):
 		return self.guestID
@@ -114,6 +120,22 @@ class Reservation(db.Model):
 	def get_check_out_datetime(self):
 		return self.checkouttime
 
+	def get_status(self):
+		return self.status
+
+	def isDraft(self):
+		''' True if reservation is draft status, else false. '''
+		return self.get_status() == CONST.draft_status
+
+	def confirm(self):
+		'''
+		If the reservation has an assigned room and guest,
+		the reservation can leave Draft status.
+		'''
+		if self.isDraft() and self.roomIsSet() and self.guestIsSet():
+			self.set_status(CONST.unarrived_status)
+			return True
+		return False
 
 	def get_delorean(self):
 		'''

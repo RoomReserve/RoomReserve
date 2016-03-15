@@ -4,7 +4,7 @@
 
 <h1>Reservation {{ res.getID() }}</h1>
 
-<div class="col-lg-6">
+<div class="col-lg-12">
   <div class="panel panel-default">
     <div class="panel-body">
       <div class="table-responsive">
@@ -14,6 +14,7 @@
             <tr> <!-- Guest -->
               <td>Guest</td>
               <td>
+                {% if guest %}
                 <table class="table">
                   <tbody>
                     <tr>
@@ -30,6 +31,9 @@
                     </tr>
                   </tbody>
                 </table>
+                {% else %}
+                <p><em>Guest not assigned.</em></p>
+                {% endif %}
               </td>
               <td>
                 <button type="button" class="btn btn-primary btn-circle btn-sm">
@@ -72,6 +76,7 @@
             <tr> <!-- Room -->
               <td>Room</td>
               <td>
+                {% if room %}
                 <table class="table">
                   <tbody>
                     <tr>
@@ -80,6 +85,9 @@
                     </tr>
                   </tbody>
                 </table>
+                {% else %}
+                <p><em>Room not assigned.</em></p>
+                {% endif %}
               </td>
               <td>
                 <button type="button" class="btn btn-primary btn-circle btn-sm">
@@ -99,5 +107,161 @@
   </div>
 </div>
 
+
+<div class="row">
+  <div class="col-lg-12">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <i class="fa fa-info-circle fa-fw"></i> Notes
+      </div>
+      <div class="panel-body">
+        <ul class="timeline">
+          <li>
+            <div class="timeline-badge info"><i class="fa fa-plus"></i>
+            </div>
+            <div class="timeline-panel">
+                <div class="timeline-heading">
+                    <h4 class="timeline-title">Reservation Created</h4>
+                    <p><small class="text-muted"><i class="fa fa-clock-o"></i> Time created?? </small>
+                    </p>
+                </div>
+                <div class="timeline-body">
+                  <p>Reservation created by {{ getUserById(res.madeby).getName() }}</p>
+                </div>
+            </div>
+          </li>
+
+          {% if res.notes %}
+          <li>
+            <div class="timeline-badge warning"><i class="fa fa-newspaper-o"></i>
+            </div>
+            <div class="timeline-panel">
+                <div class="timeline-heading">
+                    <h4 class="timeline-title">Notes</h4>
+                </div>
+                <div class="timeline-body">
+                  <p class="col-md-11">{{ res.notes }}</p>
+                  <div class="btn-group col-md-1">
+                    <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-gear"></i>  <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu pull-right" role="menu">
+                        <li><a href="#">Action</a>
+                        </li>
+                        <li><a href="#">Display Edit Modal Action</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li><a href="#">Delete Action</a>
+                        </li>
+                    </ul>
+                </div>
+                </div>
+
+            </div>
+          </li>
+          {% endif %}
+
+          {% if res.isDraft() %}
+          <li>
+            <div class="timeline-badge danger"><i class="fa fa-exclamation"></i>
+            </div>
+            <div class="timeline-panel">
+                <div class="timeline-heading">
+                    <h4 class="timeline-title">Draft Reservation</h4>
+                </div>
+                <div class="timeline-body">
+                  <p>This reservation has not been finished and confirmed.</p>
+                  {% if not res.guestIsSet() %}
+                    <a href="#" class = "btn btn-success btn-xs" role="button">
+                      {% if editingAllowed %}
+                        Assign Guest
+                      {% else %}
+                        Needs a guest
+                      {% endif %}
+                    </a>
+                  {% else %}
+                    <a href="#" class = "btn btn-success btn-xs disabled" role="button">
+                      <i class="fa fa-check"></i>Guest assigned
+                    </a>
+                  {% endif %}
+
+                  {% if not res.roomIsSet() %}
+                    <a href="#" class = "btn btn-success btn-xs" role="button">
+                      {% if editingAllowed %}
+                        Assign Room
+                      {% else %}
+                        Needs a room
+                      {% endif %}
+                    </a>
+                  {% else %}
+                    <a href="#" class = "btn btn-success btn-xs disabled" role="button">
+                      <i class="fa fa-check"></i>Room assigned
+                    </a>
+                  {% endif %}
+
+                  {% if res.guestIsSet() and res.roomIsSet() %}
+                    <a href="#" class = "btn btn-danger btn-xs" role="button">
+                      Confirm Reservation
+                    </a>
+                  {% else %}
+                    <a href="#" class = "btn btn-danger btn-xs disabled" role="button">
+                      Confirm Reservation
+                    </a>
+                  {% endif %}
+                </div>
+            </div>
+          </li>
+          {% endif %}
+
+          {% if res.get_status() == CONST.checkedin_status %}
+          <li>
+            <div class="timeline-badge success"><i class="fa fa-sign-in"></i>
+            </div>
+            <div class="timeline-panel">
+                <div class="timeline-heading">
+                    <h4 class="timeline-title">Checked in</h4>
+                </div>
+                <div class="timeline-body">
+                    <p>{{ guest.get_first_name() }} {{ guest.get_last_name() }} has checked in.</p>
+                </div>
+            </div>
+          </li>
+          {% endif %}
+
+          {% if res.get_status() == CONST.checkedout_status %}
+          <li>
+            <div class="timeline-badge danger"><i class="fa fa-sign-out"></i>
+            </div>
+            <div class="timeline-panel">
+                <div class="timeline-heading">
+                    <h4 class="timeline-title">Checked out</h4>
+                </div>
+                <div class="timeline-body">
+                    <p class="col-md-11">{{ guest.get_first_name() }} {{ guest.get_last_name() }} has checked out. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem dolorem quibusdam, tenetur commodi provident cumque magni voluptatem libero, quis rerum. Fugiat esse debitis optio, tempore. Animi officiis alias, officia repellendus.</p>
+                    <div class="btn-group col-md-1">
+                      <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown">
+                          <i class="fa fa-gear"></i>  <span class="caret"></span>
+                      </button>
+                      <ul class="dropdown-menu" role="menu">
+                          <li><a href="#">Action</a>
+                          </li>
+                          <li><a href="#">Another action</a>
+                          </li>
+                          <li><a href="#">Something else here</a>
+                          </li>
+                          <li class="divider"></li>
+                          <li><a href="#">Separated link</a>
+                          </li>
+                      </ul>
+                  </div>
+                </div>
+            </div>
+          </li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
 
 {% endblock %}

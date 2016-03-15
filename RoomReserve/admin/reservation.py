@@ -1,6 +1,7 @@
 from RoomReserve import *
 from RoomReserve.admin.guest import getGuestByID
 from RoomReserve.admin.rooms import getRoomByID
+from RoomReserve.admin.user import getUserById
 import datetime
 
 class form_CreateReservation(Form):
@@ -84,8 +85,8 @@ def page_reservation():
         hourOut = formdata['hourOut']
         minuteOut = formdata['minuteOut']
 
-        checkIn = datetime(int(yearIn), int(monthIn),  int(dayIn), int(hourIn), int(minuteIn))
-        checkOut = datetime(int(yearOut), int(monthOut),  int(dayOut), int(hourOut), int(minuteOut))
+        checkIn = datetime.datetime(int(yearIn), int(monthIn),  int(dayIn), int(hourIn), int(minuteIn))
+        checkOut = datetime.datetime(int(yearOut), int(monthOut),  int(dayOut), int(hourOut), int(minuteOut))
 
         # create the reservation
         if createReservation(guestID, userID, roomID, checkIn, checkOut, status, notes):
@@ -200,4 +201,17 @@ def page_viewReservation(resID):
         return render('basic.html', content="No such reservation with ID "+str(resID))
 
 
-    return render('reservation.html', res=res, guest=res.get_guest(), room=res.get_room())
+    return render('reservation.html', res=res, guest=res.get_guest(), room=res.get_room(), CONST=CONST, getUserById=getUserById, editingAllowed = True)
+
+@app.route('/res/<int:resID>/confirm')
+@login_required
+def page_processMakeReservationConfirmed(resID):
+    res = getReservationByID(resID)
+    if res is None:
+        # Reservation not found
+        return render('basic.html', content="No such reservation with ID "+str(resID))
+
+    if res.confirm():
+        return redirect('/res/'+str(resID))
+
+    return render('basic.html', content="Could not confirm reservation with ID "+str(resID))
