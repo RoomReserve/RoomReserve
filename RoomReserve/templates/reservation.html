@@ -14,6 +14,7 @@
             <tr> <!-- Guest -->
               <td>Guest</td>
               <td>
+                {% if guest %}
                 <table class="table">
                   <tbody>
                     <tr>
@@ -30,6 +31,9 @@
                     </tr>
                   </tbody>
                 </table>
+                {% else %}
+                <p><em>Guest not assigned.</em></p>
+                {% endif %}
               </td>
               <td>
                 <button type="button" class="btn btn-primary btn-circle btn-sm">
@@ -72,6 +76,7 @@
             <tr> <!-- Room -->
               <td>Room</td>
               <td>
+                {% if room %}
                 <table class="table">
                   <tbody>
                     <tr>
@@ -80,6 +85,9 @@
                     </tr>
                   </tbody>
                 </table>
+                {% else %}
+                <p><em>Room not assigned.</em></p>
+                {% endif %}
               </td>
               <td>
                 <button type="button" class="btn btn-primary btn-circle btn-sm">
@@ -104,7 +112,7 @@
   <div class="col-lg-12">
     <div class="panel panel-default">
       <div class="panel-heading">
-        <i class="fa fa-clock-o fa-fw"></i> Timeline
+        <i class="fa fa-info-circle fa-fw"></i> Notes
       </div>
       <div class="panel-body">
         <ul class="timeline">
@@ -122,6 +130,53 @@
                 </div>
             </div>
           </li>
+
+          {% if res.notes %}
+          <li>
+            <div class="timeline-badge warning"><i class="fa fa-newspaper-o"></i>
+            </div>
+            <div class="timeline-panel">
+                <div class="timeline-heading">
+                    <h4 class="timeline-title">Notes</h4>
+                </div>
+                <div class="timeline-body">
+                  <p class="col-md-11">{{ res.notes }}</p>
+                  <div class="btn-group col-md-1">
+                    <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-gear"></i>  <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu pull-right" role="menu">
+                        <li><a href="#">Action</a>
+                        </li>
+                        <li><a href="#">Display Edit Modal Action</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li><a href="#">Delete Action</a>
+                        </li>
+                    </ul>
+                </div>
+                </div>
+
+            </div>
+          </li>
+          {% endif %}
+
+          {% if res.get_status() == CONST.draft_status %}
+          <li>
+            <div class="timeline-badge danger"><i class="fa fa-exclamation"></i>
+            </div>
+            <div class="timeline-panel">
+                <div class="timeline-heading">
+                    <h4 class="timeline-title">Draft Reservation</h4>
+                </div>
+                <div class="timeline-body">
+                  <p>This reservation has not been finished and confirmed.</p>
+                </div>
+            </div>
+          </li>
+          {% endif %}
+
+          {% if res.get_status() != CONST.unarrived_status and res.get_status() != CONST.draft_status %}
           <li>
             <div class="timeline-badge success"><i class="fa fa-sign-in"></i>
             </div>
@@ -142,9 +197,9 @@
                     <h4 class="timeline-title">Checked out</h4>
                 </div>
                 <div class="timeline-body">
-                    <p class="col-md-10">{{ guest.get_first_name() }} {{ guest.get_last_name() }} has checked out. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem dolorem quibusdam, tenetur commodi provident cumque magni voluptatem libero, quis rerum. Fugiat esse debitis optio, tempore. Animi officiis alias, officia repellendus.</p>
-                    <div class="btn-group col-md-2">
-                      <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                    <p class="col-md-11">{{ guest.get_first_name() }} {{ guest.get_last_name() }} has checked out. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem dolorem quibusdam, tenetur commodi provident cumque magni voluptatem libero, quis rerum. Fugiat esse debitis optio, tempore. Animi officiis alias, officia repellendus.</p>
+                    <div class="btn-group col-md-1">
+                      <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown">
                           <i class="fa fa-gear"></i>  <span class="caret"></span>
                       </button>
                       <ul class="dropdown-menu" role="menu">
@@ -162,6 +217,7 @@
                 </div>
             </div>
           </li>
+          {% endif %}
         </ul>
       </div>
     </div>
