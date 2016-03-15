@@ -2,7 +2,15 @@
 
 {% block body1 %}
 
-<h1>Reservation {{ res.getID() }}</h1>
+<h1>Reservation {{ res.getID() }}
+  {% if res.isDraft() %}
+   <sup><small><span class="label label-danger">Draft</span></small></sup>
+  {% else %}
+   <a href="#" class = "btn btn-default btn-circle disabled" role="button"><i class="fa fa-check"></i></a>
+  {% endif %}
+</h1>
+
+<br />
 
 <div class="col-lg-12">
   <div class="panel panel-default">
@@ -172,7 +180,7 @@
                 <div class="timeline-body">
                   <p>This reservation has not been finished and confirmed.</p>
                   {% if not res.guestIsSet() %}
-                    <a href="#" class = "btn btn-success btn-xs" role="button">
+                    <a href="#" class = "btn btn-danger btn-xs" role="button">
                       {% if editingAllowed %}
                         Assign Guest
                       {% else %}
@@ -186,7 +194,7 @@
                   {% endif %}
 
                   {% if not res.roomIsSet() %}
-                    <a href="#" class = "btn btn-success btn-xs" role="button">
+                    <a href="#" class = "btn btn-danger btn-xs" role="button">
                       {% if editingAllowed %}
                         Assign Room
                       {% else %}
