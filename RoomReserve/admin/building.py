@@ -167,8 +167,19 @@ def createBuilding(name, numfl, desc, st):
         print(e)
         return False
 
-# def deleteBuilding(id):
-#     # Removes a building from the database.
-#     # Returns True if building deleted successfully, else false
-#     me = getBuildingById(id)
-#     if me.is
+@app.route('/admin/buildings/<id>/delete')
+def deleteBuilding(id):
+    # Removes a building from the database.
+    # Returns True if building deleted successfully, else false
+    id = int(id)
+    me = getBuildingById(id)
+    if me.is_deletable():
+        try:
+            db.session.delete(me)
+            db.session.commit()
+        except Exception as e:
+            # Prints why the building could not be added in the terminal.
+            print(e)
+            return render('basic.html', content = "Not deleted")
+        return render('basic.html', content="Deleted!")
+    return render('basic.html', content = "Not possible to delete")

@@ -95,10 +95,11 @@ class Building(db.Model):
 			return False
 
 	def all_rooms(self):
-	    containsRooms = []
-	    for me in db.session.query(Room).filter(buildingID == self.id):
-	        containsRooms.append(me)
-	    return containsRooms
+		from RoomReserve.dbtables.room import Room
+		containsRooms = []
+		for me in db.session.query(Room).filter(Room.buildingID == self.id):
+		    containsRooms.append(me)
+		return containsRooms
 
 	def __repr__(self):
 		return 'Building %r' % (self.name)
