@@ -180,6 +180,6 @@ def deleteBuilding(id):
         except Exception as e:
             # Prints why the building could not be added in the terminal.
             print(e)
-            return render('basic.html', content = "Not deleted")
+            return render('basic.html', content = "Not deleted because a database error occured.")
         return render('basic.html', content="Deleted!")
     return render('basic.html', content = "Not possible to delete")
