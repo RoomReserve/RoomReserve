@@ -89,5 +89,16 @@ class Building(db.Model):
 			return False
 		return self.notes
 
+	def is_deletable(self):
+			if len(self.all_rooms()) == 0:
+				return True
+			return False
+
+	def all_rooms(self):
+	    containsRooms = []
+	    for me in db.session.query(Room).filter(buildingID == self.id):
+	        containsRooms.append(me)
+	    return containsRooms
+
 	def __repr__(self):
 		return 'Building %r' % (self.name)

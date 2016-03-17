@@ -137,6 +137,11 @@ class Reservation(db.Model):
 			return True
 		return False
 
+	def is_deletable(self):
+		if self.get_status() != CONST.checkedin_status:
+			return True
+		return False
+
 	def get_delorean(self):
 		'''
 		Returns the time range for the reservation.
