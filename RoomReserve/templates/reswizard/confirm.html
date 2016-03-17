@@ -4,7 +4,7 @@
 
 <h2>Reservation Details</h2>
 
-<p>Please review the information below and press "Finish" to confim your reservation.</p>
+<p>Please review the information below and press "Complete Reservation" to confirm your reservation.</p>
 
 <!-- Table of buildings -->
 <div class="panel panel-primary col-md">
@@ -49,7 +49,7 @@
 
 <form class="well" method="POST" action="/res/confirm">
   <input type="hidden" name="resID" value="{{ res.getID() }}">
-  <input type="submit" class="btn-primary" value="Finish">
+  <button type="submit" class="btn btn-lg btn-success">Complete Reservation</button>
 </form>
 
 
