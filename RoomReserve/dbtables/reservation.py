@@ -145,5 +145,10 @@ class Reservation(db.Model):
 		'''
 		return delorean_helper.create_delorean(self.checkintime, self.checkouttime)
 
+	def is_deletable(self):
+		if self.get_status() != CONST.checkedin_status:
+			return True
+		return False
+
 	def __repr__(self):
 		return '<Reservation %r>' % (self.id)

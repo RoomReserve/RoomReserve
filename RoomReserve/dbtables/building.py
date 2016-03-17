@@ -1,4 +1,5 @@
 from RoomReserve import *
+from RoomReserve.admin.buildings import getAllRoomsInBuilding
 
 class Building(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
@@ -88,6 +89,20 @@ class Building(db.Model):
 		except:
 			return False
 		return self.notes
+
+	def is_deletable(self):
+		if len(self.all_rooms()) == 0:
+			return True
+		return False
+
+	def all_rooms(self):
+		'''
+	    returns all rooms that are in a particular building.
+	    '''
+	    containsRooms = []
+	    for me in db.session.query(Room).filter(buildingID == self.id):
+	        containsRooms.append(me)
+	    return containsRooms
 
 	def __repr__(self):
 		return 'Building %r' % (self.name)
