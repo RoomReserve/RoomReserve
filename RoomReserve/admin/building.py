@@ -166,3 +166,9 @@ def createBuilding(name, numfl, desc, st):
         # Prints why the building could not be added in the terminal.
         print(e)
         return False
+
+# def deleteBuilding(id):
+#     # Removes a building from the database.
+#     # Returns True if building deleted successfully, else false
+#     me = getBuildingById(id)
+#     if me.is
