@@ -250,11 +250,11 @@ def getRoomByID(id):
     # if no room is found with that id, return false.
     return db.session.query(Room).filter_by(id=id).first()
 
-def createRoom(rn, fl, bldg, cap, desc, st):
+def createRoom(rn, bldg, cap, desc, st):
     # Adds a room to the database.
     # Returns True if room added successfully, else False.
     try:
-        me = Room(rn, fl, bldg, cap, desc, st)
+        me = Room(rn, bldg, cap, desc, st)
         db.session.add(me)
         db.session.commit()
         return True
