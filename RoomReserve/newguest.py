@@ -1,5 +1,5 @@
 from RoomReserve import *
-from RoomReserve.admin.guest import processCreateGuestForm, getAllGuests 
+from RoomReserve.admin.guest import processCreateGuestForm, getAllGuests, getGuestByID
 
 class NewGuestForm(Form):
     firstname = StringField('First Name', validators=[DataRequired()])
@@ -17,9 +17,10 @@ def newguest():
 
     if request.method == 'POST':
         # the form has been filled out, import the data
+        message = "Your guest account is created successfully."
         if processCreateGuestForm(request.form):
-            print("Guest created successfully.")
-            return render('success.html', content="Thank you. Your guest account is created successfully.")
+            # print("Guest created successfully.")
+            return render('success.html', message=message)
         else:
             # createGuest returned false, the guest could not be created.
             return render('basic.html', content="Could not create guest.")
