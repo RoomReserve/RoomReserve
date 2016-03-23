@@ -155,4 +155,6 @@ def page_draft_reservation_confirm():
     res = getReservationByID(int(formdata['resID']))
     res.set_status(CONST.unarrived_status)
 
-    return render('basic.html', content = "Confirmation Number: " + str(res.getID()))
+    content = "Reservation completed. You confirmation number is: " + str(res.getID())
+
+    return render('basic.html', content = content)
