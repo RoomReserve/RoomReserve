@@ -1,8 +1,11 @@
 {% extends 'default.html' %}
 
 {% block body1 %}
-
-<p>Creating a new reservation for {{ buildingName }} {{ res.get_room().get_room_number() }}.</p>
+<div class="panel panel-primary">
+  <div class="panel-body">
+    Creating a new reservation for <strong> {{ res.get_room().getMyBuildingName() }} {{ res.get_room().get_room_number() }}</strong>.
+  </div>
+</div>
 
 <form class="well" method="POST" action="/res/new/guest/new/process">
   {{ form.csrf_token }}
@@ -15,7 +18,7 @@
   {{ form.notes.label }} {{ form.notes(size=300) }} <br /><br />
   <input type="hidden" name="resID" value="{{ res.getID() }}">
 
-  <input type="submit" class="btn-primary" value="Create Now">
+  <input type="submit" class="btn btn-primary" value="Create Now">
 </form>
 
 
