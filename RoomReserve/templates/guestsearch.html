@@ -11,7 +11,11 @@
   {{ form.phone.label }} {{ form.phone(size=20) }} <br>
   {% if resID %}
     <br>
-    <div class="alert alert-success" role="alert">Adding to Reservation ID: {{ resID }}</div>
+    <div class="panel panel-primary">
+      <div class="panel-body">
+        Adding to reservation ID: <strong> {{ resID }}</strong>
+      </div>
+    </div>
     
     <input type="hidden" name="resID" value="{{ resID }}">
     <input type="hidden" name="searching" value="True">
