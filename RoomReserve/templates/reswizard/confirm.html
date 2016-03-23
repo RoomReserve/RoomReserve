@@ -3,8 +3,14 @@
 {% block body1 %}
 
 <h2>Reservation Details</h2>
+<br>
 
-<p>Please review the information below and press "Complete Reservation" to confirm your reservation.</p>
+<div class="panel panel-primary">
+  <div class="panel-body">
+    Please review the information below and press <strong>"Complete Reservation"</strong> to confirm your reservation.
+  </div>
+</div>
+
 
 <!-- Table of buildings -->
 <div class="panel panel-primary col-md">
@@ -49,7 +55,7 @@
 
 <form class="container" method="POST" action="/res/confirm">
   <input type="hidden" name="resID" value="{{ res.getID() }}">
-  <button type="submit" class="btn btn-lg btn-success">Complete Reservation</button>
+  <button type="submit" class="btn btn-lg btn-primary">Complete Reservation</button>
 </form>
 
 
