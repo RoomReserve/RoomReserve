@@ -3,8 +3,14 @@
 {% block body1 %}
 
 <h2>Reservation Details</h2>
+<br>
 
-<p>Please review the information below and press "Complete Reservation" to confirm your reservation.</p>
+<div class="panel panel-primary">
+  <div class="panel-body">
+    Please review the information below and press <strong>"Complete Reservation"</strong> to confirm your reservation.
+  </div>
+</div>
+
 
 <!-- Table of buildings -->
 <div class="panel panel-primary col-md">
@@ -26,17 +32,36 @@
             <tr>
               <td> When </td>
               <td> {{ res.get_check_in_datetime().strftime("%A, %B %d, %Y")}} — {{ res.get_check_out_datetime().strftime("%A, %B %d, %Y")}} </td>
-              <td>Edit Button</td>
+
+              <td>
+                <button type="button" class="btn btn-primary btn-circle btn-sm glyphicon glyphicon-edit" data-toggle="modal" data-target="">
+
+                </button>
+              </td>
+
             </tr>
             <tr>
               <td> Room Number </td>
               <td> {{ res.get_room().getMyBuildingName() }}: {{ res.get_room().get_room_number() }} </td>
-              <td>Edit Button</td>
+
+              <td>
+                <button type="button" class="btn btn-primary btn-circle btn-sm glyphicon glyphicon-edit" data-toggle="modal" data-target="">
+
+                </button>
+              </td>
+
             </tr>
             <tr>
               <td> Who </td>
               <td> {{ res.get_guest().get_last_name() }}, {{ res.get_guest().get_first_name() }}  <sup><em>({{ res.getGuestID() }})</em></sup></td>
-              <td>Edit Button</td>
+              
+              <td>
+                <button type="button" class="btn btn-primary btn-circle btn-sm glyphicon glyphicon-edit" data-toggle="modal" data-target="">
+
+                </button>
+              </td>
+
+
             </tr>
           </tbody>
         </table>
@@ -47,9 +72,9 @@
 
 
 
-<form class="well" method="POST" action="/res/confirm">
+<form class="container" method="POST" action="/res/confirm">
   <input type="hidden" name="resID" value="{{ res.getID() }}">
-  <button type="submit" class="btn btn-lg btn-success">Complete Reservation</button>
+  <button type="submit" class="btn btn-lg btn-primary">Complete Reservation</button>
 </form>
 
 

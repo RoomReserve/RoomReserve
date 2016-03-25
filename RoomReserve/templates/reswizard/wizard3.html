@@ -9,18 +9,23 @@
 </div>
 
 
-<h5>Guest Information</h5>
+<div class="panel panel-primary">
+  <div class="panel-heading">Guest Information</div>
+  <div class="panel-body">
 
-<form action="/res/new/guest/search" method="POST">
-  <input type="hidden" name="resID" value="{{ resID }}">
-  <input type="submit" class="btn btn-primary" value="Existing Guest">
-</form>
-<br>
-<form action="/res/new/guest/new" method="POST">
-  <input type="hidden" name="resID" value="{{ resID }}">
-  <input type="submit" class="btn btn-success" value="New Guest">
-</form>
+    <p>Please select an existing guest or add a new guest for this reservation.</p>
+    
+	<form class="navbar-form navbar-left" action="/res/new/guest/search" method="POST">
+	  <input type="hidden" name="resID" value="{{ resID }}">
+	  <input type="submit" class="btn btn-primary navbar-btn" value="Existing Guest">
+	</form>
 
+	<form class="navbar-form navbar-left" action="/res/new/guest/new" method="POST">
+	  <input type="hidden" name="resID" value="{{ resID }}">
+	  <input type="submit" class="btn btn-primary navbar-btn" value="New Guest">
+	</form>
+  </div>
+</div>
 
 
 {% endblock %}
