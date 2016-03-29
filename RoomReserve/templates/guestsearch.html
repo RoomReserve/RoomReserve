@@ -24,14 +24,8 @@
   <input type="submit"  class="btn btn-primary" value="Search">
 </form>
 
-{% if resID %}
-  <br />
-  <form action="/res/new/guest/new" method="POST">
-    <input type="hidden" name="resID" value="{{ resID }}">
-    <input type="submit" class="btn btn-primary" value="Create New Guest">
-  </form>
-{% endif %}
 </div>
+
 <hr/>
 
 {% if guests %}
