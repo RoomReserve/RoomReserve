@@ -54,7 +54,7 @@ def guestsearch_page():
 
         return render('guestsearch.html', form=form, guests=guests)
 
-    return render('guestsearch.html', form=form)
+    return render('guestsearch.html', form=form, allowEdit=allowEdit)
 
 def guestsearch(firstname, lastname, email, phone):
         '''
