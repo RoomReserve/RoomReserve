@@ -90,11 +90,17 @@ class Building(db.Model):
 		return self.notes
 
 	def is_deletable(self):
-			if len(self.all_rooms()) == 0:
-				return True
-			return False
+		'''
+		A building can be deleted if it has no rooms
+		'''
+		if len(self.all_rooms()) == 0:
+			return True
+		return False
 
 	def all_rooms(self):
+		'''
+		Returns a list of all rooms in the building.
+		'''
 		from RoomReserve.dbtables.room import Room
 		containsRooms = []
 		for me in db.session.query(Room).filter(Room.buildingID == self.id):
