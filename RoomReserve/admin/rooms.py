@@ -12,6 +12,8 @@ class form_CreateRoom(Form):
         choices=[(CONST.ready_status, 'Ready - Unoccupied'),\
                 (CONST.occupied_status, 'Ready - Occupied'),\
                 (CONST.inactive_status, 'Inactive')])
+                
+   description = TextAreaField('Description')
 
 
     def __init__(self):
@@ -74,11 +76,8 @@ def page_rooms():
         building = formdata['building']
         roomnumber = formdata['roomnumber']
         capacity = formdata['capacity']
-        if 'active' in formdata:
-            status = CONST.ready_status
-        else:
-            status = CONST.inactive_status
-        description = ""
+        status = formdata['status']
+        description = formdata['description']
 
 
         # create the room
