@@ -2,26 +2,38 @@
 
 {% block body1 %}
 
-{% if form %}
-<form class="well" method="POST" action="/admin/buildings">
-  {{ form.name.label }} {{ form.name}} <br>
-  {{ form.numFloors.label }} {{ form.numFloors }} <br>
-  {{ form.status.label }} {{ form.status }} <br>
-  {{ form.description.label }} {{ form.description }} <br><br>
 
-  <input type="submit" class="btn btn-primary" value="Create">
-</form>
-
-{% else %}
 <div class="panel panel-default">
-  <div class="panel-body">
-    <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-    <em>You don't have permission create buildings.</em>
-  </div>
-</div>
-{% endif %}
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Create New Building</a>
+        </h4>
+    </div>
+    <div id="collapseOne" class="panel-collapse collapse">
+        <div class="panel-body">
+          {% if form %}
+            <form class="well" method="POST" action="/admin/buildings">
+              {{ form.name.label }} {{ form.name}} <br>
+              {{ form.numFloors.label }} {{ form.numFloors }} <br>
+              {{ form.status.label }} {{ form.status }} <br>
+              {{ form.description.label }} {{ form.description }} <br><br>
 
-<hr />
+              <input type="submit" class="btn btn-primary" value="Create">
+            </form>
+
+            {% else %}
+            <div class="panel panel-default">
+              <div class="panel-body">
+                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                <em>You don't have permission create buildings.</em>
+              </div>
+            </div>
+          {% endif %}
+        </div>
+    </div>
+</div>
+
+<hr>
 
 
 <!-- Modal -->
