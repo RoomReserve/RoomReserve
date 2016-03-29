@@ -13,7 +13,7 @@ class form_CreateRoom(Form):
                 (CONST.occupied_status, 'Ready - Occupied'),\
                 (CONST.inactive_status, 'Inactive')])
                 
-   description = TextAreaField('Description')
+    description = TextAreaField('Description')
 
 
     def __init__(self):
@@ -77,7 +77,7 @@ def page_rooms():
         roomnumber = formdata['roomnumber']
         capacity = formdata['capacity']
         status = formdata['status']
-        #description = formdata['description']
+        description = formdata['description']
 
 
         # create the room
