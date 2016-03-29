@@ -27,6 +27,17 @@ def findGuestid(name):
 
 @app.route('/admin/guestsearch', methods=['GET','POST'])
 def guestsearch_page():
+    def edit_form(id):
+        '''
+        Returns the form back populated with the guest information
+        from the ID given.
+        Parameters: id for a guest.
+        '''
+        form = form_CreateGuest()
+        id=int(id)
+        myGuest = getGuestByID(id)
+        form.populate(myGuest)
+        return form
     def allowEdit(id):
         '''
         Figures out if the current user should be allowed
