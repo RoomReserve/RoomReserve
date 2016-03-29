@@ -3,11 +3,11 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 class User(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
-	first = db.Column(db.String(40), unique=False)
+	first = db.Column(db.String(40), unique=False, nullable=False)
 	last = db.Column(db.String(40), unique=False)
 	email = db.Column(db.String(50), unique=True)
 	password = db.Column(db.String(160), unique=False)
-	role = db.Column(db.String(100), unique=False)
+	role = db.Column(db.String(100), unique=False, nullable=False)
 	#	Possible roles:
 	#	- admin
 	#	- standard
