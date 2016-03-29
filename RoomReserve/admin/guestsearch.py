@@ -52,9 +52,9 @@ def guestsearch_page():
 
             guests = guestsearch(firstname, lastname, email, phone)
 
-        return render('guestsearch.html', form=form, guests=guests)
+        return render('guestsearch.html', form=form, guests=guests, allowEdit=allowEdit)
 
-    return render('guestsearch.html', form=form, allowEdit=allowEdit)
+    return render('guestsearch.html', form=form)
 
 def guestsearch(firstname, lastname, email, phone):
         '''
