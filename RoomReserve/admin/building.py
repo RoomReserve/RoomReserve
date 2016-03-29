@@ -1,4 +1,5 @@
 from RoomReserve import *
+from RoomReserve.helpers.login import admin_required
 
 class form_CreateBuilding(Form):
     name = StringField('Building Name', validators=[DataRequired()])
@@ -167,7 +168,10 @@ def createBuilding(name, numfl, desc, st):
         print(e)
         return False
 
-@app.route('/admin/buildings/<id>/delete')
+
+
+@app.route('/admin/buildings/<id>/delete', methods=['POST'])
+@admin_required
 def deleteBuilding(id):
     # Removes a building from the database.
     # Returns True if building deleted successfully, else false
@@ -178,7 +182,7 @@ def deleteBuilding(id):
             db.session.delete(me)
             db.session.commit()
         except Exception as e:
-            # Prints why the building could not be added in the terminal.
+            # Prints why the building could not be deleted in the terminal.
             print(e)
             return render('basic.html', content = "Not deleted because a database error occured.")
         return render('basic.html', content="Deleted!")
