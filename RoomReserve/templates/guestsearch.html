@@ -63,7 +63,13 @@
                     <input type="submit" class="btn btn-primary" value="Select">
                   </form>
                 {% else %}
-                  <button type="button" name="button">View/Edit</button>
+                  <button type="button" class="btn btn-primary btn-circle btn-sm" data-toggle="modal" data-target="#editGuest_{{ u.id }}">
+                    {% if allowEdit(u.id) %}
+                      <i class="fa fa-pencil"></i>
+                    {% else %}
+                      <i class="fa fa-info"></i>
+                    {% endif %}
+                  </button>
                 {% endif %}
             </tr>
           {% endfor %}
