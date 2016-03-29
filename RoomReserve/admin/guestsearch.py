@@ -63,7 +63,7 @@ def guestsearch_page():
 
             guests = guestsearch(firstname, lastname, email, phone)
 
-        return render('guestsearch.html', form=form, guests=guests, allowEdit=allowEdit)
+        return render('guestsearch.html', form=form, guests=guests, allowEdit=allowEdit, edit_form=edit_form)
 
     return render('guestsearch.html', form=form)
 
