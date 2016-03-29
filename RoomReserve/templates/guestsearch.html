@@ -2,6 +2,8 @@
 
 {% block body1 %}
 
+{% from "__guesthelper.html" import render_field %}
+
 <div class="well">
 <form method="POST" action={% if target %}"{{target}}"{% else %}"/admin/guestsearch"{% endif %}>
   {{ form.csrf_token }}
