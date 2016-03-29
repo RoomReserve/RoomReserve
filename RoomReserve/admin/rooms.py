@@ -77,7 +77,7 @@ def page_rooms():
         roomnumber = formdata['roomnumber']
         capacity = formdata['capacity']
         status = formdata['status']
-        description = formdata['description']
+        #description = formdata['description']
 
 
         # create the room
