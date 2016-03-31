@@ -28,6 +28,9 @@ class Room(db.Model):
 		# returns the room number of this room
 		return self.roomnumber
 
+	def get_name(self):
+		return getMyBuildingName() + " " + get_room_number()
+
 	def get_building_id(self):
 		# returns the buildingID for the building
 		# that this room is in

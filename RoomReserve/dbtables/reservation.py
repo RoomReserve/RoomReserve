@@ -138,6 +138,9 @@ class Reservation(db.Model):
 		return False
 
 	def is_deletable(self):
+		'''
+		A reservation that is checked in (active) cannot be deleted
+		'''
 		if self.get_status() != CONST.checkedin_status:
 			return True
 		return False
