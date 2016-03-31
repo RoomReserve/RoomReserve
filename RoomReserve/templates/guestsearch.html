@@ -4,54 +4,56 @@
 
 {% from "__guesthelper.html" import render_field %}
 
-<!-- Modal -->
-{% for g in guests %}
-  <div class="modal fade" id="editGuest_{{ g.id }}" tabindex="-1" role="dialog" aria-labelledby="editGuestModal">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="myModalLabel">Edit Guest</h4>
-        </div>
-        <div class="modal-body">
-
-          {% if not allowEdit(g.id) %}
-            <div class="panel panel-default">
-              <div class="panel-body">
-                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-                <em>You don't have permission to edit guests.</em>
+{% if resID %}
+  <!-- Modal -->
+  {% for g in guests %}
+    <div class="modal fade" id="editGuest_{{ g.id }}" tabindex="-1" role="dialog" aria-labelledby="editGuestModal">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Edit Guest</h4>
+          </div>
+          <div class="modal-body">
+  
+            {% if not allowEdit(g.id) %}
+              <div class="panel panel-default">
+                <div class="panel-body">
+                  <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                  <em>You don't have permission to edit guests.</em>
+                </div>
               </div>
-            </div>
-          {% endif %}
-          <form class="well" method="POST" action="/admin/guest/{{ g.id }}">
-            {% for field in edit_form(g.id) %}
-              <tr>
-                  <td>{{ field.label }}</td>
-                  {% if allowEdit(g.id) %}
-                    <td>{{ field }}</td>
-                  {% else %}
-                    <td>{{ field(readonly=True) }}
-                  {% endif %}
-                  <br />
-              </tr>
-            {% endfor %}
-
-            {% if allowEdit(g.id) %}
-            <br />
-            <button type="button" class="btn btn-danger btn-circle btn-lg" data-dismiss="modal" aria-label="Close"><i class="fa fa-times"></i></button>
-            <button type="submit" class="btn btn-success btn-circle btn-lg"><i class="fa fa-check"></i></button>
-
-
             {% endif %}
-          </form>
-
-
-        </div><!-- ./modal-body-->
+            <form class="well" method="POST" action="/admin/guest/{{ g.id }}">
+              {% for field in edit_form(g.id) %}
+                <tr>
+                    <td>{{ field.label }}</td>
+                    {% if allowEdit(g.id) %}
+                      <td>{{ field }}</td>
+                    {% else %}
+                      <td>{{ field(readonly=True) }}
+                    {% endif %}
+                    <br />
+                </tr>
+              {% endfor %}
+  
+              {% if allowEdit(g.id) %}
+              <br />
+              <button type="button" class="btn btn-danger btn-circle btn-lg" data-dismiss="modal" aria-label="Close"><i class="fa fa-times"></i></button>
+              <button type="submit" class="btn btn-success btn-circle btn-lg"><i class="fa fa-check"></i></button>
+  
+  
+              {% endif %}
+            </form>
+  
+  
+          </div><!-- ./modal-body-->
+        </div>
       </div>
     </div>
-  </div>
-{% endfor %}
-<!-- /Modal -->
+  {% endfor %}
+  <!-- /Modal -->
+{% endif %}
 
 <div class="well">
 <form method="POST" action={% if target %}"{{target}}"{% else %}"/admin/guestsearch"{% endif %}>
