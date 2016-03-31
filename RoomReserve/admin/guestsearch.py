@@ -153,9 +153,10 @@ def page_updateGuest(id):
             myGuest.set_notes(notes)
 
     return redirect(url_for('guestsearch_page'))
+    '''
 # Guest Profile
 @app.route('/admin/gprofile/<gid>')
-'''
+
 
 def gprofile(gid):
     guests = guestQuery(gid)
