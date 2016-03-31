@@ -117,6 +117,7 @@ def guestsearch(firstname, lastname, email, phone):
 
         return guests
 
+'''
 @app.route('/admin/guestsearch/<id>', methods=['POST'])
 def page_updateGuest(id):
     id = int(id)
@@ -154,6 +155,8 @@ def page_updateGuest(id):
     return redirect(url_for('guestsearch_page'))
 # Guest Profile
 @app.route('/admin/gprofile/<gid>')
+'''
+
 def gprofile(gid):
     guests = guestQuery(gid)
 
