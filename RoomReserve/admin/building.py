@@ -170,20 +170,32 @@ def createBuilding(name, numfl, desc, st):
 
 
 
-@app.route('/admin/buildings/<id>/delete', methods=['POST'])
+
+
+@app.route('/admin/buildings/<id>/delete')
 @admin_required
-def deleteBuilding(id):
-    # Removes a building from the database.
-    # Returns True if building deleted successfully, else false
+def confirmDeleteBuilding(id):
     id = int(id)
     me = getBuildingById(id)
-    if me.is_deletable():
-        try:
-            db.session.delete(me)
-            db.session.commit()
-        except Exception as e:
-            # Prints why the building could not be deleted in the terminal.
-            print(e)
-            return render('basic.html', content = "Not deleted because a database error occured.")
-        return render('basic.html', content="Deleted!")
-    return render('basic.html', content = "Not possible to delete")
+    return render('deleteconfirmation.html', type="building", obj=me)
+
+@app.route('/admin/buildings/deleteme', methods=['POST'])
+def processDeleteBuilding():
+    formdata = request.form
+    id = int(formdata['id'])
+    me = getBuildingById(id)
+    if deleteBuilding(me):
+        return redirect(url_for('page_buildings'))
+    return abort(501)
+
+def deleteBuilding(me):
+    # Removes a building from the database.
+    # Returns True if building deleted successfully, else false
+    try:
+        db.session.delete(me)
+        db.session.commit()
+    except Exception as e:
+        # Prints why the building could not be deleted in the terminal.
+        print(e)
+        return False
+    return True
