@@ -5,7 +5,7 @@
 {% from "__guesthelper.html" import render_field %}
 
 
-{% if resID %}
+{% if not resID %}
   <!-- Modal -->
   {% for g in guests %}
     <div class="modal fade" id="editGuest_{{ g.id }}" tabindex="-1" role="dialog" aria-labelledby="editGuestModal">
