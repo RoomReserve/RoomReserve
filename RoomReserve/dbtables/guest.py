@@ -126,5 +126,22 @@ class Guest(db.Model):
 			return False
 		return self.notes
 
+	def is_deletable(self):
+		if len(future_and_active_reservations) == 0:
+			return True
+		return False
+
+	def all_reservations(self):
+		hasReservations = []
+		for me in db.session.query(Reservation).filter(guestID == self.id):
+			hasReservations.append(me)
+		return hasReservations
+
+	def future_and_active_reservations(self):
+		hasReservations = []
+		for me in db.session.query(Reservation).filter(guestID == self.id, status!=CONST.checkedout_status):
+			hasReservations.append(me)
+		return hasReservations
+
 	def __repr__(self):
 		return '%r %r' % (self.first, self.last)
