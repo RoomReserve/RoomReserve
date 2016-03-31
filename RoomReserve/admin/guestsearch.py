@@ -117,7 +117,41 @@ def guestsearch(firstname, lastname, email, phone):
 
         return guests
 
+@app.route('/admin/guestsearch/<id>', methods=['POST'])
+def page_updateGuest(id):
+    id = int(id)
+    myGuest = getGuestByID(id)
 
+    if request.method == 'POST':
+        formdata = request.form
+        firstname = formdata['firstname']
+        lastname = formdata['lastname']
+        email = formdata['email']
+        phone = int(re.sub(r'[^\w]', '', formdata['phone']))
+        address = formdata['address']
+        payment = re.sub(r'[^\w]', '', formdata['payment'])
+        try:
+            payment = int(payment)
+        except ValueError:
+            payment = 0
+        notes = formdata['notes']
+
+        if firstname != myGuest.first:
+            myGuest.set_first_name(firstname)
+        if lastname != myGuest.last:
+            myGuest.set_last_name(lastname)
+        if email != myGuest.email:
+            myGuest.set_email(email)
+        if phone != myGuest.phone:
+            myGuest.set_phone(phone)
+        if address != myGuest.address:
+            myGuest.set_address(address)
+        if payment != myGuest.payment:
+            myGuest.set_payment(payment)
+        if notes != myGuest.notes:
+            myGuest.set_notes(notes)
+
+    return redirect(url_for('guestsearch_page'))
 # Guest Profile
 @app.route('/admin/gprofile/<gid>')
 def gprofile(gid):
