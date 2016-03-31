@@ -33,3 +33,9 @@ def page_error400(e):
 	desc+=" -- You probably forgot to add methods=['GET','POST']"
 	title="405 - Method not allowed"
 	return render('error.html',desc=desc,title=title), 405
+
+@app.errorhandler(501)
+def page_error501(e):
+	desc="An error occurred. The opetation may not have completed."
+	title="Database Error"
+	return render('error.html',desc=desc,title=title), 501
