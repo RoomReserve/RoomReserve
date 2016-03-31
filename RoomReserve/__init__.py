@@ -4,9 +4,9 @@ from jinja2 import Template
 from flask.ext.sqlalchemy import SQLAlchemy
 from wtforms import *
 from wtforms.validators import *
-from flask_wtf import Form, validators
-from flask import Flask, render_template, flash, request
-from wtforms import Form, TextField, TextAreaField, validators, StringField, SubmitField
+from flask.ext.wtf import Form
+from wtforms import TextField, BooleanField, PasswordField, TextAreaField, StringField, SubmitField, validators
+from flask import Flask, render_template, flash, request, url_for
 from datetime import datetime
 import delorean
 from delorean import Delorean

@@ -64,7 +64,7 @@ def page_guest():
 
     form = form_CreateGuest()
 
-    if request.method == 'POST':
+    if request.method == 'POST' and form.validate():
         # the form has been filled out, import the data
         if processCreateGuestForm(request.form):
             # guest created sucessfully
