@@ -27,6 +27,9 @@ class Building(db.Model):
 		# Returns the number of floors of the building
 		return self.numfloors
 
+	def getID(self):
+		return self.id
+
 	def get_description(self):
 		# Returns the description of the building
 		return self.description
