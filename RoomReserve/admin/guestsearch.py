@@ -156,8 +156,6 @@ def page_updateGuest(id):
     '''
 # Guest Profile
 @app.route('/admin/gprofile/<gid>')
-
-
 def gprofile(gid):
     guests = guestQuery(gid)
 
