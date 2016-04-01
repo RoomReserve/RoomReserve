@@ -1,4 +1,5 @@
 from RoomReserve import *
+from RoomReserve.helpers.login import admin_required
 
 class form_CreateRoom(Form):
 
@@ -12,7 +13,7 @@ class form_CreateRoom(Form):
         choices=[(CONST.ready_status, 'Ready - Unoccupied'),\
                 (CONST.occupied_status, 'Ready - Occupied'),\
                 (CONST.inactive_status, 'Inactive')])
-                
+
     description = TextAreaField('Description')
 
 
@@ -262,3 +263,31 @@ def createRoom(rn, bldg, cap, desc, st):
         # Prints why the room could not be added in the terminal.
         print(e)
         return False
+
+@app.route('/admin/rooms/<id>/delete')
+#@admin_required
+def confirmDeleteRoom(id):
+    id = int(id)
+    me = getRoomByID(id)
+    return render('deleteconfirmation.html', type="room", obj=me)
+
+@app.route('/admin/rooms/deleteme', methods=['POST'])
+def processDeleteRoom():
+    formdata = request.form
+    id = int(formdata['id'])
+    me = getRoomByID(id)
+    if deleteRoom(me):
+        return redirect(url_for('page_rooms'))
+    return abort(501)
+
+def deleteRoom(me):
+    # Removes a room from the database.
+    # Returns True if room deleted successfully, else false
+    try:
+        db.session.delete(me)
+        db.session.commit()
+    except Exception as e:
+        # Prints why the building could not be deleted in the terminal.
+        print(e)
+        return False
+    return True
