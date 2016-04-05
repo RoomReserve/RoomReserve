@@ -38,7 +38,7 @@
         			<td>{{ r.get_check_in_datetime().strftime("%B %d, %Y") }}</td>
         			<td>{{ r.get_check_out_datetime().strftime("%B %d, %Y") }}</td>
               <td>{{ r.status }}</td>
-              <td></td>
+              <td><button  onclick="window.location.href=admin/dashboard" class="btn btn-primary">Continue</button></td>
             </tr>
           {% endfor %}
 
