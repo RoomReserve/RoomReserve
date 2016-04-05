@@ -99,6 +99,7 @@ def page_users():
     edit_form=edit_form, allowEdit=allowEdit, isCurrentUser=isCurrentUser)
 
 @app.route('/admin/users/<id>', methods=['POST'])
+@login_required
 def page_updateUser(id):
     id=int(id)
     myUser = getUserById(id)
