@@ -6,7 +6,7 @@
 <div class="panel panel-default">
     <div class="panel-heading">
         <h4 class="panel-title">
-            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Create New Building</a>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne"><i class="fa fa-plus"></i> Create New Building</a>
         </h4>
     </div>
     <div id="collapseOne" class="panel-collapse collapse">
@@ -72,6 +72,7 @@
             <br>
             <button type="button" class="btn btn-danger btn-circle btn-lg" data-dismiss="modal" aria-label="Close"><i class="fa fa-times"></i></button>
             <button type="submit" class="btn btn-success btn-circle btn-lg"><i class="fa fa-check"></i></button>
+            <a href="/admin/buildings/{{ b.id }}/delete" class="btn btn-default btn-circle btn-lg pull-right"><i class="fa fa-trash"></i></a>
             {% endif %}
           </form>
 

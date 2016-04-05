@@ -1,0 +1,67 @@
+{% extends 'default.html' %}
+
+{% block body1 %}
+
+{% if obj.is_deletable() %}
+  <h1>Are you sure?</h1>
+
+  <div class="panel panel-red">
+      <div class="panel-heading">
+          Delete
+      </div>
+      <div class="panel-body">
+        <p>The following {{ type }} will be deleted permantly:</p>
+            {{ obj.get_name() }}
+
+      </div>
+      <div class="panel-footer">
+          {% if type == "building" %}
+          <form action="/admin/buildings/deleteme" method="POST">
+            <input type="hidden" name="id" value="{{ obj.getID() }}">
+            <a href="/admin/buildings" class="btn btn-default btn-circle btn-lg"><i class="fa fa-arrow-left"></i></a>
+            <button type="submit" class="btn btn-danger btn-circle btn-lg"><i class="fa fa-trash"></i></button>
+          </form>
+          {% elif type == "room" %}
+          <form action="/admin/rooms/deleteme" method="POST">
+            <input type="hidden" name="id" value="{{ obj.getID() }}">
+            <a href="/admin/rooms" class="btn btn-default btn-circle btn-lg"><i class="fa fa-arrow-left"></i></a>
+            <button type="submit" class="btn btn-danger btn-circle btn-lg"><i class="fa fa-trash"></i></button>
+          </form>
+          {% endif %}
+      </div>
+  </div>
+
+{% else %}
+
+  <div class="panel panel-yellow">
+      <div class="panel-heading">
+          Oops!
+      </div>
+      <div class="panel-body">
+        <p>The {{ type }} {{ obj.get_name() }} can't be deleted.</p>
+        {% if type=="building" %}
+          <p>The building still contains {{ obj.all_rooms()|length }} room(s). Delete the rooms before deleting this building.</p>
+        {% elif type=="room" %}
+          <p>The room still has {{obj.all_reservations()|length }} reservation(s). Reassign or delete the reservations before deleting this room.</p>
+        {% endif %}
+
+      </div>
+      <div class="panel-footer">
+        {% if type=="building"%}
+          <small><em>A good demolition team would dismantle the rooms first!</em></small>
+        {% elif type=="room"%}
+          <small><em>The guests have to stay somewhere!</em></small>
+        {% endif %}
+      </div>
+  </div>
+
+
+{% endif %}
+
+
+
+
+<br />
+
+
+{% endblock %}

@@ -1,0 +1,63 @@
+{% extends 'default.html' %}
+
+{% block body1 %}
+
+<div class="panel panel-primary col-md">
+  <div class="panel-heading">
+    <h3 class="panel-title">Reservations</h3>
+  </div>
+  <div class="panel-body">
+    <div class="col-md-12">
+      <div class="table-responsive">
+        <table id="datatables" class="table table-striped">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Guest</th>
+              <th>Room</th>
+              <th>Check In</th>
+              <th>Check Out</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+          {% for r in reservations %}
+            <tr>
+              <td><a href="/res/{{r.id}}"</a>{{ r.id }}</td>
+              <td>
+              {% if r.guestID %}
+        			  {{ getGuestByID(r.guestID).get_last_name() }}, {{ getGuestByID(r.guestID).get_first_name() }}
+              {% endif %}
+              </td>
+              <td>
+                {% if r.roomID %}
+          			  {{ getRoomByID(r.roomID).getMyBuildingName() }}   {{ getRoomByID(r.roomID).get_room_number() }}
+                {% endif %}
+              </td>
+        			<td>{{ r.get_check_in_datetime().strftime("%B %d, %Y") }}</td>
+        			<td>{{ r.get_check_out_datetime().strftime("%B %d, %Y") }}</td>
+              <td>{{ r.status }}</td>
+              <td> </td>
+            </tr>
+          {% endfor %}
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--<script>
+$('#remote_input').autocomplete({
+  valueKey:'title',
+  source:[]
+});
+  $('button#open').click(function(){
+  $('#remote_input').trigger('open');
+  $('#remote_input').focus();
+});
+</script> -->
+
+
+{% endblock %}
