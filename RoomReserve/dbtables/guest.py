@@ -36,6 +36,9 @@ class Guest(db.Model):
 		# Returns the last name of the guest
 		return self.last
 
+	def get_name(self):
+		return self.get_first_name() + " " + self.get_last_name()
+
 	def get_email(self):
 		# Returns the email of the guest
 		return self.email
