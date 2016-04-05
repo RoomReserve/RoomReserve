@@ -17,6 +17,14 @@
               {{ form.capacity.label }} {{ form.capacity }} <br>
               {{ form.status.label }} {{ form.status }} <br><br>
 
+            {% for error in form.errors %}
+            <div class="alert alert-warning">
+                <a href="#" class="close" data-dismiss="alert">&times;</a>
+                <strong>Warning!</strong> {{ error }} is Required.
+            </div>
+
+            {% endfor %}
+
                 <input type="submit" class="btn btn-primary" value="Create">
               </form>
 
