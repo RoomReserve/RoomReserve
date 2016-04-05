@@ -70,8 +70,9 @@ def page_rooms():
     # /Editor
 
 
+    form = form_CreateRoom()
 
-    if request.method == 'POST':
+    if request.method == 'POST' and form.validate():
         # the form has been filled out, import the data
         formdata = request.form
         building = formdata['building']

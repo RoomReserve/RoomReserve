@@ -56,7 +56,9 @@ def page_buildings():
             return False
     # /Editor
 
-    if request.method == 'POST':
+    form = form_CreateBuilding()
+
+    if request.method == 'POST' and form.validate():
         # the form has been filled out, import the data
         formdata = request.form
         name = formdata['name']

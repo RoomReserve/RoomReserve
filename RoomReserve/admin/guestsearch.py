@@ -51,7 +51,7 @@ def guestsearch_page():
             return False
     form = form_SearchGuest()
 
-    if request.method == 'POST':
+    if request.method == 'POST' and form.validate():
         formdata = request.form
         if 'firstname' or 'lastname' or 'email' or 'phone' in formdata:
             firstname = formdata['firstname']

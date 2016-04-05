@@ -71,7 +71,7 @@ def page_users():
         return current_user.getID() == id
     # /Editor
 
-    if request.method == 'POST':
+    if request.method == 'POST' and form.validate():
         # the form has been filled out, import the data
         formdata = request.form
         firstname = formdata['firstname']
