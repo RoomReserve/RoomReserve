@@ -1,5 +1,5 @@
 from RoomReserve import *
-from RoomReserve.helpers.stats import listOfReservationsCheckingInToday, numberOfReservationsCheckingInToday
+from RoomReserve.helpers.stats import listOfReservationsCheckingInToday, numberOfReservationsCheckingOutToday
 
 @app.route('/admin/checkin', methods=['GET','POST'])
 def checkin_page():
