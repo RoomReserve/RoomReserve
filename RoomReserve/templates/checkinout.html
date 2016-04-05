@@ -18,6 +18,7 @@
               <th>Check In</th>
               <th>Check Out</th>
               <th>Status</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -37,7 +38,7 @@
         			<td>{{ r.get_check_in_datetime().strftime("%B %d, %Y") }}</td>
         			<td>{{ r.get_check_out_datetime().strftime("%B %d, %Y") }}</td>
               <td>{{ r.status }}</td>
-              <td> </td>
+              <td></td>
             </tr>
           {% endfor %}
 
