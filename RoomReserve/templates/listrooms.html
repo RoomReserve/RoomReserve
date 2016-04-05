@@ -65,11 +65,13 @@
           <form class="well" method="POST" action="/admin/rooms/{{ r.id }}">
             {% for field in edit_form(r.id) %}
               <tr>
+                {% if field.id != 'csrf_token' %}
                   <td>{{ field.label }}</td>
                   {% if allowEdit() %}
                     <td>{{ field }}</td>
                   {% else %}
                     <td>{{ field(readonly=True) }}
+                  {% endif %}
                   {% endif %}
                   <br />
               </tr>
