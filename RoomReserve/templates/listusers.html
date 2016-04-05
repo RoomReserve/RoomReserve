@@ -20,6 +20,13 @@
             {{ form.password.label }} {{ form.password(size=20) }} <br />
             {{ form.role.label }} {{ form.role}} <br /><br />
 
+            {% for error in form.errors %}
+            <div class="alert alert-warning">
+                <a href="#" class="close" data-dismiss="alert">&times;</a>
+                <strong>Warning!</strong> {{ error }} is Required.
+            </div>
+            {% endfor %}
+
             <input type="submit" class="btn btn-primary" value="Create">
           </form>
 
@@ -30,7 +37,7 @@
               <em>You don't have permission to create users.</em>
             </div>
           </div>
-  {% endif %}
+          {% endif %}
         </div>
     </div>
 </div>
