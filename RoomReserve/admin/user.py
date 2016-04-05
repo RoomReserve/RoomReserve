@@ -110,6 +110,7 @@ def page_updateUser(id):
         lastname = formdata['lastname']
         email = formdata['email']
         role = formdata['role']
+        password = formdata['password']
 
         if firstname != myUser.first:
             myUser.setFirstName(firstname)
@@ -119,6 +120,8 @@ def page_updateUser(id):
             myUser.setEmail(email)
         if role != myUser.role:
             myUser.setRole(role)
+        if password != "":
+            myUser.setPassword(password)
 
     return redirect(url_for('page_users'))
 
