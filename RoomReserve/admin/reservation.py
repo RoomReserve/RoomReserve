@@ -344,3 +344,18 @@ def deleteReservation(me):
         print(e)
         return False
     return True
+    
+def getReservationsByStatus(status):
+    # returns single res object with the given id
+    myres = []
+    for ares in db.session.query(Reservation).filter_by(status=status):
+        myres.append(ares)
+    return myres
+    
+@app.route('/admin/reservation/resdrafts', methods=['GET', 'POST'])
+@login_required
+def page_reservationDrafts():
+    reservations = getReservationsByStatus(CONST.draft_status)
+    return render('listdraftreservations.html',  reservations=reservations,
+    getGuestByID=getGuestByID, getRoomByID=getRoomByID)
+
