@@ -199,8 +199,110 @@ def page_viewReservation(resID):
         # Reservation not found
         return render('basic.html', content="No such reservation with ID "+str(resID))
 
-
     return render('reservation.html', res=res, guest=res.get_guest(), room=res.get_room(), CONST=CONST, getUserById=getUserById, editingAllowed = True)
+
+@app.route('/res/<int:resID>/edit/guest')
+@login_required
+def page_assignGuest(resID):
+    res = getReservationByID(resID)
+    if res is None:
+        # Reservation not found
+        return render('basic.html', content="No such reservation with ID "+str(resID))
+    return render('reswizard/wizard3.html', editsession=True, resID=res.getID())
+
+@app.route('/res/edit/guest/new', methods=['POST'])
+@login_required
+def page_assignGuest_newGuest():
+    '''
+    The user has selected to create a new guest.
+    Display the form to create a new guest
+    and use that new guest as the guest on the reservation.
+    '''
+    from RoomReserve.admin.guest import form_CreateGuest
+    formdata = request.form
+    res = getReservationByID(int(formdata['resID']))
+    if res is None:
+        # Reservation not found
+        return render('basic.html', content="No such reservation with ID "+str(resID))
+
+    form = form_CreateGuest()
+
+    return render('reswizard/wizard3_newguest.html', editsession=True, form=form, res=res)
+
+@app.route('/res/edit/guest/new/process', methods=['POST'])
+def page_assignGuest_newGuestProcess():
+    # the form has been filled out, import the data
+    formdata = request.form
+    from RoomReserve.admin.guest import form_CreateGuest, processCreateGuestForm
+    myGuest = processCreateGuestForm(formdata)
+    if myGuest == False:
+        # the guest could not be created.
+        return render('basic.html', content="Could not create guest.")
+    myGuestID = myGuest.get_id()
+    res = getReservationByID(int(formdata['resID']))
+    res.setGuest(guestID=myGuestID)
+
+    return redirect('/res/'+str(res.getID()))
+
+@app.route('/res/edit/guest/search', methods=['POST'])
+def page_assignGuest_searchForGuest():
+    from RoomReserve.admin.guestsearch import guestsearch, form_SearchGuest
+    form = form_SearchGuest()
+
+    formdata = request.form
+    myResID = int(formdata['resID'])
+    # myRes = getReservationByID(int(formdata['resID']))
+    print("___+++___previous information processed")
+    #if search form submitted
+    if 'searching' in formdata:
+        print("___+++___Processing search information")
+        firstname = formdata['firstname']
+        lastname = formdata['lastname']
+        email = formdata['email']
+
+        #strip non-numbers out of phone number
+        phone = ""
+        for char in formdata['phone']:
+            if char in "0123456789":
+                phone += char
+
+        guests = guestsearch(firstname, lastname, email, phone)
+
+        return render('guestsearch.html', editsession=True, resID=myResID, form=form, target="/res/edit/guest/search", guests=guests)
+
+    return render('guestsearch.html', editsession=True, resID=myResID, form=form, target="/res/edit/guest/search")
+
+@app.route('/res/edit/guest/search/process', methods=['POST'])
+@login_required
+def page_assignGuest_existingGuestProcess():
+    formdata = request.form
+    res = getReservationByID(int(formdata['resID']))
+    res.setGuest(guestID=int(formdata['guestID']))
+    return redirect('/res/'+str(res.getID()))
+
+@app.route('/res/<int:resID>/edit/room')
+@login_required
+def page_assignRoom(resID):
+    res = getReservationByID(resID)
+    if res is None:
+        # Reservation not found
+        return render('basic.html', content="No such reservation with ID "+str(resID))
+    availableRooms = find_available_rooms(res.get_check_in_datetime(), res.get_check_out_datetime(), capacity=1)
+    return render('reswizard/wizard2.html', editsession=True, rooms=availableRooms, resID=res.getID())
+
+@app.route('/res/edit/room/confirm', methods=['POST'])
+@login_required
+def page_processAssignRoom():
+    formdata = request.form
+    res = getReservationByID(int(formdata['resID']))
+    room = getRoomByID(int(formdata['roomID']))
+
+    try:
+        res.setRoom(room=room)
+    except RoomDoesNotExistException:
+        return render('basic.html', content="Room with ID " + formdata['roomID'] + " does not exist")
+    return redirect('/res/'+str(res.getID()))
+
 
 @app.route('/res/<int:resID>/confirm')
 @login_required
@@ -230,6 +332,15 @@ def processDeleteReservation():
     if deleteReservation(me):
         return redirect(url_for('page_reservation'))
     return abort(501)
+    
+@app.route('/res/deletedraft', methods=['POST'])
+def processDeleteDraft():
+    formdata = request.form
+    id = int(formdata['id'])
+    me = getReservationByID(id)
+    if deleteReservation(me):
+        return redirect(url_for('page_reservationDrafts'))
+    return abort(501)
 
 def deleteReservation(me):
     # Removes a res from the database.
@@ -242,3 +353,18 @@ def deleteReservation(me):
         print(e)
         return False
     return True
+    
+def getReservationsByStatus(status):
+    # returns single res object with the given id
+    myres = []
+    for ares in db.session.query(Reservation).filter_by(status=status):
+        myres.append(ares)
+    return myres
+    
+@app.route('/admin/reservation/resdrafts', methods=['GET', 'POST'])
+@login_required
+def page_reservationDrafts():
+    reservations = getReservationsByStatus(CONST.draft_status)
+    return render('listdraftreservations.html',  reservations=reservations,
+    getGuestByID=getGuestByID, getRoomByID=getRoomByID)
+

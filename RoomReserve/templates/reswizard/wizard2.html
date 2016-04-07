@@ -26,11 +26,20 @@
                 <td><strong>{{ r.roomnumber }}</strong></td>
                 <td>{{ r.capacity }}</td>
                 <td>
-                  <form action="/res/new/guest" method="POST">
-                    <input type="hidden" name="resID" value="{{ resID }}">
-                    <input type="hidden" name="roomID" value="{{ r.id }}">
-                    <input type="submit" class="btn btn-primary" value="Select">
-                  </form>
+                  {% if not editsession %}
+                    <form action="/res/new/guest" method="POST">
+                      <input type="hidden" name="resID" value="{{ resID }}">
+                      <input type="hidden" name="roomID" value="{{ r.id }}">
+                      <input type="submit" class="btn btn-primary" value="Select">
+                    </form>
+                  {% else %}
+                    <form action="/res/edit/room/confirm" method="POST">
+                      <input type="hidden" name="resID" value="{{ resID }}">
+                      <input type="hidden" name="roomID" value="{{ r.id }}">
+                      <input type="submit" class="btn btn-primary" value="Select">
+                    </form>
+                  {% endif %}
+
                 </td>
           		</tr>
           	{% endfor %}

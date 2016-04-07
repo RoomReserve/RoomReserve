@@ -16,7 +16,7 @@
             <h4 class="modal-title" id="myModalLabel">Edit Guest</h4>
           </div>
           <div class="modal-body">
-  
+
             {% if not allowEdit(g.id) %}
               <div class="panel panel-default">
                 <div class="panel-body">
@@ -37,17 +37,17 @@
                     <br />
                 </tr>
               {% endfor %}
-  
+
               {% if allowEdit(g.id) %}
               <br />
               <button type="button" class="btn btn-danger btn-circle btn-lg" data-dismiss="modal" aria-label="Close"><i class="fa fa-times"></i></button>
               <button type="submit" class="btn btn-success btn-circle btn-lg"><i class="fa fa-check"></i></button>
-  
-  
+
+
               {% endif %}
             </form>
-  
-  
+
+
           </div><!-- ./modal-body-->
         </div>
       </div>
@@ -64,13 +64,6 @@
   {{ form.email.label }} {{ form.email(size=20) }} <br>
   {{ form.phone.label }} {{ form.phone(size=20) }} <br>
   {% if resID %}
-    <br>
-    <div class="panel panel-primary">
-      <div class="panel-body">
-        Adding to reservation ID: <strong> {{ resID }}</strong>
-      </div>
-    </div>
-    
     <input type="hidden" name="resID" value="{{ resID }}">
     <input type="hidden" name="searching" value="True">
   {% endif %}
@@ -111,11 +104,19 @@
               <td>{{ u.phone }}</td>
               <td>
                 {% if resID %}
+                  {% if not editsession %}
                   <form action="/res/new/guest/search/process" method="POST">
                     <input type="hidden" name="resID" value="{{ resID }}">
                     <input type="hidden" name="guestID" value="{{ u.id }}">
                     <input type="submit" class="btn btn-primary" value="Select">
                   </form>
+                  {% else %}
+                  <form action="/res/edit/guest/search/process" method="POST">
+                    <input type="hidden" name="resID" value="{{ resID }}">
+                    <input type="hidden" name="guestID" value="{{ u.id }}">
+                    <input type="submit" class="btn btn-primary" value="Select">
+                  </form>
+                  {% endif %}
                 {% else %}
                   <button type="button" class="btn btn-primary btn-circle btn-sm" data-toggle="modal" data-target="#editGuest_{{ u.id }}">
                     {% if allowEdit(u.id) %}
