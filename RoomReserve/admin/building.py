@@ -56,15 +56,15 @@ def page_buildings():
             return False
     # /Editor
 
-    form = form_CreateBuilding()
+    # form = form_CreateBuilding()
 
-    if request.method == 'POST' and form.validate():
+    if request.method == 'POST':
         # the form has been filled out, import the data
         formdata = request.form
         name = formdata['name']
         numFloors = formdata['numFloors']
-        description = formdata['description']
         status = formdata['status']
+        description = ''
 
         # create the building
         if createBuilding(name, numFloors, description, status):
