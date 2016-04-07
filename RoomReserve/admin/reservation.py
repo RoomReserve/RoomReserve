@@ -332,6 +332,15 @@ def processDeleteReservation():
     if deleteReservation(me):
         return redirect(url_for('page_reservation'))
     return abort(501)
+    
+@app.route('/res/deletedraft', methods=['POST'])
+def processDeleteDraft():
+    formdata = request.form
+    id = int(formdata['id'])
+    me = getReservationByID(id)
+    if deleteReservation(me):
+        return redirect(url_for('page_reservationDrafts'))
+    return abort(501)
 
 def deleteReservation(me):
     # Removes a res from the database.
