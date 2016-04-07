@@ -37,11 +37,17 @@
               </td>
         			<td>{{ r.get_check_in_datetime().strftime("%B %d, %Y") }}</td>
         			<td>{{ r.get_check_out_datetime().strftime("%B %d, %Y") }}</td>
-              <td>{{ r.status }}</td>
-              {% if checkInType %}
-              <td><form action="/check/{{r.id}}/in"> <button type="submit" class="btn btn-success btn-circle btn-sm"><i class="fa fa-plus"></i></button> </form></td>
+        			{% if r.status == "checkedin" %}
+                <td><font color="green">Checked In</font></td>
+              {% if r.status == "checkedout" %}
+                <td><font color="red">Checked Out</font></td> 
               {% else %}
-              <td><form action="/check/{{r.id}}/out"> <button type="submit" class="btn btn-danger btn-circle btn-sm"><i class="fa fa-minus"></i></button> </form></td>
+                <td>{{ r.status }}</td> 
+              {% endif %}
+              {% if checkInType %}
+                <td><form action="/check/{{r.id}}/in"> <button type="submit" class="btn btn-success btn-circle btn-sm"><i class="fa fa-plus"></i></button> </form></td>
+              {% else %}
+                <td><form action="/check/{{r.id}}/out"> <button type="submit" class="btn btn-danger btn-circle btn-sm"><i class="fa fa-minus"></i></button> </form></td>
               {% endif %}
             </tr>
           {% endfor %}
