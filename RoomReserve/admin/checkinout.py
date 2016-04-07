@@ -21,8 +21,8 @@ def processCheckin(resID):
     res = getReservationByID(resID)
     try:
         res.set_status(checkedin_status)
-    except:
-        return render('basic.html', content="Could not check in reservation with ID "+str(resID))
+    except ex:
+        return render('basic.html', content="Could not check in reservation with ID "+str(resID) + ex)
 
     return redirect('/admin/checkin')
 
