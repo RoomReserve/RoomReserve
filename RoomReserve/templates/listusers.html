@@ -30,7 +30,7 @@
               <em>You don't have permission to create users.</em>
             </div>
           </div>
-  {% endif %}
+          {% endif %}
         </div>
     </div>
 </div>
@@ -70,12 +70,16 @@
                 {% if field.id != 'csrf_token' %}
                   <td>{{ field.label }}</td>
                   {% if allowEdit(u.id) %}
+                    {% if field.id == 'role' and not current_user.is_admin() %}
+                      {{ u.role }}
+                    {% else %}
                     <td>{{ field }}</td>
+                    {% endif %}
                   {% else %}
-                    <td>{{ field(readonly=True) }}
+                    <td>{{ field(readonly=True) }}</td>
                   {% endif %}
-                  {% endif %}
-                  <br />
+                {% endif %}
+                <br />
               </tr>
             {% endfor %}
 
