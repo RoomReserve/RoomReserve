@@ -19,10 +19,10 @@ def checkout_page():
 @login_required
 def processCheckin(resID):
     res = getReservationByID(resID)
-    try:
-        res.set_status(checkedin_status)
-    except ex:
-        return render('basic.html', content="Could not check in reservation with ID "+str(resID) + ex)
+    #try:
+    res.set_status(checkedin_status)
+    #except:
+    #    return render('basic.html', content="Could not check in reservation with ID "+str(resID))
 
     return redirect('/admin/checkin')
 
