@@ -2,15 +2,13 @@
 
 {% block body1 %}
 
-
 <div class="panel panel-default">
-    <div class="panel-heading">
-        <h4 class="panel-title">
-            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne"><i class="glyphicon glyphicon-plus"></i> Create New User</a>
-        </h4>
-    </div>
-    <div id="collapseOne" class="panel-collapse collapse">
-        <div class="panel-body">
+  <div class="panel-heading">
+    <h3 class="panel-title">Create New User</h3>
+    <span class="pull-right clickable"><i class="glyphicon glyphicon-chevron-up"></i></span>
+  </div>
+  <div class="panel-body">
+
           {% if form %}
           <form class="well" method="POST" action="/admin/users">
             {{ form.csrf_token }}
@@ -19,6 +17,13 @@
             {{ form.email.label }} {{ form.email(size=20) }} <br />
             {{ form.password.label }} {{ form.password(size=20) }} <br />
             {{ form.role.label }} {{ form.role}} <br /><br />
+
+            {% for error in form.errors %}
+            <div class="alert alert-warning">
+                <a href="#" class="close" data-dismiss="alert">&times;</a>
+                <strong>Warning!</strong> {{ error }} is Required.
+            </div>
+            {% endfor %}
 
             <input type="submit" class="btn btn-primary" value="Create">
           </form>
@@ -31,12 +36,16 @@
             </div>
           </div>
           {% endif %}
+<<<<<<< HEAD
         </div>
     </div>
+=======
+          
+  </div>
+>>>>>>> form-validation
 </div>
 
 <hr>
-
 
 
 <!-- Modal -->

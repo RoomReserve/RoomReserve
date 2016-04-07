@@ -3,33 +3,39 @@
 {% block body1 %}
 
 <div class="panel panel-default">
-    <div class="panel-heading">
-        <h4 class="panel-title">
-            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne"><i class="glyphicon glyphicon-plus"></i> Create New Room</a>
-        </h4>
-    </div>
-    <div id="collapseOne" class="panel-collapse collapse">
-        <div class="panel-body">
-          {% if form %}
-              <form class="well" method="POST" action="/admin/rooms">
-              {{ form.building.label }} {{ form.building}} <br>
-              {{ form.roomnumber.label }} {{ form.roomnumber }} <br>
-              {{ form.capacity.label }} {{ form.capacity }} <br>
-              {{ form.status.label }} {{ form.status }} <br><br>
+  <div class="panel-heading">
+    <h3 class="panel-title">Create New Room</h3>
+    <span class="pull-right clickable"><i class="glyphicon glyphicon-chevron-up"></i></span>
+  </div>
+  <div class="panel-body">
+    {% if form %}
+        <form class="well" method="POST" action="/admin/rooms">
+        {{ form.building.label }} {{ form.building}} <br>
+        {{ form.roomnumber.label }} {{ form.roomnumber }} <br>
+        {{ form.capacity.label }} {{ form.capacity }} <br>
+        {{ form.status.label }} {{ form.status }} <br><br>
 
-                <input type="submit" class="btn btn-primary" value="Create">
-              </form>
+      {% for error in form.errors %}
+      <div class="alert alert-warning">
+          <a href="#" class="close" data-dismiss="alert">&times;</a>
+          <strong>Warning!</strong> {{ error }} is Required.
+      </div>
 
-            {% else %}
-              <div class="panel panel-default">
-                <div class="panel-body">
-                  <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-                  <em>You don't have permission create rooms.</em>
-                </div>
-              </div>
-          {% endif %}
+      {% endfor %}
+
+          <input type="submit" class="btn btn-primary" value="Create">
+        </form>
+
+      {% else %}
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+            <em>You don't have permission create rooms.</em>
+          </div>
         </div>
-    </div>
+    {% endif %}
+          
+  </div>
 </div>
 
 <hr>

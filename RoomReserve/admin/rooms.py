@@ -70,6 +70,7 @@ def page_rooms():
     # /Editor
 
 
+    # form = form_CreateRoom()
 
     if request.method == 'POST':
         # the form has been filled out, import the data
@@ -78,11 +79,11 @@ def page_rooms():
         roomnumber = formdata['roomnumber']
         capacity = formdata['capacity']
         status = formdata['status']
-        description = formdata['description']
+        description = ''
 
 
         # create the room
-        if createRoom(roomnumber, building, capacity, description, status):
+        if createRoom(roomnumber, building, capacity, status, description):
             # room created sucessfully
             pass
         else:
@@ -250,11 +251,11 @@ def getRoomByID(id):
     # if no room is found with that id, return false.
     return db.session.query(Room).filter_by(id=id).first()
 
-def createRoom(rn, bldg, cap, desc, st):
+def createRoom(bldg, rn, cap, desc, st):
     # Adds a room to the database.
     # Returns True if room added successfully, else False.
     try:
-        me = Room(rn, bldg, cap, desc, st)
+        me = Room(bldg, rn, cap, desc, st)
         db.session.add(me)
         db.session.commit()
         return True

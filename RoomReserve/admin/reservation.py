@@ -63,7 +63,7 @@ class form_CreateReservation(Form):
 @login_required
 def page_reservation():
 
-    if request.method == 'POST':
+    if request.method == 'POST' and form.validate():
         # the form has been filled out, import the data
         formdata = request.form
         guestID = int(formdata['guestID'])
