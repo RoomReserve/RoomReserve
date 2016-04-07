@@ -4,8 +4,8 @@ import re
 class form_CreateGuest(Form):
     firstname = StringField('First Name', validators=[DataRequired()])
     lastname = StringField('Last Name', validators=[DataRequired()])
-    email = StringField('Email Address', validators=[DataRequired()])
-    phone = StringField('Phone Number', validators=[DataRequired()])
+    email = StringField('Email', validators=[DataRequired()])
+    phone = StringField('Phone', validators=[DataRequired()])
     address = StringField('Address', validators=[DataRequired()])
     payment = StringField('Payment')
     notes = TextAreaField('Notes')
