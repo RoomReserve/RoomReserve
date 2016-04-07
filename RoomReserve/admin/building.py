@@ -1,4 +1,5 @@
 from RoomReserve import *
+from RoomReserve.helpers.login import admin_required
 
 class form_CreateBuilding(Form):
     name = StringField('Building Name', validators=[DataRequired()])
@@ -55,13 +56,15 @@ def page_buildings():
             return False
     # /Editor
 
+    # form = form_CreateBuilding()
+
     if request.method == 'POST':
         # the form has been filled out, import the data
         formdata = request.form
         name = formdata['name']
         numFloors = formdata['numFloors']
-        description = formdata['description']
         status = formdata['status']
+        description = ''
 
         # create the building
         if createBuilding(name, numFloors, description, status):
@@ -167,19 +170,34 @@ def createBuilding(name, numfl, desc, st):
         print(e)
         return False
 
+
+
+
+
 @app.route('/admin/buildings/<id>/delete')
-def deleteBuilding(id):
-    # Removes a building from the database.
-    # Returns True if building deleted successfully, else false
+@admin_required
+def confirmDeleteBuilding(id):
     id = int(id)
     me = getBuildingById(id)
-    if me.is_deletable():
-        try:
-            db.session.delete(me)
-            db.session.commit()
-        except Exception as e:
-            # Prints why the building could not be added in the terminal.
-            print(e)
-            return render('basic.html', content = "Not deleted because a database error occured.")
-        return render('basic.html', content="Deleted!")
-    return render('basic.html', content = "Not possible to delete")
+    return render('deleteconfirmation.html', type="building", obj=me)
+
+@app.route('/admin/buildings/deleteme', methods=['POST'])
+def processDeleteBuilding():
+    formdata = request.form
+    id = int(formdata['id'])
+    me = getBuildingById(id)
+    if deleteBuilding(me):
+        return redirect(url_for('page_buildings'))
+    return abort(501)
+
+def deleteBuilding(me):
+    # Removes a building from the database.
+    # Returns True if building deleted successfully, else false
+    try:
+        db.session.delete(me)
+        db.session.commit()
+    except Exception as e:
+        # Prints why the building could not be deleted in the terminal.
+        print(e)
+        return False
+    return True

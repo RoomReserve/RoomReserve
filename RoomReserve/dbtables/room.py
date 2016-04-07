@@ -28,6 +28,9 @@ class Room(db.Model):
 		# returns the room number of this room
 		return self.roomnumber
 
+	def get_name(self):
+		return self.getMyBuildingName() + " " + str(self.get_room_number())
+
 	def get_building_id(self):
 		# returns the buildingID for the building
 		# that this room is in
@@ -117,8 +120,9 @@ class Room(db.Model):
 		return False
 
 	def all_reservations(self):
+		from RoomReserve.dbtables.reservation import Reservation
 		hasReservations = []
-		for me in db.session.query(Reservation).filter(roomID == self.id):
+		for me in db.session.query(Reservation).filter(Reservation.roomID == self.id):
 			hasReservations.append(me)
 		return hasReservations
 

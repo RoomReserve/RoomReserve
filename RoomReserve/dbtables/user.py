@@ -101,7 +101,8 @@ class User(db.Model):
 		return self.email
 
 	def setPassword(self, pw_plaintext):
-		# Changes/sets the email address for the user
+		# Changes/sets the password for the user
+		# Pass in a plaintext password. This method will call an encrypter.
 		# Returns True upon success. False upon failure
 		try:
 			self.password = self.generate_password(pw_plaintext)

@@ -2,35 +2,32 @@
 
 {% block body1 %}
 
-
 <div class="panel panel-default">
-    <div class="panel-heading">
-        <h4 class="panel-title">
-            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Create New Building</a>
-        </h4>
-    </div>
-    <div id="collapseOne" class="panel-collapse collapse">
+  <div class="panel-heading">
+    <h3 class="panel-title">Create New Building</h3>
+    <span class="pull-right clickable"><i class="glyphicon glyphicon-chevron-up"></i></span>
+  </div>
+  <div class="panel-body">
+    {% if form %}
+    <form class="well" method="POST" action="/admin/buildings">
+      {{ form.name.label }} {{ form.name}} <br>
+      {{ form.numFloors.label }} {{ form.numFloors }} <br>
+      {{ form.status.label }} {{ form.status }} <br>
+      {{ form.description.label }} {{ form.description }} <br><br>
+
+      <input type="submit" class="btn btn-primary" value="Create">
+    </form>
+
+    {% else %}
+      <div class="panel panel-default">
         <div class="panel-body">
-          {% if form %}
-            <form class="well" method="POST" action="/admin/buildings">
-              {{ form.name.label }} {{ form.name}} <br>
-              {{ form.numFloors.label }} {{ form.numFloors }} <br>
-              {{ form.status.label }} {{ form.status }} <br>
-              {{ form.description.label }} {{ form.description }} <br><br>
-
-              <input type="submit" class="btn btn-primary" value="Create">
-            </form>
-
-            {% else %}
-            <div class="panel panel-default">
-              <div class="panel-body">
-                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-                <em>You don't have permission create buildings.</em>
-              </div>
-            </div>
-          {% endif %}
+          <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+          <em>You don't have permission create buildings.</em>
         </div>
-    </div>
+      </div>
+    {% endif %}
+          
+  </div>
 </div>
 
 <hr>
@@ -58,11 +55,13 @@
           <form class="well" method="POST" action="/admin/buildings/{{ b.id }}">
             {% for field in edit_form(b.id) %}
               <tr>
+                {% if field.id != 'csrf_token' %}
                   <td>{{ field.label }}</td>
                   {% if allowEdit() %}
                     <td>{{ field }}</td>
                   {% else %}
                     <td>{{ field(readonly=True) }}
+                  {% endif %}
                   {% endif %}
                   <br />
               </tr>
@@ -72,6 +71,7 @@
             <br>
             <button type="button" class="btn btn-danger btn-circle btn-lg" data-dismiss="modal" aria-label="Close"><i class="fa fa-times"></i></button>
             <button type="submit" class="btn btn-success btn-circle btn-lg"><i class="fa fa-check"></i></button>
+            <a href="/admin/buildings/{{ b.id }}/delete" class="btn btn-default btn-circle btn-lg pull-right"><i class="fa fa-trash"></i></a>
             {% endif %}
           </form>
 

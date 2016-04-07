@@ -27,9 +27,31 @@ def findGuestid(name):
 
 @app.route('/admin/guestsearch', methods=['GET','POST'])
 def guestsearch_page():
+    def edit_form(id):
+        '''
+        Returns the form back populated with the guest information
+        from the ID given.
+        Parameters: id for a guest.
+        '''
+        form = form_CreateGuest()
+        id=int(id)
+        myGuest = getGuestByID(id)
+        form.populate(myGuest)
+        return form
+    def allowEdit(id):
+        '''
+        Figures out if the current user should be allowed
+        to edit the guest object.
+        Parameters: GuestID for the guest we want to edit
+        '''
+        if current_user.is_standard():
+            # Only admins and standard users can edit guests
+            return True
+        else:
+            return False
     form = form_SearchGuest()
 
-    if request.method == 'POST':
+    if request.method == 'POST' and form.validate():
         formdata = request.form
         if 'firstname' or 'lastname' or 'email' or 'phone' in formdata:
             firstname = formdata['firstname']
@@ -41,21 +63,9 @@ def guestsearch_page():
 
             guests = guestsearch(firstname, lastname, email, phone)
 
-        return render('guestsearch.html', form=form, guests=guests)
+        return render('guestsearch.html', form=form, guests=guests, allowEdit=allowEdit, edit_form=edit_form)
 
-    return render('guestsearch.html', form=form)
-    
-def allowEdit(id):
-    '''
-    Figures out if the current user should be allowed
-    to edit the guest object.
-    Parameters: GuestID for the guest we want to edit
-    '''
-    if current_user.is_standard():
-        # Only admins and standard users can edit guests
-        return True
-    else:
-        return False
+    return render('guestsearch.html', form=form, allowEdit=allowEdit, edit_form=edit_form)
 
 def guestsearch(firstname, lastname, email, phone):
         '''
@@ -107,7 +117,43 @@ def guestsearch(firstname, lastname, email, phone):
 
         return guests
 
+'''
+@app.route('/admin/guestsearch/<id>', methods=['POST'])
+def page_updateGuest(id):
+    id = int(id)
+    myGuest = getGuestByID(id)
 
+    if request.method == 'POST':
+        formdata = request.form
+        firstname = formdata['firstname']
+        lastname = formdata['lastname']
+        email = formdata['email']
+        phone = int(re.sub(r'[^\w]', '', formdata['phone']))
+        address = formdata['address']
+        payment = re.sub(r'[^\w]', '', formdata['payment'])
+        try:
+            payment = int(payment)
+        except ValueError:
+            payment = 0
+        notes = formdata['notes']
+
+        if firstname != myGuest.first:
+            myGuest.set_first_name(firstname)
+        if lastname != myGuest.last:
+            myGuest.set_last_name(lastname)
+        if email != myGuest.email:
+            myGuest.set_email(email)
+        if phone != myGuest.phone:
+            myGuest.set_phone(phone)
+        if address != myGuest.address:
+            myGuest.set_address(address)
+        if payment != myGuest.payment:
+            myGuest.set_payment(payment)
+        if notes != myGuest.notes:
+            myGuest.set_notes(notes)
+
+    return redirect(url_for('guestsearch_page'))
+    '''
 # Guest Profile
 @app.route('/admin/gprofile/<gid>')
 def gprofile(gid):

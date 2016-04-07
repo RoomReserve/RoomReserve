@@ -4,30 +4,39 @@
 
 {% from "__guesthelper.html" import render_field %}
 
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <h4 class="panel-title">
-            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Create New Guest</a>
-        </h4>
-    </div>
-    <div id="collapseOne" class="panel-collapse collapse">
-        <div class="panel-body">
-          {% if form %}
-          <form class="well" method="POST" action="/admin/guest">
-            {{ form.csrf_token }}
-            {{ form.firstname.label }} {{ form.firstname(size=20) }}
-            {{ form.lastname.label }} {{ form.lastname(size=20) }} <br />
-            {{ form.email.label }} {{ form.email(size=50) }} <br />
-            {{ form.phone.label }} {{ form.phone(size=20) }} <br />
-            {{ form.address.label }} {{ form.address(size=50) }} <br />
-            {{ form.payment.label }} {{ form.payment(size=25) }} <br />
-            {{ form.notes.label }} {{ form.notes(size=300) }} <br /><br />
 
-            <input type="submit" class="btn btn-primary" value="Create">
-          </form>
-          {% endif %}
-        </div>
-    </div>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Create New Guest</h3>
+    <span class="pull-right clickable"><i class="glyphicon glyphicon-chevron-up"></i></span>
+  </div>
+  <div class="panel-body collapse">
+    {% if form %}
+    <form class="well" method="POST" action="/admin/guest">
+      {{ form.csrf_token }}
+      {{ form.firstname.label }} {{ form.firstname(size=20) }}
+      {{ form.lastname.label }} {{ form.lastname(size=20) }} <br />
+      {{ form.email.label }} {{ form.email(size=50) }} <br />
+      {{ form.phone.label }} {{ form.phone(size=20) }} <br />
+      {{ form.address.label }} {{ form.address(size=50) }} <br />
+      {{ form.payment.label }} {{ form.payment(size=25) }} <br />
+      {{ form.notes.label }} {{ form.notes(size=300) }} <br /><br />
+
+      {% for error in form.errors %}
+      <div class="alert alert-warning">
+          <a href="#" class="close" data-dismiss="alert">&times;</a>
+          <strong>Warning!</strong> {{ error }} is Required.
+      </div>
+
+      {% endfor %}
+
+      <input type="submit" class="btn btn-primary" value="Create">
+
+    </form>
+    <p>Note:<small> All fields are required.</small></p>
+    {% endif %}
+          
+  </div>
 </div>
 
 <hr>
@@ -55,11 +64,13 @@
           <form class="well" method="POST" action="/admin/guest/{{ g.id }}">
             {% for field in edit_form(g.id) %}
               <tr>
+                {% if field.id != 'csrf_token' %}
                   <td>{{ field.label }}</td>
                   {% if allowEdit(g.id) %}
                     <td>{{ field }}</td>
                   {% else %}
                     <td>{{ field(readonly=True) }}
+                  {% endif %}
                   {% endif %}
                   <br />
               </tr>

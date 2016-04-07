@@ -1,4 +1,5 @@
 from RoomReserve import *
+from RoomReserve.helpers.login import admin_required
 
 class form_CreateRoom(Form):
 
@@ -12,7 +13,7 @@ class form_CreateRoom(Form):
         choices=[(CONST.ready_status, 'Ready - Unoccupied'),\
                 (CONST.occupied_status, 'Ready - Occupied'),\
                 (CONST.inactive_status, 'Inactive')])
-                
+
     description = TextAreaField('Description')
 
 
@@ -69,6 +70,7 @@ def page_rooms():
     # /Editor
 
 
+    # form = form_CreateRoom()
 
     if request.method == 'POST':
         # the form has been filled out, import the data
@@ -77,11 +79,11 @@ def page_rooms():
         roomnumber = formdata['roomnumber']
         capacity = formdata['capacity']
         status = formdata['status']
-        description = formdata['description']
+        description = ''
 
 
         # create the room
-        if createRoom(roomnumber, building, capacity, description, status):
+        if createRoom(roomnumber, building, capacity, status, description):
             # room created sucessfully
             pass
         else:
@@ -249,11 +251,11 @@ def getRoomByID(id):
     # if no room is found with that id, return false.
     return db.session.query(Room).filter_by(id=id).first()
 
-def createRoom(rn, bldg, cap, desc, st):
+def createRoom(bldg, rn, cap, desc, st):
     # Adds a room to the database.
     # Returns True if room added successfully, else False.
     try:
-        me = Room(rn, bldg, cap, desc, st)
+        me = Room(bldg, rn, cap, desc, st)
         db.session.add(me)
         db.session.commit()
         return True
@@ -262,3 +264,31 @@ def createRoom(rn, bldg, cap, desc, st):
         # Prints why the room could not be added in the terminal.
         print(e)
         return False
+
+@app.route('/admin/rooms/<id>/delete')
+#@admin_required
+def confirmDeleteRoom(id):
+    id = int(id)
+    me = getRoomByID(id)
+    return render('deleteconfirmation.html', type="room", obj=me)
+
+@app.route('/admin/rooms/deleteme', methods=['POST'])
+def processDeleteRoom():
+    formdata = request.form
+    id = int(formdata['id'])
+    me = getRoomByID(id)
+    if deleteRoom(me):
+        return redirect(url_for('page_rooms'))
+    return abort(501)
+
+def deleteRoom(me):
+    # Removes a room from the database.
+    # Returns True if room deleted successfully, else false
+    try:
+        db.session.delete(me)
+        db.session.commit()
+    except Exception as e:
+        # Prints why the room could not be deleted in the terminal.
+        print(e)
+        return False
+    return True
