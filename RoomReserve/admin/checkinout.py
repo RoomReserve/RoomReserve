@@ -20,7 +20,7 @@ def checkout_page():
 def processCheckin(resID):
     res = getReservationByID(resID)
     #try:
-    res.set_status(checkedin_status)
+    res.set_status(CONST.checkedin_status)
     #except:
     #    return render('basic.html', content="Could not check in reservation with ID "+str(resID))
 
@@ -31,7 +31,7 @@ def processCheckin(resID):
 def processCheckout(resID):
     res = getReservationByID(resID)
     try:
-        res.set_status(checkedout_status)
+        res.set_status(CONST.checkedout_status)
     except:
         return render('basic.html', content="Could not check out reservation with ID "+str(resID))
 
