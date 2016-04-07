@@ -61,7 +61,6 @@ class form_CreateReservation(Form):
 
 @app.route('/admin/reservation', methods=['GET', 'POST'])
 @login_required
-
 def page_reservation():
 
     if request.method == 'POST' and form.validate():
@@ -215,3 +214,31 @@ def page_processMakeReservationConfirmed(resID):
         return redirect('/res/'+str(resID))
 
     return render('basic.html', content="Could not confirm reservation with ID "+str(resID))
+
+@app.route('/res/<id>/delete')
+#@admin_required
+def confirmDeleteReservation(id):
+    id = int(id)
+    me = getReservationByID(id)
+    return render('deleteconfirmation.html', type="reservation", obj=me)
+
+@app.route('/res/deleteme', methods=['POST'])
+def processDeleteReservation():
+    formdata = request.form
+    id = int(formdata['id'])
+    me = getReservationByID(id)
+    if deleteReservation(me):
+        return redirect(url_for('page_reservation'))
+    return abort(501)
+
+def deleteReservation(me):
+    # Removes a res from the database.
+    # Returns True if res deleted successfully, else false
+    try:
+        db.session.delete(me)
+        db.session.commit()
+    except Exception as e:
+        # Prints why the res could not be deleted in the terminal.
+        print(e)
+        return False
+    return True

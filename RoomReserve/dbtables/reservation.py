@@ -96,6 +96,9 @@ class Reservation(db.Model):
 	def getID(self):
 		return self.id
 
+	def get_name(self):
+		return str(self.getID()) + " (" + self.get_guest().get_name() + ")"
+
 	def roomIsSet(self):
 		return self.roomID is not None
 
@@ -141,9 +144,7 @@ class Reservation(db.Model):
 		'''
 		A reservation that is checked in (active) cannot be deleted
 		'''
-		if self.get_status() != CONST.checkedin_status:
-			return True
-		return False
+		return self.get_status() != CONST.checkedin_status
 
 	def get_delorean(self):
 		'''

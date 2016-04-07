@@ -288,7 +288,7 @@ def deleteRoom(me):
         db.session.delete(me)
         db.session.commit()
     except Exception as e:
-        # Prints why the building could not be deleted in the terminal.
+        # Prints why the room could not be deleted in the terminal.
         print(e)
         return False
     return True
