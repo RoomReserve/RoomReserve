@@ -36,7 +36,12 @@
               </td>
         			<td>{{ r.get_check_in_datetime().strftime("%B %d, %Y") }}</td>
         			<td>{{ r.get_check_out_datetime().strftime("%B %d, %Y") }}</td>
-              <td>{{ r.status }}</td>
+              <td>
+                <form action="/res/deleteme" method="POST">
+                  <input type="hidden" name="id" value="{{ r.getID() }}">
+                  <button type="submit" class="btn btn-danger btn-circle btn-lg"><i class="fa fa-trash"></i></button>
+                </form>
+              </td>
             </tr>
           {% endfor %}
 
