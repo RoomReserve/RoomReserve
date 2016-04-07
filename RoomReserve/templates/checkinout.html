@@ -39,10 +39,12 @@
         			<td>{{ r.get_check_out_datetime().strftime("%B %d, %Y") }}</td>
         			{% if r.status == "checkedin" %}
                 <td><font color="green">Checked In</font></td>
-              {% if r.status == "checkedout" %}
-                <td><font color="red">Checked Out</font></td> 
               {% else %}
-                <td>{{ r.status }}</td> 
+                {% if r.status == "checkedout" %}
+                  <td><font color="red">Checked Out</font></td> 
+                {% else %}
+                  <td>{{ r.status }}</td>
+                {% endif %}
               {% endif %}
               {% if checkInType %}
                 <td><form action="/check/{{r.id}}/in"> <button type="submit" class="btn btn-success btn-circle btn-sm"><i class="fa fa-plus"></i></button> </form></td>
