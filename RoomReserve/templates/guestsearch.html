@@ -110,14 +110,12 @@
                     <input type="hidden" name="guestID" value="{{ u.id }}">
                     <input type="submit" class="btn btn-primary" value="Select">
                   </form>
-                  <p>reg</p>
                   {% else %}
                   <form action="/res/edit/guest/search/process" method="POST">
                     <input type="hidden" name="resID" value="{{ resID }}">
                     <input type="hidden" name="guestID" value="{{ u.id }}">
                     <input type="submit" class="btn btn-primary" value="Select">
                   </form>
-                  <p>edit</p>
                   {% endif %}
                 {% else %}
                   <button type="button" class="btn btn-primary btn-circle btn-sm" data-toggle="modal" data-target="#editGuest_{{ u.id }}">

@@ -218,7 +218,7 @@ def page_assignGuest_newGuest():
     Display the form to create a new guest
     and use that new guest as the guest on the reservation.
     '''
-    from RoomReserve.admin.guest import form_CreateGuest #, processCreateGuestForm
+    from RoomReserve.admin.guest import form_CreateGuest
     formdata = request.form
     res = getReservationByID(int(formdata['resID']))
     if res is None:
@@ -241,7 +241,6 @@ def page_assignGuest_newGuestProcess():
     myGuestID = myGuest.get_id()
     res = getReservationByID(int(formdata['resID']))
     res.setGuest(guestID=myGuestID)
-
 
     return redirect('/res/'+str(res.getID()))
 
