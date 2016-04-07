@@ -199,8 +199,40 @@ def page_viewReservation(resID):
         # Reservation not found
         return render('basic.html', content="No such reservation with ID "+str(resID))
 
-
     return render('reservation.html', res=res, guest=res.get_guest(), room=res.get_room(), CONST=CONST, getUserById=getUserById, editingAllowed = True)
+
+@app.route('/res/<int:resID>/edit/guest')
+@login_required
+def page_assignGuest(resID):
+    res = getReservationByID(resID)
+    if res is None:
+        # Reservation not found
+        return render('basic.html', content="No such reservation with ID "+str(resID))
+    return render('basic.html', content="Not yet implemented.")
+
+@app.route('/res/<int:resID>/edit/room')
+@login_required
+def page_assignRoom(resID):
+    res = getReservationByID(resID)
+    if res is None:
+        # Reservation not found
+        return render('basic.html', content="No such reservation with ID "+str(resID))
+    availableRooms = find_available_rooms(res.get_check_in_datetime(), res.get_check_out_datetime(), capacity=1)
+    return render('reswizard/wizard2.html', editsession=True, rooms=availableRooms, resID=res.getID())
+
+@app.route('/res/edit/room/confirm', methods=['POST'])
+@login_required
+def page_processAssignRoom():
+    formdata = request.form
+    res = getReservationByID(int(formdata['resID']))
+    room = getRoomByID(int(formdata['roomID']))
+
+    try:
+        res.setRoom(room=room)
+    except RoomDoesNotExistException:
+        return render('basic.html', content="Room with ID " + formdata['roomID'] + " does not exist")
+    return redirect('/res/'+str(res.getID()))
+
 
 @app.route('/res/<int:resID>/confirm')
 @login_required

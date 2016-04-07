@@ -45,13 +45,11 @@
                 {% endif %}
               </td>
               <td>
-                <button type="button" class="btn btn-primary btn-circle btn-sm">
-                  {% if editingAllowed %}
+                {% if editingAllowed %}
+                  <a href="/res/{{ res.getID() }}/edit/guest" class = "btn btn-primary btn-circle btn-sm" role="button">
                     <i class="fa fa-pencil"></i>
-                  {% else %}
-                    <i class="fa fa-info"></i>
-                  {% endif %}
-                </button>
+                  </a>
+                {% endif %}
               </td>
             </tr> <!-- /Guest -->
 
@@ -99,13 +97,11 @@
                 {% endif %}
               </td>
               <td>
-                <button type="button" class="btn btn-primary btn-circle btn-sm">
-                  {% if editingAllowed %}
+                {% if editingAllowed %}
+                  <a href="/res/{{ res.getID() }}/edit/room" class = "btn btn-primary btn-circle btn-sm" role="button">
                     <i class="fa fa-pencil"></i>
-                  {% else %}
-                    <i class="fa fa-info"></i>
-                  {% endif %}
-                </button>
+                  </a>
+                {% endif %}
               </td>
             </tr><!-- /Room -->
 
@@ -183,7 +179,7 @@
 
 
                   {% if not res.roomIsSet() %}
-                    <a href="#" class = "btn btn-danger btn-xs" role="button">
+                    <a href="/res/{{ res.getID }}/edit/room" class = "btn btn-danger btn-xs" role="button">
                       {% if editingAllowed %}
                         Assign Room
                       {% else %}
