@@ -208,7 +208,53 @@ def page_assignGuest(resID):
     if res is None:
         # Reservation not found
         return render('basic.html', content="No such reservation with ID "+str(resID))
-    return render('basic.html', content="Not yet implemented.")
+    return render('reswizard/wizard3.html', editsession=True, resID=res.getID())
+
+@app.route('/res/edit/guest/new')
+@login_required
+def page_assignGuest_newGuest():
+    formdata = request.form
+    res = getReservationByID(int(formdata['resID']))
+    if res is None:
+        # Reservation not found
+        return render('basic.html', content="No such reservation with ID "+str(resID))
+    return render('reswizard/wizard3.html', editsession=True, resID=res.getID())
+
+@app.route('/res/edit/guest/search', methods=['POST'])
+def page_assignGuest_searchForGuest():
+    from RoomReserve.admin.guestsearch import guestsearch, form_SearchGuest
+    form = form_SearchGuest()
+
+    formdata = request.form
+    myResID = int(formdata['resID'])
+    # myRes = getReservationByID(int(formdata['resID']))
+    print("___+++___previous information processed")
+    #if search form submitted
+    if 'searching' in formdata:
+        print("___+++___Processing search information")
+        firstname = formdata['firstname']
+        lastname = formdata['lastname']
+        email = formdata['email']
+
+        #strip non-numbers out of phone number
+        phone = ""
+        for char in formdata['phone']:
+            if char in "0123456789":
+                phone += char
+
+        guests = guestsearch(firstname, lastname, email, phone)
+
+        return render('guestsearch.html', editsession=True, resID=myResID, form=form, target="/res/edit/guest/search", guests=guests)
+
+    return render('guestsearch.html', editsession=True, resID=myResID, form=form, target="/res/edit/guest/search")
+
+@app.route('/res/edit/guest/search/process', methods=['POST'])
+@login_required
+def page_assignGuest_existingGuestProcess():
+    formdata = request.form
+    res = getReservationByID(int(formdata['resID']))
+    res.setGuest(guestID=int(formdata['guestID']))
+    return redirect('/res/'+str(res.getID()))
 
 @app.route('/res/<int:resID>/edit/room')
 @login_required
