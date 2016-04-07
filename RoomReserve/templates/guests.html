@@ -10,7 +10,7 @@
     <h3 class="panel-title">Create New Guest</h3>
     <span class="pull-right clickable"><i class="glyphicon glyphicon-chevron-up"></i></span>
   </div>
-  <div class="panel-body">
+  <div class="panel-body collapse">
     {% if form %}
     <form class="well" method="POST" action="/admin/guest">
       {{ form.csrf_token }}
@@ -31,7 +31,9 @@
       {% endfor %}
 
       <input type="submit" class="btn btn-primary" value="Create">
+
     </form>
+    <p>Note:<small> All fields are required.</small></p>
     {% endif %}
           
   </div>
