@@ -30,7 +30,7 @@ def page_reservation_wizard_2():
     outdate = formdata['dates'].split()[2]
     if formdata['capacity'] == "":
         capacity = 1
-    else: 
+    else:
         capacity = int(formdata['capacity'])
 
     indate = delorean.parse(indate).naive()
