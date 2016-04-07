@@ -2,15 +2,13 @@
 
 {% block body1 %}
 
-
 <div class="panel panel-default">
-    <div class="panel-heading">
-        <h4 class="panel-title">
-            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne"><i class="glyphicon glyphicon-plus"></i> Create New User</a>
-        </h4>
-    </div>
-    <div id="collapseOne" class="panel-collapse collapse">
-        <div class="panel-body">
+  <div class="panel-heading">
+    <h3 class="panel-title">Create New User</h3>
+    <span class="pull-right clickable"><i class="glyphicon glyphicon-chevron-up"></i></span>
+  </div>
+  <div class="panel-body">
+
           {% if form %}
           <form class="well" method="POST" action="/admin/users">
             {{ form.csrf_token }}
@@ -38,12 +36,11 @@
             </div>
           </div>
           {% endif %}
-        </div>
-    </div>
+          
+  </div>
 </div>
 
 <hr>
-
 
 
 <!-- Modal -->
