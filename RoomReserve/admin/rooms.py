@@ -83,7 +83,7 @@ def page_rooms():
 
 
         # create the room
-        if createRoom(roomnumber, building, capacity, status, description):
+        if createRoom(roomnumber, building, capacity, description, status):
             # room created sucessfully
             pass
         else:
