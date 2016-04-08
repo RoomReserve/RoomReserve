@@ -202,7 +202,7 @@ def page_viewReservation(resID):
     return render('reservation.html', res=res, guest=res.get_guest(), room=res.get_room(), CONST=CONST, getUserById=getUserById, editingAllowed = True)
 
 @app.route('/res/<int:resID>/edit/guest')
-@login_required
+@Login.standard_required
 def page_assignGuest(resID):
     res = getReservationByID(resID)
     if res is None:
@@ -211,7 +211,7 @@ def page_assignGuest(resID):
     return render('reswizard/wizard3.html', editsession=True, resID=res.getID())
 
 @app.route('/res/edit/guest/new', methods=['POST'])
-@login_required
+@Login.standard_required
 def page_assignGuest_newGuest():
     '''
     The user has selected to create a new guest.
@@ -230,6 +230,7 @@ def page_assignGuest_newGuest():
     return render('reswizard/wizard3_newguest.html', editsession=True, form=form, res=res)
 
 @app.route('/res/edit/guest/new/process', methods=['POST'])
+@Login.standard_required
 def page_assignGuest_newGuestProcess():
     # the form has been filled out, import the data
     formdata = request.form
@@ -245,6 +246,7 @@ def page_assignGuest_newGuestProcess():
     return redirect('/res/'+str(res.getID()))
 
 @app.route('/res/edit/guest/search', methods=['POST'])
+@Login.standard_required
 def page_assignGuest_searchForGuest():
     from RoomReserve.admin.guestsearch import guestsearch, form_SearchGuest
     form = form_SearchGuest()
@@ -273,7 +275,7 @@ def page_assignGuest_searchForGuest():
     return render('guestsearch.html', editsession=True, resID=myResID, form=form, target="/res/edit/guest/search")
 
 @app.route('/res/edit/guest/search/process', methods=['POST'])
-@login_required
+@Login.standard_required
 def page_assignGuest_existingGuestProcess():
     formdata = request.form
     res = getReservationByID(int(formdata['resID']))
@@ -281,7 +283,7 @@ def page_assignGuest_existingGuestProcess():
     return redirect('/res/'+str(res.getID()))
 
 @app.route('/res/<int:resID>/edit/room')
-@login_required
+@Login.standard_required
 def page_assignRoom(resID):
     res = getReservationByID(resID)
     if res is None:
@@ -291,7 +293,7 @@ def page_assignRoom(resID):
     return render('reswizard/wizard2.html', editsession=True, rooms=availableRooms, resID=res.getID())
 
 @app.route('/res/edit/room/confirm', methods=['POST'])
-@login_required
+@Login.standard_required
 def page_processAssignRoom():
     formdata = request.form
     res = getReservationByID(int(formdata['resID']))
@@ -305,7 +307,7 @@ def page_processAssignRoom():
 
 
 @app.route('/res/<int:resID>/confirm')
-@login_required
+@Login.standard_required
 def page_processMakeReservationConfirmed(resID):
     res = getReservationByID(resID)
     if res is None:
@@ -318,13 +320,14 @@ def page_processMakeReservationConfirmed(resID):
     return render('basic.html', content="Could not confirm reservation with ID "+str(resID))
 
 @app.route('/res/<id>/delete')
-#@admin_required
+@Login.admin_required
 def confirmDeleteReservation(id):
     id = int(id)
     me = getReservationByID(id)
     return render('deleteconfirmation.html', type="reservation", obj=me)
 
 @app.route('/res/deleteme', methods=['POST'])
+@Login.admin_required
 def processDeleteReservation():
     formdata = request.form
     id = int(formdata['id'])
@@ -332,8 +335,9 @@ def processDeleteReservation():
     if deleteReservation(me):
         return redirect(url_for('page_reservation'))
     return abort(501)
-    
+
 @app.route('/res/deletedraft', methods=['POST'])
+@Login.standard_required
 def processDeleteDraft():
     formdata = request.form
     id = int(formdata['id'])
@@ -353,18 +357,17 @@ def deleteReservation(me):
         print(e)
         return False
     return True
-    
+
 def getReservationsByStatus(status):
     # returns single res object with the given id
     myres = []
     for ares in db.session.query(Reservation).filter_by(status=status):
         myres.append(ares)
     return myres
-    
+
 @app.route('/admin/reservation/resdrafts', methods=['GET', 'POST'])
 @login_required
 def page_reservationDrafts():
     reservations = getReservationsByStatus(CONST.draft_status)
     return render('listdraftreservations.html',  reservations=reservations,
     getGuestByID=getGuestByID, getRoomByID=getRoomByID)
-

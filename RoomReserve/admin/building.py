@@ -1,5 +1,5 @@
 from RoomReserve import *
-from RoomReserve.helpers.login import admin_required
+import RoomReserve.helpers.login as Login
 
 class form_CreateBuilding(Form):
     name = StringField('Building Name', validators=[DataRequired()])
@@ -87,6 +87,7 @@ def page_buildings():
       edit_form=edit_form, allowEdit=allowEdit)
 
 @app.route('/admin/buildings/<id>', methods=['POST'])
+@login_required
 def page_updateBuilding(id):
     '''
     Processing page for the building update form.
@@ -175,13 +176,14 @@ def createBuilding(name, numfl, desc, st):
 
 
 @app.route('/admin/buildings/<id>/delete')
-@admin_required
+@Login.admin_required
 def confirmDeleteBuilding(id):
     id = int(id)
     me = getBuildingById(id)
     return render('deleteconfirmation.html', type="building", obj=me)
 
 @app.route('/admin/buildings/deleteme', methods=['POST'])
+@Login.admin_required
 def processDeleteBuilding():
     formdata = request.form
     id = int(formdata['id'])

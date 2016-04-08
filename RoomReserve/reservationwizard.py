@@ -15,7 +15,7 @@ def page_reservation_wizard():
     return render('reswizard/wizard1.html', form=form)
 
 @app.route('/res/new/room', methods=['POST'])
-#@Login.standard_required
+@Login.standard_required
 def page_reservation_wizard_2():
     '''
     Processes the data from the first page
@@ -68,6 +68,7 @@ def page_reservation_wizard_3():
         room=getRoomByID(res.getRoomID()), buildingName=buildingName, resID=res.getID())
 
 @app.route('/res/new/guest/new', methods=['POST'])
+@Login.standard_required
 def page_reservation_wizard_3_new_guest():
     '''
     The user has selected to create a new guest.
@@ -84,6 +85,7 @@ def page_reservation_wizard_3_new_guest():
 
 
 @app.route('/res/new/guest/new/process', methods=['POST'])
+@Login.standard_required
 def page_reservation_wizard_3_new_guest_process():
     # the form has been filled out, import the data
     formdata = request.form
@@ -101,6 +103,7 @@ def page_reservation_wizard_3_new_guest_process():
 
 
 @app.route('/res/new/guest/search', methods=['POST'])
+@Login.standard_required
 def page_reservation_wizard_3_search_existing_guest():
     '''
     The user has selected to search for an existing guest.
@@ -137,6 +140,7 @@ def page_reservation_wizard_3_search_existing_guest():
 
 
 @app.route('/res/new/guest/search/process', methods=['POST'])
+@Login.standard_required
 def page_reservation_wizard_3_search_existing_guest_process():
     formdata = request.form
     myRes = getReservationByID(int(formdata['resID']))
@@ -146,6 +150,7 @@ def page_reservation_wizard_3_search_existing_guest_process():
 
 
 @app.route('/res/confirm', methods=['POST'])
+@Login.standard_required
 def page_draft_reservation_confirm():
     '''
     The reservation wizard is done.

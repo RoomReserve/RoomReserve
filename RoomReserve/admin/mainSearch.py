@@ -10,6 +10,7 @@ class form_MainSearch(Form):
 
 
 @app.route('/admin/mainSearch', methods=['GET','POST'])
+@login_required
 def mainsearch_page():
     form = form_MainSearch()
 
@@ -23,6 +24,7 @@ def mainsearch_page():
         return render('mainSearch.html', results=results)
 
     return render('mainSearch.html', results=[])
+    
 def overallsearch(searchStr):
     '''
     Returns a list containing the matching string

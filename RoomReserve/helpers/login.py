@@ -1,4 +1,5 @@
 from RoomReserve import *
+from functools import wraps
 
 class Form_Login(Form):
     email = StringField('Email Address', validators=[DataRequired()])
@@ -60,6 +61,7 @@ def admin_required(function):
     # Use: as a decorator
     #     @Login.admin_required
     @login_required
+    @wraps(function)
     def checkIfAdmin(*args, **kwargs):
         if current_user.is_admin():
             # If the user is an admin, then return the requested page
@@ -77,6 +79,7 @@ def standard_required(function):
     # Use: as a decorator
     #     @Login.standard_required
     @login_required
+    @wraps(function)
     def checkIfStandard(*args, **kwargs):
         if current_user.is_standard():
             # If the user is a standard user or above, then return the requested page

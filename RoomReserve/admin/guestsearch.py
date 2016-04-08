@@ -26,6 +26,7 @@ def findGuestid(name):
 
 
 @app.route('/admin/guestsearch', methods=['GET','POST'])
+@login_required
 def guestsearch_page():
     def edit_form(id):
         '''
