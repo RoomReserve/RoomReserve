@@ -4,7 +4,12 @@
 
 
 <div class="panel panel-primary">
-  <div class="panel-heading">Guest Information</div>
+  <div class="panel-heading">
+    {% if editsession %}
+      <a href="/res/{{ resID }}" class="btn btn-default btn-circle btn-md"><i class="fa fa-arrow-left"></i></a>
+    {% endif %}
+    Guest Information
+  </div>
   <div class="panel-body">
 
     <p>Please select an existing guest or add a new guest for this reservation.</p>

@@ -5,7 +5,10 @@
 <!-- Table of available rooms -->
 <div class="panel panel-primary col-md">
   <div class="panel-heading">
-    <h3 class="panel-title">Available Rooms</h3>
+    {% if editsession %}
+      <a href="/res/{{ resID }}" class="btn btn-default btn-circle btn-md"><i class="fa fa-arrow-left"></i></a>
+    {% endif %}
+    Available Rooms
   </div>
   <div class="panel-body">
     <div class="col-md-12">
