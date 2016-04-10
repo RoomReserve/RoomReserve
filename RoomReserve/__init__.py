@@ -110,13 +110,13 @@ def createDefaultAccounts():
 		#default admin is already created
 		print("Default admin account admin@localhost exists.")
 	else:
-		admin = User('Default pw is rr', 'Admin', 'admin@localhost', 'admin', 'rr')
+		admin = User('Default', 'Admin', 'admin@localhost', 'admin', 'rr')
 
-		standard = User('Default pw is rr', 'Standard', 'standard@localhost', 'standard', 'rr')
+		standard = User('Default', 'Standard', 'standard@localhost', 'standard', 'rr')
 
-		readonly = User('Default pw is rr', 'Readonly', 'ro@localhost', 'readonly', 'rr')
+		readonly = User('Default', 'Readonly', 'ro@localhost', 'readonly', 'rr')
 
-		inactive = User('Default pw is rr', 'Inactive', 'inactive@localhost', 'inactive', 'rr')
+		inactive = User('Default', 'Inactive', 'inactive@localhost', 'inactive', 'rr')
 
 		db.session.add(admin)
 		db.session.add(standard)
