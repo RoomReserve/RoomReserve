@@ -62,7 +62,7 @@ def guestsearch_page():
             #strip non-numbers out of phone number
             phone = re.sub(r'[^\w]', '', formdata['phone']) #easier way of taking out symbols
 
-            guests = guestsearch2(firstname, lastname, email, phone)
+            guests = guestSearch2(firstname, lastname, email, phone)
 
         return render('guestsearch.html', form=form, guests=guests, allowEdit=allowEdit, edit_form=edit_form)
 
