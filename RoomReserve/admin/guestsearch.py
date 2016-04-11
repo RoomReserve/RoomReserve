@@ -52,15 +52,13 @@ def guestsearch_page():
     guests = getAllGuests()
     return render('guestsearch.html', allowEdit=allowEdit, edit_form=edit_form, guests=guests)
     
-    '''
-@app.route('/admin/guestsearch', methods=['GET','POST'])
-@login_required
-def guestsearch_page():
-    def edit_form(id):
+
+
         '''
         Returns the form back populated with the guest information
         from the ID given.
         Parameters: id for a guest.
+        '''
         '''
         form = form_CreateGuest()
         id=int(id)
