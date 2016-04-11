@@ -56,25 +56,6 @@
   <!-- /Modal -->
 {% endif %}
 
-<div class="well">
-<form method="POST" action={% if target %}"{{target}}"{% else %}"/admin/guestsearch"{% endif %}>
-  {{ form.csrf_token }}
-  {{ form.firstname.label }} {{ form.firstname(size=20) }} <br>
-  {{ form.lastname.label }} {{ form.lastname(size=20) }} <br>
-  {{ form.email.label }} {{ form.email(size=20) }} <br>
-  {{ form.phone.label }} {{ form.phone(size=20) }} <br>
-  {% if resID %}
-    <input type="hidden" name="resID" value="{{ resID }}">
-    <input type="hidden" name="searching" value="True">
-  {% endif %}
-  <br>
-  <input type="submit"  class="btn btn-primary" value="Search">
-</form>
-
-</div>
-
-<hr/>
-
 {% if guests %}
 <div class="panel panel-primary col-md">
   <div class="panel-heading">
