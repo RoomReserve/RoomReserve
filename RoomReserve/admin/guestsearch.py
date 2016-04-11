@@ -52,7 +52,7 @@ def guestsearch_page():
             return False
     form = form_SearchGuest()
 
-    if request.method == 'POST' and form.validate():
+    if request.method == 'POST': # and form.validate():
         formdata = request.form
         if 'firstname' or 'lastname' or 'email' or 'phone' in formdata:
             firstname = formdata['firstname']
@@ -63,11 +63,8 @@ def guestsearch_page():
             phone = re.sub(r'[^\w]', '', formdata['phone']) #easier way of taking out symbols
 
             guests = guestSearch2(firstname, lastname, email, phone)
-            return render('basic.html', content="Could not create guest.") #take this out if you see this.
-            
-        return render('basic.html', content="Could not create guest.")
+
         return render('guestsearch.html', form=form, guests=guests, allowEdit=allowEdit, edit_form=edit_form)
-    return render('basic.html', content="Could not create guest.")
 
     return render('guestsearch.html', form=form, allowEdit=allowEdit, edit_form=edit_form)
 
