@@ -24,7 +24,35 @@ def findGuestid(name):
     q = session.query(Guest).filter(Guest.first == first).one()
     return q.id
 
-
+@app.route('/admin/guestsearch', methods=['GET','POST'])
+@login_required
+def guestsearch_page():
+    def edit_form(id):
+        '''
+        Returns the form back populated with the guest information
+        from the ID given.
+        Parameters: id for a guest.
+        '''
+        form = form_CreateGuest()
+        id=int(id)
+        myGuest = getGuestByID(id)
+        form.populate(myGuest)
+        return form
+    def allowEdit(id):
+        '''
+        Figures out if the current user should be allowed
+        to edit the guest object.
+        Parameters: GuestID for the guest we want to edit
+        '''
+        if current_user.is_standard():
+            # Only admins and standard users can edit guests
+            return True
+        else:
+            return False
+    guests = getAllGuests()
+    return render('guestsearch.html', allowEdit=allowEdit, edit_form=edit_form, guests=guests)
+    
+    '''
 @app.route('/admin/guestsearch', methods=['GET','POST'])
 @login_required
 def guestsearch_page():
@@ -67,6 +95,7 @@ def guestsearch_page():
         return render('guestsearch.html', form=form, guests=guests, allowEdit=allowEdit, edit_form=edit_form)
 
     return render('guestsearch.html', form=form, allowEdit=allowEdit, edit_form=edit_form)
+    '''
 
 def guestsearch(firstname, lastname, email, phone):
         '''
