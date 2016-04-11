@@ -24,6 +24,7 @@ def findGuestid(name):
     q = session.query(Guest).filter(Guest.first == first).one()
     return q.id
 
+
 @app.route('/admin/guestsearch', methods=['GET','POST'])
 @login_required
 def guestsearch_page():
@@ -49,36 +50,9 @@ def guestsearch_page():
             return True
         else:
             return False
-    guests = getAllGuests()
-    return render('guestsearch.html', allowEdit=allowEdit, edit_form=edit_form, guests=guests)
-    
-
-
-        '''
-        Returns the form back populated with the guest information
-        from the ID given.
-        Parameters: id for a guest.
-        '''
-        '''
-        form = form_CreateGuest()
-        id=int(id)
-        myGuest = getGuestByID(id)
-        form.populate(myGuest)
-        return form
-    def allowEdit(id):
-        '''
-        Figures out if the current user should be allowed
-        to edit the guest object.
-        Parameters: GuestID for the guest we want to edit
-        '''
-        if current_user.is_standard():
-            # Only admins and standard users can edit guests
-            return True
-        else:
-            return False
     form = form_SearchGuest()
 
-    if request.method == 'POST': # and form.validate():
+    if request.method == 'POST' and form.validate():
         formdata = request.form
         if 'firstname' or 'lastname' or 'email' or 'phone' in formdata:
             firstname = formdata['firstname']
@@ -88,12 +62,11 @@ def guestsearch_page():
             #strip non-numbers out of phone number
             phone = re.sub(r'[^\w]', '', formdata['phone']) #easier way of taking out symbols
 
-            guests = guestSearch2(firstname, lastname, email, phone)
+            guests = guestsearch(firstname, lastname, email, phone)
 
         return render('guestsearch.html', form=form, guests=guests, allowEdit=allowEdit, edit_form=edit_form)
 
     return render('guestsearch.html', form=form, allowEdit=allowEdit, edit_form=edit_form)
-    '''
 
 def guestsearch(firstname, lastname, email, phone):
         '''
@@ -166,7 +139,6 @@ def guestSearch2(firstname, lastname, email, phone):
 def page_updateGuest(id):
     id = int(id)
     myGuest = getGuestByID(id)
-
     if request.method == 'POST':
         formdata = request.form
         firstname = formdata['firstname']
@@ -180,7 +152,6 @@ def page_updateGuest(id):
         except ValueError:
             payment = 0
         notes = formdata['notes']
-
         if firstname != myGuest.first:
             myGuest.set_first_name(firstname)
         if lastname != myGuest.last:
@@ -195,7 +166,6 @@ def page_updateGuest(id):
             myGuest.set_payment(payment)
         if notes != myGuest.notes:
             myGuest.set_notes(notes)
-
     return redirect(url_for('guestsearch_page'))
     '''
 # Guest Profile
