@@ -63,6 +63,8 @@ def guestsearch_page():
             phone = re.sub(r'[^\w]', '', formdata['phone']) #easier way of taking out symbols
 
             guests = guestSearch2(firstname, lastname, email, phone)
+            return render('basic.html', content="Could not create guest.") #take this out if you see this.
+            
 
         return render('guestsearch.html', form=form, guests=guests, allowEdit=allowEdit, edit_form=edit_form)
 
