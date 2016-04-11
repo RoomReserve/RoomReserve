@@ -65,7 +65,7 @@ def guestsearch_page():
             guests = guestSearch2(firstname, lastname, email, phone)
             return render('basic.html', content="Could not create guest.") #take this out if you see this.
             
-
+        return render('basic.html', content="Could not create guest.")
         return render('guestsearch.html', form=form, guests=guests, allowEdit=allowEdit, edit_form=edit_form)
 
     return render('guestsearch.html', form=form, allowEdit=allowEdit, edit_form=edit_form)
