@@ -117,6 +117,22 @@ def guestsearch(firstname, lastname, email, phone):
             guests = guests + getGuestByPhone(phone)
 
         return guests
+        
+def guestSearch2(firstname, lastname, email, phone):
+    guests = []
+    if firstname != None:
+        for aguest in getGuestByPartialFirstName(firstname):
+            guests.append(aguest)
+    if lastname != None:
+        for aguest in getGuestByPartialLastName(lastname):
+            guests.append(aguest)
+    if email != None:
+        for aguest in getGuestByPartialEmail(email):
+            guests.append(aguest)
+    if phone != None:
+        for aguest in getGuestByPhone(phone):
+            guests.append(aguest)
+    return guests
 
 '''
 @app.route('/admin/guestsearch/<id>', methods=['POST'])
