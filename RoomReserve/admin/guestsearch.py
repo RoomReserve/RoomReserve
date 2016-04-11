@@ -52,13 +52,6 @@ def guestsearch_page():
             return False
     form = form_SearchGuest()
 
-    firstname = formdata['firstname']
-    lastname = formdata['lastname']
-    email = formdata['email']
-
-    #strip non-numbers out of phone number
-    phone = re.sub(r'[^\w]', '', formdata['phone']) #easier way of taking out symbols
-
     guests = getAllGuests()
 
     return render('guestsearch.html', form=form, guests=guests, allowEdit=allowEdit, edit_form=edit_form)
