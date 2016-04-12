@@ -48,11 +48,11 @@
                       <tbody>
                         <tr>
                           <td>In</td>
-                          <td>{{ obj.get_check_in_datetime() }}</td>
+                          <td>{{ obj.get_check_in_datetime().strftime("%B %d, %Y") }}</td>
                         </tr>
                         <tr>
                           <td>Out</td>
-                          <td>{{ obj.get_check_out_datetime() }}</td>
+                          <td>{{ obj.get_check_out_datetime().strftime("%B %d, %Y") }}</td>
                         </tr>
                       </tbody>
                     </table>
