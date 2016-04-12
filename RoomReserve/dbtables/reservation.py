@@ -94,26 +94,26 @@ class Reservation(db.Model):
 		db.session.commit()
 		
 	def checkin(self):
-		if self.status == checkedin_status:
+		if self.status == CONST.checkedin_status:
 			return True
 		else:
 			myroom = getRoomByID(self.roomID)
-			if myroom.status != ready_status:
+			if myroom.status != CONST.ready_status:
 				return False
 			else:
-				self.status = checkedin_status
+				self.status = CONST.checkedin_status
 				db.session.commit()
-				myroom.set_status(occupied_status)
+				myroom.set_status(CONST.occupied_status)
 				return True
 				
 	def checkout(self):
-		if self.status == checkedout_status:
+		if self.status == CONST.checkedout_status:
 			return True
 		else:
 			myroom = getRoomByID(self.roomID)
-			self.status = checkedout_status
+			self.status = CONST.checkedout_status
 			db.session.commit()
-			myroom.set_status(unclean_status)
+			myroom.set_status(CONST.unclean_status)
 			return True
 
 	def getID(self):
