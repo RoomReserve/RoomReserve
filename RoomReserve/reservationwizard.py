@@ -119,24 +119,10 @@ def page_reservation_wizard_3_search_existing_guest():
     myResID = int(formdata['resID'])
     # myRes = getReservationByID(int(formdata['resID']))
     print("___+++___previous information processed")
-    #if search form submitted
-    if 'searching' in formdata:
-        print("___+++___Processing search information")
-        firstname = formdata['firstname']
-        lastname = formdata['lastname']
-        email = formdata['email']
 
-        #strip non-numbers out of phone number
-        phone = ""
-        for char in formdata['phone']:
-            if char in "0123456789":
-                phone += char
+    guests = getAllGuests()
 
-        guests = guestsearch(firstname, lastname, email, phone)
-
-        return render('guestsearch.html', resID=myResID, form=form, target="/res/new/guest/search", guests=guests)
-
-    return render('guestsearch.html', resID=myResID, form=form, target="/res/new/guest/search")
+    return render('guestsearch.html', resID=myResID, form=form, target="/res/new/guest/search", guests=guests)
 
 
 @app.route('/res/new/guest/search/process', methods=['POST'])
