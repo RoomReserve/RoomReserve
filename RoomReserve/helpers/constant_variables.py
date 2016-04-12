@@ -4,6 +4,7 @@ from RoomReserve import *
 ready_status="Ready"
 inactive_status="Inactive"
 occupied_status="Occupied"
+unclean_status="Unclean"
 
 unarrived_status="unarrived"
 checkedin_status="checkedin"
