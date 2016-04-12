@@ -22,18 +22,18 @@ def checkout_page():
 def processCheckin(resID):
     res = getReservationByID(resID)
     #try:
-    res.set_status(CONST.checkedin_status)
+    if res.checkin():
+        return redirect('/admin/checkin')
+    else:
+        return render('basic.html', content="Could not check in. Room is not ready.")
     #except:
     #    return render('basic.html', content="Could not check in reservation with ID "+str(resID))
-
-    return redirect('/admin/checkin')
-
 @app.route('/check/<int:resID>/out')
 @login_required
 def processCheckout(resID):
     res = getReservationByID(resID)
     try:
-        res.set_status(CONST.checkedout_status)
+        res.checkout()
     except:
         return render('basic.html', content="Could not check out reservation with ID "+str(resID))
 
