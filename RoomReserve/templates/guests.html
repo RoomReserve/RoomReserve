@@ -10,7 +10,7 @@
     <h3 class="panel-title">Create New Guest</h3>
     <span class="pull-right clickable"><i class="glyphicon glyphicon-chevron-up"></i></span>
   </div>
-  <div class="panel-body collapse">
+  <div class="panel-body">
     {% if form %}
     <form class="well" method="POST" action="/admin/guest">
       {{ form.csrf_token }}
