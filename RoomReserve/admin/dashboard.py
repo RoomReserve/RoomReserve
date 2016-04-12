@@ -1,5 +1,7 @@
 from RoomReserve import *
 import RoomReserve.helpers.stats as stats
+from RoomReserve.admin.guest import getGuestByID
+from RoomReserve.admin.rooms import getRoomByID
 import datetime
 
 @app.route("/admin/dashboard")
@@ -9,6 +11,9 @@ def dashboard():
 	title="Dashboard"
 	content = ""
 	data = {}
+
+	data['getGuestByID'] = RoomReserve.admin.guest.getGuestByID
+	data['getRoomByID'] = RoomReserve.admin.rooms.getRoomByID
 
 	data['chin'] = []
 	data['chout'] = []
@@ -20,6 +25,9 @@ def dashboard():
 	data['numOccupiedRooms'] = stats.numberOfRoomsCurrentlyOccupied()
 	data['numUnoccupiedRooms'] = stats.numberOfRoomsCurrentlyUnoccupied()
 	data['numInactiveRooms'] = stats.numberOfInactiveRooms()
+	data['reservationsInToday'] = stats.listOfReservationsCheckingInToday()
+	data['reservationsOutToday'] = stats.listOfReservationsCheckingOutToday()
+
 
 
 	return render('dashboard.html', title=title, content=content, **data)
