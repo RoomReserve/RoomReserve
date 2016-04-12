@@ -2,6 +2,7 @@ from RoomReserve import *
 from RoomReserve.admin.reservation import find_available_rooms, createReservation, getReservationByID
 from RoomReserve.admin.rooms import getRoomByID
 from RoomReserve.admin.building import getBuildingById
+from RoomReserve.admin.guest import getAllGuests
 
 
 @app.route('/res/new', methods=['GET', 'POST'])
