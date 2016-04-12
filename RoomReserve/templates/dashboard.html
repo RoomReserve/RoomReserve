@@ -93,11 +93,7 @@
                   <td>{{ r.status }}</td>
                 {% endif %}
               {% endif %}
-              {% if checkInType %}
-                <td><form action="/check/{{r.id}}/in"> <button type="submit" class="btn btn-success btn-circle btn-sm"><i class="fa fa-plus"></i></button> </form></td>
-              {% else %}
-                <td><form action="/check/{{r.id}}/out"> <button type="submit" class="btn btn-danger btn-circle btn-sm"><i class="fa fa-minus"></i></button> </form></td>
-              {% endif %}
+              <td><form action="/check/{{r.id}}/in"> <button type="submit" class="btn btn-success btn-circle btn-sm"><i class="fa fa-plus"></i></button> </form></td>
             </tr>
           {% endfor %}
 
@@ -152,10 +148,7 @@
                   <td>{{ r.status }}</td>
                 {% endif %}
               {% endif %}
-              {% if checkInType %}
-                <td><form action="/check/{{r.id}}/in"> <button type="submit" class="btn btn-success btn-circle btn-sm"><i class="fa fa-plus"></i></button> </form></td>
-              {% else %}
-                <td><form action="/check/{{r.id}}/out"> <button type="submit" class="btn btn-danger btn-circle btn-sm"><i class="fa fa-minus"></i></button> </form></td>
+              <td><form action="/check/{{r.id}}/out"> <button type="submit" class="btn btn-danger btn-circle btn-sm"><i class="fa fa-minus"></i></button> </form></td>
               {% endif %}
             </tr>
           {% endfor %}
