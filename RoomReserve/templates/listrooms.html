@@ -71,7 +71,11 @@
               </div>
             </div>
           {% endif %}
-          <form class="well" method="POST" action="/admin/rooms/{{ r.id }}">
+          {% if createEnabled %}
+            <form class="well" method="POST" action="/admin/rooms/{{ r.id }}/create">
+          {% else %}
+            <form class="well" method="POST" action="/admin/rooms/{{ r.id }}/search">
+          {% endif %}
             {% for field in edit_form(r.id) %}
               <tr>
                 {% if field.id != 'csrf_token' %}
