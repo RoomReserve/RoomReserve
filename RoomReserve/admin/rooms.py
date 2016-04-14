@@ -102,7 +102,7 @@ def page_rooms():
       
 @app.route('/admin/rooms/search', methods=['GET', 'POST'])
 @login_required
-def page_rooms():
+def page_room_search():
     def allowEdit(id=0):
         '''
         Figures out if the current user should be allowed
