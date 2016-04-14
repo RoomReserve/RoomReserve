@@ -38,7 +38,7 @@ class form_CreateRoom(Form):
         self.status.default = thisRoom.get_status()
         self.process()
 
-@app.route('/admin/rooms', methods=['GET', 'POST'])
+@app.route('/admin/rooms/new', methods=['GET', 'POST'])
 @login_required
 def page_rooms():
 
