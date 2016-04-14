@@ -12,6 +12,7 @@ class form_CreateRoom(Form):
     status = SelectField('Status',\
         choices=[(CONST.ready_status, 'Ready - Unoccupied'),\
                 (CONST.occupied_status, 'Ready - Occupied'),\
+                (CONST.unclean_status, 'Unclean'),\
                 (CONST.inactive_status, 'Inactive')])
 
     description = TextAreaField('Description')
