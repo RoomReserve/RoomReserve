@@ -140,9 +140,9 @@
           <tbody>
             {% for r in rooms %}
           		<tr>
-          			<td><strong>{{ r.id }}</strong></td>
+          			<td>{{ r.id }}</td>
           			<td>{{ r.getMyBuildingName() }}</td>
-                <td>{{ r.roomnumber }}</td>
+                <td><strong>{{ r.roomnumber }}</strong></td>
                 <td>{{ r.capacity }}</td>
                 <td>{{ r.status }}</td>
                 <td>
