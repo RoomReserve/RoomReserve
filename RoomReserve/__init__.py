@@ -212,6 +212,41 @@ createSampleRooms()
 
 # Try not to add additional page routes in here.
 
+@app.route("/createtestrooms")
+def page_createtestrooms():
+	r=[]
+	r.append(Room(roomnumber='402', buildingID='1', capacity='2', description="",  status=CONST.ready_status, notes=""))
+	r.append(Room(roomnumber='403', buildingID='1', capacity='2', description="",  status=CONST.ready_status, notes=""))
+	r.append(Room(roomnumber='404', buildingID='1', capacity='2', description="",  status=CONST.ready_status, notes=""))
+	r.append(Room(roomnumber='405', buildingID='1', capacity='2', description="",  status=CONST.ready_status, notes=""))
+	r.append(Room(roomnumber='406', buildingID='1', capacity='2', description="",  status=CONST.ready_status, notes=""))
+	r.append(Room(roomnumber='407', buildingID='1', capacity='2', description="",  status=CONST.ready_status, notes=""))
+	r.append(Room(roomnumber='408', buildingID='1', capacity='2', description="",  status=CONST.ready_status, notes=""))
+	r.append(Room(roomnumber='409', buildingID='1', capacity='2', description="",  status=CONST.ready_status, notes=""))
+	r.append(Room(roomnumber='130', buildingID='2', capacity='3', description="",  status=CONST.ready_status, notes=""))
+	r.append(Room(roomnumber='132', buildingID='2', capacity='3', description="",  status=CONST.ready_status, notes=""))
+	r.append(Room(roomnumber='134', buildingID='2', capacity='3', description="",  status=CONST.ready_status, notes=""))
+	r.append(Room(roomnumber='136', buildingID='2', capacity='3', description="",  status=CONST.ready_status, notes=""))
+	r.append(Room(roomnumber='138', buildingID='2', capacity='3', description="",  status=CONST.ready_status, notes=""))
+	r.append(Room(roomnumber='140', buildingID='2', capacity='2', description="",  status=CONST.ready_status, notes=""))
+	r.append(Room(roomnumber='142', buildingID='2', capacity='2', description="",  status=CONST.ready_status, notes=""))
+	r.append(Room(roomnumber='201', buildingID='3', capacity='2', description="",  status=CONST.ready_status, notes=""))
+	r.append(Room(roomnumber='203', buildingID='3', capacity='2', description="",  status=CONST.ready_status, notes=""))
+	r.append(Room(roomnumber='205', buildingID='3', capacity='2', description="",  status=CONST.ready_status, notes=""))
+	r.append(Room(roomnumber='207', buildingID='3', capacity='2', description="",  status=CONST.ready_status, notes=""))
+	r.append(Room(roomnumber='209', buildingID='3', capacity='2', description="",  status=CONST.ready_status, notes=""))
+	r.append(Room(roomnumber='211', buildingID='3', capacity='2', description="",  status=CONST.ready_status, notes=""))
+	r.append(Room(roomnumber='213', buildingID='3', capacity='2', description="",  status=CONST.ready_status, notes=""))
+	r.append(Room(roomnumber='215', buildingID='3', capacity='2', description="",  status=CONST.ready_status, notes=""))
+	r.append(Room(roomnumber='217', buildingID='3', capacity='2', description="",  status=CONST.ready_status, notes=""))
+	r.append(Room(roomnumber='499', buildingID='2', capacity='8', description="Fairy-Tale Suite", status=CONST.ready_status, notes=""))
+
+	for me in r:
+		db.session.add(me)
+	db.session.commit()
+
+	return redirect(url_for("page_rooms"))
+
 
 @app.route("/today")
 def page_today():
