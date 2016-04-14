@@ -2,6 +2,8 @@
 
 {% block body1 %}
 
+
+{% if createEnabled %}
 <div class="panel panel-default">
   <div class="panel-heading">
     <h3 class="panel-title">Create New Room</h3>
@@ -40,6 +42,7 @@
 
 <hr>
 
+{% endif %}
 
 <!-- Modal -->
 {% for r in rooms %}
