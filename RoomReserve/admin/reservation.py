@@ -59,7 +59,7 @@ class form_CreateReservation(Form):
 
     notes = TextAreaField('Notes', validators=[DataRequired()])
 
-@app.route('/admin/reservation', methods=['GET', 'POST'])
+@app.route('/admin/reservationlist', methods=['GET', 'POST'])
 @login_required
 def page_reservation():
 
