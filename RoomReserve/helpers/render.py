@@ -3,7 +3,7 @@ from RoomReserve import *
 import random
 
 #Feelings used at the bottom of the page. (Made with __ at Luther College)
-feelings = ["magic", "love", "happiness", "friendship", "smiles", "laughter", "care"]
+feelings = ["magic", "love", "happiness", "friendship", "smiles", "laughter", "care", "excitement"]
 
 def render(template, *args, **kwargs):
     # Adds more variables to kwargs for the template
@@ -11,7 +11,7 @@ def render(template, *args, **kwargs):
 
     kwargs['withGlobals']=True
     kwargs['appname']='RoomReserve'
-    kwargs['build'] = 'in development. Running on ' + sys.platform
+    kwargs['build'] = '0.1. - Running on ' + sys.platform
     kwargs['feeling'] = feelings[random.randrange(0,len(feelings))]
     kwargs['logged_in'] = False
     if current_user.is_authenticated:
