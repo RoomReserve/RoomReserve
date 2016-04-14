@@ -11,6 +11,7 @@ class Reservation(db.Model):
 	checkouttime = db.Column(db.DateTime, nullable=False, unique=False)
 	status = db.Column(db.String(20), unique=False, nullable=False)
 	notes = db.Column(db.String(500), unique=False)
+	timestamp = db.Column(db.DateTime)
 
 	def __init__(self, guest, madeby, room, checkintime, checkouttime, status=CONST.unarrived_status, notes=""):
 		self.madeby = madeby

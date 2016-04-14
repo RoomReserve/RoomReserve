@@ -34,9 +34,9 @@
               <td> {{ res.get_check_in_datetime().strftime("%A, %B %d, %Y")}} — {{ res.get_check_out_datetime().strftime("%A, %B %d, %Y")}} </td>
 
               <td>
-                <button type="button" class="btn btn-primary btn-circle btn-sm glyphicon glyphicon-edit" data-toggle="modal" data-target="">
-
-                </button>
+                <a href="/res/{{res.getID()}}">
+                <button type="button" class="btn btn-primary btn-circle btn-sm glyphicon glyphicon-edit">
+                </button></a>
               </td>
 
             </tr>
@@ -45,20 +45,19 @@
               <td> {{ res.get_room().getMyBuildingName() }}: {{ res.get_room().get_room_number() }} </td>
 
               <td>
-                <button type="button" class="btn btn-primary btn-circle btn-sm glyphicon glyphicon-edit" data-toggle="modal" data-target="">
-
-                </button>
+                <a href="/res/{{res.getID()}}">
+                <button type="button" class="btn btn-primary btn-circle btn-sm glyphicon glyphicon-edit">
+                </button></a>
               </td>
 
             </tr>
             <tr>
               <td> Who </td>
               <td> {{ res.get_guest().get_last_name() }}, {{ res.get_guest().get_first_name() }}  <sup><em>({{ res.getGuestID() }})</em></sup></td>
-              
               <td>
-                <button type="button" class="btn btn-primary btn-circle btn-sm glyphicon glyphicon-edit" data-toggle="modal" data-target="">
-
-                </button>
+                <a href="/res/{{res.getID()}}">
+                <button type="button" class="btn btn-primary btn-circle btn-sm glyphicon glyphicon-edit">
+                </button></a>
               </td>
 
 

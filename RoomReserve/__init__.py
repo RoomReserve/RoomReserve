@@ -11,6 +11,12 @@ from datetime import datetime
 import delorean
 from delorean import Delorean
 import RoomReserve.helpers.delorean_helper as delorean_helper
+import time
+from flask.ext.moment import Moment
+
+
+# momentjs for timestamp
+import RoomReserve.helpers.momentjs
 
 
 #RoomReserve constant variables
@@ -30,6 +36,7 @@ from sqlalchemy.orm import sessionmaker
 
 # Start flask instance
 app = Flask(__name__)
+moment = Moment(app)
 app.secret_key = 'x95xe1gxceHGxeaSx0exf5xf4xbaxb5x1dxe5'
 
 heroku = Heroku(app)
@@ -112,6 +119,8 @@ def createDefaultAccounts():
 	else:
 		admin = User('Default', 'Admin', 'admin@localhost', 'admin', 'rr')
 
+		dd = User('Dorjee', 'Dhondup', 'dhondup@luther.edu', 'admin', 'dd')
+
 		standard = User('Default', 'Standard', 'standard@localhost', 'standard', 'rr')
 
 		readonly = User('Default', 'Readonly', 'ro@localhost', 'readonly', 'rr')
@@ -119,6 +128,7 @@ def createDefaultAccounts():
 		inactive = User('Default', 'Inactive', 'inactive@localhost', 'inactive', 'rr')
 
 		db.session.add(admin)
+		db.session.add(dd)
 		db.session.add(standard)
 		db.session.add(readonly)
 		db.session.add(inactive)
