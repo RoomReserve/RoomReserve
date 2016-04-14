@@ -98,7 +98,7 @@ def page_rooms():
         form = False
     rooms = getAllRooms()
     return render('listrooms.html', form=form, rooms=rooms, \
-      edit_form=edit_form, allowEdit=allowEdit, CONST=CONST)
+      edit_form=edit_form, allowEdit=allowEdit, CONST=CONST, createEnabled=True)
       
 @app.route('/admin/rooms/search', methods=['GET', 'POST'])
 @login_required
@@ -128,7 +128,7 @@ def page_room_search():
             return False
     # /Editor
     rooms = getAllRooms()
-    return render('listrooms.html', rooms=rooms, allowEdit=allowEdit, CONST=CONST, edit_form=edit_form)
+    return render('listrooms.html', rooms=rooms, allowEdit=allowEdit, CONST=CONST, edit_form=edit_form, createEnabled=False)
 
 @app.route('/admin/rooms/<id>', methods=['POST'])
 def page_updateRoom(id):
