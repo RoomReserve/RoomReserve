@@ -129,6 +129,7 @@
                     <h4 class="timeline-title">Reservation Created</h4>
                     <p ><small class="text-muted"><i class="fa fa-clock-o"></i> Created {{ moment(res.timestamp).fromNow() }} </small>
                     </p>
+<!--                     {{ momentjs(post.timestamp).fromNow() }} -->
                 </div>
                 <div class="timeline-body">
                   <p>Created by {{ getUserById(res.madeby).getName() }}</p>
