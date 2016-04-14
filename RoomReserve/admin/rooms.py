@@ -148,7 +148,7 @@ def page_updateRoom(id):
     status = formdata['status']
 
     # Check to see if any of the fields have changed
-    # update any that have changed.
+    # update any that have changed.    
     if building != myRoom.get_building_id():
         myRoom.set_building_id(building)
     if roomnumber != myRoom.get_room_number():
