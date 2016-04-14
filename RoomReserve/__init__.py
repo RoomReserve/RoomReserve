@@ -12,8 +12,10 @@ import delorean
 from delorean import Delorean
 import RoomReserve.helpers.delorean_helper as delorean_helper
 import time
-from datetime import datetime
+from flask.ext.moment import Moment
 
+from .momentjs import momentjs
+app.jinja_env.globals['momentjs'] = momentjs
 
 #RoomReserve constant variables
 import RoomReserve.helpers.constant_variables as CONST
@@ -32,6 +34,7 @@ from sqlalchemy.orm import sessionmaker
 
 # Start flask instance
 app = Flask(__name__)
+moment = Moment(app)
 app.secret_key = 'x95xe1gxceHGxeaSx0exf5xf4xbaxb5x1dxe5'
 
 heroku = Heroku(app)
