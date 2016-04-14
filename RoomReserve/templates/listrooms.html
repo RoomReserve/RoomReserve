@@ -11,7 +11,7 @@
   </div>
   <div class="panel-body">
     {% if form %}
-        <form class="well" method="POST" action="/admin/rooms">
+        <form class="well" method="POST" action="/admin/rooms/new">
         {{ form.building.label }} {{ form.building}} <br>
         {{ form.roomnumber.label }} {{ form.roomnumber }} <br>
         {{ form.capacity.label }} {{ form.capacity }} <br>
