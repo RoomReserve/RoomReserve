@@ -184,11 +184,11 @@
 	  data: [
 	    { y: 'Today', a: {{ chin[0] }}, b: {{ chout[0] }} },
 	    { y: 'Tomorrow', a: {{ chin[1] }},  b: {{ chout[1] }} },
-	    { y: '2 days', a: {{ chin[2] }},  b: {{ chout[2] }} },
-	    { y: '3 days', a: {{ chin[3] }},  b: {{ chout[3] }} },
-	    { y: '4 days', a: {{ chin[4] }},  b: {{ chout[4] }} },
-	    { y: '5 days', a: {{ chin[5] }},  b: {{ chout[5] }} },
-	    { y: '6 days', a: {{ chin[6] }},  b: {{ chout[6] }} }
+	    { y: '{{ daysOfWeek[2] }}', a: {{ chin[2] }},  b: {{ chout[2] }} },
+	    { y: '{{ daysOfWeek[3] }}', a: {{ chin[3] }},  b: {{ chout[3] }} },
+	    { y: '{{ daysOfWeek[4] }}', a: {{ chin[4] }},  b: {{ chout[4] }} },
+	    { y: '{{ daysOfWeek[5] }}', a: {{ chin[5] }},  b: {{ chout[5] }} },
+	    { y: '{{ daysOfWeek[6] }}', a: {{ chin[6] }},  b: {{ chout[6] }} }
 	  ],
 	  xkey: 'y',
 	  ykeys: ['a', 'b'],

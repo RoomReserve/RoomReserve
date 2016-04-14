@@ -14,13 +14,15 @@ def dashboard():
 
 	data['getGuestByID'] = RoomReserve.admin.guest.getGuestByID
 	data['getRoomByID'] = RoomReserve.admin.rooms.getRoomByID
-
+	data['daysOfWeek'] = []
 	data['chin'] = []
 	data['chout'] = []
 	for d in range(7):
 		# Get number of check ins and check outs for the next 7 days.
-		data['chin'].append(stats.numberOfReservationsCheckingInOnDate(datetime.date.today() + datetime.timedelta(days=d)))
-		data['chout'].append(stats.numberOfReservationsCheckingOutOnDate(datetime.date.today() + datetime.timedelta(days=d)))
+		date = datetime.date.today() + datetime.timedelta(days=d)
+		data['chin'].append(stats.numberOfReservationsCheckingInOnDate(date))
+		data['chout'].append(stats.numberOfReservationsCheckingOutOnDate(date))
+		data['daysOfWeek'].append(date.strftime("%A"))
 
 	data['numOccupiedRooms'] = stats.numberOfRoomsCurrentlyOccupied()
 	data['numUnoccupiedRooms'] = stats.numberOfRoomsCurrentlyUnoccupied()
