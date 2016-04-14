@@ -14,8 +14,10 @@ import RoomReserve.helpers.delorean_helper as delorean_helper
 import time
 from flask.ext.moment import Moment
 
-from .momentjs import momentjs
-app.jinja_env.globals['momentjs'] = momentjs
+
+# momentjs for timestamp
+import RoomReserve.helpers.momentjs
+
 
 #RoomReserve constant variables
 import RoomReserve.helpers.constant_variables as CONST
@@ -117,6 +119,8 @@ def createDefaultAccounts():
 	else:
 		admin = User('Default', 'Admin', 'admin@localhost', 'admin', 'rr')
 
+		dd = User('Dorjee', 'Dhondup', 'dhondup@luther.edu', 'admin', 'dd')
+
 		standard = User('Default', 'Standard', 'standard@localhost', 'standard', 'rr')
 
 		readonly = User('Default', 'Readonly', 'ro@localhost', 'readonly', 'rr')
@@ -124,6 +128,7 @@ def createDefaultAccounts():
 		inactive = User('Default', 'Inactive', 'inactive@localhost', 'inactive', 'rr')
 
 		db.session.add(admin)
+		db.session.add(dd)
 		db.session.add(standard)
 		db.session.add(readonly)
 		db.session.add(inactive)
