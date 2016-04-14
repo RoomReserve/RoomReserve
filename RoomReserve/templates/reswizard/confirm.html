@@ -34,7 +34,7 @@
               <td> {{ res.get_check_in_datetime().strftime("%A, %B %d, %Y")}} — {{ res.get_check_out_datetime().strftime("%A, %B %d, %Y")}} </td>
 
               <td>
-                <a href="/res/{{res.getID()}}">
+                <a href="/res/new">
                 <button type="button" class="btn btn-primary btn-circle btn-sm glyphicon glyphicon-edit">
                 </button></a>
               </td>
@@ -45,7 +45,7 @@
               <td> {{ res.get_room().getMyBuildingName() }}: {{ res.get_room().get_room_number() }} </td>
 
               <td>
-                <a href="/res/{{res.getID()}}">
+                <a href="/res/{{res.getID()}}/edit/room">
                 <button type="button" class="btn btn-primary btn-circle btn-sm glyphicon glyphicon-edit">
                 </button></a>
               </td>
@@ -55,7 +55,7 @@
               <td> Who </td>
               <td> {{ res.get_guest().get_last_name() }}, {{ res.get_guest().get_first_name() }}  <sup><em>({{ res.getGuestID() }})</em></sup></td>
               <td>
-                <a href="/res/{{res.getID()}}">
+                <a href="/res/{{res.getID()}}/edit/guest">
                 <button type="button" class="btn btn-primary btn-circle btn-sm glyphicon glyphicon-edit">
                 </button></a>
               </td>
