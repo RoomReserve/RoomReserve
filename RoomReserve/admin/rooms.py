@@ -130,7 +130,7 @@ def page_room_search():
     rooms = getAllRooms()
     return render('listrooms.html', rooms=rooms, allowEdit=allowEdit, CONST=CONST, edit_form=edit_form, createEnabled=False)
 
-@app.route('/admin/rooms/<id>', methods=['POST'])
+@app.route('/admin/rooms/<id>/create', methods=['POST'])
 def page_updateRoom(id):
     '''
     Processing page for the room update form.
@@ -160,7 +160,35 @@ def page_updateRoom(id):
 
     return redirect(url_for('page_rooms'))
 
+@app.route('/admin/rooms/<id>/search', methods=['POST'])
+def page_updateRoom(id):
+    '''
+    Processing page for the room update form.
 
+    When update is complete, redirect to the list of rooms page
+    '''
+
+    id=int(id)
+    myRoom = getRoomByID(id)
+
+    formdata = request.form
+    building = formdata['building']
+    roomnumber = formdata['roomnumber']
+    capacity = formdata['capacity']
+    status = formdata['status']
+
+    # Check to see if any of the fields have changed
+    # update any that have changed.
+    if building != myRoom.get_building_id():
+        myRoom.set_building_id(building)
+    if roomnumber != myRoom.get_room_number():
+        myRoom.set_room_number(roomnumber)
+    if status != myRoom.get_status():
+        myRoom.set_status(status)
+    if capacity != myRoom.get_capacity():
+        myRoom.set_capacity(capacity)
+
+    return redirect(url_for('page_room_search'))
 
 def getAllRooms():
     # returns all rooms
