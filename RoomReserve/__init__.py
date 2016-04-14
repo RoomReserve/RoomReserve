@@ -239,14 +239,13 @@ def page_createtestrooms():
 	r.append(Room(roomnumber='213', buildingID='3', capacity='2', description="",  status=CONST.ready_status, notes=""))
 	r.append(Room(roomnumber='215', buildingID='3', capacity='2', description="",  status=CONST.ready_status, notes=""))
 	r.append(Room(roomnumber='217', buildingID='3', capacity='2', description="",  status=CONST.ready_status, notes=""))
-
-
-
-
+	r.append(Room(roomnumber='499', buildingID='2', capacity='8', description="Fairy-Tale Suite", status=CONST.ready_status, notes=""))
 
 	for me in r:
 		db.session.add(me)
 	db.session.commit()
+
+	return redirect(url_for("page_rooms"))
 
 
 @app.route("/today")
