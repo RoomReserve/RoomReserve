@@ -322,3 +322,20 @@ def deleteRoom(me):
         print(e)
         return False
     return True
+    
+    
+@app.route('/admin/rooms/deleteme')
+def clean_page():
+    rooms = []
+    for me in db.session.query(Room).filter_by(status=CONST.unclean_status):
+        rooms.append(me)
+    return render('cleanRooms.html', rooms=rooms)
+    
+@app.route('/clean/<id>')
+def markClean(id):
+    try:
+        getRoomByID(id).set_status(CONST.ready_status)
+    except Exception as e:
+        print(e)
+        return('basic.html', content="Something went wrong trying to clean room")
+    return redirect(url_for('clean_page'))
