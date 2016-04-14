@@ -27,6 +27,7 @@ class form_CreateGuest(Form):
         self.process()
 
 
+@app.route('/admin/guest/new', methods=['GET', 'POST'])
 @app.route('/admin/guest', methods=['GET', 'POST'])
 @login_required
 def page_guest():
@@ -159,7 +160,7 @@ def getGuests(myid):
     # returns multiple guest objects with the given id
     return db.session.query(Guest).filter_by(id=myid)
 
-    
+
 def getGuestsByIDList(myid):
     # returns multiple guest objects with the given id
     guests = []
@@ -177,7 +178,7 @@ def getGuestByFirstName(fn):
     for me in db.session.query(Guest).filter_by(first=fn):
     	guests.append(me)
     return guests
-    
+
 def getGuestByPartialFirstName(fn):
     # returns a list of all guests with that last name
     guests = []
@@ -185,7 +186,7 @@ def getGuestByPartialFirstName(fn):
     	if fn in me.get_first_name().lower():
     	    guests.append(me)
     return guests
-    
+
 def getGuestByPartialLastName(ln):
     # returns a list of all guests with that last name
     guests = []
@@ -193,7 +194,7 @@ def getGuestByPartialLastName(ln):
     	if ln in me.get_last_name().lower():
     	    guests.append(me)
     return guests
-    
+
 def getGuestByPartialEmail(emailstr):
     # returns a list of all guests with that last name
     guests = []
