@@ -16,12 +16,12 @@
 
     {% if not editsession %}
 
-      <form class="navbar-form navbar-left" action="/resnew/guest/new" method="POST">
+      <form class="navbar-form navbar-left" action="/res/new/guest/new" method="POST">
     	  <input type="hidden" name="resID" value="{{ resID }}">
     	  <input type="submit" class="btn btn-primary navbar-btn" value="New Guest">
     	</form>
 
-    	<form class="navbar-form navbar-left" action="/resnew/guest/search" method="POST">
+    	<form class="navbar-form navbar-left" action="/res/new/guest/search" method="POST">
     	  <input type="hidden" name="resID" value="{{ resID }}">
     	  <input type="submit" class="btn btn-primary navbar-btn" value="Existing Guest">
     	</form>
