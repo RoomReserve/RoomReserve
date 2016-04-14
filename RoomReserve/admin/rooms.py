@@ -99,6 +99,25 @@ def page_rooms():
     rooms = getAllRooms()
     return render('listrooms.html', form=form, rooms=rooms, \
       edit_form=edit_form, allowEdit=allowEdit, CONST=CONST)
+      
+@app.route('/admin/rooms/search', methods=['GET', 'POST'])
+@login_required
+def page_rooms():
+    def allowEdit(id=0):
+        '''
+        Figures out if the current user should be allowed
+        to edit the room. Currently, the roomID is ignored.
+
+        Parameters: roomID (optional)
+        '''
+        if current_user.is_admin():
+            # Only admins can edit rooms
+            return True
+        else:
+            return False
+    # /Editor
+    rooms = getAllRooms()
+    return render('listrooms.html', rooms=rooms, allowEdit=allowEdit, CONST=CONST)
 
 @app.route('/admin/rooms/<id>', methods=['POST'])
 def page_updateRoom(id):
