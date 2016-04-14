@@ -103,6 +103,17 @@ def page_rooms():
 @app.route('/admin/rooms/search', methods=['GET', 'POST'])
 @login_required
 def page_room_search():
+    def edit_form(id):
+        '''
+        Returns the form back populated with the room information
+        from the ID given.
+
+        Parameters: id for a room.
+        '''
+        form = form_CreateRoom()
+        id=int(id)
+        form.populate(getRoomByID(id))
+        return form
     def allowEdit(id=0):
         '''
         Figures out if the current user should be allowed
@@ -117,7 +128,7 @@ def page_room_search():
             return False
     # /Editor
     rooms = getAllRooms()
-    return render('listrooms.html', rooms=rooms, allowEdit=allowEdit, CONST=CONST)
+    return render('listrooms.html', rooms=rooms, allowEdit=allowEdit, CONST=CONST, edit_form=edit_form)
 
 @app.route('/admin/rooms/<id>', methods=['POST'])
 def page_updateRoom(id):
