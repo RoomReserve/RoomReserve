@@ -5,6 +5,7 @@ from RoomReserve.admin.building import getBuildingById
 from RoomReserve.admin.guest import getAllGuests
 
 
+@app.route('/resnew', methods=['GET', 'POST'])
 @app.route('/res/new', methods=['GET', 'POST'])
 @Login.standard_required
 def page_reservation_wizard():
@@ -15,7 +16,7 @@ def page_reservation_wizard():
         form = True
     return render('reswizard/wizard1.html', form=form)
 
-@app.route('/res/new/room', methods=['POST'])
+@app.route('/resnew/room', methods=['POST'])
 @Login.standard_required
 def page_reservation_wizard_2():
     '''
@@ -45,7 +46,7 @@ def page_reservation_wizard_2():
 
 
 
-@app.route('/res/new/guest', methods=['POST'])
+@app.route('/resnew/guest', methods=['POST'])
 def page_reservation_wizard_3():
     '''
     Updates the reservation with the selected room.
@@ -68,7 +69,7 @@ def page_reservation_wizard_3():
     return render('reswizard/wizard3.html', guestSearchForm=guestSearchForm,\
         room=getRoomByID(res.getRoomID()), buildingName=buildingName, resID=res.getID())
 
-@app.route('/res/new/guest/new', methods=['POST'])
+@app.route('/resnew/guest/new', methods=['POST'])
 @Login.standard_required
 def page_reservation_wizard_3_new_guest():
     '''
@@ -85,7 +86,7 @@ def page_reservation_wizard_3_new_guest():
     return render('reswizard/wizard3_newguest.html', form=form, res=res)
 
 
-@app.route('/res/new/guest/new/process', methods=['POST'])
+@app.route('/resnew/guest/new/process', methods=['POST'])
 @Login.standard_required
 def page_reservation_wizard_3_new_guest_process():
     # the form has been filled out, import the data
@@ -103,7 +104,7 @@ def page_reservation_wizard_3_new_guest_process():
     return render('reswizard/confirm.html', res=myRes)
 
 
-@app.route('/res/new/guest/search', methods=['POST'])
+@app.route('/resnew/guest/search', methods=['POST'])
 @Login.standard_required
 def page_reservation_wizard_3_search_existing_guest():
     '''
@@ -126,7 +127,7 @@ def page_reservation_wizard_3_search_existing_guest():
     return render('guestsearch.html', resID=myResID, form=form, target="/res/new/guest/search", guests=guests)
 
 
-@app.route('/res/new/guest/search/process', methods=['POST'])
+@app.route('/resnew/guest/search/process', methods=['POST'])
 @Login.standard_required
 def page_reservation_wizard_3_search_existing_guest_process():
     formdata = request.form
@@ -136,7 +137,7 @@ def page_reservation_wizard_3_search_existing_guest_process():
     return render('reswizard/confirm.html', res=myRes)
 
 
-@app.route('/res/confirm', methods=['POST'])
+@app.route('/resnew/confirm', methods=['POST'])
 @Login.standard_required
 def page_draft_reservation_confirm():
     '''

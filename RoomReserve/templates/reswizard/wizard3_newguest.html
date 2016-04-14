@@ -9,7 +9,7 @@
     New Guest
   </div>
   <div class="panel-body">
-    <form method="POST" {% if not editsession %} action="/res/new/guest/new/process" {% else %} action="/res/edit/guest/new/process" {% endif %}>
+    <form method="POST" {% if not editsession %} action="/resnew/guest/new/process" {% else %} action="/res/edit/guest/new/process" {% endif %}>
       {{ form.csrf_token }}
       {{ form.firstname.label }} {{ form.firstname(size=20) }}
       {{ form.lastname.label }} {{ form.lastname(size=20) }} <br />

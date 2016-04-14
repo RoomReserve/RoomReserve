@@ -30,7 +30,7 @@
                 <td>{{ r.capacity }}</td>
                 <td>
                   {% if not editsession %}
-                    <form action="/res/new/guest" method="POST">
+                    <form action="/resnew/guest" method="POST">
                       <input type="hidden" name="resID" value="{{ resID }}">
                       <input type="hidden" name="roomID" value="{{ r.id }}">
                       <input type="submit" class="btn btn-primary" value="Select">
