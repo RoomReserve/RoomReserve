@@ -337,5 +337,5 @@ def markClean(id):
         getRoomByID(id).set_status(CONST.ready_status)
     except Exception as e:
         print(e)
-        return('basic.html', content='Something went wrong trying to clean room')
+        return render('basic.html', content='Something went wrong trying to clean room')
     return redirect(url_for('clean_page'))
