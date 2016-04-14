@@ -324,7 +324,7 @@ def deleteRoom(me):
     return True
     
     
-@app.route('/admin/rooms/deleteme')
+@app.route('/admin/rooms/clean')
 def clean_page():
     rooms = []
     for me in db.session.query(Room).filter_by(status=CONST.unclean_status):
