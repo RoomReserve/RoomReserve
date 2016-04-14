@@ -161,7 +161,7 @@ def page_updateRoom(id):
     return redirect(url_for('page_rooms'))
 
 @app.route('/admin/rooms/<id>/search', methods=['POST'])
-def page_updateRoom(id):
+def page_updateRoom_returnSearch(id):
     '''
     Processing page for the room update form.
 
