@@ -245,7 +245,7 @@ def page_createtestrooms():
 
 
 	for me in r:
-		db.session.add(r)
+		db.session.add(me)
 	db.session.commit()
 
 
