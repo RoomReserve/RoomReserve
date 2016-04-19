@@ -19,6 +19,7 @@ class Reservation(db.Model):
 		self.checkouttime = checkouttime
 		self.status = status
 		self.notes = notes
+		self.timestamp = datetime.now()
 
 		if status is not CONST.draft_status:
 			self.guestID = self.setGuest(guestID=guest)
