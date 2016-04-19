@@ -54,7 +54,7 @@ def guestsearch_page():
 
     guests = getAllGuests()
 
-    return render('guestsearch.html', form=form, guests=guests, allowEdit=allowEdit, edit_form=edit_form)
+    return render('guestsearch.html', form=form, guests=guests, allowEdit=allowEdit, edit_form=edit_form, searchpage=True)
     
 @app.route('/admin/guestsearch/<id>', methods=['POST'])
 def page_updateGuest(id):
