@@ -25,7 +25,11 @@
                 </div>
               </div>
             {% endif %}
+            {% if searchpage %}
+            <form class="well" method="POST" action="/admin/guestsearch/{{ g.id }}">
+            {% else %}
             <form class="well" method="POST" action="/admin/guest/{{ g.id }}">
+            {% endif %}
               {% for field in edit_form(g.id) %}
                 <tr>
                     <td>{{ field.label }}</td>
