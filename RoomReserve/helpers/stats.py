@@ -30,6 +30,12 @@ def listOfRoomsCurrentlyUnoccupied():
 def numberOfRoomsCurrentlyUnoccupied():
     return len(listOfRoomsCurrentlyUnoccupied())
 
+def listOfRoomsCurrentlyUnclean():
+    return list(getRoomsByStatus(CONST.unclean_status))
+
+def numberOfRoomsCurrentlyUnclean():
+    return len(listOfRoomsCurrentlyUnclean())
+
 def listOfInactiveRooms():
     return list(getRoomsByStatus(CONST.inactive_status))
 
