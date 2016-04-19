@@ -12,7 +12,7 @@ import delorean
 from delorean import Delorean
 import RoomReserve.helpers.delorean_helper as delorean_helper
 import time
-from flask.ext.moment import Moment
+# from flask.ext.moment import Moment
 
 
 # momentjs for timestamp
@@ -36,7 +36,7 @@ from sqlalchemy.orm import sessionmaker
 
 # Start flask instance
 app = Flask(__name__)
-moment = Moment(app)
+# moment = Moment(app)
 app.secret_key = 'x95xe1gxceHGxeaSx0exf5xf4xbaxb5x1dxe5'
 
 heroku = Heroku(app)
