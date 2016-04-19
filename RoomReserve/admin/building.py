@@ -112,7 +112,7 @@ def page_updateBuilding(id):
         myBuilding.set_floors(numfloors)
     if status != myBuilding.get_status():
         myBuilding.set_status(status)
-    if description != myBuilding.get_status():
+    if description != myBuilding.get_description():
         myBuilding.set_description(description)
 
     return redirect(url_for('page_buildings'))
