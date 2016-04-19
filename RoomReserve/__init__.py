@@ -12,7 +12,7 @@ import delorean
 from delorean import Delorean
 import RoomReserve.helpers.delorean_helper as delorean_helper
 import time
-# from flask.ext.moment import Moment
+from flask.ext.moment import Moment
 
 
 # momentjs for timestamp
@@ -36,7 +36,7 @@ from sqlalchemy.orm import sessionmaker
 
 # Start flask instance
 app = Flask(__name__)
-# moment = Moment(app)
+moment = Moment(app)
 app.secret_key = 'x95xe1gxceHGxeaSx0exf5xf4xbaxb5x1dxe5'
 
 heroku = Heroku(app)
@@ -246,6 +246,46 @@ def page_createtestrooms():
 	db.session.commit()
 
 	return redirect(url_for("page_rooms"))
+	
+	
+@app.route('/populateEverything')
+def page_create_all():
+	try:
+		createDefaultAccounts()
+		
+		db.session.add(Building(name="Miller", numfloors=8, status=CONST.ready_status, description="Contains numerous two person rooms and two elevators.", notes="This building is available for the summer."))
+		db.session.add(Building(name="Dieseth", numfloors=8, status=CONST.ready_status, description="Contains numerous two person rooms and a single elevator.", notes="This building is available for the summer."))
+		db.session.add(Building(name="Brandt", numfloors=5, status=CONST.inactive_status, description="First year hall that has both three person and two person rooms.", notes="This building is used for parents for graduation and some camps."))
+		db.session.add(Building(name="Farwell", numfloors=8, status=CONST.inactive_status, description="Rooms are set up and organized around central rooms.", notes="This building is available for the summer school students."))
+		db.session.add(Building(name="Larsen", numfloors=4, status=CONST.inactive_status, description="Larsen has heaters in each room and contains a wardrobe in each room as well.", notes="This building is unavailable."))
+		db.session.add(Building(name="Ylvisaker", numfloors=5, status=CONST.ready_status, description="First year hall that has numerous two person rooms. The hallways are a bit smaller here.", notes="This building is available for the summer."))
+		db.session.add(Building(name="Olson", numfloors=3, status=CONST.ready_status, description="Olson has many two person rooms and suites that are two person rooms with a central room between those two.", notes="This building is available for the summer."))
+		db.session.commit()
+		for j in range(1, 16):
+			db.session.add(Room(roomnumber= j), buildingID='3', capacity='2', description="Room in Brandt",  status=CONST.ready_status, notes="Groud Floor"))
+		for i in range(1, 9):
+			for j in range(1, 31):
+				db.session.add(Room(roomnumber=(i * 100 + j), buildingID='1', capacity='2', description="Room in Miller",  status=CONST.ready_status, notes=""))
+				db.session.add(Room(roomnumber=(i * 100 + j), buildingID='2', capacity='2', description="Room in Dieseth",  status=CONST.ready_status, notes=""))
+				db.session.add(Room(roomnumber=(i * 100 + j), buildingID='4', capacity='2', description="Room in Farwell",  status=CONST.unclean_status, notes=""))
+				if i < 5:
+					db.session.add(Room(roomnumber=(i * 100 + j), buildingID='3', capacity='2', description="Room in Brandt",  status=CONST.ready_status, notes=""))
+					db.session.add(Room(roomnumber=(i * 100 + j + 30), buildingID='3', capacity='3', description="Room in Brandt",  status=CONST.ready_status, notes="Three person room"))
+					db.session.add(Room(roomnumber=(i * 100 + j), buildingID='5', capacity='2', description="Room in Larsen",  status=CONST.unclean_status, notes=""))
+					if i != 4:
+						db.session.add(Room(roomnumber=(i * 100 + j), buildingID='7', capacity='4', description="Room in Olson",  status=CONST.ready_status, notes=""))
+					db.session.add(Room(roomnumber=(i * 100 + j), buildingID='6', capacity='2', description="Room in Ylvi",  status=CONST.inactive_status, notes=""))
+					
+		db.session.commit()
+		fnlist = ["Bruce", "Tom", "Harry", "David", "Henry", "Thomas", "Isaac", "Katie", "Susan", "Mary", "Kelly"]
+		lnlist = ["Bennet", "Dhondup", "Stekel", "Miller", "Lee", "Ranum", "Newton", "Smith", "Brown", "Davidson", "Robinson"]
+		hatlist = ["Beanie", "Coonskin Hat", "Top Hat", "Sombrero", "Trucker Hat"]
+		for i in range(0, len(fnlist)):
+			for j in range(0, len(lnlist)):
+				db.session.add(Guest(fnlist[i], lnlist[j], lnlist[j][:4].lower() + fnlist[i][:2].lower() + "01@luther.edu", "563" + str(495-i*7) + "-" + str(9321 - j*17),  str(i*100 + j * 10 + j%10) + " College Drive, Decorah IA", payment=(i * 10 + j), "Wears a %s" hatlist[i%len(hatlist)]))
+		#still need to add reservations
+
+
 
 
 @app.route("/today")
