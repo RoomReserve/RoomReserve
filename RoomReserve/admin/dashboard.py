@@ -27,6 +27,7 @@ def dashboard():
 	data['numOccupiedRooms'] = stats.numberOfRoomsCurrentlyOccupied()
 	data['numUnoccupiedRooms'] = stats.numberOfRoomsCurrentlyUnoccupied()
 	data['numInactiveRooms'] = stats.numberOfInactiveRooms()
+	data['numUncleanRooms'] = stats.numberOfRoomsCurrentlyUnclean()
 	data['reservationsInToday'] = stats.listOfReservationsCheckingInToday()
 	data['reservationsOutToday'] = stats.listOfReservationsCheckingOutToday()
 

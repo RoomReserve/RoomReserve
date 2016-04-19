@@ -165,9 +165,10 @@
 	new Morris.Donut({
 	  element: 'rooms-status-donut',
 	  data: [
-	    {label: "Occupied Rooms", value: {{ numInactiveRooms }} },
+	    {label: "Occupied Rooms", value: {{ numOccupiedRooms }} },
 	    {label: "Unoccupied Rooms", value: {{ numUnoccupiedRooms }} },
-	    {label: "Disabled Rooms", value: {{ numInactiveRooms }} }
+			{label: "Dirty Rooms", value: {{ numUncleanRooms }} },
+	    {label: "Inactive Rooms", value: {{ numInactiveRooms }} }
 	  ]
 	});
 
