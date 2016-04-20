@@ -246,9 +246,9 @@ def page_createtestrooms():
 	db.session.commit()
 
 	return redirect(url_for("page_rooms"))
+
+'''
 	
-'''	
-@app.route('/populateEverything')
 def page_create_all():
 	try:
 		createDefaultAccounts()
@@ -284,9 +284,27 @@ def page_create_all():
 			for j in range(0, len(lnlist)):
 				db.session.add(Guest(fnlist[i], lnlist[j], lnlist[j][:4].lower() + fnlist[i][:2].lower() + "01@luther.edu", "563" + str(495-i*7) + "-" + str(9321 - j*17),  str(i*100 + j * 10 + j%10) + " College Drive, Decorah IA", payment=(i * 10 + j), "Wears a %s" hatlist[i%len(hatlist)]))
 		#still need to add reservations
+		
+		db.session.commit()
+		
+		for i in range(1, len(fnlist)*len(lnlist)):
+			#change the month below to 5 for when we present
+			mydate = datetime.date(2016, 4, i%30+1)
+			mydate2 = mydate + datetime.timedelta(days=(i%30))
+			if datetime.today() < mydate:
+				mystatus = CONST.ready_status
+			else:
+				if datetime.today() < mydate2:
+					mystatus = CONST.checkedin_status
+				else:
+					mystatus = CONST.checkedout_status
 
-
+			db.session.add(Reservation(i , 1, i, mydate, mydate2, mystatus, "Beds need lofting.", datetime.today())
+		db.session.commit()
+		
 '''
+
+
 
 @app.route("/today")
 def page_today():
