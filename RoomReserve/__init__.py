@@ -295,10 +295,10 @@ def page_create_all():
 			x = int(i%30+1)
 			mydate = date(2016, 4, x)
 			mydate2 = mydate + timedelta(days=(i%30))
-			if datetime.today() < mydate:
+			if datetime.today().date() < mydate:
 				mystatus = CONST.ready_status
 			else:
-				if datetime.today() < mydate2:
+				if datetime.today().date() < mydate2:
 					mystatus = CONST.checkedin_status
 				else:
 					mystatus = CONST.checkedout_status
