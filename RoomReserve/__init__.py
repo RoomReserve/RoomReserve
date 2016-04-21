@@ -8,7 +8,7 @@ from flask.ext.wtf import Form
 from wtforms import TextField, BooleanField, PasswordField, TextAreaField, StringField, SubmitField, validators
 from flask import Flask, render_template, flash, request, url_for
 from datetime import datetime
-from datetime import date
+from datetime import date, timedelta
 import delorean
 from delorean import Delorean
 import RoomReserve.helpers.delorean_helper as delorean_helper
