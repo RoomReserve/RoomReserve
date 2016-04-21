@@ -303,7 +303,7 @@ def page_create_all():
 				else:
 					mystatus = CONST.checkedout_status
 
-			db.session.add(Reservation(i , 1, i, mydate, mydate2, mystatus, "Beds need lofting.", datetime.today()))
+			db.session.add(Reservation(i , 1, i, mydate, mydate2, mystatus, "Beds need lofting."))
 		db.session.commit()
 		return redirect(url_for("page_rooms"))
 	except:
