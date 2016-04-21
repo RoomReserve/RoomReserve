@@ -300,10 +300,10 @@ def page_create_all():
 
 			db.session.add(Reservation(i , 1, i, mydate, mydate2, mystatus, "Beds need lofting.", datetime.today()))
 		db.session.commit()
-		
+		return redirect(url_for("page_rooms"))
 	except:
 		print("Hit the except statement")
-		pass
+		return render("basic.html", content="Oopsies")
 		
 
 
