@@ -247,7 +247,7 @@ def page_createtestrooms():
 
 	return redirect(url_for("page_rooms"))
 
-
+@app.route('/beveryverycareful')
 def page_create_all():
 	try:
 		createDefaultAccounts()
