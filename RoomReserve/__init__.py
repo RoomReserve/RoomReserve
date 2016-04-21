@@ -251,6 +251,8 @@ def page_createtestrooms():
 @app.route('/beveryverycareful')
 def page_create_all():
 	try:
+		db.drop_all()
+		db.create_all()
 		createDefaultAccounts()
 		
 		db.session.add(Building(name="Miller", numfloors=8, status=CONST.ready_status, description="Contains numerous two person rooms and two elevators.", notes="This building is available for the summer."))
