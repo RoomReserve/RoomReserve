@@ -261,7 +261,7 @@ def page_create_all():
 		db.session.add(Building(name="Olson", numfloors=3, status=CONST.ready_status, description="Olson has many two person rooms and suites that are two person rooms with a central room between those two.", notes="This building is available for the summer."))
 		db.session.commit()
 		for j in range(1, 16):
-			db.session.add(Room(roomnumber= j), buildingID='3', capacity='2', description="Room in Brandt",  status=CONST.ready_status, notes="Groud Floor"))
+			db.session.add(Room(roomnumber= j), buildingID='3', capacity='2', description="Room in Brandt",  status=CONST.ready_status, notes="Groud Floor")
 		for i in range(1, 9):
 			for j in range(1, 31):
 				db.session.add(Room(roomnumber=(i * 100 + j), buildingID='1', capacity='2', description="Room in Miller",  status=CONST.ready_status, notes=""))
