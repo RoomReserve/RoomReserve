@@ -293,7 +293,7 @@ def page_create_all():
 		for i in range(1, len(fnlist)*len(lnlist)):
 			#change the month below to 5 for when we present
 			x = int(i%30+1)
-			mydate = datetime.date(2016, 4, x)
+			mydate = date(2016, 4, x)
 			mydate2 = mydate + datetime.timedelta(days=(i%30))
 			if datetime.today() < mydate:
 				mystatus = CONST.ready_status
