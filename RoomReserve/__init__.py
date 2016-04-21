@@ -247,8 +247,7 @@ def page_createtestrooms():
 
 	return redirect(url_for("page_rooms"))
 
-'''
-	
+
 def page_create_all():
 	try:
 		createDefaultAccounts()
@@ -302,7 +301,9 @@ def page_create_all():
 			db.session.add(Reservation(i , 1, i, mydate, mydate2, mystatus, "Beds need lofting.", datetime.today())
 		db.session.commit()
 		
-'''
+	except Ex as e:
+		pass
+		
 
 
 
