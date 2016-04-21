@@ -294,7 +294,7 @@ def page_create_all():
 			#change the month below to 5 for when we present
 			x = int(i%30+1)
 			mydate = date(2016, 4, x)
-			mydate2 = mydate + datetime.timedelta(days=(i%30))
+			mydate2 = mydate + timedelta(days=(i%30))
 			if datetime.today() < mydate:
 				mystatus = CONST.ready_status
 			else:
