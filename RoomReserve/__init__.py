@@ -12,6 +12,7 @@ import delorean
 from delorean import Delorean
 import RoomReserve.helpers.delorean_helper as delorean_helper
 import time
+import traceback
 # from flask.ext.moment import Moment
 
 
@@ -303,7 +304,7 @@ def page_create_all():
 		return redirect(url_for("page_rooms"))
 	except:
 		print("Hit the except statement")
-		return render("basic.html", content="Oopsies")
+		return render("basic.html", content=str(traceback.format_exc()).replace('\n', '<br>'))
 		
 
 
