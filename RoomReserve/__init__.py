@@ -281,7 +281,7 @@ def page_create_all():
 		hatlist = ["Beanie", "Coonskin Hat", "Top Hat", "Sombrero", "Trucker Hat"]
 		for i in range(0, len(fnlist)):
 			for j in range(0, len(lnlist)):
-				db.session.add(Guest(fnlist[i], lnlist[j], lnlist[j][:4].lower() + fnlist[i][:2].lower() + "01@luther.edu", "563" + str(495-i*7) + "-" + str(9321 - j*17),  str(i*100 + j * 10 + j%10) + " College Drive, Decorah IA", payment=(i * 10 + j), "Wears a %s" hatlist[i%len(hatlist)]))
+				db.session.add(Guest(fnlist[i], lnlist[j], lnlist[j][:4].lower() + fnlist[i][:2].lower() + "01@luther.edu", "563" + str(495-i*7) + "-" + str(9321 - j*17),  str(i*100 + j * 10 + j%10) + " College Drive, Decorah IA", payment=(i * 10 + j), "Wears a " + hatlist[i%len(hatlist)]))
 		#still need to add reservations
 		
 		db.session.commit()
