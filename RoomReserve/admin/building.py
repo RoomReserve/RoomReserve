@@ -1,5 +1,6 @@
 from RoomReserve import *
 import RoomReserve.helpers.login as Login
+from RoomReserve.dbtables.building import Building
 
 class form_CreateBuilding(Form):
     name = StringField('Building Name', validators=[DataRequired()])
@@ -170,8 +171,7 @@ def createBuilding(name, numfl, desc, st):
         # Prints why the building could not be added in the terminal.
         print(e)
         return False
-
-
+        
 
 
 
@@ -180,6 +180,8 @@ def createBuilding(name, numfl, desc, st):
 def confirmDeleteBuilding(id):
     id = int(id)
     me = getBuildingById(id)
+    if db.session.query(Room).filter_by(buildingID = id).first() != None:
+        return render('basic.html', content = "Building still contains rooms")
     return render('deleteconfirmation.html', type="building", obj=me)
 
 @app.route('/admin/buildings/deleteme', methods=['POST'])
