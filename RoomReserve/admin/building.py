@@ -171,13 +171,14 @@ def createBuilding(name, numfl, desc, st):
         # Prints why the building could not be added in the terminal.
         print(e)
         return False
-        
+
 
 
 
 @app.route('/admin/buildings/<id>/delete')
 @Login.admin_required
 def confirmDeleteBuilding(id):
+    from RoomReserve.dbtables.room import Room
     id = int(id)
     me = getBuildingById(id)
     if db.session.query(Room).filter_by(buildingID = id).first() != None:
