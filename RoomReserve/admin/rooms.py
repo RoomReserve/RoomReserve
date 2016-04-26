@@ -356,6 +356,9 @@ def deleteRoom(me):
         return False
     return True
     
+def markInactive(id):
+    return db.session.query(Room).filter_by(id=id).first().set_inactive()
+    
     
 @app.route('/admin/rooms/clean')
 def clean_page():
