@@ -162,7 +162,7 @@ def createSampleGuests():
 		print("Sample guests added.")
 
 
-createSampleGuests()
+#createSampleGuests()
 
 
 def createSampleBuildings():
