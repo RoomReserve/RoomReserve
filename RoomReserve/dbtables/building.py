@@ -104,7 +104,7 @@ class Building(db.Model):
 		
 	def setInactive(self):
 		
-		if db.session.query(Room).filter(Room.buildingID==self.id, Room.status != CONST.inactive_status).first() != None:
+		if db.session.query(Room).filter(buildingID==self.id, status != CONST.inactive_status).first() != None:
 			return False
 		else:
 			self.set_status(CONST.inactive_status)
