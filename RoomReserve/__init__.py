@@ -281,7 +281,7 @@ def page_create_all():
 					db.session.add(Room(roomnumber=(i * 100 + j), buildingID='6', capacity='2', description="Room in Ylvi",  status=CONST.ready_status, notes=""))
 					
 		db.session.commit()
-		fnlist = ["Bruce", "Tom", "Harry", "David", "Henry", "Thomas", "Isaac", "Katie", "Susan", "Mary", "Kelly", "Emilay", "Alahna", "Morgan", "Neil", "Kierra", "Leah", "Lucia", "Marissa", "Melissa", "Aidan"]
+		fnlist = ["Bruce", "Tom", "Harry", "David", "Henry", "Thomas", "Isaac", "Katie", "Susan", "Peter", "Kelly", "Emilay", "Alahna", "Morgan", "Neil", "Kierra", "Leah", "Lucia", "Marissa", "Melissa", "Aidan"]
 		lnlist = ["Bennett", "Dhondup", "Stekel", "Miller", "Lee", "Ranum", "Newton", "Smith", "Brown", "Davidson", "Robinson", "Schroeder", "Keil", "Mortenson", "Anderson", "Blackstad", "Williams", "Holte", "Wales", "Hrdlicka", "Cook"]
 		hatlist = ["Beanie", "Coonskin Hat", "Top Hat", "Sombrero", "Trucker Hat"]
 		for i in range(0, len(fnlist)):
