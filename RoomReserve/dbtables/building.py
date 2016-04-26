@@ -115,7 +115,7 @@ class Building(db.Model):
 		Returns a list of all rooms in the building.
 		'''
 
-		#from RoomReserve.dbtables.room import Room
+		from RoomReserve.dbtables.room import Room
 		containsRooms = []
 		for me in db.session.query(Room).filter(Room.buildingID == self.id):
 		    containsRooms.append(me)
