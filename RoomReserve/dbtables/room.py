@@ -125,6 +125,13 @@ class Room(db.Model):
 		for me in db.session.query(Reservation).filter(Reservation.roomID == self.id):
 			hasReservations.append(me)
 		return hasReservations
+		
+	def set_inactive(self):
+		if self.status == CONST.ready_status:
+			self.set_status(CONST.inactive_status)
+			return True
+			
+		return False
 
 	def __repr__(self):
 		return '%r %r %r' % (self.roomnumber, self.bullding)
