@@ -314,7 +314,10 @@ def createRoom(bldg, rn, cap, desc, st):
     # Adds a room to the database.
     # Returns True if room added successfully, else False.
     try:
-        if db.session.query(Room).filter_by(roomnumber=rn, buildingID=bldg) != None:
+        buildings = []
+        for me in db.session.query(Room).filter_by(roomnumber=rn, buildingID=bldg):
+            buildings.append(me)
+        if len(buildings) > 0:
             print("Room already made, prevented duplicate")
             return False
             
