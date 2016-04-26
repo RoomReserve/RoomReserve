@@ -102,8 +102,9 @@ def page_rooms():
       edit_form=edit_form, allowEdit=allowEdit, CONST=CONST, createEnabled=True)
       
 @app.route('/admin/rooms/search', methods=['GET', 'POST'])
+@app.route('/admin/rooms/search/<int:page>', methods=['GET', 'POST'])
 @login_required
-def page_room_search():
+def page_room_search(page=1):
     def edit_form(id):
         '''
         Returns the form back populated with the room information
@@ -128,7 +129,9 @@ def page_room_search():
         else:
             return False
     # /Editor
-    rooms = getAllRooms()
+
+    #rooms = getAllRooms()
+    rooms = Room.query.paginate(page, 10, False)
     return render('listrooms.html', rooms=rooms, allowEdit=allowEdit, CONST=CONST, edit_form=edit_form, createEnabled=False)
 
 @app.route('/admin/rooms/<id>/create', methods=['POST'])
