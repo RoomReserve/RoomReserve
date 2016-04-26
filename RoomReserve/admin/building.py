@@ -171,6 +171,9 @@ def createBuilding(name, numfl, desc, st):
         # Prints why the building could not be added in the terminal.
         print(e)
         return False
+        
+def markInactive(id):
+    return db.session.query(Building).filter_by(id = id).first().setInactive()
 
 
 
