@@ -36,7 +36,7 @@
           </div>
         </div>
     {% endif %}
-          
+
   </div>
 </div>
 
@@ -45,7 +45,7 @@
 {% endif %}
 
 <!-- Modal -->
-{% for r in rooms %}
+{% for r in rooms.items %}
   <div class="modal fade" id="editRoom_{{ r.id }}" tabindex="-1" role="dialog" aria-labelledby="editRoomModal">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -138,7 +138,7 @@
             </tr>
           </thead>
           <tbody>
-            {% for r in rooms %}
+            {% for r in rooms.items %}
           		<tr>
           			<td>{{ r.id }}</td>
           			<td>{{ r.getMyBuildingName() }}</td>
@@ -160,6 +160,9 @@
           </tbody>
         </table>
       </div>
+
+{% if rooms.has_prev %}<a href="{{ url_for('page_room_search', page=rooms.prev_num) }}">&lt;&lt; Previous</a>{% else %}&lt;&lt; Previous{% endif %} |
+{% if rooms.has_next %}<a href="{{ url_for('page_room_search', page=rooms.next_num) }}">Next &gt;&gt;</a>{% else %}Next &gt;&gt;{% endif %}
     </div>
   </div>
 </div>

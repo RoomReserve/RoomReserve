@@ -100,10 +100,11 @@ def page_rooms():
     rooms = getAllRooms()
     return render('listrooms.html', form=form, rooms=rooms, \
       edit_form=edit_form, allowEdit=allowEdit, CONST=CONST, createEnabled=True)
-      
+
 @app.route('/admin/rooms/search', methods=['GET', 'POST'])
+@app.route('/admin/rooms/search/<int:page>', methods=['GET', 'POST'])
 @login_required
-def page_room_search():
+def page_room_search(page=1):
     def edit_form(id):
         '''
         Returns the form back populated with the room information
@@ -128,7 +129,9 @@ def page_room_search():
         else:
             return False
     # /Editor
-    rooms = getAllRooms()
+
+    #rooms = getAllRooms()
+    rooms = Room.query.paginate(page, 10, False)
     return render('listrooms.html', rooms=rooms, allowEdit=allowEdit, CONST=CONST, edit_form=edit_form, createEnabled=False)
 
 @app.route('/admin/rooms/<id>/create', methods=['POST'])
@@ -149,7 +152,7 @@ def page_updateRoom(id):
     status = formdata['status']
 
     # Check to see if any of the fields have changed
-    # update any that have changed.    
+    # update any that have changed.
     if building != myRoom.get_building_id():
         myRoom.set_building_id(building)
     if roomnumber != myRoom.get_room_number():
@@ -317,7 +320,7 @@ def createRoom(bldg, rn, cap, desc, st):
         if db.session.query(Room).filter_by(roomnumber=rn, buildingID=bldg):
             print("Room already made, prevented duplicate")
             return False
-            
+
         me = Room(bldg, rn, cap, desc, st)
         db.session.add(me)
         db.session.commit()
@@ -355,15 +358,15 @@ def deleteRoom(me):
         print(e)
         return False
     return True
-    
-    
+
+
 @app.route('/admin/rooms/clean')
 def clean_page():
     rooms = []
     for me in db.session.query(Room).filter_by(status=CONST.unclean_status):
         rooms.append(me)
     return render('cleanRooms.html', rooms=rooms)
-    
+
 @app.route('/clean/<id>')
 def markClean(id):
     try:
