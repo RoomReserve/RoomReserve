@@ -1,4 +1,6 @@
 from RoomReserve import *
+from RoomReserve.dbtables.room import Room
+
 
 class Building(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
@@ -99,12 +101,19 @@ class Building(db.Model):
 		if len(self.all_rooms()) == 0:
 			return True
 		return False
+		
+	def setInactive(self):
+		
+		if db.session.query(Room).filter(Room.buildingID==self.id, Room.status != CONST.inactive_status).first() != None:
+			return False
+		else:
+			self.set_status(CONST.inactive_status)
+			return True
 
 	def all_rooms(self):
 		'''
 		Returns a list of all rooms in the building.
 		'''
-		from RoomReserve.dbtables.room import Room
 		containsRooms = []
 		for me in db.session.query(Room).filter(Room.buildingID == self.id):
 		    containsRooms.append(me)
