@@ -258,8 +258,8 @@ def page_create_all():
 		
 		db.session.add(Building(name="Miller", numfloors=8, status=CONST.ready_status, description="Contains numerous two person rooms and two elevators.", notes="This building is available for the summer."))
 		db.session.add(Building(name="Dieseth", numfloors=8, status=CONST.ready_status, description="Contains numerous two person rooms and a single elevator.", notes="This building is available for the summer."))
-		db.session.add(Building(name="Brandt", numfloors=5, status=CONST.inactive_status, description="First year hall that has both three person and two person rooms.", notes="This building is used for parents for graduation and some camps."))
-		db.session.add(Building(name="Farwell", numfloors=8, status=CONST.inactive_status, description="Rooms are set up and organized around central rooms.", notes="This building is available for the summer school students."))
+		db.session.add(Building(name="Brandt", numfloors=5, status=CONST.ready_status, description="First year hall that has both three person and two person rooms.", notes="This building is used for parents for graduation and some camps."))
+		db.session.add(Building(name="Farwell", numfloors=8, status=CONST.ready_status, description="Rooms are set up and organized around central rooms.", notes="This building is available for the summer school students."))
 		db.session.add(Building(name="Larsen", numfloors=4, status=CONST.inactive_status, description="Larsen has heaters in each room and contains a wardrobe in each room as well.", notes="This building is unavailable."))
 		db.session.add(Building(name="Ylvisaker", numfloors=5, status=CONST.ready_status, description="First year hall that has numerous two person rooms. The hallways are a bit smaller here.", notes="This building is available for the summer."))
 		db.session.add(Building(name="Olson", numfloors=3, status=CONST.ready_status, description="Olson has many two person rooms and suites that are two person rooms with a central room between those two.", notes="This building is available for the summer."))
@@ -270,18 +270,18 @@ def page_create_all():
 			for j in range(1, 31):
 				db.session.add(Room(roomnumber=(i * 100 + j), buildingID='1', capacity='2', description="Room in Miller",  status=CONST.ready_status, notes=""))
 				db.session.add(Room(roomnumber=(i * 100 + j), buildingID='2', capacity='2', description="Room in Dieseth",  status=CONST.ready_status, notes=""))
-				db.session.add(Room(roomnumber=(i * 100 + j), buildingID='4', capacity='2', description="Room in Farwell",  status=CONST.unclean_status, notes=""))
+				db.session.add(Room(roomnumber=(i * 100 + j), buildingID='4', capacity='2', description="Room in Farwell",  status=CONST.ready_status, notes=""))
 				if i < 5:
 					db.session.add(Room(roomnumber=(i * 100 + j), buildingID='3', capacity='2', description="Room in Brandt",  status=CONST.ready_status, notes=""))
 					db.session.add(Room(roomnumber=(i * 100 + j + 30), buildingID='3', capacity='3', description="Room in Brandt",  status=CONST.ready_status, notes="Three person room"))
-					db.session.add(Room(roomnumber=(i * 100 + j), buildingID='5', capacity='2', description="Room in Larsen",  status=CONST.unclean_status, notes=""))
+					db.session.add(Room(roomnumber=(i * 100 + j), buildingID='5', capacity='2', description="Room in Larsen",  status=CONST.inactive_status, notes=""))
 					if i != 4:
 						db.session.add(Room(roomnumber=(i * 100 + j), buildingID='7', capacity='4', description="Room in Olson",  status=CONST.ready_status, notes=""))
-					db.session.add(Room(roomnumber=(i * 100 + j), buildingID='6', capacity='2', description="Room in Ylvi",  status=CONST.inactive_status, notes=""))
+					db.session.add(Room(roomnumber=(i * 100 + j), buildingID='6', capacity='2', description="Room in Ylvi",  status=CONST.unclean_status, notes=""))
 					
 		db.session.commit()
-		fnlist = ["Bruce", "Tom", "Harry", "David", "Henry", "Thomas", "Isaac", "Katie", "Susan", "Mary", "Kelly"]
-		lnlist = ["Bennet", "Dhondup", "Stekel", "Miller", "Lee", "Ranum", "Newton", "Smith", "Brown", "Davidson", "Robinson"]
+		fnlist = ["Bruce", "Tom", "Harry", "David", "Henry", "Thomas", "Isaac", "Katie", "Susan", "Mary", "Kelly", "Emilay", "Alahna", "Morgan", "Neil", "Kierra", "Leah", "Lucia", "Marissa", "Melissa", "Aidan"]
+		lnlist = ["Bennett", "Dhondup", "Stekel", "Miller", "Lee", "Ranum", "Newton", "Smith", "Brown", "Davidson", "Robinson", "Schroeder", "Keil", "Mortenson", "Anderson", "Blackstad", "Williams", "Holte", "Wales", "Hrdlicka", "Cook"]
 		hatlist = ["Beanie", "Coonskin Hat", "Top Hat", "Sombrero", "Trucker Hat"]
 		for i in range(0, len(fnlist)):
 			for j in range(0, len(lnlist)):
@@ -290,8 +290,15 @@ def page_create_all():
 		
 		db.session.commit()
 		
+		from RoomReserve.Admin.rooms import getRoomByID
+		
+		myiter = 0
 		for i in range(1, len(fnlist)*len(lnlist)):
 			#change the month below to 5 for when we present
+			myiter += 1
+			while getRoomByID(myiter).status == CONST.inactive_status:
+				myiter += 1
+				
 			x = int(i%30+1)
 			mydate = date(2016, 4, x)
 			mydate2 = mydate + timedelta(days=(i%30))
@@ -302,8 +309,8 @@ def page_create_all():
 					mystatus = CONST.checkedin_status
 				else:
 					mystatus = CONST.checkedout_status
-
-			db.session.add(Reservation(i , 1, i, mydate, mydate2, mystatus, "Beds need lofting."))
+			db.session.add(Reservation(i , 1, myiter, mydate, mydate2, mystatus, "Beds need lofting."))
+			
 		db.session.commit()
 		return redirect(url_for("page_rooms"))
 	except:
