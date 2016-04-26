@@ -277,7 +277,7 @@ def page_create_all():
 					db.session.add(Room(roomnumber=(i * 100 + j), buildingID='5', capacity='2', description="Room in Larsen",  status=CONST.inactive_status, notes=""))
 					if i != 4:
 						db.session.add(Room(roomnumber=(i * 100 + j), buildingID='7', capacity='4', description="Room in Olson",  status=CONST.ready_status, notes=""))
-					db.session.add(Room(roomnumber=(i * 100 + j), buildingID='6', capacity='2', description="Room in Ylvi",  status=CONST.unclean_status, notes=""))
+					db.session.add(Room(roomnumber=(i * 100 + j), buildingID='6', capacity='2', description="Room in Ylvi",  status=CONST.ready_status, notes=""))
 					
 		db.session.commit()
 		fnlist = ["Bruce", "Tom", "Harry", "David", "Henry", "Thomas", "Isaac", "Katie", "Susan", "Mary", "Kelly", "Emilay", "Alahna", "Morgan", "Neil", "Kierra", "Leah", "Lucia", "Marissa", "Melissa", "Aidan"]
@@ -307,8 +307,10 @@ def page_create_all():
 			else:
 				if datetime.today().date() < mydate2:
 					mystatus = CONST.checkedin_status
+					getRoomByID(myiter).set_status(CONST.occupied_status)
 				else:
 					mystatus = CONST.checkedout_status
+					getRoomByID(myiter).set_status(CONST.unclean_status)
 			db.session.add(Reservation(i , 1, myiter, mydate, mydate2, mystatus, "Beds need lofting."))
 			
 		db.session.commit()
