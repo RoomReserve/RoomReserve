@@ -291,7 +291,7 @@ def page_create_all():
 		
 		db.session.commit()
 		
-		from RoomReserve.Admin.rooms import getRoomByID
+		from RoomReserve.admin.rooms import getRoomByID
 		
 		myiter = 0
 		for i in range(1, len(fnlist)*len(lnlist)):
