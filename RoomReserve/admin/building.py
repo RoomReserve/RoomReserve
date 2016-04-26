@@ -1,7 +1,6 @@
 from RoomReserve import *
 import RoomReserve.helpers.login as Login
-from RoomReserve.dbtables.building import Building
-from RoomReserve.dbtables.room import Room
+
 
 class form_CreateBuilding(Form):
     name = StringField('Building Name', validators=[DataRequired()])
