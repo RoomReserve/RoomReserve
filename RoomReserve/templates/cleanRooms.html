@@ -9,7 +9,7 @@
   <div class="panel-body">
     <div class="col-md-12">
       <div class="table-responsive">
-        <table id="datatables" class="table table-striped">
+        <table class="table table-striped">
           <thead>
             <tr>
               <th>ID</th>
@@ -20,7 +20,7 @@
             </tr>
           </thead>
           <tbody>
-          {% for r in rooms %}
+          {% for r in rooms.items %}
             <tr>
               <td>{{ r.id }}</td>
               <td> {{ r.getMyBuildingName() }} </td>
@@ -33,6 +33,9 @@
           </tbody>
         </table>
       </div>
+      {% if rooms.has_prev %}<a href="/admin/rooms/clean?page={{rooms.prev_num}}&per={{perPage}}">&lt;&lt; Previous</a>{% else %}&lt;&lt; Previous{% endif %} |
+      {% if rooms.has_next %}<a href="/admin/rooms/clean?page={{rooms.next_num}}&per={{perPage}}">Next &gt;&gt;</a>{% else %}Next &gt;&gt;{% endif %}
+
     </div>
   </div>
 </div>
