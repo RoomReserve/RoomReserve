@@ -105,6 +105,11 @@ def page_rooms():
 @app.route('/admin/rooms/search/<int:page>', methods=['GET', 'POST'])
 @login_required
 def page_room_search(page=1):
+    if request.args.get('per'):
+        perPage = int(request.args.get('per'))
+    else:
+        perPage = 10
+
     def edit_form(id):
         '''
         Returns the form back populated with the room information
@@ -132,7 +137,7 @@ def page_room_search(page=1):
 
     #rooms = getAllRooms()
     rooms = Room.query.order_by(Room.id)
-    rooms = rooms.paginate(page, 10, False)
+    rooms = rooms.paginate(page, perPage, False)
 
     return render('listrooms.html', rooms=rooms, allowEdit=allowEdit, CONST=CONST, edit_form=edit_form, createEnabled=False)
 
@@ -370,10 +375,21 @@ def markInactive(id):
 
 @app.route('/admin/rooms/clean')
 def clean_page():
-    rooms = []
-    for me in db.session.query(Room).filter_by(status=CONST.unclean_status):
-        rooms.append(me)
-    return render('cleanRooms.html', rooms=rooms)
+    if request.args.get('page'):
+        page = int(request.args.get('page'))
+    else:
+        page = 1
+
+    if request.args.get('per'):
+        perPage = int(request.args.get('per'))
+    else:
+        perPage = 10
+
+
+    rooms = Room.query.filter_by(status=CONST.unclean_status)
+    rooms = rooms.paginate(page, perPage, False)
+
+    return render('cleanRooms.html', rooms=rooms, perPage=perPage)
 
 @app.route('/clean/<id>')
 def markClean(id):
