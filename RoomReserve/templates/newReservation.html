@@ -1,0 +1,58 @@
+{% extends 'default.html' %}
+
+{% block head %}
+<!-- Include Date Range Picker -->
+<script type="text/javascript" src="/static/js/moment.min.js"></script>
+<script type="text/javascript" src="/static/js/daterangepicker.js"></script>
+<link rel="stylesheet" type="text/css" href="/static/css/daterangepicker.css" />
+{% endblock %}
+
+
+{% block body1 %}
+
+{% if form %}
+
+  <form class="form-horizontal well" method="POST" action="/res/new/room">
+    <div class="form-group">
+      <label for="capacity" class="col-sm-2 control-label">Number of Guests</label>
+      <div class="col-sm-10">
+        <input type="text" name="capacity" class="form-control" id="" placeholder="Number of Guests">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="datefilter" class="col-sm-2 control-label">Select a Date Range</label>
+      <div class="col-sm-10">
+        <input type="text" name="dates" class="form-control" id="" placeholder="Click here to pick the dates">
+        <script type="text/javascript">
+        $(function() {
+          $('input[name="dates"]').daterangepicker({
+              autoApply: true,
+              locale: {
+                format: 'YYYY/MM/DD'
+              }
+          });
+        });
+        </script>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <button type="submit" class="btn btn-primary">Continue</button>
+      </div>
+    </div>
+  </form>
+
+
+{% else %}
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+      <em>You don't have permission create reservations.</em>
+    </div>
+  </div>
+{% endif %}
+
+
+{% endblock %}
