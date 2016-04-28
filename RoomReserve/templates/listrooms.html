@@ -2,6 +2,22 @@
 
 {% block body1 %}
 
+{% macro render_pagination(pagination) %}
+  <div class=pagination>
+  {%- for page in pagination.iter_pages() %}
+    {% if page %}
+      {% if page != pagination.page %}
+        <a href="/admin/rooms/search?page={{page}}&per={{perPage}}">{{ page }}</a>
+      {% else %}
+        <strong>{{ page }}</strong>
+      {% endif %}
+    {% else %}
+      <span class=ellipsis>…</span>
+    {% endif %}
+  {%- endfor %}
+  </div>
+{% endmacro %}
+
 
 {% if createEnabled %}
 <div class="panel panel-default">
@@ -126,10 +142,10 @@
   <div class="panel-body">
     <div class="col-md-12">
       <div class="table-responsive">
-        <table id="datatables" class="table table-striped">
+        <table class="table table-striped">
           <thead>
             <tr>
-              <th>id</th>
+              <th>ID</th>
               <th>Building</th>
               <th>Room Number</th>
               <th>Capacity</th>
@@ -160,9 +176,11 @@
           </tbody>
         </table>
       </div>
-
-{% if rooms.has_prev %}<a href="{{ url_for('page_room_search', page=rooms.prev_num) }}">&lt;&lt; Previous</a>{% else %}&lt;&lt; Previous{% endif %} |
-{% if rooms.has_next %}<a href="{{ url_for('page_room_search', page=rooms.next_num) }}">Next &gt;&gt;</a>{% else %}Next &gt;&gt;{% endif %}
+      <div class="pull-right">
+      {% if rooms.has_prev %}<a href="/admin/rooms/search?page={{rooms.prev_num}}&per={{perPage}}">&lt;&lt; Previous</a>{% else %}&lt;&lt; Previous{% endif %} |
+      {{ render_pagination(rooms) }}|
+      {% if rooms.has_next %}<a href="/admin/rooms/search?page={{rooms.next_num}}&per={{perPage}}">Next &gt;&gt;</a>{% else %}Next &gt;&gt;{% endif %}
+      </div>
     </div>
   </div>
 </div>

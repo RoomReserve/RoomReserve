@@ -102,9 +102,13 @@ def page_rooms():
       edit_form=edit_form, allowEdit=allowEdit, CONST=CONST, createEnabled=True)
 
 @app.route('/admin/rooms/search', methods=['GET', 'POST'])
-@app.route('/admin/rooms/search/<int:page>', methods=['GET', 'POST'])
 @login_required
-def page_room_search(page=1):
+def page_room_search():
+    if request.args.get('page'):
+        page = int(request.args.get('page'))
+    else:
+        page = 1
+
     if request.args.get('per'):
         perPage = int(request.args.get('per'))
     else:
@@ -139,7 +143,7 @@ def page_room_search(page=1):
     rooms = Room.query.order_by(Room.id)
     rooms = rooms.paginate(page, perPage, False)
 
-    return render('listrooms.html', rooms=rooms, allowEdit=allowEdit, CONST=CONST, edit_form=edit_form, createEnabled=False)
+    return render('listrooms.html', rooms=rooms, perPage=perPage, allowEdit=allowEdit, CONST=CONST, edit_form=edit_form, createEnabled=False)
 
 @app.route('/admin/rooms/<id>/create', methods=['POST'])
 def page_updateRoom(id):
