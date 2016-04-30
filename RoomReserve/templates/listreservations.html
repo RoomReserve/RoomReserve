@@ -2,29 +2,22 @@
 
 {% block body1 %}
 
-<!-- <div>
-<form class="well" method="POST" action="/admin/reservation">
-  {{ form.csrf_token }}
-  {{ form.guestID.label }} {{ form.guestID }}
-  {{ form.userID.label }} {{ form.userID }} <br />
-  {{ form.roomID.label }} {{ form.roomID }} <br />
-  {{ form.monthIn.label }} {{ form.monthIn }}
-  {{ form.dayIn.label }} {{ form.dayIn }}
-  {{ form.yearIn.label }} {{ form.yearIn }}
-  {{ form.hourIn.label }} {{ form.hourIn }}
-  {{ form.minuteIn.label }} {{ form.minuteIn }}<br />
-  {{ form.monthOut.label }} {{ form.monthOut }}
-  {{ form.dayOut.label }} {{ form.dayOut }}
-  {{ form.yearOut.label }} {{ form.yearOut }}
-  {{ form.hourOut.label }} {{ form.hourOut }}
-  {{ form.minuteOut.label }} {{ form.minuteOut }}<br />
-  {{ form.status.label }} {{ form.status }}<br/>
-  {{ form.notes.label }} {{ form.notes }}<br/> </br>
+{% macro render_pagination(pagination) %}
+  <div class=pagination>
+  {%- for page in pagination.iter_pages() %}
+    {% if page %}
+      {% if page != pagination.page %}
+        <a href="/admin/reservationlist?page={{page}}&per={{perPage}}">{{ page }}</a>
+      {% else %}
+        <strong>{{ page }}</strong>
+      {% endif %}
+    {% else %}
+      <span class=ellipsis>…</span>
+    {% endif %}
+  {%- endfor %}
+  </div>
+{% endmacro %}
 
-  <input type="submit" class="btn btn-primary" value="Create">
-</form>
-<hr>
-</div> -->
 
 <div class="panel panel-primary col-md">
   <div class="panel-heading">
@@ -45,7 +38,7 @@
             </tr>
           </thead>
           <tbody>
-          {% for r in reservations %}
+          {% for r in reservations.items %}
             <tr>
               <td><a href="/res/{{r.id}}"</a>{{ r.id }}</td>
               <td>
@@ -69,18 +62,22 @@
       </div>
     </div>
   </div>
+  <div class="panel-footer">
+    <div class="row">
+      <div class="col-md-6 vcenter">
+        Rooms per page:
+        <a href="/admin/reservationlist?page=1&per=10">10</a>
+        <a href="/admin/reservationlist?page=1&per=25">25</a>
+        <a href="/admin/reservationlist?page=1&per=50">50</a>
+      </div><div class="col-md-6 vcenter"><div class="pull-right">
+        {% if reservations.has_prev %}<a href="/admin/reservationlist?page={{reservations.prev_num}}&per={{perPage}}">&lt;&lt; Previous</a>{% else %}&lt;&lt; Previous{% endif %} |
+        {{ render_pagination(reservations) }}|
+        {% if reservations.has_next %}<a href="/admin/reservationlist?page={{reservations.next_num}}&per={{perPage}}">Next &gt;&gt;</a>{% else %}Next &gt;&gt;{% endif %}
+      </div></div>
+    </div>
+  </div>
 </div>
 
-<!--<script>
-$('#remote_input').autocomplete({
-  valueKey:'title',
-  source:[]
-});
-  $('button#open').click(function(){
-  $('#remote_input').trigger('open');
-  $('#remote_input').focus();
-});
-</script> -->
 
 
 {% endblock %}

@@ -62,6 +62,15 @@ class form_CreateReservation(Form):
 @app.route('/admin/reservationlist', methods=['GET', 'POST'])
 @login_required
 def page_reservation():
+    if request.args.get('page'):
+        page = int(request.args.get('page'))
+    else:
+        page = 1
+
+    if request.args.get('per'):
+        perPage = int(request.args.get('per'))
+    else:
+        perPage = 10
 
     if request.method == 'POST' and form.validate():
         # the form has been filled out, import the data
@@ -96,8 +105,11 @@ def page_reservation():
             return render('basic.html', content="Sorry, could not create reservation. Something's not right!")
 
     form = form_CreateReservation()
-    reservations = getAllReservations()
-    return render('listreservations.html', form=form, reservations=reservations,
+
+    #reservations = getAllReservations()
+    reservations = Reservation.query.order_by(Reservation.id)
+    reservations = reservations.paginate(page, perPage, False)
+    return render('listreservations.html', perPage=perPage, form=form, reservations=reservations,
     getGuestByID=getGuestByID, getRoomByID=getRoomByID)
 
 def getAllReservations():
