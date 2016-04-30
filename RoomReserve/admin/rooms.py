@@ -42,6 +42,15 @@ class form_CreateRoom(Form):
 @app.route('/admin/rooms/new', methods=['GET', 'POST'])
 @login_required
 def page_rooms():
+    if request.args.get('page'):
+        page = int(request.args.get('page'))
+    else:
+        page = 1
+
+    if request.args.get('per'):
+        perPage = int(request.args.get('per'))
+    else:
+        perPage = 10
 
     # Editor
     def edit_form(id):
@@ -97,8 +106,10 @@ def page_rooms():
     else:
         # Not an admin, don't show the form
         form = False
-    rooms = getAllRooms()
-    return render('listrooms.html', form=form, rooms=rooms, \
+    #rooms = getAllRooms()
+    rooms = Room.query.order_by(Room.id)
+    rooms = rooms.paginate(page, perPage, False)
+    return render('listrooms.html', form=form, rooms=rooms, perPage=perPage, \
       edit_form=edit_form, allowEdit=allowEdit, CONST=CONST, createEnabled=True)
 
 @app.route('/admin/rooms/search', methods=['GET', 'POST'])
