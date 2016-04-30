@@ -8,7 +8,7 @@ class NewGuestForm(Form):
     phone = StringField('Phone Number', validators=[DataRequired()])
     address = StringField('Address', validators=[DataRequired()])
     payment = StringField('Payment', validators=[DataRequired()])
-    notes = TextAreaField('Notes')
+    notes = TextAreaField('Comments')
 
 
 @app.route('/newguest', methods=['GET', 'POST'])
