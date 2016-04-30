@@ -32,6 +32,16 @@ class form_CreateGuest(Form):
 @login_required
 def page_guest():
 
+    if request.args.get('page'):
+        page = int(request.args.get('page'))
+    else:
+        page = 1
+
+    if request.args.get('per'):
+        perPage = int(request.args.get('per'))
+    else:
+        perPage = 10
+
     # Editor
 
     def edit_form(id):
@@ -75,9 +85,11 @@ def page_guest():
             return render('basic.html', content="Could not create guest.")
 
 
-    guests = getAllGuests()
+    #guests = getAllGuests()
+    guests = Guest.query.order_by(Guest.id)
+    guests = guests.paginate(page, perPage, False)
 
-    return render('guests.html', form=form, guests=guests,
+    return render('guests.html', perPage=perPage, form=form, guests=guests,
     edit_form=edit_form, allowEdit=allowEdit)
 
 def processCreateGuestForm(formdata):
