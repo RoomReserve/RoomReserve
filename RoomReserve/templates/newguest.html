@@ -73,24 +73,24 @@
 
                   {% from "__guesthelper.html" import render_field %}
 
-                  
-                  {% if form %}
-                  <form class="well" method="POST" action="/newguest">
-                    {{ form.csrf}}
-                    {{ form.firstname.label }} {{ form.firstname(size=20) }}
-                    {{ form.lastname.label }} {{ form.lastname(size=20) }} <br>
-                    {{ form.email.label }} {{ form.email(size=30) }} <br>
-                    {{ form.phone.label }} {{ form.phone(size=20) }} <br>
-                    {{ form.address.label }} {{ form.address(size=30) }} <br>
-                    {{ form.payment.label }} {{ form.payment(size=25) }} <br>
-                    {{ form.notes.label }} {{ form.notes(size=300) }} <br><br>
+                  <div class="container">
+                    {% if form %}
+                    <form class="well" method="POST" action="/newguest">
+                      {{ form.csrf}}
+                      {{ form.firstname.label }} {{ form.firstname(size=20) }}
+                      {{ form.lastname.label }} {{ form.lastname(size=20) }} <br>
+                      {{ form.email.label }} {{ form.email(size=30) }} <br>
+                      {{ form.phone.label }} {{ form.phone(size=20) }} <br>
+                      {{ form.address.label }} {{ form.address(size=30) }} <br>
+                      {{ form.payment.label }} {{ form.payment(size=25) }} <br>
+                      {{ form.notes.label }} {{ form.notes(size=300) }} <br><br>
 
-                    <input type="submit" class="btn btn-primary" value="Create Guest">
-                  </form>
+                      <input type="submit" class="btn btn-primary" value="Create Guest">
+                    </form>
 
-                  {% endif %}
-                  <hr />
-
+                    {% endif %}
+                    <hr />
+                </div>
               </div>
 
                 {%include 'parts/footer.html' %}
