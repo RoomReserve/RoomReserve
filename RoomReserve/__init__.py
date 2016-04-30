@@ -98,6 +98,7 @@ import RoomReserve.admin.dashboard
 import RoomReserve.admin.mainSearch
 import RoomReserve.admin.checkinout
 import RoomReserve.admin.newguest
+import RoomReserve.admin.newreservation
 import RoomReserve.helpers.stats as stats
 
 
