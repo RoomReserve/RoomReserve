@@ -53,17 +53,18 @@
     </div>
   </div>
   <div class="panel-footer">
-      <div class="col-md-6">
+    <div class="row">
+      <div class="col-md-6 vcenter">
         Rooms per page:
         <a href="/admin/rooms/clean?page=1&per=10">10</a>
         <a href="/admin/rooms/clean?page=1&per=25">25</a>
         <a href="/admin/rooms/clean?page=1&per=50">50</a>
-      </div>
-      <div class="col-md-6">
+      </div><div class="col-md-6 vcenter"><div class="pull-right">
         {% if rooms.has_prev %}<a href="/admin/rooms/clean?page={{rooms.prev_num}}&per={{perPage}}">&lt;&lt; Previous</a>{% else %}&lt;&lt; Previous{% endif %} |
         {{ render_pagination(rooms) }}|
         {% if rooms.has_next %}<a href="/admin/rooms/clean?page={{rooms.next_num}}&per={{perPage}}">Next &gt;&gt;</a>{% else %}Next &gt;&gt;{% endif %}
-      </div>
+      </div></div>
+    </div>
   </div>
 </div>
 

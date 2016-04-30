@@ -1,3 +1,10 @@
+/* vertical centering */
+.vcenter {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+}
+
 
 /* panel collapse */
 .panel-heading span {
@@ -6,7 +13,7 @@
 }
 .clickable {
     cursor: pointer;
-} 
+}
 
 
 
