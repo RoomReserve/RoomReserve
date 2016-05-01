@@ -10,7 +10,9 @@
 
 {% block body1 %}
 
+{% if allowEdit() %}
 
+<form class="form-inline" role="form">
 <!-- New Guest Modal -->
   <div class="modal fade" id="makeguest" tabindex="-1" role="dialog" aria-labelledby="newGuestModal">
     <div class="modal-dialog modal-lg" role="document">
@@ -172,7 +174,7 @@
 
 
 
-{% if allowEdit() %}
+
 
   <form class="form-horizontal well" id="frml" method="POST" action="/res/new/room">
     <div class="form-group">
