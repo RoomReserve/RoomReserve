@@ -176,6 +176,8 @@
     }
     </script>
     
+    <br>
+    
     <div class="form-group">
       <label for="roomselcted" class="col-sm-2 control-label">Room</label>
       <div class="col-sm-10">
@@ -188,12 +190,15 @@
       <div class="col-sm-10">
         <label for="roombuttons" class="col-sm-2 control-label"></label>
         <button type="button" class="btn btn-primary btn-sm" > Auto-Select </button>
+        <h1>" "</h1>
         <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="pickroom"> Let me pick! </button>
       </div>
     </div>
     
+    <br>
+    
     <div class="form-group">
-      <label for="roomselcted" class="col-sm-2 control-label">Guest</label>
+      <label for="guestselected" class="col-sm-2 control-label">Guest</label>
       <div class="col-sm-10">
         {% if guestSelected %}
           <h3> <font color="green">{{ guestSelected.first }} + " " + {{ guestSelected.last }}</font></h3>
@@ -204,6 +209,7 @@
       <div class="col-sm-10">
         <label for="guestbuttons" class="col-sm-2 control-label"></label>
         <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="makeguest"> New Guest </button>
+        <h1>" "</h1>
         <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="pickguest"> Existing Guest </button>
       </div>
     </div>
