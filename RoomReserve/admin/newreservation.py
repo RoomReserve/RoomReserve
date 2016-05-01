@@ -106,6 +106,7 @@ def page_newres():
         return render("basic.html", content="Could not complete draft reservation")
         
       return render("roompick.html", resID = myres.getID(), rooms=availableRooms)
-    
+    return render("newReservation.html", pullAvailableRooms=pullAvailableRooms, getGuest=getGuest, allowEdit=allowEdit, guests=getAllGuests(), form=NewGuestForm(), successpage=True)
+
     
   return render("newReservation.html", pullAvailableRooms=pullAvailableRooms, getGuest=getGuest, allowEdit=allowEdit, guests=getAllGuests(), form=NewGuestForm())
