@@ -260,7 +260,7 @@
     var indate = mydate[0].split("/");
     var outdate = mydate[1].split("/");
     var myguestnum = document.getElementById("numguests").value;
-    if (mydate){
+    if (mydate != null){
       {% set itemlist = [myguestnum, mydate[0]] %}
     }
     return [myguestnum, indate[0], indate[1], indate[2], outdate[0], outdate[1], outdate[2]]
