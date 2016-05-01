@@ -1,5 +1,6 @@
 {% extends 'default.html' %}
 
+
 {% block head %}
 <!-- Include Date Range Picker -->
 <script type="text/javascript" src="/static/js/moment.min.js"></script>
@@ -9,87 +10,11 @@
 
 {% block body1 %}
 
-
-<!-- Room Modal -->
-  <div class="modal fade" id="pickroom" tabindex="-1" role="dialog" aria-labelledby="pickRoomModal">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="myroomModalLabel">Select Room</h4>
-        </div>
-        <div class="modal-body">
-          
-          
-          <div class="panel panel-primary col-md">
-            <div class="panel-heading">
-              {% if editsession %}
-                <a href="/res/{{ resID }}" class="btn btn-default btn-circle btn-md"><i class="fa fa-arrow-left"></i></a>
-              {% endif %}
-              Available Rooms
-            </div>
-            <div class="panel-body">
-              <div class="col-md-12">
-                <div class="table-responsive">
-                  <table class="table table-striped">
-                    <thead>
-                      <tr>
-                        <th>Building</th>
-                        <th>Room Number</th>
-                        <th>Capacity</th>
-                        <th></th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {% for r in rooms %}
-                    		<tr>
-                    			<td>{{ r.getMyBuildingName() }}</td>
-                          <td><strong>{{ r.roomnumber }}</strong></td>
-                          <td>{{ r.capacity }}</td>
-                          <td>
-                            {% if not editsession %}
-                              <form action="/res/new/guest" method="POST">
-                                <input type="hidden" name="resID" value="{{ resID }}">
-                                <input type="hidden" name="roomID" value="{{ r.id }}">
-                                <input type="submit" class="btn btn-primary" value="Select">
-                              </form>
-                            {% else %}
-                              <form action="/res/edit/room/confirm" method="POST">
-                                <input type="hidden" name="resID" value="{{ resID }}">
-                                <input type="hidden" name="roomID" value="{{ r.id }}">
-                                <input type="submit" class="btn btn-primary" value="Select">
-                              </form>
-                            {% endif %}
-          
-                          </td>
-                    		</tr>
-                    	{% endfor %}
-          
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
-
-
-        </div><!-- ./modal-body-->
-
-        <!--
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary">Save changes</button>
-        </div>
-        -->
-
-      </div>
-    </div>
-  </div>
-
+{% if allowEdit() %}
 
 <!-- New Guest Modal -->
   <div class="modal fade" id="makeguest" tabindex="-1" role="dialog" aria-labelledby="newGuestModal">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -97,7 +22,71 @@
         </div>
         <div class="modal-body">
           
-        
+          <script>
+            function makeguestselect2() {
+              var myname = document.getElementById("guestName") ;
+              var firstname = document.getElementById("guestfirst").value;
+              var lastname = document.getElementById("guestlast").value;
+              document.getElementById("newguestemail").setAttribute("value", document.getElementById("guestemail").value);
+              document.getElementById("newguestphone").setAttribute("value", document.getElementById("guestphone").value);
+              document.getElementById("newguestaddress").setAttribute("value", document.getElementById("guestaddress").value);
+              document.getElementById("newguestpayment").setAttribute("value", document.getElementById("guestpayment").value);
+              document.getElementById("newguestnotes").setAttribute("value", document.getElementById("guestnotes").value);
+              document.getElementById("newguestfirst").setAttribute("value", firstname);
+              document.getElementById("newguestlast").setAttribute("value", lastname);
+              myname.setAttribute("color", "green");
+              myname.innerHTML = firstname + " " + lastname;
+              
+
+            }
+          </script>
+          
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">Create New Guest</h3>
+            </div>
+            <div class="panel-body">
+              
+              
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">First Name</label>
+                      <div class="col-sm-10">
+                        <input type="text" name="firstname" class="form-control" id="guestfirst" placeholder="First Name" required>
+                      </div>
+                    <label class="col-sm-2 control-label">Last Name</label>
+                      <div class="col-sm-10">
+                        <input type="text" name="lastname" class="form-control" id="guestlast" placeholder="Last Name" required>
+                      </div>
+                    <label class="col-sm-2 control-label">Email</label>
+                      <div class="col-sm-10">
+                        <input type="text" name="email" class="form-control"  id="guestemail" placeholder="Email Address" required>
+                      </div>
+                    <label class="col-sm-2 control-label">Phone</label>
+                      <div class="col-sm-10">
+                        <input type="text" name="phone" class="form-control"  id="guestphone" placeholder="Phone Number" required>
+                      </div>
+                      
+                    <label class="col-sm-2 control-label">Address</label>
+                      <div class="col-sm-10">
+                        <input type="text" name="address" class="form-control"  id="guestaddress" placeholder="Address" required>
+                      </div>
+                    <label class="col-sm-2 control-label">Payment</label>
+                      <div class="col-sm-10">
+                        <input type="text" name="payment" class="form-control"  id="guestpayment" placeholder="Payment Information" required>
+                      </div>
+                    <label class="col-sm-2 control-label">Notes</label>
+                      <div class="col-sm-10">
+                        <input type="text" name="notes" class="form-control"  id="guestnotes" placeholder="Additional Information" required>
+                      </div>
+                      
+                      
+                    <button type="button" class="btn btn-success btn-sm" data-dismiss="modal" aria-label="Close" onclick="makeguestselect2()">Save</button>
+                    
+                  </div>
+    
+    
+            </div>
+          </div>
 
         </div><!-- ./modal-body-->
 
@@ -115,7 +104,7 @@
   
 <!-- Existing Guest Modal -->
   <div class="modal fade" id="pickguest" tabindex="-1" role="dialog" aria-labelledby="pickGuestModal">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -123,7 +112,58 @@
         </div>
         <div class="modal-body">
           
-        
+          {% if guests %}
+          <div class="panel panel-primary col-md">
+            <div class="panel-heading">
+              <h3 class="panel-title">Search Result</h3>
+            </div>
+            <div class="panel-body">
+              <div class="col-md-12">
+                <div class="table-responsive">
+                  <table id="datatables" class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <script>
+                        function makeguestselect(theid) {
+                          var myname = document.getElementById("guestName") ;
+                          myname.setAttribute("color", "green");
+                          document.getElementById("guestID").setAttribute("value", theid);
+                          myname.innerHTML = document.getElementById("first" + theid.toString()).innerHTML + " " + document.getElementById("last" + theid.toString()).innerHTML;
+                          
+
+                        }
+                      </script>
+                    {% for u in guests %}
+                      <tr>
+                        <td>{{ u.id }}</td>
+                        <td id="first{{ u.id }}">{{ u.first }}</td>
+                        <td id="last{{ u.id }}">{{ u.last }}</td>
+                        <td>{{ u.email }}</td>
+                        <td>{{ u.phone }}</td>
+                        <td>
+                        <button class="btn btn-primary" name="{{ u.id }}" onclick="makeguestselect({{ u.id }})">Select</button>
+                        </td>
+                      </tr>
+                    {% endfor %}
+          
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          {% endif %}
+
 
         </div><!-- ./modal-body-->
 
@@ -140,7 +180,7 @@
 
 
 
-{% if form %}
+
 
   <form class="form-horizontal well" id="frml" method="POST" action="/res/new/room">
     <div class="form-group">
@@ -167,45 +207,47 @@
       </div>
     </div>
     
-    <script>
-    function getItems() {
-    var mydate = document.getElementById("datepick").value.split(" - ");
-    var indate = mydate[0]
-    var outdate = mydate[1]
-    var myguestnum = document.getElementById("numguests").value;
-    }
-    </script>
+    
+    <br>
     
     <div class="form-group">
-      <label for="roomselcted" class="col-sm-2 control-label">Room</label>
-      <div class="col-sm-10">
-        {% if roomSelected %}
-          <h3> <font color="green">{{ roomSelected.getMyBuildingName() }} + " " + {{ roomSelected.roomnumber }}</font></h3>
-        {% else %}
-          <h3> <font color="red">No Room Selected</font></h3>
-        {% endif %}
-      </div>
-      <div class="col-sm-10">
-      <button type="button" class="btn btn-primary btn-sm" > Auto-Select </button>
-      <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="pickroom"> Let me pick! </button>
-      </div>
-    </div>
-    
-    <div class="form-group">
-      <label for="roomselcted" class="col-sm-2 control-label">Guest</label>
+      <label for="guestselected" class="col-sm-2 control-label">Guest</label>
       <div class="col-sm-10">
         {% if guestSelected %}
           <h3> <font color="green">{{ guestSelected.first }} + " " + {{ guestSelected.last }}</font></h3>
         {% else %}
-          <h3> <font color="red">No Guest Selected</font></h3>
+          <h3> <font color="red" id="guestName">No Guest Selected</font></h3>
+          <input type="hidden" id="guestID" name="guestID" value="">
+          <input type="hidden" id="newguestfirst" name="newguestfirst" value="">
+          <input type="hidden" id="newguestlast" name="newguestlast" value="">
+          <input type="hidden" id="newguestemail" name="newguestemail" value="">
+          <input type="hidden" id="newguestphone" name="newguestphone" value="">
+          <input type="hidden" id="newguestaddress" name="newguestaddress" value="">
+          <input type="hidden" id="newguestpayment" name="newguestpayment" value="">
+          <input type="hidden" id="newguestnotes" name="newguestnotes" value="">
+          
         {% endif %}
       </div>
       <div class="col-sm-10">
-      <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="makeguest"> New Guest </button>
-      <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="pickguest"> Existing Guest </button>
+        <label for="guestbuttons" class="col-sm-2 control-label"></label>
+        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#makeguest"> New Guest </button>
+        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#pickguest"> Existing Guest </button>
       </div>
     </div>
-
+    <br>
+    
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+      <div class="checkbox">
+        <label><input type="checkbox" name="roomselect" value="" checked><b>Auto-Select Room</b></label>
+      </div>
+      </div>
+    </div>
+    
+    
+    <br>
+    <br>
+    
     <div class="form-group">
       <div class="col-sm-offset-2 col-sm-10">
         <button type="submit" class="btn btn-primary">Complete</button>
