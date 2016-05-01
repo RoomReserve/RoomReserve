@@ -41,6 +41,9 @@
                       </tr>
                     </thead>
                     <tbody>
+                      {% if itemlist %}
+                        {% set rooms = pullAvailableRooms(itemlist) %}
+                      {% endif %}
                       {% for r in rooms %}
                     		<tr>
                     			<td>{{ r.getMyBuildingName() }}</td>
@@ -256,7 +259,8 @@
     var indate = mydate[0].split("/");
     var outdate = mydate[1].split("/");
     var myguestnum = document.getElementById("numguests").value;
-    return ({{ pullAvailableRooms }}(capacity, indate[0], indate[1], indate[2], outdate[0], outdate[1], outdate[2]))
+    {% set itemlist = [capacity, indate[0], indate[1], indate[2], outdate[0], outdate[1], outdate[2]] %}
+    return [capacity, indate[0], indate[1], indate[2], outdate[0], outdate[1], outdate[2]]
 
     }
     function getFirstItem() {
