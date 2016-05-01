@@ -176,7 +176,8 @@
                     </thead>
                     <tbody>
                       <script>
-                        function makeguestselect(theid){
+                        function makeguestselect{
+                          var theid = this.value
                           var myname = document.getElementById("guestName") ;
                           myname.setAttribute("color", "green");
                           document.getElementById("guestId").setAttribute("value", theid);
@@ -192,19 +193,9 @@
                         <td>{{ u.email }}</td>
                         <td>{{ u.phone }}</td>
                         <td>
-                            {% if not editsession %}
-                            <form action="/res/new/guest/search/process" method="POST">
-                              <input type="hidden" name="resID" value="{{ resID }}">
-                              
-                              <input type="button" class="btn btn-primary" value="Select" onclick="makeguestselect( {{ u.id }} )">
-                            </form>
-                            {% else %}
-                            <form action="/res/edit/guest/search/process" method="POST">
-                              <input type="hidden" name="resID" value="{{ resID }}">
-                              <input type="hidden" name="guestID" value="{{ u.id }}">
-                              <input type="button" class="btn btn-primary" value="Select" onclick="makeguestselect( {{ u.id }} )">
-                            </form>
-                            {% endif %}
+\
+                        <input type="button" class="btn btn-primary" value=value="{{ u.id }}" onclick="makeguestselect()">
+                        </td>
                       </tr>
                     {% endfor %}
           
