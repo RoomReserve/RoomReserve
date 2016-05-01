@@ -1,0 +1,49 @@
+{% extends 'default.html' %}
+
+{% block body1 %}
+
+<!-- Table of available rooms -->
+<div class="panel panel-primary col-md">
+  <div class="panel-heading">
+    {% if editsession %}
+      <a href="/res/{{ resID }}" class="btn btn-default btn-circle btn-md"><i class="fa fa-arrow-left"></i></a>
+    {% endif %}
+    Available Rooms
+  </div>
+  <div class="panel-body">
+    <div class="col-md-12">
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Building</th>
+              <th>Room Number</th>
+              <th>Capacity</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for r in rooms %}
+          		<tr>
+          			<td>{{ r.getMyBuildingName() }}</td>
+                <td><strong>{{ r.roomnumber }}</strong></td>
+                <td>{{ r.capacity }}</td>
+                <td>
+                    <form action="/reservation/new" method="POST">
+                      <input type="hidden" name="resID" value="{{ resID }}">
+                      <input type="hidden" name="roomID" value="{{ r.id }}">
+                      <input type="submit" class="btn btn-primary" value="Select">
+                    </form>
+
+                </td>
+          		</tr>
+          	{% endfor %}
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
