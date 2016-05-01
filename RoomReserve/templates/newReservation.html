@@ -176,8 +176,7 @@
                     </thead>
                     <tbody>
                       <script>
-                        function makeguestselect() {
-                          var theid = $(this).attr('name');
+                        function makeguestselect(theid) {
                           var myname = document.getElementById("guestName") ;
                           myname.setAttribute("color", "green");
                           document.getElementById("guestID").setAttribute("value", theid);
@@ -194,7 +193,7 @@
                         <td>{{ u.email }}</td>
                         <td>{{ u.phone }}</td>
                         <td>
-                        <button class="btn btn-primary" name="{{ u.id }}" onclick="makeguestselect()">Select</button>
+                        <button class="btn btn-primary" name="{{ u.id }}" onclick="makeguestselect({{ u.id }})">Select</button>
                         </td>
                       </tr>
                     {% endfor %}
