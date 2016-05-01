@@ -62,12 +62,13 @@ def guestsearch_page():
             return True
         else:
             return False
-            
+
     form = form_SearchGuest()
 
-    guests = getAllGuests()
+    guests = Guest.query.order_by(Guest.id)
+    guests = guests.paginate(page, perPage, False)
 
-    return render('guestsearch.html', form=form, guests=guests, allowEdit=allowEdit, edit_form=edit_form, searchpage=True)
+    return render('guestsearch.html', form=form, perPage=perPage, guests=guests, allowEdit=allowEdit, edit_form=edit_form, searchpage=True)
     
 @app.route('/admin/guestsearch/<id>', methods=['POST'])
 def page_updateGuest2(id):
