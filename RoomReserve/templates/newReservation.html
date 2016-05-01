@@ -177,12 +177,12 @@
                     <tbody>
                       <script>
                         function makeguestselect() {
-                          var theid = this.name
+                          var theid = this
                           var myname = document.getElementById("guestName") ;
                           myname.setAttribute("color", "green");
                           document.getElementById("guestID").setAttribute("value", theid);
                           
-                          window.alert(this);
+                          window.alert(theid);
                           
                         }
                       </script>
