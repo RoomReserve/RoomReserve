@@ -14,7 +14,6 @@ from delorean import Delorean
 import RoomReserve.helpers.delorean_helper as delorean_helper
 import time
 import traceback
-# from flask.ext.moment import Moment
 
 
 
@@ -32,14 +31,14 @@ from flask.ext.heroku import Heroku
 # flask-login
 from flask.ext.login import LoginManager, login_user, logout_user, current_user, login_required
 
-#these are imported for the engine and session
+# these are imported for the engine and session
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
 
 # Start flask instance
 app = Flask(__name__)
-# moment = Moment(app)
+
 app.secret_key = 'x95xe1gxceHGxeaSx0exf5xf4xbaxb5x1dxe5'
 
 heroku = Heroku(app)

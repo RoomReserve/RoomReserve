@@ -8,16 +8,16 @@ class NewGuestForm(Form):
     phone = StringField('Phone Number', validators=[DataRequired()])
     address = StringField('Address', validators=[DataRequired()])
     payment = StringField('Payment', validators=[DataRequired()])
-    notes = TextAreaField('Notes')
+    notes = TextAreaField('Comments')
 
 
 @app.route('/newguest', methods=['GET', 'POST'])
 def newguest():
     form = NewGuestForm()
 
-    if request.method == 'POST':
+    if request.method == 'POST' and form.validate():
         # the form has been filled out, import the data
-        message = "Your guest account is created successfully."
+        message = "Your guest account is created successfully. When you make a reservation, simply tell the customer service your name."
         if processCreateGuestForm(request.form):
             # print("Guest created successfully.")
             return render('success.html', message=message)
