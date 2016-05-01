@@ -10,6 +10,27 @@
 {% block body1 %}
 
 
+<!-- Modal -->
+<div id="mytest" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Modal Header</h4>
+      </div>
+      <div class="modal-body">
+        <p>Some text in the modal.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
 <!-- Room Modal -->
   <div class="modal fade" id="pickroom" tabindex="-1" role="dialog" aria-labelledby="pickRoomModal">
     <div class="modal-dialog" role="document">
@@ -173,6 +194,7 @@
     var indate = mydate[0]
     var outdate = mydate[1]
     var myguestnum = document.getElementById("numguests").value;
+    
     }
     </script>
     
@@ -190,7 +212,7 @@
       <div class="col-sm-10">
         <label for="roombuttons" class="col-sm-2 control-label"></label>
         <button type="button" class="btn btn-primary btn-sm" onclick="getItems()"> Auto-Select </button>
-        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="pickroom"> Let me pick! </button>
+        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="mytest"> Let me pick! </button>
       </div>
     </div>
     
