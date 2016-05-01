@@ -175,6 +175,15 @@
                       </tr>
                     </thead>
                     <tbody>
+                      <script>
+                        function makeguestselect(theid){
+                          var myname = document.getElementById("guestName") ;
+                          myname.innerHTML = {{ getGuest(theid).first }} + " " + {{ getGuest(theid).first }};
+                          myname.setAttribute("color", "green");
+                          document.getElementById("guestId").setAttribute("value", theid;
+                          
+                        }
+                      </script>
                     {% for u in guests %}
                       <tr>
                         <td>{{ u.id }}</td>
@@ -186,14 +195,14 @@
                             {% if not editsession %}
                             <form action="/res/new/guest/search/process" method="POST">
                               <input type="hidden" name="resID" value="{{ resID }}">
-                              <input type="hidden" name="guestID" value="{{ u.id }}">
-                              <input type="submit" class="btn btn-primary" value="Select">
+                              
+                              <input type="button" class="btn btn-primary" value="Select" onclick="makeguestselect( {{ u.id }} )">
                             </form>
                             {% else %}
                             <form action="/res/edit/guest/search/process" method="POST">
                               <input type="hidden" name="resID" value="{{ resID }}">
                               <input type="hidden" name="guestID" value="{{ u.id }}">
-                              <input type="submit" class="btn btn-primary" value="Select">
+                              <input type="button" class="btn btn-primary" value="Select" onclick="makeguestselect( {{ u.id }} )">
                             </form>
                             {% endif %}
                       </tr>
@@ -271,7 +280,7 @@
         {% if roomSelected %}
           <h3> <font color="green">{{ roomSelected.getMyBuildingName() }} + " " + {{ roomSelected.roomnumber }}</font></h3>
         {% else %}
-          <h3> <font color="red">No Room Selected</font></h3>
+          <h3> <font color="red" id="roomName">No Room Selected</font></h3>
         {% endif %}
       </div>
       <div class="col-sm-10">
@@ -289,7 +298,8 @@
         {% if guestSelected %}
           <h3> <font color="green">{{ guestSelected.first }} + " " + {{ guestSelected.last }}</font></h3>
         {% else %}
-          <h3> <font color="red">No Guest Selected</font></h3>
+          <h3> <font color="red" id="guestName">No Guest Selected</font></h3>
+          <input type="hidden" id="guestID" name="guestID" value="">
         {% endif %}
       </div>
       <div class="col-sm-10">
