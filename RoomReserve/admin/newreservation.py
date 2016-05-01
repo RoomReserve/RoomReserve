@@ -2,7 +2,7 @@ from RoomReserve import *
 from RoomReserve.admin.reservation import find_available_rooms, createReservation, getReservationByID
 from RoomReserve.admin.rooms import getRoomByID
 from RoomReserve.admin.building import getBuildingById
-from RoomReserve.admin.guest import getAllGuests
+from RoomReserve.admin.guest import getAllGuests, getGuest
 
 
 class NewGuestForm(Form):
@@ -37,4 +37,4 @@ def page_newres():
     else:
       return False
     
-  return render("newReservation.html", pullAvailableRooms=pullAvailableRooms, allowEdit=allowEdit, guests=getAllGuests(), form=NewGuestForm())
+  return render("newReservation.html", pullAvailableRooms=pullAvailableRooms, getGuest=getGuest, allowEdit=allowEdit, guests=getAllGuests(), form=NewGuestForm())
