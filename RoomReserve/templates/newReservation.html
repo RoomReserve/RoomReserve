@@ -180,7 +180,7 @@
                           var myname = document.getElementById("guestName") ;
                           myname.setAttribute("color", "green");
                           document.getElementById("guestID").setAttribute("value", theid);
-                          myname.innerHTML = {{ getGuest(theid).first }};
+                          myname.innerHTML = {{ getGuestByID(theid).first }};
                           
 
                         }
