@@ -183,7 +183,6 @@
                         <td>{{ u.email }}</td>
                         <td>{{ u.phone }}</td>
                         <td>
-                          {% if resID %}
                             {% if not editsession %}
                             <form action="/res/new/guest/search/process" method="POST">
                               <input type="hidden" name="resID" value="{{ resID }}">
@@ -197,15 +196,6 @@
                               <input type="submit" class="btn btn-primary" value="Select">
                             </form>
                             {% endif %}
-                          {% else %}
-                            <button type="button" class="btn btn-primary btn-circle btn-sm" data-toggle="modal" data-target="#editGuest_{{ u.id }}">
-                              {% if allowEdit(u.id) %}
-                                <i class="fa fa-pencil"></i>
-                              {% else %}
-                                <i class="fa fa-info"></i>
-                              {% endif %}
-                            </button>
-                          {% endif %}
                       </tr>
                     {% endfor %}
           
