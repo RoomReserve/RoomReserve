@@ -253,12 +253,17 @@
     <script>
     function getItems() {
     var mydate = document.getElementById("datepick").value.split(" - ");
-    var indate = mydate[0]
-    var outdate = mydate[1]
+    var indate = mydate[0].split("/");
+    var outdate = mydate[1].split("/");
     var myguestnum = document.getElementById("numguests").value;
-    window.alert(indate)
-    
+    return pullAvailableRooms(capacity, indate[0], indate[1], indate[2], outdate[0], outdate[1], outdate[2])
 
+    }
+    function getFirstItem() {
+      var myresult = getItems();
+      if (myresult.length > 0) {
+        return myresult[0]
+      }
     }
     </script>
     
