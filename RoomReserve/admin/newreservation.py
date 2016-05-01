@@ -3,6 +3,7 @@ from RoomReserve.admin.reservation import find_available_rooms, createReservatio
 from RoomReserve.admin.rooms import getRoomByID
 from RoomReserve.admin.building import getBuildingById
 from RoomReserve.admin.guest import getAllGuests
+import PyV8
 
 
 class NewGuestForm(Form):
