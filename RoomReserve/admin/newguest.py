@@ -15,7 +15,7 @@ class NewGuestForm(Form):
 def newguest():
     form = NewGuestForm()
 
-    if request.method == 'POST':
+    if request.method == 'POST' and form.validate():
         # the form has been filled out, import the data
         message = "Your guest account is created successfully."
         if processCreateGuestForm(request.form):
