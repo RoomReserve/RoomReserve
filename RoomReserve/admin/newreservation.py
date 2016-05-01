@@ -5,6 +5,15 @@ from RoomReserve.admin.building import getBuildingById
 from RoomReserve.admin.guest import getAllGuests
 
 
+class NewGuestForm(Form):
+    firstname = StringField('First Name', validators=[DataRequired()])
+    lastname = StringField('Last Name', validators=[DataRequired()])
+    email = StringField('Email Address', validators=[DataRequired()])
+    phone = StringField('Phone Number', validators=[DataRequired()])
+    address = StringField('Address', validators=[DataRequired()])
+    payment = StringField('Payment', validators=[DataRequired()])
+    notes = TextAreaField('Notes')
+
 @app.route('/reservation/new/', methods=['GET', 'POST'])
 @Login.standard_required
 def page_newres():
@@ -28,4 +37,4 @@ def page_newres():
     else:
       return False
     
-  return render("newReservation.html", pullAvailableRooms=pullAvailableRooms, allowEdit=allowEdit, guests=getAllGuests())
+  return render("newReservation.html", pullAvailableRooms=pullAvailableRooms, allowEdit=allowEdit, guests=getAllGuests(), form=NewGuestForm())
