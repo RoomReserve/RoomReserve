@@ -171,3 +171,18 @@ def createUser(fn, ln, em, ro, pw):
         # Prints why the user could not be added in the terminal.
         print(e)
         return False
+
+# Get all the user info from the database
+def userQuery(uid):
+    result = []
+    q = getUserById(uid)
+    result.append(q)
+
+    return result
+
+# User Profile
+@app.route('/admin/uprofile/<uid>')
+def uprofile(uid):
+    users = userQuery(uid)
+
+    return render('uprofile.html', users=users)
