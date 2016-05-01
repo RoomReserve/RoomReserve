@@ -257,7 +257,8 @@
     var indate = mydate[0]
     var outdate = mydate[1]
     var myguestnum = document.getElementById("numguests").value;
-    return {{ pullAvailableRooms(myguestnum, indate, outdate) }}
+    var result = {{ pullAvailableRooms(myguestnum, indate, outdate) }};
+    return result
     
     }
     </script>
