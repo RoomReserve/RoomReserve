@@ -17,7 +17,10 @@ class NewGuestForm(Form):
 @app.route('/reservation/new/', methods=['GET', 'POST'])
 @Login.standard_required
 def page_newres():
-  def pullAvailableRooms(capacity, indate, outdate):
+  def pullAvailableRooms(capacity, indatey, indatem, indated, outdatey, outdatem, outdated):
+    
+    indate = str(indatey) + "/" +  str(indatem) + "/" +  str(indated)
+    outdate = str(outdatey) + "/" +  str(outdatem) + "/" +  str(outdated)
     indate = delorean.parse(indate).naive()
     outdate = delorean.parse(outdate).naive()
 
