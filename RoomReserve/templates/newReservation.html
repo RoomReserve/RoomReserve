@@ -180,7 +180,7 @@
                           var myname = document.getElementById("guestName") ;
                           myname.setAttribute("color", "green");
                           document.getElementById("guestID").setAttribute("value", theid);
-                          myname.innerHTML = getGuest(theid);
+                          myname.innerHTML = document.getElementById("first" + theid.toString()).innerHTML;
                           
 
                         }
@@ -188,7 +188,7 @@
                     {% for u in guests %}
                       <tr>
                         <td>{{ u.id }}</td>
-                        <td>{{ u.first }}</td>
+                        <td id="first{{ u.id }}">{{ u.first }}</td>
                         <td>{{ u.last }}</td>
                         <td>{{ u.email }}</td>
                         <td>{{ u.phone }}</td>
