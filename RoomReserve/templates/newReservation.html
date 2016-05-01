@@ -177,7 +177,7 @@
                     <tbody>
                       <script>
                         function makeguestselect() {
-                          var theid = $(this).attr('name');
+                          var theid = (this).attr('name');
                           var myname = document.getElementById("guestName") ;
                           myname.setAttribute("color", "green");
                           document.getElementById("guestID").setAttribute("value", theid);
