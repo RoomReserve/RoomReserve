@@ -16,7 +16,7 @@ def page_newres():
 
     return availableRooms
     
-  def allowEdit(id):
+  def allowEdit():
     '''
     Figures out if the current user should be allowed
     to edit the guest object.
