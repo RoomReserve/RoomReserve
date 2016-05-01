@@ -16,4 +16,4 @@ def page_newres():
 
     return availableRooms
     
-  return
+  return render("newReservation.html", pullAvailableRooms=pullAvailableRooms)
