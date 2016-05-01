@@ -150,7 +150,7 @@
                         <td>{{ u.email }}</td>
                         <td>{{ u.phone }}</td>
                         <td>
-                        <button class="btn btn-primary" name="{{ u.id }}" onclick="makeguestselect({{ u.id }})">Select</button>
+                        <button class="btn btn-primary" name="{{ u.id }}" data-dismiss="modal" onclick="makeguestselect({{ u.id }})">Select</button>
                         </td>
                       </tr>
                     {% endfor %}
