@@ -2,12 +2,28 @@
 
 {% block body1 %}
 
+{% macro render_pagination(pagination) %}
+  <div class=pagination>
+  {%- for page in pagination.iter_pages() %}
+    {% if page %}
+      {% if page != pagination.page %}
+        <a href="/admin/guest?page={{page}}&per={{perPage}}">{{ page }}</a>
+      {% else %}
+        <strong>{{ page }}</strong>
+      {% endif %}
+    {% else %}
+      <span class=ellipsis>…</span>
+    {% endif %}
+  {%- endfor %}
+  </div>
+{% endmacro %}
+
 {% from "__guesthelper.html" import render_field %}
 
 
 {% if not resID %}
   <!-- Modal -->
-  {% for g in guests %}
+  {% for g in guests.items %}
     <div class="modal fade" id="editGuest_{{ g.id }}" tabindex="-1" role="dialog" aria-labelledby="editGuestModal">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -48,11 +64,8 @@
               <br />
               <button type="button" class="btn btn-danger btn-circle btn-lg" data-dismiss="modal" aria-label="Close"><i class="fa fa-times"></i></button>
               <button type="submit" class="btn btn-success btn-circle btn-lg"><i class="fa fa-check"></i></button>
-
-
               {% endif %}
             </form>
-
 
           </div><!-- ./modal-body-->
         </div>
@@ -70,7 +83,7 @@
   <div class="panel-body">
     <div class="col-md-12">
       <div class="table-responsive">
-        <table id="datatables" class="table table-striped">
+        <table class="table table-striped">
           <thead>
             <tr>
               <th>ID</th>
@@ -82,7 +95,7 @@
             </tr>
           </thead>
           <tbody>
-          {% for u in guests %}
+          {% for u in guests.items %}
             <tr>
               <td>{{ u.id }}</td>
               <td>{{ u.first }}</td>
@@ -119,6 +132,20 @@
           </tbody>
         </table>
       </div>
+    </div>
+  </div>
+  <div class="panel-footer">
+    <div class="row">
+      <div class="col-md-6 vcenter">
+        Guests per page:
+        <a href="/admin/guest?page=1&per=10">10</a>
+        <a href="/admin/guest?page=1&per=25">25</a>
+        <a href="/admin/guest?page=1&per=50">50</a>
+      </div><div class="col-md-6 vcenter"><div class="pull-right">
+        {% if guests.has_prev %}<a href="/admin/guest?page={{guests.prev_num}}&per={{perPage}}">&lt;&lt; Previous</a>{% else %}&lt;&lt; Previous{% endif %} |
+        {{ render_pagination(guests) }}|
+        {% if guests.has_next %}<a href="/admin/guest?page={{guests.next_num}}&per={{perPage}}">Next &gt;&gt;</a>{% else %}Next &gt;&gt;{% endif %}
+      </div></div>
     </div>
   </div>
 </div>
