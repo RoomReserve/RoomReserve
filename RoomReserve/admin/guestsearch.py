@@ -28,6 +28,17 @@ def findGuestid(name):
 @app.route('/admin/guestsearch', methods=['GET','POST'])
 @login_required
 def guestsearch_page():
+
+    if request.args.get('page'):
+        page = int(request.args.get('page'))
+    else:
+        page = 1
+
+    if request.args.get('per'):
+        perPage = int(request.args.get('per'))
+    else:
+        perPage = 10
+
     def edit_form(id):
         '''
         Returns the form back populated with the guest information
@@ -39,6 +50,7 @@ def guestsearch_page():
         myGuest = getGuestByID(id)
         form.populate(myGuest)
         return form
+
     def allowEdit(id):
         '''
         Figures out if the current user should be allowed
@@ -50,6 +62,7 @@ def guestsearch_page():
             return True
         else:
             return False
+            
     form = form_SearchGuest()
 
     guests = getAllGuests()
