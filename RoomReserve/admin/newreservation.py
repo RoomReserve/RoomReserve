@@ -28,4 +28,4 @@ def page_newres():
     else:
       return False
     
-  return render("newReservation.html", pullAvailableRooms=pullAvailableRooms, allowEdit=allowEdit)
+  return render("newReservation.html", pullAvailableRooms=pullAvailableRooms, allowEdit=allowEdit, guests=getAllGuests())
