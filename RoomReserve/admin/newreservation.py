@@ -37,4 +37,4 @@ def page_newres():
     else:
       return False
     
-  return render("newReservation.html", pullAvailableRooms=pullAvailableRooms, getGuest=getGuest, allowEdit=allowEdit, guests=getAllGuests(), form=NewGuestForm())
+  return render("newReservation.html", getGuestByID=getGuestByID, pullAvailableRooms=pullAvailableRooms, getGuest=getGuest, allowEdit=allowEdit, guests=getAllGuests(), form=NewGuestForm())
