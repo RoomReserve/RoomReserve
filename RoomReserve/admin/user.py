@@ -185,4 +185,41 @@ def userQuery(uid):
 def uprofile(uid):
     users = userQuery(uid)
 
-    return render('uprofile.html', users=users)
+    def edit_form(id):
+        '''
+        Returns the form back populated with the user information
+        from the ID given.
+
+        Parameters: id for a user.
+        '''
+        form = form_CreateUser()
+        id=int(id)
+        myUser = getUserById(id)
+        form.populate(myUser)
+        return form
+
+    def allowEdit(id):
+        '''
+        Figures out if the current user should be allowed
+        to edit the user object.
+
+        Parameters: User ID for the user we want to edit
+        '''
+        if current_user.is_admin() or current_user.getID() == id:
+            # Only admins can edit users
+            # Users can edit themselves
+            return True
+        else:
+            return False
+
+    def isCurrentUser(id):
+        '''
+        Returns true if the userID given is that
+        of the current logged in user.
+
+        Parameters: userID
+        '''
+        return current_user.getID() == id
+
+    return render('uprofile.html', form=form, users=users,
+    edit_form=edit_form, allowEdit=allowEdit, isCurrentUser=isCurrentUser)
