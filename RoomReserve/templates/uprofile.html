@@ -2,40 +2,110 @@
 
 {% block body1 %}
 
+<!-- Modal -->
+{% for u in users %}
+  <div class="modal fade" id="editUser_{{ u.id }}" tabindex="-1" role="dialog" aria-labelledby="editUserModal">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Edit User</h4>
+        </div>
+        <div class="modal-body">
 
-<div class="panel panel-primary col-md">
-  <div class="panel-heading">
-    <h3 class="panel-title">User Profile</h3>
-  </div>
-  <div class="panel-body">
-    <div class="col-md-12">
-      <div class="table-responsive">
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>First Name</th>
-              <th>Last Name</th>
-              <th>Email</th>
-              <th>Role</th>
-            </tr>
-          </thead>
-          <tbody>
-          {% for u in users %}
-            <tr>
-              <td>{{ u.id }}</td>
-        			<td>{{ u.first }}</td>
-        			<td>{{ u.last }}</td>
-              <td>{{ u.email }}</td>
-              <td>{{ u.role }}</td>
-            </tr>
-          {% endfor %}
 
-          </tbody>
-        </table>
+          {% if isCurrentUser(u.id) %}
+            <div class="alert alert-warning" role="alert">
+              You are currently logged in as this user.
+            </div>
+          {% endif %}
+          {% if not allowEdit(u.id) %}
+            <div class="panel panel-default">
+              <div class="panel-body">
+                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                <em>You don't have permission to edit users.</em>
+              </div>
+            </div>
+          {% endif %}
+          <form class="well" method="POST" action="/admin/users/{{ u.id }}">
+            {% for field in edit_form(u.id) %}
+              <tr>
+                {% if field.id != 'csrf_token' %}
+                  <td>{{ field.label }}</td>
+                  {% if allowEdit(u.id) %}
+                    {% if field.id == 'role' and not current_user.is_admin() %}
+                      {{ u.role }}
+                    {% else %}
+                    <td>{{ field }}</td>
+                    {% endif %}
+                  {% else %}
+                    <td>{{ field(readonly=True) }}</td>
+                  {% endif %}
+                {% endif %}
+                <br />
+              </tr>
+            {% endfor %}
+
+        </div><!-- ./modal-body-->
+
+        {% if allowEdit(u.id) %}
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Save changes</button>
+          </div>
+        {% endif %}
+        </form>
+
       </div>
     </div>
   </div>
+{% endfor %}
+
+
+<div class="col-lg-4">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            User Profile
+        </div>
+        <div class="panel-body">
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>First Name</th>
+                  <th>Last Name</th>
+                  <th>Email</th>
+                  <th>Role</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+              {% for u in users %}
+                <tr>
+                  <td>{{ u.id }}</td>
+                  <td>{{ u.first }}</td>
+                  <td>{{ u.last }}</td>
+                  <td>{{ u.email }}</td>
+                  <td>{{ u.role }}</td>
+                  <td>            
+                  {% for u in users %}
+                  <button type="button" class="btn btn-primary btn-circle btn-sm" data-toggle="modal" data-target="#editUser_{{ u.id }}">
+                    {% if allowEdit(u.id) %}
+                      <i class="fa fa-pencil"></i>
+                    {% else %}
+                      <i class="fa fa-info"></i>
+                    {% endif %}
+                  </button>
+                  {% endfor %}</td>
+                      </tr>
+                  {% endfor %}
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
 </div>
 
 
