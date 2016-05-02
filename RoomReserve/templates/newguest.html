@@ -91,14 +91,14 @@
                               {{ form.notes.label }} {{ form.notes(size=300, placeholder="Debunk beds.") }} <br /><br />
 
                               {% for error in form.errors %}
-                              <div class="alert alert-warning">
+                              <div class="alert alert-warning alert-dismissable">
                                   <a href="#" class="close" data-dismiss="alert">&times;</a>
-                                  <strong>Warning!</strong> {{ error }} is Required.
+                                  The field <strong>{{error}}</strong> is Required.
                               </div>
 
                               {% endfor %}
 
-                              <input type="submit" class="btn btn-success" value="Submit">
+                              <input type="submit" class="btn btn-success btn-lg" value="Submit">
 
                             </form>
                             {% endif %}
