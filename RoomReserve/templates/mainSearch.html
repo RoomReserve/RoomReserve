@@ -23,7 +23,7 @@
             {% for r in results['rooms'] %}
           		<tr>
           			<td>{{ "Room" }}</td>
-          			<td>{{ r.id }}</td>
+          			<td><a href="/admin/room/{{r.id}}">{{ r.id }}</a></td>
                 <td>{{ r.getMyBuildingName() + " " }}<a href = "/edit/room"><strong>{{ r.roomnumber }}</strong></a></td>
                 <td>{{ r.status }}</td>
                 <td>
@@ -33,7 +33,7 @@
           	{% for g in results['guests'] %}
           		<tr>
           			<td>{{ "Guest" }}</td>
-          			<td>{{ g.id }}</td>
+          			<td><a href="/admin/gprofile/{{g.id}}">{{ g.id }}</a></td>
                 <td>{{ g.first + " " }}{{ g.last }}</td>
                 <td>{{ g.notes }}</td>
                 <td>
@@ -44,7 +44,7 @@
           	{% for r in results['reservations'] %}
           		<tr>
           			<td>{{ "Reservation" }}</td>
-          			<td>{{ r.id }}</td>
+          			<td><a href="/res/{{r.id}}">{{ r.id }}</a></td>
           			{% if r.get_guest() != None %}
           			
                 <td>{{ r.get_guest().get_first_name() + " " }}{{ r.get_guest().get_last_name() }}</td>

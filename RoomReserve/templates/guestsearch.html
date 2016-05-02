@@ -138,13 +138,13 @@
     <div class="row">
       <div class="col-md-6 vcenter">
         Guests per page:
-        <a href="/admin/guest?page=1&per=10">10</a>
-        <a href="/admin/guest?page=1&per=25">25</a>
-        <a href="/admin/guest?page=1&per=50">50</a>
+        <a href="/admin/guestsearch?page=1&per=10">10</a>
+        <a href="/admin/guestsearch?page=1&per=25">25</a>
+        <a href="/admin/guestsearch?page=1&per=50">50</a>
       </div><div class="col-md-6 vcenter"><div class="pull-right">
-        {% if guests.has_prev %}<a href="/admin/guest?page={{guests.prev_num}}&per={{perPage}}">&lt;&lt; Previous</a>{% else %}&lt;&lt; Previous{% endif %} |
+        {% if guests.has_prev %}<a href="/admin/guestsearch?page={{guests.prev_num}}&per={{perPage}}">&lt;&lt; Previous</a>{% else %}&lt;&lt; Previous{% endif %} |
         {{ render_pagination(guests) }}|
-        {% if guests.has_next %}<a href="/admin/guest?page={{guests.next_num}}&per={{perPage}}">Next &gt;&gt;</a>{% else %}Next &gt;&gt;{% endif %}
+        {% if guests.has_next %}<a href="/admin/guestsearch?page={{guests.next_num}}&per={{perPage}}">Next &gt;&gt;</a>{% else %}Next &gt;&gt;{% endif %}
       </div></div>
     </div>
   </div>
