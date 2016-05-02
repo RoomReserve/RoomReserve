@@ -8,7 +8,7 @@ class form_CreateGuest(Form):
     phone = StringField('Phone', validators=[DataRequired()])
     address = StringField('Address', validators=[DataRequired()])
     payment = StringField('Payment')
-    notes = TextAreaField('Notes')
+    notes = TextAreaField('Comments')
 
     def populate(self, thisGuest):
         '''
