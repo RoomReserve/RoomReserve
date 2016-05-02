@@ -65,7 +65,9 @@
 <div class="col-sm-12">
     <div class="panel panel-primary">
         <div class="panel-heading">
-            User Profile
+        {% for u in users %}
+           <i class="fa fa-user fa-fw fa-2x"></i> <strong>{{u.first + " " + u.last}}</a></strong>
+        {% endfor%}
         </div>
         <div class="panel-body">
           <div class="table-responsive">
