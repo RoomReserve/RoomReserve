@@ -47,3 +47,4 @@ h4 {
 .tooltip-wrapper .btn[disabled] {
   /* don't let button block mouse events from reaching wrapper */
   pointer-events: none;
+}
