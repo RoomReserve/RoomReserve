@@ -72,62 +72,43 @@
 
 
                   {% from "__guesthelper.html" import render_field %}
+                  
+                  <div class="container">
+                      <div class="panel panel-primary">
+                          <div class="panel-heading">
+                              Create New Guest
+                          </div>
+                          <div class="panel-body">
+                            {% if form %}
+                            <form method="POST" action="/newguest">
+                              {{ form.csrf_token }}
+                              {{ form.firstname.label }}* {{ form.firstname(size=20, placeholder="John") }} <br>
+                              {{ form.lastname.label }}* {{ form.lastname(size=20,placeholder="Doe") }} <br />
+                              {{ form.email.label }}* {{ form.email(size=38,placeholder="johndoe@gmail.com") }} <br />
+                              {{ form.phone.label }}* {{ form.phone(size=20,placeholder="563-387-1021") }} <br />
+                              {{ form.address.label }}* {{ form.address(size=38, placeholder="700 College Drive, Decorah, IA 52101") }} <br />
+                              {{ form.payment.label }}* {{ form.payment(size=25,placeholder="$50") }} <br />
+                              {{ form.notes.label }} {{ form.notes(size=300, placeholder="Debunk beds.") }} <br /><br />
 
-<!--                   <div class="container">
-                    {% if form %}
-                    <form class="well" method="POST" action="/newguest">
-                      {{ form.csrf}}
-                      {{ form.firstname.label }} {{ form.firstname(size=20) }}
-                      {{ form.lastname.label }} {{ form.lastname(size=20) }} <br>
-                      {{ form.email.label }} {{ form.email(size=30) }} <br>
-                      {{ form.phone.label }} {{ form.phone(size=20) }} <br>
-                      {{ form.address.label }} {{ form.address(size=30) }} <br>
-                      {{ form.payment.label }} {{ form.payment(size=25) }} <br>
-                      {{ form.notes.label }} {{ form.notes(size=300) }} <br><br>
+                              {% for error in form.errors %}
+                              <div class="alert alert-warning">
+                                  <a href="#" class="close" data-dismiss="alert">&times;</a>
+                                  <strong>Warning!</strong> {{ error }} is Required.
+                              </div>
 
-                      <input type="submit" class="btn btn-primary" value="Create Guest">
-                    </form>
+                              {% endfor %}
 
-                    {% endif %}
-                    <hr />
-                </div> -->
+                              <input type="submit" class="btn btn-success" value="Submit">
 
-                <div class="container panel panel-primary">
-                  <div class="panel-heading">
-                    <h3 class="panel-title">Create New Guest</h3>
-                  </div>
-                  <div class="panel-body">
-                    {% if form %}
-                    <form class="well" method="POST" action="/newguest">
-                      {{ form.csrf_token }}
-                      {{ form.firstname.label }} {{ form.firstname(size=20, placeholder="John") }} <br>
-                      {{ form.lastname.label }} {{ form.lastname(size=20,placeholder="Doe") }} <br />
-                      {{ form.email.label }} {{ form.email(size=38,placeholder="johndoe@gmail.com") }} <br />
-                      {{ form.phone.label }} {{ form.phone(size=20,placeholder="563-387-111") }} <br />
-                      {{ form.address.label }} {{ form.address(size=38, placeholder="700 College Drive, Decorah, IA 52101") }} <br />
-                      {{ form.payment.label }} {{ form.payment(size=25,placeholder="$50") }} <br />
-                      {{ form.notes.label }} {{ form.notes(size=300, placeholder="Debunk beds.") }} <br /><br />
-
-                      {% for error in form.errors %}
-                      <div class="alert alert-warning">
-                          <a href="#" class="close" data-dismiss="alert">&times;</a>
-                          <strong>Warning!</strong> {{ error }} is Required.
+                            </form>
+                            {% endif %}
+                          </div>
+                          <div class="panel-footer">
+                            *<small> Required fields.</small>
+                          </div>
                       </div>
+                  </div
 
-                      {% endfor %}
-
-                      <input type="submit" class="btn btn-success btn-lg" value="Submit">
-
-                    </form>
-                    <p>Note:<small> All fields are required except comments.</small></p>
-                    {% endif %}
-
-                </div>
-              </div>
-
-              </div>
-
-                {%include 'parts/footer.html' %}
 
             </div>
               <!-- /.col-lg-12 -->
@@ -138,6 +119,7 @@
   </div>
   <!-- /#wrapper -->
 
+{% include 'parts/footer.html' %}
 {% include 'parts/bootstrap_foot.html' %}
 {% endblock %}
 </body>
