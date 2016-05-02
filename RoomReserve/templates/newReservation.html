@@ -21,7 +21,7 @@
           <h4 class="modal-title" id="newGuestModalLabel">Create Guest</h4>
         </div>
         <div class="modal-body">
-          
+
           <script>
             function makeguestselect2() {
               var myname = document.getElementById("guestName") ;
@@ -36,18 +36,18 @@
               document.getElementById("newguestlast").setAttribute("value", lastname);
               myname.setAttribute("color", "green");
               myname.innerHTML = firstname + " " + lastname;
-              
+
 
             }
           </script>
-          
+
           <div class="panel panel-default">
             <div class="panel-heading">
               <h3 class="panel-title">Create New Guest</h3>
             </div>
             <div class="panel-body">
-              
-              
+
+
                   <div class="form-group">
                     <label class="col-sm-2 control-label">First Name</label>
                       <div class="col-sm-10">
@@ -65,7 +65,7 @@
                       <div class="col-sm-10">
                         <input type="text" name="phone" class="form-control"  id="guestphone" placeholder="Phone Number" required>
                       </div>
-                      
+
                     <label class="col-sm-2 control-label">Address</label>
                       <div class="col-sm-10">
                         <input type="text" name="address" class="form-control"  id="guestaddress" placeholder="Address" required>
@@ -78,13 +78,13 @@
                       <div class="col-sm-10">
                         <input type="text" name="notes" class="form-control"  id="guestnotes" placeholder="Additional Information" required>
                       </div>
-                      
-                      
+
+
                     <button type="button" class="btn btn-success btn-sm" data-dismiss="modal" aria-label="Close" onclick="makeguestselect2()">Save</button>
-                    
+
                   </div>
-    
-    
+
+
             </div>
           </div>
 
@@ -100,8 +100,8 @@
       </div>
     </div>
   </div>
-  
-  
+
+
 <!-- Existing Guest Modal -->
   <div class="modal fade" id="pickguest" tabindex="-1" role="dialog" aria-labelledby="pickGuestModal">
     <div class="modal-dialog modal-lg" role="document">
@@ -111,7 +111,7 @@
           <h4 class="modal-title" id="pickguestModalLabel"> Select Guest</h4>
         </div>
         <div class="modal-body">
-          
+
           {% if guests %}
           <div class="panel panel-primary col-md">
             <div class="panel-heading">
@@ -138,7 +138,7 @@
                           myname.setAttribute("color", "green");
                           document.getElementById("guestID").setAttribute("value", theid);
                           myname.innerHTML = document.getElementById("first" + theid.toString()).innerHTML + " " + document.getElementById("last" + theid.toString()).innerHTML;
-                          
+
 
                         }
                       </script>
@@ -154,14 +154,14 @@
                         </td>
                       </tr>
                     {% endfor %}
-          
+
                     </tbody>
                   </table>
                 </div>
               </div>
             </div>
           </div>
-          
+
           {% endif %}
 
 
@@ -209,10 +209,10 @@
         </script>
       </div>
     </div>
-    
-    
+
+
     <br>
-    
+
     <div class="form-group">
       <label for="guestselected" class="col-sm-2 control-label">Guest</label>
       <div class="col-sm-10">
@@ -228,7 +228,7 @@
           <input type="hidden" id="newguestaddress" name="newguestaddress" value="">
           <input type="hidden" id="newguestpayment" name="newguestpayment" value="">
           <input type="hidden" id="newguestnotes" name="newguestnotes" value="">
-          
+
         {% endif %}
       </div>
       <div class="col-sm-10">
@@ -238,7 +238,7 @@
       </div>
     </div>
     <br>
-    
+
     <div class="form-group">
       <div class="col-sm-offset-2 col-sm-10">
       <div class="checkbox">
@@ -246,11 +246,11 @@
       </div>
       </div>
     </div>
-    
-    
+
+
     <br>
     <br>
-    
+
     <div class="form-group">
       <div class="col-sm-offset-2 col-sm-10">
         <button type="submit" class="btn btn-primary">Complete</button>
