@@ -4,11 +4,11 @@ from RoomReserve.admin.guest import processCreateGuestForm, getAllGuests, getGue
 class NewGuestForm(Form):
     firstname = StringField('First Name', validators=[DataRequired()])
     lastname = StringField('Last Name', validators=[DataRequired()])
-    email = StringField('Email Address', validators=[DataRequired()])
-    phone = StringField('Phone Number', validators=[DataRequired()])
+    email = StringField('Email', validators=[DataRequired()])
+    phone = StringField('Phone', validators=[DataRequired()])
     address = StringField('Address', validators=[DataRequired()])
     payment = StringField('Payment', validators=[DataRequired()])
-    notes = TextAreaField('Comments')
+    notes = TextAreaField('Comments/Special Requests')
 
 
 @app.route('/newguest', methods=['GET', 'POST'])
