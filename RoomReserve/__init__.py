@@ -14,6 +14,7 @@ from delorean import Delorean
 import RoomReserve.helpers.delorean_helper as delorean_helper
 import time
 import traceback
+from random import randint
 
 
 
@@ -300,9 +301,9 @@ def page_create_all():
 			while getRoomByID(myiter).status == CONST.inactive_status:
 				myiter += 1
 				
-			x = int(i%30+1)
-			mydate = date(2016, 4, x)
-			mydate2 = mydate + timedelta(days=(i%30))
+			x = int(i%20+1)
+			mydate = date(2016, 5, x)
+			mydate2 = mydate + timedelta(days=(randint(1, 30)))
 			if datetime.today().date() < mydate:
 				mystatus = CONST.ready_status
 			else:
