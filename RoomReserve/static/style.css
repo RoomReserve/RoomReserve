@@ -48,3 +48,18 @@ h4 {
   /* don't let button block mouse events from reaching wrapper */
   pointer-events: none;
 }
+
+
+
+/* Guest form */
+form label{
+  padding: 3px 0;
+}
+ 
+form textarea#notes {
+  min-width: 280px;
+  height: 80px;
+  padding: 5px;
+  font-size: 1.1em;
+  display: block;
+}
