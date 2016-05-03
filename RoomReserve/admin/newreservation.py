@@ -108,7 +108,7 @@ def page_newres():
 
     if 'roomselect' in formdata.keys():
       firstroom = find_first_available_room(indate, outdate, capacity=capacity)
-      if len(firstroom) == 0:
+      if firstroom == None:
         return render("basic.html", content="No rooms are available for selected capacity and date range. Try a different date range or try splitting the group into multiples.")
       else:
         firstroomid = firstroom.getID()
