@@ -177,6 +177,34 @@ def find_available_rooms(startDate, endDate, buildingID=None, capacity=0):
             if is_room_available(rm.getID(),delor):
                 availableRooms.append(rm)
     return availableRooms
+    
+def find_first_available_room(startDate, endDate, buildingID=None, capacity=0):
+    '''
+    Returns a list of room objects that do not have reservations during
+    the requested date ranges.
+    Parameters: datetime startDate, datetime endDate.
+    Optional parameters: buildingID, capacity
+    When buildingID is passed, it only returns rooms in that buildingID.
+    When a capacity is passed, it only returns rooms that can hold
+    that many or more people.
+    '''
+    # TODO: Implement buildingID filtering
+
+    from RoomReserve.admin.rooms import getActiveRooms
+    def is_room_available(roomID, delor):
+        for res in get_active_reservations_for_roomID(roomID):
+            if delorean_helper.delorean_crash(res.get_delorean(), delor):
+                return False
+        return True
+
+    delor = delorean_helper.create_delorean(startDate, endDate)
+    availableRooms = []
+    for rm in getActiveRooms():
+        if capacity and rm.get_capacity() >= capacity:
+            if is_room_available(rm.getID(),delor):
+                availableRooms.append(rm)
+                return availableRooms
+    return availableRooms
 
 def get_active_reservations_for_roomID(roomID):
     '''
