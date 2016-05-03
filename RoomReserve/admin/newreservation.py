@@ -1,5 +1,5 @@
 from RoomReserve import *
-from RoomReserve.admin.reservation import find_available_rooms, createReservation, getReservationByID
+from RoomReserve.admin.reservation import find_available_rooms, find_first_available_room, createReservation, getReservationByID
 from RoomReserve.admin.rooms import getRoomByID
 from RoomReserve.admin.building import getBuildingById
 from RoomReserve.admin.guest import getAllGuests, getGuest, createGuest
