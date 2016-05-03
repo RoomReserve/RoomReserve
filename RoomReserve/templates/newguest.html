@@ -76,7 +76,7 @@
                   <div class="container">
                       <div class="panel panel-primary">
                           <div class="panel-heading">
-                              Create New Guest
+                              <i class="fa fa-user-plus fa-fw"></i> Create New Guest</a>
                           </div>
                           <div class="panel-body">
                             {% if form %}
@@ -84,21 +84,21 @@
                               {{ form.csrf_token }}
                               {{ form.firstname.label }}* {{ form.firstname(size=20, placeholder="John") }} <br>
                               {{ form.lastname.label }}* {{ form.lastname(size=20,placeholder="Doe") }} <br />
-                              {{ form.email.label }}* {{ form.email(size=38,placeholder="johndoe@gmail.com") }} <br />
+                              {{ form.email.label }}* {{ form.email(size=32,placeholder="johndoe@gmail.com") }} <br />
                               {{ form.phone.label }}* {{ form.phone(size=20,placeholder="563-387-1021") }} <br />
-                              {{ form.address.label }}* {{ form.address(size=38, placeholder="700 College Drive, Decorah, IA 52101") }} <br />
+                              {{ form.address.label }}* {{ form.address(size=33, placeholder="700 College Drive, Decorah, IA 52101") }} <br />
                               {{ form.payment.label }}* {{ form.payment(size=25,placeholder="$50") }} <br />
-                              {{ form.notes.label }} {{ form.notes(size=300, placeholder="Debunk beds.") }} <br /><br />
+                              {{ form.notes.label }} {{ form.notes(size=300, placeholder="Debunk beds.") }} <br />
 
                               {% for error in form.errors %}
                               <div class="alert alert-warning alert-dismissable">
                                   <a href="#" class="close" data-dismiss="alert">&times;</a>
-                                  The field <strong>{{error}}</strong> is Required.
+                                  <strong>{{error.capitalize()}}</strong> is required.
                               </div>
 
                               {% endfor %}
 
-                              <input type="submit" class="btn btn-success btn-lg" value="Submit">
+                              <input type="submit" class="btn btn-success" value="Submit">
 
                             </form>
                             {% endif %}
