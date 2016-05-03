@@ -56,9 +56,9 @@ def page_newres():
   if request.method == 'POST' and 'dates' in request.form:
     formdata = request.form
     indate = formdata['dates'].split()[0].split('/')
-    indate = indate[2] + '/' + indate[0] + '/' + indate[1] 
+    indate = indate[2] + '/' + indate[1] + '/' + indate[0] 
     outdate = formdata['dates'].split()[2].split('/')
-    outdate = outdate[2] + '/' + outdate[0] + '/' + outdate[1] 
+    outdate = outdate[2] + '/' + outdate[1] + '/' + outdate[0] 
     if formdata['capacity'] == "":
         capacity = 1
     else:
