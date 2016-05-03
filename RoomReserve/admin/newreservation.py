@@ -43,8 +43,17 @@ def page_newres():
       return True
     else:
       return False
+      
+  if request.method == 'POST' and 'roomID' in request.form:
+    formdata = request.form
+    try:
+      res = getReservationByID(int(formdata['resID']))
+      res.setRoom(formdata['roomID'])
+    except:
+      return render("basic.html", content="Could not set room")
+    return render("newReservation.html", pullAvailableRooms=pullAvailableRooms, getGuest=getGuest, allowEdit=allowEdit, guests=getAllGuests(), form=NewGuestForm(), successpage=True)
 
-  if request.method == 'POST':
+  if request.method == 'POST' and 'dates' in request.form:
     formdata = request.form
     indate = formdata['dates'].split()[0]
     outdate = formdata['dates'].split()[2]
