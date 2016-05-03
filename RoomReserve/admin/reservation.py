@@ -198,13 +198,11 @@ def find_first_available_room(startDate, endDate, buildingID=None, capacity=0):
         return True
 
     delor = delorean_helper.create_delorean(startDate, endDate)
-    availableRooms = []
     for rm in getActiveRooms():
         if capacity and rm.get_capacity() >= capacity:
             if is_room_available(rm.getID(),delor):
-                availableRooms.append(rm)
-                return availableRooms
-    return availableRooms
+                return rm
+    return None
 
 def get_active_reservations_for_roomID(roomID):
     '''
