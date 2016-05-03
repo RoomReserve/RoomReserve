@@ -119,8 +119,10 @@ def page_newres():
 
     else:
       availableRooms = find_available_rooms(indate, outdate, capacity=capacity)
+      
       if len(availableRooms) == 0:
         return render("basic.html", content="No rooms are available for selected capacity and date range. Try a different date range or try splitting the group into multiples.")
+      availableRooms = availableRooms.paginate(page, perPage, False)
       try:
         myres = createReservation(guestID=myguestid, madeby=current_user.getID(), roomID=-1, checkin=indate, checkout=outdate, status=CONST.draft_status)
       except:
