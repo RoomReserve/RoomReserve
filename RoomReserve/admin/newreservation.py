@@ -68,10 +68,7 @@ def page_newres():
     outdate = delorean.parse(outdate).naive()
 
 
-    availableRooms = find_available_rooms(indate, outdate, capacity=capacity)
-    if len(availableRooms) == 0:
-      return render("basic.html", content="No rooms are available for selected capacity and date range. Try a different date range or try splitting the group into multiples.")
-    firstroomid = availableRooms[0].getID()
+    #availableRooms = find_available_rooms(indate, outdate, capacity=capacity)
     if formdata['newguestfirst'] != "" and formdata['newguestfirst'] != None:
       if formdata['guestID'] != "" and formdata['guestID'] != None:
         return render("basic.html", content="Tried to create new guest and use existing guest in same instance.")
@@ -110,12 +107,20 @@ def page_newres():
 
 
     if 'roomselect' in formdata.keys():
+      firstroom = find_first_available_room(indate, outdate, capacity=capacity)
+      if len(firstroom) == 0:
+        return render("basic.html", content="No rooms are available for selected capacity and date range. Try a different date range or try splitting the group into multiples.")
+      else:
+        firstroomid = firstroom.getID()
       try:
         createReservation(guestID=myguestid, madeby=current_user.getID(), roomID=firstroomid, checkin=indate, checkout=outdate, status=CONST.unarrived_status)
       except:
         return render("basic.html", content="Could not complete reservation")
 
     else:
+      availableRooms = find_available_rooms(indate, outdate, capacity=capacity)
+      if len(availableRooms) == 0:
+        return render("basic.html", content="No rooms are available for selected capacity and date range. Try a different date range or try splitting the group into multiples.")
       try:
         myres = createReservation(guestID=myguestid, madeby=current_user.getID(), roomID=-1, checkin=indate, checkout=outdate, status=CONST.draft_status)
       except:
