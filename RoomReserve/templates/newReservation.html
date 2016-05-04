@@ -211,15 +211,16 @@
     </div>
 
 
-    <br>
-
     <div class="form-group">
       <label for="guestselected" class="col-sm-2 control-label">Guest</label>
       <div class="col-sm-10">
-        {% if guestSelected %}
-          <h3> <font color="green">{{ guestSelected.first }} + " " + {{ guestSelected.last }}</font></h3>
+        {% if guestSelected %}         
+            <font color="green">{{ guestSelected.first }} + " " + {{ guestSelected.last }}</font>
         {% else %}
-          <h3> <font color="red" id="guestName">No Guest Selected</font></h3>
+          <div class="alert alert-info" role="alert">
+           <font color="red" id="guestName"> <i class="fa fa-user" aria-hidden="true"></i> No Guest Selected</font>
+          </div>
+
           <input type="hidden" id="guestID" name="guestID" value="">
           <input type="hidden" id="newguestfirst" name="newguestfirst" value="">
           <input type="hidden" id="newguestlast" name="newguestlast" value="">
@@ -230,14 +231,15 @@
           <input type="hidden" id="newguestnotes" name="newguestnotes" value="">
 
         {% endif %}
+
+        <div class="col-sm-10">
+          <label for="guestbuttons" class="col-sm-2 control-label"></label>
+          <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#makeguest"><i class="fa fa-user-plus" aria-hidden="true"></i> New Guest </button>
+          <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#pickguest"> <i class="fa fa-user" aria-hidden="true"></i> Existing Guest </button>
+        </div>
       </div>
-      <div class="col-sm-10">
-        <label for="guestbuttons" class="col-sm-2 control-label"></label>
-        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#makeguest"> New Guest </button>
-        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#pickguest"> Existing Guest </button>
-      </div>
+      <br>
     </div>
-    <br>
 
     <div class="form-group">
       <div class="col-sm-offset-2 col-sm-10">
@@ -249,11 +251,11 @@
 
 
     <br>
-    <br>
+
 
     <div class="form-group">
       <div class="col-sm-offset-2 col-sm-10">
-        <button type="submit" class="btn btn-primary">Complete</button>
+        <button type="submit" class="btn btn-success btn-lg"><i class="fa fa-paper-plane" aria-hidden="true"></i> Complete</button>
       </div>
     </div>
   </form>
