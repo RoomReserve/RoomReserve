@@ -214,11 +214,13 @@
     <div class="form-group">
       <label for="guestselected" class="col-sm-2 control-label">Guest</label>
       <div class="col-sm-10">
-        {% if guestSelected %}         
-            <font color="green">{{ guestSelected.first }} + " " + {{ guestSelected.last }}</font>
+        {% if guestSelected %}
+            {{ guestSelected.first }} + " " + {{ guestSelected.last }}
         {% else %}
-          <div class="alert alert-info" role="alert">
-           <font color="red" id="guestName"> <i class="fa fa-user" aria-hidden="true"></i> No Guest Selected</font>
+          <div class="panel panel-primary col-md">
+            <div class="panel-body">
+              <h3 class="panel-title" id="guestName"><i class="fa fa-user" aria-hidden="true"></i> No Guest Selected</h3>
+            </div>
           </div>
 
           <input type="hidden" id="guestID" name="guestID" value="">
