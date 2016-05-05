@@ -150,21 +150,21 @@ def getReservationsEndingBetweenDates(dStart, dEnd):
     if reslist:
         return reslist
     return []
-    
+
 def getMissedReservations(mydate):
     reslist = []
     results = db.session.query(Reservation).filter( \
         Reservation.checkintime < mydate , \
         Reservation.status == CONST.unarrived_status )
-        
+
     for item in results:
         reslist.append(item)
-        
-        
+
+
     results = db.session.query(Reservation).filter( \
         Reservation.checkouttime < mydate, \
         Reservation.status == CONST.checkedin_status )
-        
+
     for item in results:
         reslist.append(item)
 
@@ -196,7 +196,7 @@ def find_available_rooms(startDate, endDate, buildingID=None, capacity=0):
             if is_room_available(rm.getID(),delor):
                 availableRooms.append(rm)
     return availableRooms
-    
+
 def find_first_available_room(startDate, endDate, buildingID=None, capacity=0):
     '''
     Returns a list of room objects that do not have reservations during
@@ -302,20 +302,35 @@ def page_assignGuest_newGuestProcess():
 
     return redirect('/res/'+str(res.getID()))
 
-@app.route('/res/edit/guest/search', methods=['POST'])
+@app.route('/res/edit/guest/search', methods=['POST', 'GET'])
 @Login.standard_required
 def page_assignGuest_searchForGuest():
+    if request.args.get('page'):
+        page = int(request.args.get('page'))
+    else:
+        page = 1
+
+    if request.args.get('per'):
+        perPage = int(request.args.get('per'))
+    else:
+        perPage = 10
+
+    if request.args.get('resID'):
+        myResID=int(request.args.get('resID'))
+    else:
+        formdata = request.form
+        myResID = int(formdata['resID'])
+
     from RoomReserve.admin.guestsearch import guestsearch, form_SearchGuest
     form = form_SearchGuest()
 
-    formdata = request.form
-    myResID = int(formdata['resID'])
-    # myRes = getReservationByID(int(formdata['resID']))
-    print("___+++___previous information processed")
-    #if search form submitted
-    guests = getAllGuests()
 
-    return render('guestsearch.html', editsession=True, resID=myResID, form=form, target="/res/edit/guest/search", guests=guests)
+
+    #guests = getAllGuests()
+    guests = Guest.query.order_by(Guest.id)
+    guests = guests.paginate(page, perPage, False)
+
+    return render('guestsearch.html', editsession=True, resID=myResID, form=form, target="/res/edit/guest/search", guests=guests, perPage=perPage)
 
 @app.route('/res/edit/guest/search/process', methods=['POST'])
 @Login.standard_required

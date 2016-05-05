@@ -7,7 +7,7 @@
   {%- for page in pagination.iter_pages() %}
     {% if page %}
       {% if page != pagination.page %}
-        <a href="/admin/guest?page={{page}}&per={{perPage}}">{{ page }}</a>
+        <a href="?page={{page}}&per={{perPage}}{% if resID %}&resID={{resID}}{%endif%}">{{ page }}</a>
       {% else %}
         <strong>{{ page }}</strong>
       {% endif %}
@@ -138,13 +138,14 @@
     <div class="row">
       <div class="col-md-6 vcenter">
         Guests per page:
-        <a href="/admin/guestsearch?page=1&per=10">10</a>
-        <a href="/admin/guestsearch?page=1&per=25">25</a>
-        <a href="/admin/guestsearch?page=1&per=50">50</a>
+
+        <a href="?page=1&per=10{% if resID %}&resID={{resID}}{%endif%}">10</a>
+        <a href="?page=1&per=25{% if resID %}&resID={{resID}}{%endif%}">25</a>
+        <a href="?page=1&per=50{% if resID %}&resID={{resID}}{%endif%}">50</a>
       </div><div class="col-md-6 vcenter"><div class="pull-right">
-        {% if guests.has_prev %}<a href="/admin/guestsearch?page={{guests.prev_num}}&per={{perPage}}">&lt;&lt; Previous</a>{% else %}&lt;&lt; Previous{% endif %} |
+        {% if guests.has_prev %}<a href="?page={{guests.prev_num}}&per={{perPage}}{% if resID %}&resID={{resID}}{%endif%}">&lt;&lt; Previous</a>{% else %}&lt;&lt; Previous{% endif %} |
         {{ render_pagination(guests) }}|
-        {% if guests.has_next %}<a href="/admin/guestsearch?page={{guests.next_num}}&per={{perPage}}">Next &gt;&gt;</a>{% else %}Next &gt;&gt;{% endif %}
+        {% if guests.has_next %}<a href="?page={{guests.next_num}}&per={{perPage}}{% if resID %}&resID={{resID}}{%endif%}">Next &gt;&gt;</a>{% else %}Next &gt;&gt;{% endif %}
       </div></div>
     </div>
   </div>
