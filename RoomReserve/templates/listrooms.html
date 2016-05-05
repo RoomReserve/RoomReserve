@@ -156,7 +156,7 @@
           <tbody>
             {% for r in rooms.items %}
           		<tr>
-          			<td><a href="/admin/room/{{r.id}}">{{ r.id }}</a><</td>
+          			<td>{{ r.id }}</td>
           			<td>{{ r.getMyBuildingName() }}</td>
                 <td><strong>{{ r.roomnumber }}</strong></td>
                 <td>{{ r.capacity }}</td>
