@@ -2,33 +2,39 @@
 
 {% block body1 %}
 
-
+{% for g in guests %}
 <div class="col-lg-12">
-    <div class="panel panel-primary">
-        <div class="panel-heading">
-        {% for g in guests %}
-        <i class="fa fa-user fa-fw fa-2x"></i> {{g.first + ' ' + g.last}}
-        </div>
-        <div class="panel-body">
-          <h5>Basic Info:</h5>
-          <ul>
-            <li>Guest ID: <strong>{{ g.id}}</li></strong>
-            <li>First Name: <strong>{{ g.first}}</li></strong>
-            <li>Last Name: <strong>{{ g.last}}</li></strong>
-          </ul>
-          <hr>
-          <h5>Contact {{ g.first }}: </h5>
-          <ul>
-            <li>Email: <strong><a href= "mailto:{{g.email}}" target="_blank"> {{g.email}}</a></li></strong>
-            <li>Phone: <strong>{{g.phone}}</li></strong>
-          </ul>
-        {% endfor %}
-        </div>
-        <div class="panel-footer">
-            <i class="fa fa-pencil" aria-hidden="true"></i> Edit Guest
-        </div>
+  <h1>{{g.first + ' ' + g.last}} <a href="#" class = "btn btn-default btn-circle disabled" role="button"><i class="fa fa-user"></i></a></h1>  
+  <hr>
+  <div class="panel panel-primary">
+      <!-- Default panel contents -->
+      <div class="panel-heading">
+         <i class="fa fa-user fa-fw"></i> Guest Information
+      </div>
+      <div class="panel-body">
+        <p id=""><strong>Guest Number:</strong> &nbsp;{{g.id}}</p>
+        <p id=""><strong>First Name:</strong>&nbsp; {{g.first}}</p>
+        <p id=""><strong>Last Name: </strong>&nbsp;{{g.last}}</p>
+      </div>
+<!--       <div class="panel-footer">
+          <i class="fa fa-pencil" aria-hidden="true"></i> Edit Guest
+      </div> -->
     </div>
+
+    <div class="panel panel-primary">
+      <!-- Default panel contents -->
+      <div class="panel-heading">
+         <i class="fa fa-info fa-fw"></i>Contact {{g.first + ' ' + g.last}}
+      </div>
+      <div class="panel-body">
+        <p id=""><strong>Email:</strong>  &nbsp; <i class="fa fa-envelope-o" aria-hidden="true"></i><a href= "mailto:{{g.email}}" target="_blank"> {{g.email}}</a></li></p>
+        <p id=""><strong>Phone:</strong> &nbsp;  <i class="fa fa-phone" aria-hidden="true"></i><a href= "tel:{{g.phone}}" target="_blank"> {{g.phone}}</a></li></p>
+      </div>
+
+    </div>
+    {% endfor %}
 </div>
 
+  
 
 {% endblock %}
