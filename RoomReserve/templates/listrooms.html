@@ -23,7 +23,7 @@
             </tr>
           </thead>
           <tbody>
-            {% for r in rooms %}
+            {% for r in rooms.items %}
           		<tr>
           			<td>{{ r.getMyBuildingName() }}</td>
                 <td><strong>{{ r.roomnumber }}</strong></td>
