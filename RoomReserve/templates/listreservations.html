@@ -41,7 +41,7 @@
           <tbody>
           {% for r in reservations.items %}
             <tr>
-              <td>{{ r.id }}</td>
+              <td><a href="/admin/res/{{r.id}}"></a><</td>
               <td>
               {% if r.guestID %}
         			  {{ getGuestByID(r.guestID).get_last_name() }}, {{ getGuestByID(r.guestID).get_first_name() }}
