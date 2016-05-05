@@ -16,8 +16,6 @@
                         <th>Room Number</th>
                         <th>Capacity</th>
                         <th></th>
-                        <th></th>
-                        <th></th>
                       </tr>
                     </thead>
                     <tbody>
@@ -26,8 +24,6 @@
                   			<td>{{ r.getMyBuildingName() }}</td>
                         <td><strong>{{ r.roomnumber }}</strong></td>
                         <td>{{ r.capacity }}</td>
-                        <td></td>
-                        <td></td>
                         <td>
                             <form action="/reservation/new" method="POST">
                               <input type="hidden" name="resID" value="{{ resID }}">
