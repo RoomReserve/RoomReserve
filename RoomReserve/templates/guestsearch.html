@@ -95,31 +95,31 @@
             </tr>
           </thead>
           <tbody>
-          {% for u in guests.items %}
+          {% for g in guests.items %}
             <tr>
-              <td>{{ u.id }}</td>
-              <td>{{ u.first }}</td>
-              <td>{{ u.last }}</td>
-              <td>{{ u.email }}</td>
-              <td>{{ u.phone }}</td>
+              <td><a href="/admin/gprofile/{{g.id}}">{{ g.id }}</a></td>
+              <td>{{ g.first }}</td>
+              <td>{{ g.last }}</td>
+              <td>{{ g.email }}</td>
+              <td>{{ g.phone }}</td>
               <td>
                 {% if resID %}
                   {% if not editsession %}
                   <form action="/res/new/guest/search/process" method="POST">
                     <input type="hidden" name="resID" value="{{ resID }}">
-                    <input type="hidden" name="guestID" value="{{ u.id }}">
+                    <input type="hidden" name="guestID" value="{{ g.id }}">
                     <input type="submit" class="btn btn-primary" value="Select">
                   </form>
                   {% else %}
                   <form action="/res/edit/guest/search/process" method="POST">
                     <input type="hidden" name="resID" value="{{ resID }}">
-                    <input type="hidden" name="guestID" value="{{ u.id }}">
+                    <input type="hidden" name="guestID" value="{{ g.id }}">
                     <input type="submit" class="btn btn-primary" value="Select">
                   </form>
                   {% endif %}
                 {% else %}
-                  <button type="button" class="btn btn-primary btn-circle btn-sm" data-toggle="modal" data-target="#editGuest_{{ u.id }}">
-                    {% if allowEdit(u.id) %}
+                  <button type="button" class="btn btn-primary btn-circle btn-sm" data-toggle="modal" data-target="#editGuest_{{ g.id }}">
+                    {% if allowEdit(g.id) %}
                       <i class="fa fa-pencil"></i>
                     {% else %}
                       <i class="fa fa-info"></i>
