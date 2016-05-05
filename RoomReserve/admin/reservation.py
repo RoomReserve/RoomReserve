@@ -343,12 +343,24 @@ def page_assignGuest_existingGuestProcess():
 @app.route('/res/<int:resID>/edit/room')
 @Login.standard_required
 def page_assignRoom(resID):
+    if request.args.get('page'):
+        page = int(request.args.get('page'))
+    else:
+        page = 1
+
+    if request.args.get('per'):
+        perPage = int(request.args.get('per'))
+    else:
+        perPage = 10
+
     res = getReservationByID(resID)
     if res is None:
         # Reservation not found
         return render('basic.html', content="No such reservation with ID "+str(resID))
-    availableRooms = find_available_rooms(res.get_check_in_datetime(), res.get_check_out_datetime(), capacity=1)
-    return render('reswizard/wizard2.html', editsession=True, rooms=availableRooms, resID=res.getID())
+    #availableRooms = find_available_rooms(res.get_check_in_datetime(), res.get_check_out_datetime(), capacity=1)
+    availableRooms = Room.query.filter(Room.status!=CONST.inactive_status)
+    availableRooms = availableRooms.paginate(page, perPage, False)
+    return render('reswizard/wizard2.html', editsession=True, rooms=availableRooms, resID=res.getID(), perPage=perPage)
 
 @app.route('/res/edit/room/confirm', methods=['POST'])
 @Login.standard_required

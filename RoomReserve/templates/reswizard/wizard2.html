@@ -7,7 +7,7 @@
   {%- for page in pagination.iter_pages() %}
     {% if page %}
       {% if page != pagination.page %}
-        <a href="/admin/rooms/search?page={{page}}&per={{perPage}}">{{ page }}</a>
+        <a href="?page={{page}}&per={{perPage}}">{{ page }}</a>
       {% else %}
         <strong>{{ page }}</strong>
       {% endif %}
@@ -40,7 +40,7 @@
             </tr>
           </thead>
           <tbody>
-            {% for r in rooms %}
+            {% for r in rooms.items %}
           		<tr>
           			<td>{{ r.getMyBuildingName() }}</td>
                 <td><strong>{{ r.roomnumber }}</strong></td>
@@ -73,13 +73,13 @@
     <div class="row">
       <div class="col-md-6 vcenter">
         Rooms per page:
-        <a href="/admin/rooms/search?page=1&per=10">10</a>
-        <a href="/admin/rooms/search?page=1&per=25">25</a>
-        <a href="/admin/rooms/search?page=1&per=50">50</a>
+        <a href="?page=1&per=10">10</a>
+        <a href="?page=1&per=25">25</a>
+        <a href="?page=1&per=50">50</a>
       </div><div class="col-md-6 vcenter"><div class="pull-right">
-        {% if rooms.has_prev %}<a href="/admin/rooms/search?page={{rooms.prev_num}}&per={{perPage}}">&lt;&lt; Previous</a>{% else %}&lt;&lt; Previous{% endif %} |
+        {% if rooms.has_prev %}<a href="?page={{rooms.prev_num}}&per={{perPage}}">&lt;&lt; Previous</a>{% else %}&lt;&lt; Previous{% endif %} |
         {{ render_pagination(rooms) }}|
-        {% if rooms.has_next %}<a href="/admin/rooms/search?page={{rooms.next_num}}&per={{perPage}}">Next &gt;&gt;</a>{% else %}Next &gt;&gt;{% endif %}
+        {% if rooms.has_next %}<a href="?page={{rooms.next_num}}&per={{perPage}}">Next &gt;&gt;</a>{% else %}Next &gt;&gt;{% endif %}
       </div></div>
     </div>
   </div>
