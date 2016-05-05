@@ -154,7 +154,7 @@ def getReservationsEndingBetweenDates(dStart, dEnd):
 def getMissedReservations(mydate):
     reslist = []
     results = db.session.query(Reservation).filter( \
-        Reservation.checkintime > mydate , \
+        Reservation.checkintime < mydate , \
         Reservation.status == CONST.unarrived_status )
         
     for item in results:
