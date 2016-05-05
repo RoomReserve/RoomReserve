@@ -172,21 +172,21 @@ def createSampleBuildings():
 	'''
 	Create sample buildings for testing purposes
 	'''
-
-	sampleBuildings = []
-	for b in db.session.query(Building).filter_by(name='Miller Hall'):
-		sampleBuildings.append(b)
-	if len(sampleBuildings) > 0:
-		print('Sample building exists.')
-	else:
-		miller = Building(name='Miller Hall', numfloors=8, status=CONST.ready_status, description="Corner rooms are bigger", notes="")
-		brandt = Building(name='Brandt Hall', numfloors=5, status=CONST.ready_status, description="First years only", notes="")
-		ylvi = Building(name='Ylvisaker Hall', numfloors=4, status=CONST.ready_status, description="First years only", notes="")
-		db.session.add(miller)
-		db.session.add(brandt)
-		db.session.add(ylvi)
-		db.session.commit()
-		print("Sample buildings added.")
+	pass
+	# sampleBuildings = []
+	# for b in db.session.query(Building).filter_by(name='Miller Hall'):
+	# 	sampleBuildings.append(b)
+	# if len(sampleBuildings) > 0:
+	# 	print('Sample building exists.')
+	# else:
+		#miller = Building(name='Miller Hall', numfloors=8, status=CONST.ready_status, description="Corner rooms are bigger", notes="")
+		#brandt = Building(name='Brandt Hall', numfloors=5, status=CONST.ready_status, description="First years only", notes="")
+		#ylvi = Building(name='Ylvisaker Hall', numfloors=4, status=CONST.ready_status, description="First years only", notes="")
+		#db.session.add(miller)
+		#db.session.add(brandt)
+		#db.session.add(ylvi)
+		#db.session.commit()
+		#print("Sample buildings added.")
 
 
 createSampleBuildings()
@@ -196,21 +196,21 @@ def createSampleRooms():
 	'''
 	Create sample rooms for testing purposes
 	'''
-
-	sampleRooms = []
-	for b in db.session.query(Room).filter_by(roomnumber = '401'):
-		sampleRooms.append(b)
-	if len(sampleRooms) > 0:
-		print('Sample room exists.')
-	else:
-		m401 = Room(roomnumber='401', buildingID='1', capacity='2', description="Corner Rooms are bigger",  status=CONST.ready_status, notes="")
-		b202 = Room(roomnumber='202', buildingID='2', capacity='4', description="First Years Only", status=CONST.occupied_status, notes="")
-		yl319 = Room(roomnumber='319', buildingID='3', capacity='2', description="First Years Only", status=CONST.inactive_status, notes="")
-		db.session.add(m401)
-		db.session.add(b202)
-		db.session.add(yl319)
-		db.session.commit()
-		print("Sample rooms added.")
+	pass
+	# sampleRooms = []
+	# for b in db.session.query(Room).filter_by(roomnumber = '401'):
+	# 	sampleRooms.append(b)
+	# if len(sampleRooms) > 0:
+	# 	print('Sample room exists.')
+	# else:
+	# 	m401 = Room(roomnumber='401', buildingID='1', capacity='2', description="Corner Rooms are bigger",  status=CONST.ready_status, notes="")
+	# 	b202 = Room(roomnumber='202', buildingID='2', capacity='4', description="First Years Only", status=CONST.occupied_status, notes="")
+	# 	yl319 = Room(roomnumber='319', buildingID='3', capacity='2', description="First Years Only", status=CONST.inactive_status, notes="")
+	# 	db.session.add(m401)
+	# 	db.session.add(b202)
+	# 	db.session.add(yl319)
+	# 	db.session.commit()
+	# 	print("Sample rooms added.")
 
 
 createSampleRooms()
@@ -259,7 +259,7 @@ def page_create_all():
 		db.drop_all()
 		db.create_all()
 		createDefaultAccounts()
-		
+
 		db.session.add(Building(name="Miller", numfloors=8, status=CONST.ready_status, description="Contains numerous two person rooms and two elevators.", notes="This building is available for the summer."))
 		db.session.add(Building(name="Dieseth", numfloors=8, status=CONST.ready_status, description="Contains numerous two person rooms and a single elevator.", notes="This building is available for the summer."))
 		db.session.add(Building(name="Brandt", numfloors=5, status=CONST.ready_status, description="First year hall that has both three person and two person rooms.", notes="This building is used for parents for graduation and some camps."))
@@ -282,7 +282,7 @@ def page_create_all():
 					if i != 4:
 						db.session.add(Room(roomnumber=(i * 100 + j), buildingID='7', capacity='4', description="Room in Olson",  status=CONST.ready_status, notes=""))
 					db.session.add(Room(roomnumber=(i * 100 + j), buildingID='6', capacity='2', description="Room in Ylvi",  status=CONST.ready_status, notes=""))
-					
+
 		db.session.commit()
 		fnlist = ["Bruce", "Tom", "Harry", "David", "Henry", "Thomas", "Isaac", "Katie", "Susan", "Peter", "Kelly", "Emilay", "Alahna", "Morgan", "Neil", "Kierra", "Leah", "Lucia", "Marissa", "Melissa", "Aidan"]
 		lnlist = ["Bennett", "Dhondup", "Stekel", "Miller", "Lee", "Ranum", "Newton", "Smith", "Brown", "Davidson", "Robinson", "Schroeder", "Keil", "Mortenson", "Anderson", "Blackstad", "Williams", "Holte", "Wales", "Hrdlicka", "Cook"]
@@ -291,18 +291,18 @@ def page_create_all():
 			for j in range(0, len(lnlist)):
 				db.session.add(Guest(fnlist[i], lnlist[j], lnlist[j][:4].lower() + fnlist[i][:2].lower() + "01@luther.edu", "563" + "-" + str(495-i*7) + "-" + str(9321 - j*17),  str(i*100 + j * 10 + j%10) + " College Drive, Decorah IA", payment=(i * 10 + j), notes="Wears a " + hatlist[i%len(hatlist)]))
 		#still need to add reservations
-		
+
 		db.session.commit()
-		
+
 		from RoomReserve.admin.rooms import getRoomByID
-		
+
 		myiter = 0
 		for i in range(1, len(fnlist)*len(lnlist)):
 			#change the month below to 5 for when we present
 			myiter += 1
 			while getRoomByID(myiter).status == CONST.inactive_status:
 				myiter += 1
-				
+
 			x = int(i%20+1)
 			mydate = date(2016, 5, x)
 			mydate2 = mydate + timedelta(days=(randint(1, 30)))
@@ -316,20 +316,16 @@ def page_create_all():
 					mystatus = CONST.checkedout_status
 					getRoomByID(myiter).set_status(CONST.unclean_status)
 			db.session.add(Reservation(i , 1, myiter, mydate, mydate2, mystatus, "Beds need lofting."))
-			
+
 		db.session.commit()
 		return redirect(url_for("page_rooms"))
 	except:
 		print("Hit the except statement")
 		return render("basic.html", content=str(traceback.format_exc()).replace('\n', '<br>'))
-		
 
 
 
-@app.route("/today")
-def page_today():
-	title="Today's Activity"
-	return render('today.html',title=title)
+
 
 
 @app.route('/droptables', methods=['GET', 'POST'])
