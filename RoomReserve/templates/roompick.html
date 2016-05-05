@@ -2,87 +2,76 @@
 
 {% block body1 %}
 
+{% macro render_pagination(pagination) %}
+  <div class=pagination>
+  {%- for page in pagination.iter_pages() %}
+    {% if page %}
+      {% if page != pagination.page %}
+        <a href="/reservation/new?page={{page}}&per={{perPage}}">{{ page }}</a>
+      {% else %}
+        <strong>{{ page }}</strong>
+      {% endif %}
+    {% else %}
+      <span class=ellipsis>…</span>
+    {% endif %}
+  {%- endfor %}
+  </div>
+{% endmacro %}
 
 
+<!-- Table of rooms -->
+<div class="panel panel-primary col-md">
+  <div class="panel-heading">
+    <h3 class="panel-title">Rooms</h3>
+  </div>
+  <div class="panel-body">
+    <div class="col-md-12">
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Building</th>
+              <th>Room Number</th>
+              <th>Capacity</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for r in rooms.items %}
+          		<tr>
+          			<td>{{ r.getMyBuildingName() }}</td>
+                <td><strong>{{ r.roomnumber }}</strong></td>
+                <td>{{ r.capacity }}</td>
+                <td>
+                  <form action="/reservation/new" method="POST">
+                    <input type="hidden" name="resID" value="{{ resID }}">
+                    <input type="hidden" name="roomID" value="{{ r.id }}">
+                    <input type="submit" class="btn btn-primary" value="Select">
+                  </form>
+                </td>
+          		</tr>
+          	{% endfor %}
 
-<!-- Room Modal -->
-  <div class="modal fade" id="roompicker" tabindex="-1" role="dialog" aria-labelledby="pickRoomModal">
-    <div class="modal-dialog modal-lg" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="pickroomModalLabel">Select Room</h4>
-        </div>
-        <div class="modal-body">
-
-          {% if rooms %}
-          <div class="panel panel-primary col-md">
-            <div class="panel-heading">
-              <h3 class="panel-title">Rooms</h3>
-            </div>
-            <div class="panel-body">
-              <div class="col-md-12">
-                <div class="table-responsive">
-                  <table id="datatables" class="table table-striped">
-                    <thead>
-                      <tr>
-                        <th>Building</th>
-                        <th>Room Number</th>
-                        <th>Capacity</th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                    {% for r in rooms %}
-                      <tr>
-                        <td>{{ r.getMyBuildingName() }}</td>
-                        <td>{{ r.roomnumber }}</td>
-                        <td>{{ r.capacity }}</td>
-                        <td></td>
-                        <td></td>
-                        <td>
-                          <!--
-                          <form action="/reservation/new" method="POST">
-                            <input type="hidden" name="resID" value="{{ resID }}">
-                            <input type="hidden" name="roomID" value="{{ r.id }}">
-                            <input type="submit" class="btn btn-primary" value="Select">
-                          </form>
-                          -->
-                        </td>
-                      </tr>
-                    {% endfor %}
-
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {% endif %}
-
-
-        </div><!-- ./modal-body-->
-
-        <!--
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary">Save changes</button>
-        </div>
-        -->
-
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
-
-
-  
-  <div class="form-group">
-        <div class="col-sm-10">
-          <label for="roompick" class="col-sm-2 control-label">Please select a room</label>
-          <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#roompicker"><i class="fa fa-user-plus" aria-hidden="true"></i> Choose </button>
-        </div>
+  <div class="panel-footer">
+    <div class="row">
+      <div class="col-md-6 vcenter">
+        Rooms per page:
+        <a href="/admin/rooms/search?page=1&per=10">10</a>
+        <a href="/admin/rooms/search?page=1&per=25">25</a>
+        <a href="/admin/rooms/search?page=1&per=50">50</a>
+      </div><div class="col-md-6 vcenter"><div class="pull-right">
+        {% if rooms.has_prev %}<a href="/admin/rooms/search?page={{rooms.prev_num}}&per={{perPage}}">&lt;&lt; Previous</a>{% else %}&lt;&lt; Previous{% endif %} |
+        {{ render_pagination(rooms) }}|
+        {% if rooms.has_next %}<a href="/admin/rooms/search?page={{rooms.next_num}}&per={{perPage}}">Next &gt;&gt;</a>{% else %}Next &gt;&gt;{% endif %}
+      </div></div>
+    </div>
   </div>
+</div>
+
+
 {% endblock %}
