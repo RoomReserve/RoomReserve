@@ -155,7 +155,7 @@ def getMissedReservations(mydate):
     reslist = []
     results = db.session.query(Reservation).filter( \
         Reservation.checkintime > mydate , \
-        Reservation.status == CONST.checkedin_status )
+        Reservation.status == CONST.unarrived_status )
         
     for item in results:
         reslist.append(item)
@@ -163,7 +163,7 @@ def getMissedReservations(mydate):
         
     results = db.session.query(Reservation).filter( \
         Reservation.checkouttime < mydate, \
-        Reservation.status == CONST.checkedout_status )
+        Reservation.status == CONST.checkedin_status )
         
     for item in results:
         reslist.append(item)
