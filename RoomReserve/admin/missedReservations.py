@@ -9,4 +9,4 @@ import datetime
 @Login.standard_required
 def missed_res_page():
     reslist = getMissedReservations(datetime.date.today())
-    return render('missedReservations.html', reservations=reslist)
+    return render('missedReservations.html', reservations=reslist, getGuestByID=getGuestByID, getRoomByID=getRoomByID)
