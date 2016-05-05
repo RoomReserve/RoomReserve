@@ -99,7 +99,7 @@ import RoomReserve.admin.mainSearch
 import RoomReserve.admin.checkinout
 import RoomReserve.admin.newguest
 import RoomReserve.admin.newreservation
-import RoomReserve.admin.missedReservation
+import RoomReserve.admin.missedReservations
 
 import RoomReserve.helpers.stats as stats
 
