@@ -131,7 +131,7 @@
           <tbody>
           {% for u in users %}
             <tr>
-              <td>{{ u.id }}</td>
+              <td><a href="/admin/uprofile/{{u.id}}">{{ r.id }}</a></td>
         			<td>{{ u.first }}</td>
         			<td>{{ u.last }}</td>
               <td><strong>{{ u.email }}</strong></td>
