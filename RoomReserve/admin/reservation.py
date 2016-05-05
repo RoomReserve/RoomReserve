@@ -150,6 +150,25 @@ def getReservationsEndingBetweenDates(dStart, dEnd):
     if reslist:
         return reslist
     return []
+    
+def getMissedReservations(mydate):
+    reslist = []
+    results = db.session.query(Reservation).filter( \
+        Reservation.checkintime > mydate , \
+        Reservation.status == CONST.checkedin_status )
+        
+    for item in results:
+        reslist.append(item)
+        
+        
+    results = db.session.query(Reservation).filter( \
+        Reservation.checkouttime < mydate, \
+        Reservation.status == CONST.checkedout_status )
+        
+    for item in results:
+        reslist.append(item)
+
+    return reslist
 
 def find_available_rooms(startDate, endDate, buildingID=None, capacity=0):
     '''
